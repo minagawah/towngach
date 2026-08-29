@@ -1,0 +1,71 @@
+{
+  "name": "towngach",
+  "version": "0.1.0",
+  "private": false,
+  "description": "Provides algorithms for planetary calculations popular in Asia.",
+  "main": "dist/towngach-$npm_package_version.js",
+  "types": "types/index.d.ts",
+  "exports": {
+    "import": "dist/towngach-$npm_package_version.js",
+    "require": "dist/towngach-$npm_package_version.cjs"
+  },
+  "scripts": {
+    "eslint": "eslint \"{src,src.check}/**/*.js\"",
+    "eslint:fix": "eslint --fix \"{src,src.check,tools}/**/*.js\"",
+    "prettier": "prettier --write \"*.{js,md,json}\" \"{src,src.check,tools}/**/*.js\"",
+    "lint": "$npm_execpath run prettier && $npm_execpath run eslint:fix",
+    "type:check": "tsc -p tsconfig.json",
+    "type:generate": "rimraf types && tsc -p tsconfig.generate.json",
+    "jsdoc": "rimraf jsdoc && jsdoc -c jsdoc.conf.js -d jsdoc/",
+    "test": "jest --config jest.config.js",
+    "build:commonjs": "cross-env NODE_ENV=commonjs babel src --out-dir dist",
+    "clean": "rimraf dist",
+    "build": "$npm_execpath run clean && $npm_execpath run build:commonjs"
+  },
+  "repository": "https://github.com/minagawah/towngach.git",
+  "keywords": [
+    "Planets",
+    "Asia",
+    "China",
+    "Japan",
+    "Vietnam",
+    "Eastern",
+    "Astrology"
+  ],
+  "author": "minagawah <minag@tokyo800.jp>",
+  "license": "(Unlicense OR MIT)",
+  "bugs": {
+    "url": "https://github.com/minagawah/towngach/issues"
+  },
+  "dependencies": {
+    "core-js": "^3.50.0",
+    "csv-parse": "^7.0.2",
+    "luxon": "^3.7.2",
+    "ramda": "^0.32.0"
+  },
+  "devDependencies": {
+    "@babel/cli": "^8.0.4",
+    "@babel/core": "^8.0.1",
+    "@babel/preset-env": "^8.0.2",
+    "@babel/preset-typescript": "^8.0.1",
+    "@eslint/js": "^10.0.1",
+    "@stylistic/eslint-plugin": "^5.10.0",
+    "@types/ramda": "^0.32.0",
+    "babel-jest": "^30.5.0",
+    "babel-loader": "^10.1.1",
+    "babel-plugin-preval": "^5.1.0",
+    "concurrently": "^10.0.5",
+    "cross-env": "^10.1.0",
+    "eslint": "^10.9.1",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-prettier": "^5.5.6",
+    "globals": "^17.11.0",
+    "jest": "^30.5.0",
+    "jsdoc": "^4.0.5",
+    "jsdoc-plugin-intersection": "^1.0.4",
+    "jsdoc-tsimport-plugin": "^1.0.5",
+    "nodemon": "^3.1.14",
+    "rimraf": "^6.1.3",
+    "typescript": "^7.0.2"
+  }
+}

@@ -1,12 +1,25 @@
 /**
+ * Library-wide constants.
+ *
  * @module towngach/constants
  */
 
 /**
+ * Library-wide constants that do not
+ * belong to one domain module.
+ *
+ * @constant {Object}
+ */
+
+/**
+ * Generic key name.
+ *
  * @typedef {string} GenericKey
  */
 
 /**
+ * Generic data map.
+ *
  * @typedef {Object.<string, *>} GenericData
  */
 

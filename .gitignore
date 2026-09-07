@@ -146,6 +146,8 @@ vite.config.ts.timestamp-*
 .agents/
 .codex/
 copy/
+work/
 docs/procedures/
 memo.txt
 package-lock.json
+src/xxx/

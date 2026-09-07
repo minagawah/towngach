@@ -8,7 +8,8 @@ import {
 } from '../locale';
 
 /**
- * @typedef {('wood'|'fire'|'earth'|'metal'|'water')} Key
+ * @typedef {('wood'|'fire'|'earth'|
+ * 'metal'|'water')} Key
  */
 
 /**
@@ -23,19 +24,23 @@ export const ELEMENT_KEYS = [
 ];
 
 /**
- * @typedef {import('../locale/constants').Locale} Locale
+ * @typedef {import('../locale/constants')
+ * .Locale} Locale
  */
 
 /**
- * @typedef {import('../locale/Localizer').LocalizedData} LocalizedData
+ * @typedef {import('../locale/Localizer')
+ * .LocalizedData} LocalizedData
  */
 
 /**
- * @typedef {import('../locale/Localizer').DataMultiSetterArgs} DataMultiSetterArgs
+ * @typedef {import('../locale/Localizer')
+ * .DataMultiSetterArgs} DataMultiSetterArgs
  */
 
 /**
- * @typedef {Object.<Key, Object.<Locale, DataMultiSetterArgs>>} Source
+ * @typedef {Object.<Key, Object.<Locale,
+ * DataMultiSetterArgs>>} Source
  */
 
 /**
@@ -66,20 +71,26 @@ export const ELEMENT_KEYS = [
  *       vi: { primary: 'gỗ', secondary: 'go' },
  *       zh_ch: { primary: '木', secondary: 'mu' },
  *       zh_tw: { primary: '木', secondary: 'mu' },
- *       ja: { kanji: '木', hiragana: 'き', katakana: 'キ' },
+ *       ja: { kanji: '木', hiragana: 'き',
+ *       katakana: 'キ' },
  *     },
  *     season: {
  *       en: { primary: 'spring' },
- *       vi: { primary: 'mùa xuân', secondary: 'mua xuan' },
- *       zh_ch: { primary: '春天', secondary: 'chun tian' },
- *       zh_tw: { primary: '春天', secondary: 'chun tian' },
- *       ja: { kanji: '春', hiragana: 'はる', katakana: 'ハル' },
+ *       vi: { primary: 'mùa xuân',
+ *       secondary: 'mua xuan' },
+ *       zh_ch: { primary: '春天',
+ *       secondary: 'chun tian' },
+ *       zh_tw: { primary: '春天',
+ *       secondary: 'chun tian' },
+ *       ja: { kanji: '春', hiragana: 'はる',
+ *       katakana: 'ハル' },
  *     ...
  *   },
  *   ...
  *   ...
  * }
- * @todo Probably need "tertiary", "quaternary", and "quinary"?
+ * @todo Probably need "tertiary",
+ * "quaternary", and "quinary"?
  */
 
 /**
@@ -222,3 +233,102 @@ export const ELEMENTS = set_multi_helper(_raw_elements, [
   'season',
   'color',
 ]);
+
+const ELEMENT_ORDER = Object.freeze([
+  'wood',
+  'fire',
+  'earth',
+  'metal',
+  'water',
+]);
+
+const GENERATION_MAP = Object.freeze({
+  wood: 'fire',
+  fire: 'earth',
+  earth: 'metal',
+  metal: 'water',
+  water: 'wood',
+});
+
+const CONTROL_MAP = Object.freeze({
+  wood: 'earth',
+  earth: 'water',
+  water: 'fire',
+  fire: 'metal',
+  metal: 'wood',
+});
+
+/**
+ * Returns all Five Elements in their
+ * canonical order.
+ *
+ * @typedef {function} get_elements
+ * @returns {Array.<Key>}
+ */
+export const get_elements = () => [...ELEMENT_ORDER];
+
+/**
+ * Checks whether a value is a Five
+ * Element.
+ *
+ * @typedef {function} is_element
+ * @param {*} value
+ * @returns {boolean}
+ */
+export const is_element = value =>
+  ELEMENT_ORDER.includes(value);
+
+/**
+ * Shifts a Five Element through the
+ * cycle.
+ *
+ * @typedef {function} shift_element
+ * @param {Key} element
+ * @param {number} offset
+ * @returns {Key}
+ */
+export const shift_element = (element, offset) => {
+  const index = ELEMENT_ORDER.indexOf(element);
+
+  if (index < 0) {
+    throw new TypeError('Invalid element.');
+  }
+
+  const next =
+    (((index + Number(offset || 0)) %
+      ELEMENT_ORDER.length) +
+      ELEMENT_ORDER.length) %
+    ELEMENT_ORDER.length;
+
+  return ELEMENT_ORDER[next];
+};
+
+/**
+ * Returns the generated element.
+ *
+ * @typedef {function} get_generated_element
+ * @param {Key} element
+ * @returns {Key}
+ */
+export const get_generated_element = element => {
+  if (!is_element(element)) {
+    throw new TypeError('Invalid element.');
+  }
+
+  return GENERATION_MAP[element];
+};
+
+/**
+ * Returns the controlled element.
+ *
+ * @typedef {function} get_controlled_element
+ * @param {Key} element
+ * @returns {Key}
+ */
+export const get_controlled_element = element => {
+  if (!is_element(element)) {
+    throw new TypeError('Invalid element.');
+  }
+
+  return CONTROL_MAP[element];
+};

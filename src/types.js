@@ -1,3 +1,7 @@
+/**
+ * Shared date parts.
+ */
+
 /** @typedef {number} Year */
 /** @typedef {number} Month */
 /** @typedef {number} Day */

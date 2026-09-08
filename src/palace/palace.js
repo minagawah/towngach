@@ -1,4 +1,5 @@
 import { create_cycle } from '../lib/cycle';
+import { set_multi_helper } from '../locale';
 
 /**
  * Represents one of the Nine Palaces
@@ -30,6 +31,75 @@ const PALACE_SEQUENCE = Object.freeze([
   'center',
 ]);
 
+const PALACE_NAMES = set_multi_helper(
+  [
+    [
+      'qian',
+      'qian',
+      'càn',
+      '乾',
+      '乾',
+      '乾',
+      'けん',
+      'ケン',
+    ],
+    [
+      'kun',
+      'kun',
+      'khôn',
+      '坤',
+      '坤',
+      '坤',
+      'こん',
+      'コン',
+    ],
+    [
+      'zhen',
+      'zhen',
+      'chấn',
+      '震',
+      '震',
+      '震',
+      'しん',
+      'シン',
+    ],
+    ['xun', 'xun', 'tốn', '巽', '巽', '巽', 'そん', 'ソン'],
+    [
+      'kan',
+      'kan',
+      'khảm',
+      '坎',
+      '坎',
+      '坎',
+      'かん',
+      'カン',
+    ],
+    ['li', 'li', 'ly', '离', '離', '離', 'り', 'リ'],
+    ['gen', 'gen', 'cấn', '艮', '艮', '艮', 'ごん', 'ゴン'],
+    ['dui', 'dui', 'đoài', '兑', '兌', '兌', 'だ', 'ダ'],
+    [
+      'center',
+      'center',
+      'trung cung',
+      '中宫',
+      '中宮',
+      '中宮',
+      'ちゅうぐう',
+      'チュウグウ',
+    ],
+  ].map(([key, en, vi, zh_ch, zh_tw, kan, hira, kata]) => ({
+    key,
+    name: {
+      en: { pr: en },
+      vi: { pr: vi },
+      zh_ch: { pr: zh_ch },
+      zh_tw: { pr: zh_tw },
+      ja: { kan, hira, kata },
+    },
+  })),
+  ['name']
+);
+
 /**
  * The Nine Palaces in canonical order.
  *
@@ -37,17 +107,24 @@ const PALACE_SEQUENCE = Object.freeze([
  */
 export const PALACES = Object.freeze(PALACE_SEQUENCE);
 
-const PALACE_DEFINITIONS = Object.freeze([
-  { palace: 'qian', direction: 'northwest', number: 6 },
-  { palace: 'kun', direction: 'southwest', number: 2 },
-  { palace: 'zhen', direction: 'east', number: 3 },
-  { palace: 'xun', direction: 'southeast', number: 4 },
-  { palace: 'kan', direction: 'north', number: 1 },
-  { palace: 'li', direction: 'south', number: 9 },
-  { palace: 'gen', direction: 'northeast', number: 8 },
-  { palace: 'dui', direction: 'west', number: 7 },
-  { palace: 'center', direction: 'center', number: 5 },
-]);
+const PALACE_DEFINITIONS = Object.freeze(
+  [
+    ['qian', 'northwest', 6],
+    ['kun', 'southwest', 2],
+    ['zhen', 'east', 3],
+    ['xun', 'southeast', 4],
+    ['kan', 'north', 1],
+    ['li', 'south', 9],
+    ['gen', 'northeast', 8],
+    ['dui', 'west', 7],
+    ['center', 'center', 5],
+  ].map(([palace, direction, number]) => ({
+    palace,
+    direction,
+    number,
+    name: PALACE_NAMES[palace].name,
+  }))
+);
 
 const palace_cycle = create_cycle(PALACE_SEQUENCE);
 

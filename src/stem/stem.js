@@ -1,4 +1,5 @@
 import { create_cycle } from '../lib/cycle';
+import { set_multi_helper } from '../locale';
 
 /**
  * Represents one of the Ten Heavenly
@@ -38,6 +39,121 @@ const STEM_ELEMENTS = Object.freeze([
   'water',
 ]);
 
+const STEM_NAMES = set_multi_helper(
+  [
+    [
+      'jia',
+      'jia',
+      'giáp',
+      '甲',
+      '甲',
+      '甲',
+      'かのえ',
+      'カノエ',
+    ],
+    [
+      'yi',
+      'yi',
+      'ất',
+      '乙',
+      '乙',
+      '乙',
+      'きのと',
+      'キノト',
+    ],
+    [
+      'bing',
+      'bing',
+      'bính',
+      '丙',
+      '丙',
+      '丙',
+      'ひのえ',
+      'ヒノエ',
+    ],
+    [
+      'ding',
+      'ding',
+      'đinh',
+      '丁',
+      '丁',
+      '丁',
+      'ひのと',
+      'ヒノト',
+    ],
+    [
+      'wu',
+      'wu',
+      'mậu',
+      '戊',
+      '戊',
+      '戊',
+      'つちのえ',
+      'ツチノエ',
+    ],
+    [
+      'ji',
+      'ji',
+      'kỷ',
+      '己',
+      '己',
+      '己',
+      'つちのと',
+      'ツチノト',
+    ],
+    [
+      'geng',
+      'geng',
+      'canh',
+      '庚',
+      '庚',
+      '庚',
+      'かのえ',
+      'カノエ',
+    ],
+    [
+      'xin',
+      'xin',
+      'tân',
+      '辛',
+      '辛',
+      '辛',
+      'かのと',
+      'カノト',
+    ],
+    [
+      'ren',
+      'ren',
+      'nhâm',
+      '壬',
+      '壬',
+      '壬',
+      'みずのえ',
+      'ミズノエ',
+    ],
+    [
+      'gui',
+      'gui',
+      'quý',
+      '癸',
+      '癸',
+      '癸',
+      'みずのと',
+      'ミズノト',
+    ],
+  ].map(([key, en, vi, zh_ch, zh_tw, kan, hira, kata]) => ({
+    key,
+    name: {
+      en: { pr: en },
+      vi: { pr: vi },
+      zh_ch: { pr: zh_ch },
+      zh_tw: { pr: zh_tw },
+      ja: { kan, hira, kata },
+    },
+  })),
+  ['name']
+);
+
 /**
  * Stable metadata for each Heavenly Stem.
  *
@@ -50,6 +166,7 @@ export const STEM_DEFINITIONS = Object.freeze(
       index,
       polarity: index % 2 === 0 ? 'yang' : 'yin',
       element: STEM_ELEMENTS[index],
+      name: STEM_NAMES[stem].name,
     })
   )
 );

@@ -8,6 +8,7 @@ import {
   get_sun_ecliptic_longitude,
 } from '../astronomy';
 import { create_cycle } from '../lib/cycle';
+import { set_multi_helper } from '../locale';
 
 /**
  * One of the Twenty-Four Solar Terms
@@ -53,6 +54,276 @@ export const SOLAR_TERMS = Object.freeze([
   'xiaohan',
   'dahan',
 ]);
+
+const SOLAR_TERM_NAMES = set_multi_helper(
+  [
+    [
+      'lichun',
+      'lichun',
+      'lập xuân',
+      '立春',
+      '立春',
+      '立春',
+      'りっしゅん',
+      'リッシュン',
+    ],
+    [
+      'yushui',
+      'yushui',
+      'vũ thủy',
+      '雨水',
+      '雨水',
+      '雨水',
+      'うすい',
+      'ウスイ',
+    ],
+    [
+      'jingzhe',
+      'jingzhe',
+      'kinh trập',
+      '惊蛰',
+      '驚蟄',
+      '啓蟄',
+      'けいちつ',
+      'ケイチツ',
+    ],
+    [
+      'chunfen',
+      'chunfen',
+      'xuân phân',
+      '春分',
+      '春分',
+      '春分',
+      'しゅんぶん',
+      'シュンブン',
+    ],
+    [
+      'qingming',
+      'qingming',
+      'thanh minh',
+      '清明',
+      '清明',
+      '清明',
+      'せいめい',
+      'セイメイ',
+    ],
+    [
+      'guyu',
+      'guyu',
+      'cốc vũ',
+      '谷雨',
+      '穀雨',
+      '穀雨',
+      'こくう',
+      'コクウ',
+    ],
+    [
+      'lixia',
+      'lixia',
+      'lập hạ',
+      '立夏',
+      '立夏',
+      '立夏',
+      'りっか',
+      'リッカ',
+    ],
+    [
+      'xiaoman',
+      'xiaoman',
+      'tiểu mãn',
+      '小满',
+      '小滿',
+      '小満',
+      'しょうまん',
+      'ショウマン',
+    ],
+    [
+      'mangzhong',
+      'mangzhong',
+      'mang chủng',
+      '芒种',
+      '芒種',
+      '芒種',
+      'ぼうしゅ',
+      'ボウシュ',
+    ],
+    [
+      'xiazhi',
+      'xiazhi',
+      'hạ chí',
+      '夏至',
+      '夏至',
+      '夏至',
+      'げし',
+      'ゲシ',
+    ],
+    [
+      'xiaoshu',
+      'xiaoshu',
+      'tiểu thử',
+      '小暑',
+      '小暑',
+      '小暑',
+      'しょうしょ',
+      'ショウショ',
+    ],
+    [
+      'dashu',
+      'dashu',
+      'đại thử',
+      '大暑',
+      '大暑',
+      '大暑',
+      'たいしょ',
+      'タイショ',
+    ],
+    [
+      'liqiu',
+      'liqiu',
+      'lập thu',
+      '立秋',
+      '立秋',
+      '立秋',
+      'りっしゅう',
+      'リッシュウ',
+    ],
+    [
+      'chushu',
+      'chushu',
+      'xử thử',
+      '处暑',
+      '處暑',
+      '處暑',
+      'しょしょ',
+      'ショショ',
+    ],
+    [
+      'bailu',
+      'bailu',
+      'bạch lộ',
+      '白露',
+      '白露',
+      '白露',
+      'はくろ',
+      'ハクロ',
+    ],
+    [
+      'qiufen',
+      'qiufen',
+      'thu phân',
+      '秋分',
+      '秋分',
+      '秋分',
+      'しゅうぶん',
+      'シュウブン',
+    ],
+    [
+      'hanlu',
+      'hanlu',
+      'hàn lộ',
+      '寒露',
+      '寒露',
+      '寒露',
+      'かんろ',
+      'カンロ',
+    ],
+    [
+      'shuangjiang',
+      'shuangjiang',
+      'sương giáng',
+      '霜降',
+      '霜降',
+      '霜降',
+      'そうこう',
+      'ソウコウ',
+    ],
+    [
+      'lidong',
+      'lidong',
+      'lập đông',
+      '立冬',
+      '立冬',
+      '立冬',
+      'りっとう',
+      'リットウ',
+    ],
+    [
+      'xiaoxue',
+      'xiaoxue',
+      'tiểu tuyết',
+      '小雪',
+      '小雪',
+      '小雪',
+      'しょうせつ',
+      'ショウセツ',
+    ],
+    [
+      'daxue',
+      'daxue',
+      'đại tuyết',
+      '大雪',
+      '大雪',
+      '大雪',
+      'たいせつ',
+      'タイセツ',
+    ],
+    [
+      'dongzhi',
+      'dongzhi',
+      'đông chí',
+      '冬至',
+      '冬至',
+      '冬至',
+      'とうじ',
+      'トウジ',
+    ],
+    [
+      'xiaohan',
+      'xiaohan',
+      'tiểu hàn',
+      '小寒',
+      '小寒',
+      '小寒',
+      'しょうかん',
+      'ショウカン',
+    ],
+    [
+      'dahan',
+      'dahan',
+      'đại hàn',
+      '大寒',
+      '大寒',
+      '大寒',
+      'だいかん',
+      'ダイカン',
+    ],
+  ].map(([key, en, vi, zh_ch, zh_tw, kan, hira, kata]) => ({
+    key,
+    name: {
+      en: { pr: en },
+      vi: { pr: vi },
+      zh_ch: { pr: zh_ch },
+      zh_tw: { pr: zh_tw },
+      ja: { kan, hira, kata },
+    },
+  })),
+  ['name']
+);
+
+/**
+ * Stable metadata for Solar Term identities.
+ *
+ * @constant {Array.<Object>}
+ */
+export const SOLAR_TERM_DEFINITIONS = Object.freeze(
+  SOLAR_TERMS.map((solar_term, index) =>
+    Object.freeze({
+      solar_term,
+      index,
+      name: SOLAR_TERM_NAMES[solar_term].name,
+    })
+  )
+);
 
 const solar_term_cycle = create_cycle(SOLAR_TERMS);
 
@@ -119,6 +390,25 @@ export const get_solar_term_index = solar_term =>
   solar_term_cycle.index_of(solar_term);
 
 /**
+ * Returns stable metadata for a Solar Term identity.
+ *
+ * @typedef {function} get_solar_term_definition
+ * @param {SolarTerm} solar_term
+ * @returns {Object}
+ */
+export const get_solar_term_definition = solar_term => {
+  const definition = SOLAR_TERM_DEFINITIONS.find(
+    item => item.solar_term === solar_term
+  );
+
+  if (!definition) {
+    throw new TypeError('Invalid Solar Term.');
+  }
+
+  return definition;
+};
+
+/**
  * Checks whether a value is a solar term.
  *
  * @typedef {function} is_solar_term
@@ -149,8 +439,9 @@ const get_solar_term_anchor = (solar_term, year) => {
 export const get_solar_term_for_date = date => {
   const normalized = normalize_calendar_date(date);
   const longitude = get_sun_ecliptic_longitude(normalized);
-  const offset = ((longitude - 315) % 360 + 360) % 360;
-  const index = Math.floor(offset / 15) % SOLAR_TERMS.length;
+  const offset = (((longitude - 315) % 360) + 360) % 360;
+  const index =
+    Math.floor(offset / 15) % SOLAR_TERMS.length;
 
   return {
     date: normalized,
@@ -174,12 +465,16 @@ export const get_solar_term_start = (solar_term, year) => {
   }
 
   const anchor = get_solar_term_anchor(solar_term, year);
-  const start = new Date(anchor.getTime() - SEARCH_WINDOW_DAYS * DAY_MS);
-  const end = new Date(anchor.getTime() + SEARCH_WINDOW_DAYS * DAY_MS);
+  const start = new Date(
+    anchor.getTime() - SEARCH_WINDOW_DAYS * DAY_MS
+  );
+  const end = new Date(
+    anchor.getTime() + SEARCH_WINDOW_DAYS * DAY_MS
+  );
   const date = search_longitude_boundary(
     start,
     end,
-    get_solar_term_target_longitude(index),
+    get_solar_term_target_longitude(index)
   );
 
   return {
@@ -200,7 +495,7 @@ export const is_after_solar_term = (date, solar_term) => {
   const normalized = normalize_calendar_date(date);
   const start = get_solar_term_start(
     solar_term,
-    normalized.year,
+    normalized.year
   ).date;
 
   return compare_calendar_dates(normalized, start) >= 0;

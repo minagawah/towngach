@@ -1,4 +1,5 @@
 import { create_cycle } from '../lib/cycle';
+import { set_multi_helper } from '../locale';
 
 /**
  * One of the Purple-White stars
@@ -30,6 +31,111 @@ export const PURPLE_WHITE_STARS = Object.freeze([
   'nine_purple',
 ]);
 
+const STAR_NAMES = set_multi_helper(
+  [
+    [
+      'one_white',
+      'one white',
+      'nhất bạch',
+      '一白',
+      '一白',
+      '一白',
+      'いっぱく',
+      'イッパク',
+    ],
+    [
+      'two_black',
+      'two black',
+      'nhị hắc',
+      '二黑',
+      '二黑',
+      '二黒',
+      'にこく',
+      'ニコク',
+    ],
+    [
+      'three_jade',
+      'three jade',
+      'tam bích',
+      '三碧',
+      '三碧',
+      '三碧',
+      'さんぺき',
+      'サンペキ',
+    ],
+    [
+      'four_green',
+      'four green',
+      'tứ lục',
+      '四绿',
+      '四綠',
+      '四緑',
+      'しろく',
+      'シロク',
+    ],
+    [
+      'five_yellow',
+      'five yellow',
+      'ngũ hoàng',
+      '五黄',
+      '五黃',
+      '五黄',
+      'ごおう',
+      'ゴオウ',
+    ],
+    [
+      'six_white',
+      'six white',
+      'lục bạch',
+      '六白',
+      '六白',
+      '六白',
+      'ろっぱく',
+      'ロッパク',
+    ],
+    [
+      'seven_red',
+      'seven red',
+      'thất xích',
+      '七赤',
+      '七赤',
+      '七赤',
+      'しちせき',
+      'シチセキ',
+    ],
+    [
+      'eight_white',
+      'eight white',
+      'bát bạch',
+      '八白',
+      '八白',
+      '八白',
+      'はっぱく',
+      'ハッパク',
+    ],
+    [
+      'nine_purple',
+      'nine purple',
+      'cửu tử',
+      '九紫',
+      '九紫',
+      '九紫',
+      'きゅうし',
+      'キュウシ',
+    ],
+  ].map(([key, en, vi, zh_ch, zh_tw, kan, hira, kata]) => ({
+    key,
+    name: {
+      en: { pr: en },
+      vi: { pr: vi },
+      zh_ch: { pr: zh_ch },
+      zh_tw: { pr: zh_tw },
+      ja: { kan, hira, kata },
+    },
+  })),
+  ['name']
+);
+
 /**
  * Stable star metadata.
  *
@@ -41,54 +147,63 @@ export const PURPLE_WHITE_STAR_DEFINITIONS = Object.freeze([
     number: 1,
     element: 'water',
     color: 'white',
+    name: STAR_NAMES.one_white.name,
   },
   {
     star: 'two_black',
     number: 2,
     element: 'earth',
     color: 'black',
+    name: STAR_NAMES.two_black.name,
   },
   {
     star: 'three_jade',
     number: 3,
     element: 'wood',
     color: 'jade',
+    name: STAR_NAMES.three_jade.name,
   },
   {
     star: 'four_green',
     number: 4,
     element: 'wood',
     color: 'green',
+    name: STAR_NAMES.four_green.name,
   },
   {
     star: 'five_yellow',
     number: 5,
     element: 'earth',
     color: 'yellow',
+    name: STAR_NAMES.five_yellow.name,
   },
   {
     star: 'six_white',
     number: 6,
     element: 'metal',
     color: 'white',
+    name: STAR_NAMES.six_white.name,
   },
   {
     star: 'seven_red',
     number: 7,
     element: 'metal',
     color: 'red',
+    name: STAR_NAMES.seven_red.name,
   },
   {
     star: 'eight_white',
     number: 8,
     element: 'earth',
     color: 'white',
+    name: STAR_NAMES.eight_white.name,
   },
   {
     star: 'nine_purple',
     number: 9,
     element: 'fire',
     color: 'purple',
+    name: STAR_NAMES.nine_purple.name,
   },
 ]);
 

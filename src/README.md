@@ -77,6 +77,10 @@ cyclic structure used by the sexagenary cycle
 (六十干支 / lục thập hoa giáp) and by later
 calendrical calculations.
 
+Each branch definition keeps its canonical ID and
+stable polarity while exposing localized `name`
+presentation data through `Localizer`.
+
 ### `branch/index.js`
 
 Exports the public API of the `branch` module.
@@ -203,6 +207,10 @@ This module provides the canonical ten-member cyclic
 structure used by the sexagenary cycle
 (六十干支 / lục thập hoa giáp).
 
+Each stem definition keeps its canonical ID,
+polarity, and associated element while exposing
+localized `name` presentation data.
+
 ### `stem/index.js`
 
 Exports the public API of the `stem` module.
@@ -273,6 +281,10 @@ Defines:
 This module defines the Nine Palace identities and
 their basic structural relationships.
 
+Each palace definition keeps its canonical ID,
+direction, and Luo Shu number while exposing
+localized `name` presentation data.
+
 It does not define Purple-White Stars or the method used to fly those stars.
 
 ### `palace/index.js`
@@ -337,15 +349,20 @@ Defines:
 
 - `SanYuan`
 - `SAN_YUAN`
+- `SAN_YUAN_DEFINITIONS`
 - `SanYuanResult`
 - `get_san_yuan`
 - `is_san_yuan`
 - `get_san_yuan_index`
+- `get_san_yuan_definition`
 - `shift_san_yuan`
 - `create_san_yuan_result`
 
 Method-specific code should determine how a particular date, year, month, or
 hour is assigned to Upper, Middle, or Lower Epoch.
+
+Each definition preserves its canonical ID and
+exposes localized `name` presentation data.
 
 ### `san_yuan/index.js`
 
@@ -375,9 +392,11 @@ Defines:
 - `SolarTerm`
 - `SolarTermOccurrence`
 - `SOLAR_TERMS`
+- `SOLAR_TERM_DEFINITIONS`
 - `get_solar_terms`
 - `get_solar_term`
 - `get_solar_term_index`
+- `get_solar_term_definition`
 - `is_solar_term`
 - `get_solar_term_for_date`
 - `get_solar_term_start`
@@ -390,6 +409,11 @@ supported calendrical source.
 The module should provide a stable interface so that Purple-White methods can
 depend on Solar Term boundaries without embedding astronomical calculations
 directly inside every method.
+
+Each Solar Term definition preserves its canonical
+identity and exposes localized `name` presentation
+data. A definition is not an occurrence or boundary
+instant.
 
 ### `solar_term/index.js`
 
@@ -456,6 +480,10 @@ through Nine Purple and their stable properties.
 
 The identities of the stars belong here. Their movement through the Nine
 Palaces belongs to `flight.js`.
+
+Each star definition keeps its canonical ID, number,
+element, and color while exposing localized `name`
+presentation data.
 
 ---
 

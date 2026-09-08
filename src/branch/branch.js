@@ -1,4 +1,5 @@
 import { create_cycle } from '../lib/cycle';
+import { set_multi_helper } from '../locale';
 
 /**
  * Represents one of the Twelve Earthly
@@ -28,6 +29,69 @@ export const BRANCHES = Object.freeze([
   'hai',
 ]);
 
+const BRANCH_NAMES = set_multi_helper(
+  [
+    ['zi', 'zi', 'tý', '子', '子', '子', 'ね', 'ネ'],
+    [
+      'chou',
+      'chou',
+      'sửu',
+      '丑',
+      '丑',
+      '丑',
+      'うし',
+      'ウシ',
+    ],
+    ['yin', 'yin', 'dần', '寅', '寅', '寅', 'とら', 'トラ'],
+    ['mao', 'mao', 'mão', '卯', '卯', '卯', 'う', 'ウ'],
+    [
+      'chen',
+      'chen',
+      'thìn',
+      '辰',
+      '辰',
+      '辰',
+      'たつ',
+      'タツ',
+    ],
+    ['si', 'si', 'tỵ', '巳', '巳', '巳', 'み', 'ミ'],
+    ['wu', 'wu', 'ngọ', '午', '午', '午', 'うま', 'ウマ'],
+    [
+      'wei',
+      'wei',
+      'mùi',
+      '未',
+      '未',
+      '未',
+      'ひつじ',
+      'ヒツジ',
+    ],
+    [
+      'shen',
+      'shen',
+      'thân',
+      '申',
+      '申',
+      '申',
+      'さる',
+      'サル',
+    ],
+    ['you', 'you', 'dậu', '酉', '酉', '酉', 'とり', 'トリ'],
+    ['xu', 'xu', 'tuất', '戌', '戌', '戌', 'いぬ', 'イヌ'],
+    ['hai', 'hai', 'hợi', '亥', '亥', '亥', 'い', 'イ'],
+  ].map(([key, en, vi, zh_ch, zh_tw, kan, hira, kata]) => ({
+    key,
+    name: {
+      en: { pr: en },
+      vi: { pr: vi },
+      zh_ch: { pr: zh_ch },
+      zh_tw: { pr: zh_tw },
+      ja: { kan, hira, kata },
+    },
+  })),
+  ['name']
+);
+
 /**
  * Stable metadata for each Earthly Branch.
  *
@@ -39,6 +103,7 @@ export const BRANCH_DEFINITIONS = Object.freeze(
       branch,
       index,
       polarity: index % 2 === 0 ? 'yang' : 'yin',
+      name: BRANCH_NAMES[branch].name,
     })
   )
 );

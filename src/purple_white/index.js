@@ -31,3 +31,5 @@ export {
   is_purple_white_flight,
   FLIGHT,
 } from './flight';
+
+export * as methods from './methods';

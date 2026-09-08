@@ -25,6 +25,35 @@ export const STEMS = Object.freeze([
   'gui',
 ]);
 
+const STEM_ELEMENTS = Object.freeze([
+  'wood',
+  'wood',
+  'fire',
+  'fire',
+  'earth',
+  'earth',
+  'metal',
+  'metal',
+  'water',
+  'water',
+]);
+
+/**
+ * Stable metadata for each Heavenly Stem.
+ *
+ * @constant {Array.<Object>}
+ */
+export const STEM_DEFINITIONS = Object.freeze(
+  STEMS.map((stem, index) =>
+    Object.freeze({
+      stem,
+      index,
+      polarity: index % 2 === 0 ? 'yang' : 'yin',
+      element: STEM_ELEMENTS[index],
+    })
+  )
+);
+
 const stem_cycle = create_cycle(STEMS);
 
 /**
@@ -60,6 +89,25 @@ export const get_stem = index => stem_cycle.get(index);
  */
 export const get_stem_index = stem =>
   stem_cycle.index_of(stem);
+
+/**
+ * Returns stable metadata for a Heavenly Stem.
+ *
+ * @typedef {function} get_stem_definition
+ * @param {Stem} stem
+ * @returns {Object}
+ */
+export const get_stem_definition = stem => {
+  const definition = STEM_DEFINITIONS.find(
+    item => item.stem === stem
+  );
+
+  if (!definition) {
+    throw new TypeError('Invalid stem.');
+  }
+
+  return definition;
+};
 
 /**
  * Checks whether a value is a stem.

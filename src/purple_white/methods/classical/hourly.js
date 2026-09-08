@@ -9,4 +9,4 @@ import { build_method_result } from '../_shared';
  * @returns {PurpleWhiteResult}
  */
 export const calculate_classical_hourly = date =>
-  build_method_result('classical_hourly', date, 4);
+  build_method_result('classical_hourly', 'hourly');

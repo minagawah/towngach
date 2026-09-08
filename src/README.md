@@ -64,9 +64,11 @@ Defines:
 
 - `Branch`
 - `BRANCHES`
+- `BRANCH_DEFINITIONS`
 - `get_branches`
 - `get_branch`
 - `get_branch_index`
+- `get_branch_definition`
 - `is_branch`
 - `shift_branch`
 
@@ -89,6 +91,11 @@ calendrical calculations.
 The calendar module should remain independent from
 any specific Purple-White method whenever possible.
 
+`CalendarDate` represents an absolute UTC instant.
+Object inputs without timezone information are
+interpreted as UTC. Astronomy conversion preserves
+that instant when creating sowngwala datetime values.
+
 ### `calendar/calendar.js`
 
 Defines:
@@ -109,6 +116,39 @@ and school-specific Purple-White boundaries.
 ### `calendar/index.js`
 
 Exports the public API of the `calendar` module.
+
+---
+
+## `astronomy/` (astronomy / thiên văn)
+
+Provides the Towngach-owned astronomy boundary
+used by solar-term calculations.
+
+The concrete sun-position math is delegated to
+`sowngwala-js` through a narrow adapter layer.
+Towngach code should depend on this module rather
+than on the package directly.
+
+The adapter passes UTC calendar fields to
+sowngwala's timezone-free datetime type. Solar-term
+occurrences therefore represent instants, not merely
+Gregorian calendar dates.
+
+### `astronomy/astronomy.js`
+
+Defines:
+
+- `get_sun_ecliptic_longitude`
+- `get_solar_term_target_longitude`
+- `search_longitude_boundary`
+
+This module keeps the astronomy boundary separate
+from the rest of the calendrical and Purple-White
+logic.
+
+### `astronomy/index.js`
+
+Exports the public API of the `astronomy` module.
 
 ---
 
@@ -151,9 +191,11 @@ Defines:
 
 - `Stem`
 - `STEMS`
+- `STEM_DEFINITIONS`
 - `get_stems`
 - `get_stem`
 - `get_stem_index`
+- `get_stem_definition`
 - `is_stem`
 - `shift_stem`
 
@@ -186,6 +228,7 @@ Defines:
 - `get_sexagen`
 - `get_sexagen_by_index`
 - `get_sexagen_index`
+- `get_sexagen_definition`
 - `get_sexagen_by_stem_and_branch`
 - `get_sexagen_stem`
 - `get_sexagen_branch`
@@ -320,6 +363,10 @@ This module provides the Solar Term identities
 independently from the specific astronomical
 implementation used to calculate the exact beginning
 of each term.
+
+Exact Solar Term occurrence is resolved through the
+`astronomy/` boundary rather than through the solar
+term identities themselves.
 
 ### `solar_term/solar_term.js`
 
@@ -476,8 +523,9 @@ Defines:
 
 - `calculate_classical_annual`
 
-This function calculates the annual Purple-White result according to the
-classical method.
+This function defines the classical annual method boundary.
+It currently reports an unresolved-rule error because
+the historical rule has not been specified.
 
 ### `classical/monthly.js`
 
@@ -485,8 +533,9 @@ Defines:
 
 - `calculate_classical_monthly`
 
-This function calculates the monthly Purple-White result according to the
-classical method.
+This function defines the classical monthly method boundary.
+It currently reports an unresolved-rule error because
+the historical rule has not been specified.
 
 ### `classical/daily.js`
 
@@ -494,8 +543,9 @@ Defines:
 
 - `calculate_classical_daily`
 
-This function calculates the daily Purple-White
-result according to the classical method.
+This function defines the classical daily method boundary.
+It currently reports an unresolved-rule error because
+the historical rule has not been specified.
 
 Its eventual implementation should explicitly
 determine the relevant sexagenary cycle
@@ -510,8 +560,9 @@ Defines:
 
 - `calculate_classical_hourly`
 
-This function calculates the hourly Purple-White result according to the
-classical method.
+This function defines the classical hourly method boundary.
+It currently reports an unresolved-rule error because
+the historical rule has not been specified.
 
 ### `classical/index.js`
 
@@ -535,17 +586,26 @@ Defines:
 
 - `calculate_hokkan_annual`
 
+The function currently reports an unresolved-rule error
+until the Hokkan annual rule is specified.
+
 ### `hokkan/monthly.js`
 
 Defines:
 
 - `calculate_hokkan_monthly`
 
+The function currently reports an unresolved-rule error
+until the Hokkan monthly rule is specified.
+
 ### `hokkan/daily.js`
 
 Defines:
 
 - `calculate_hokkan_daily`
+
+The function currently reports an unresolved-rule error
+until the Hokkan daily rule is specified.
 
 The eventual implementation should preserve the
 Hokkan method's own Three Epoch (三元 / tam nguyên)
@@ -556,6 +616,9 @@ and transition logic.
 Defines:
 
 - `calculate_hokkan_hourly`
+
+The function currently reports an unresolved-rule error
+until the Hokkan hourly rule is specified.
 
 ### `hokkan/index.js`
 
@@ -580,17 +643,26 @@ Defines:
 
 - `calculate_modern_kyusei_annual`
 
+The function currently reports an unresolved-rule error
+until the modern Kyusei annual rule is specified.
+
 ### `modern_kyusei/monthly.js`
 
 Defines:
 
 - `calculate_modern_kyusei_monthly`
 
+The function currently reports an unresolved-rule error
+until the modern Kyusei monthly rule is specified.
+
 ### `modern_kyusei/daily.js`
 
 Defines:
 
 - `calculate_modern_kyusei_daily`
+
+The function currently reports an unresolved-rule error
+until the modern Kyusei daily rule is specified.
 
 The eventual implementation should explicitly define
 which sexagenary-day (六十干支 / lục thập hoa giáp)
@@ -601,6 +673,9 @@ and boundary rules are supported.
 Defines:
 
 - `calculate_modern_kyusei_hourly`
+
+The function currently reports an unresolved-rule error
+until the modern Kyusei hourly rule is specified.
 
 ### `modern_kyusei/index.js`
 

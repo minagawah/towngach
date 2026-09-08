@@ -9,4 +9,4 @@ import { build_method_result } from '../_shared';
  * @returns {PurpleWhiteResult}
  */
 export const calculate_classical_annual = date =>
-  build_method_result('classical_annual', date, 1);
+  build_method_result('classical_annual', 'annual');

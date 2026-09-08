@@ -9,4 +9,4 @@ import { build_method_result } from '../_shared';
  * @returns {PurpleWhiteResult}
  */
 export const calculate_hokkan_daily = date =>
-  build_method_result('hokkan_daily', date, 13);
+  build_method_result('hokkan_daily', 'daily');

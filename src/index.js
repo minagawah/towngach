@@ -13,6 +13,7 @@ export * as Stem from './stem';
 export * as Palace from './palace';
 export * as Luoshu from './luoshu';
 export * as Calendar from './calendar';
+export * as Astronomy from './astronomy';
 export * as SanYuan from './san_yuan';
 export * as Sexagen from './sexagen';
 export * as SolarTerm from './solar_term';

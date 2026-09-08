@@ -28,6 +28,21 @@ export const BRANCHES = Object.freeze([
   'hai',
 ]);
 
+/**
+ * Stable metadata for each Earthly Branch.
+ *
+ * @constant {Array.<Object>}
+ */
+export const BRANCH_DEFINITIONS = Object.freeze(
+  BRANCHES.map((branch, index) =>
+    Object.freeze({
+      branch,
+      index,
+      polarity: index % 2 === 0 ? 'yang' : 'yin',
+    })
+  )
+);
+
 const branch_cycle = create_cycle(BRANCHES);
 
 /**
@@ -63,6 +78,25 @@ export const get_branch = index => branch_cycle.get(index);
  */
 export const get_branch_index = branch =>
   branch_cycle.index_of(branch);
+
+/**
+ * Returns stable metadata for an Earthly Branch.
+ *
+ * @typedef {function} get_branch_definition
+ * @param {Branch} branch
+ * @returns {Object}
+ */
+export const get_branch_definition = branch => {
+  const definition = BRANCH_DEFINITIONS.find(
+    item => item.branch === branch
+  );
+
+  if (!definition) {
+    throw new TypeError('Invalid branch.');
+  }
+
+  return definition;
+};
 
 /**
  * Checks whether a value is a branch.

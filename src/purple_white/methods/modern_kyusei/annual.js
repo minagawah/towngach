@@ -10,4 +10,4 @@ import { build_method_result } from '../_shared';
  * @returns {PurpleWhiteResult}
  */
 export const calculate_modern_kyusei_annual = date =>
-  build_method_result('modern_kyusei_annual', date, 21);
+  build_method_result('modern_kyusei_annual', 'annual');

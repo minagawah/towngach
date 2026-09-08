@@ -2,6 +2,9 @@
  * A normalized calendar date used by
  * Towngach.
  *
+ * Date fields represent a UTC instant. Object
+ * inputs without a timezone are interpreted as UTC.
+ *
  * @typedef {Object} CalendarDate
  */
 

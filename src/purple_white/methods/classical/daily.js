@@ -9,4 +9,4 @@ import { build_method_result } from '../_shared';
  * @returns {PurpleWhiteResult}
  */
 export const calculate_classical_daily = date =>
-  build_method_result('classical_daily', date, 3);
+  build_method_result('classical_daily', 'daily');

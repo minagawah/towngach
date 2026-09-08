@@ -9,4 +9,4 @@ import { build_method_result } from '../_shared';
  * @returns {PurpleWhiteResult}
  */
 export const calculate_classical_monthly = date =>
-  build_method_result('classical_monthly', date, 2);
+  build_method_result('classical_monthly', 'monthly');

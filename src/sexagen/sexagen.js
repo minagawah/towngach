@@ -37,6 +37,8 @@ for (let index = 0; index < 60; index += 1) {
   );
 }
 
+Object.freeze(SEXAGEN_DEFINITIONS);
+
 export const SEXAGEN = Object.freeze(
   SEXAGEN_DEFINITIONS.map(item => item.sexagen)
 );
@@ -77,6 +79,26 @@ export const get_sexagen_by_index = index =>
  */
 export const get_sexagen_index = sexagen =>
   sexagen_cycle.index_of(sexagen);
+
+/**
+ * Returns stable metadata for one sexagenary
+ * member.
+ *
+ * @typedef {function} get_sexagen_definition
+ * @param {Sexagen} sexagen
+ * @returns {SexagenDefinition}
+ */
+export const get_sexagen_definition = sexagen => {
+  const definition = SEXAGEN_DEFINITIONS.find(
+    item => item.sexagen === sexagen
+  );
+
+  if (!definition) {
+    throw new TypeError('Invalid sexagen.');
+  }
+
+  return definition;
+};
 
 /**
  * Returns a sexagenary member from stem

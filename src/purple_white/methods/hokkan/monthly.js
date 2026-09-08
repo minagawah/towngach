@@ -9,4 +9,4 @@ import { build_method_result } from '../_shared';
  * @returns {PurpleWhiteResult}
  */
 export const calculate_hokkan_monthly = date =>
-  build_method_result('hokkan_monthly', date, 12);
+  build_method_result('hokkan_monthly', 'monthly');

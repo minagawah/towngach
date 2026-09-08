@@ -11,6 +11,7 @@ export {
   get_sexagen,
   get_sexagen_by_index,
   get_sexagen_index,
+  get_sexagen_definition,
   get_sexagen_by_stem_and_branch,
   get_sexagen_stem,
   get_sexagen_branch,

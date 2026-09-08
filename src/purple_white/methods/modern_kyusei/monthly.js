@@ -10,4 +10,4 @@ import { build_method_result } from '../_shared';
  * @returns {PurpleWhiteResult}
  */
 export const calculate_modern_kyusei_monthly = date =>
-  build_method_result('modern_kyusei_monthly', date, 22);
+  build_method_result('modern_kyusei_monthly', 'monthly');

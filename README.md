@@ -24,6 +24,22 @@ This library is primarily concerned with the calculation and movement of the **"
 
 The library does not, at least in its primary scope, attempt to calculate the nine stars of **"qimen-dunjia"** (奇門遁甲 / 奇门遁甲 / kỳ môn độn giáp), such as "tian-peng" (天蓬星 / thiên bồng), "tinh-tian-rui" (天芮星 / thiên nhuế), "tinh-tian-chong" (天衝星 / 天冲星 / thiên xung tinh) and the other stars belonging to that system. Although both traditions use the expression "Nine Stars", they represent different technical systems.
 
+### Houkan (方鑑 / 方鉴 / phương giám / ほうかん)
+
+**"Houkan"** (方鑑) is the library's name for the **directional-purple-white** (方鑑紫白術 / 方鉴紫白术 / phép tính tử bạch phương vị / 方鑑紫白術) calculation family examined through Matsura Kinkaku (松浦琴鶴), Iida Tengai (飯田天涯), and Kikuchi Yosaku (菊池要佐久).
+Historical methods can differ, so this implementation distinguishes documented rules  from library interpretations and unresolved questions.
+
+Where the examined Houkan material treats entry into a **solar term** (節氣 / 节气 / tiết khí / 二十四節気) as the boundary (境界 / boundary), the library uses the actual astronomical transition instant (天文交節時刻 / 天文交节时刻 / thời điểm chuyển tiết thiên văn / 天文上の交節時刻) supplied by its existing [sowngwala-js](https://github.com/minagawah/sowngwala-js) adapter.
+Thus 04:59:59 remains in the previous interval when the transition is at 05:00:00; the boundary is not rounded to midnight or given an artificial leap adjustment.
+
+The Houkan (方鑑) hourly (時家) structure uses the **three-epochs** (三元 / tam nguyên) groups `子午卯酉`, `寅申巳亥`, and `辰戌丑未`, with the confirmed **"jia-ji"** (甲己 / giáp-kỷ) condition. **"yang-dun"** (陽遁 / 阳遁 / dương độn) starts at `一白`, `七赤`, `四緑`; **"yin-dun"** (陰遁 / 阴遁 / âm độn) starts at `九紫`, `三碧`, `六白`.
+One **"origin"** (元 / nguyên) is five days or sixty traditional **"double-hours"** (時辰 / 时辰 / giờ âm lịch), and one star advances per double-hour.
+The **"zi"** (子 / tý) hour follows the examined distinction between "tonight" (今夜 / 今晚 / đêm nay) and "the following morning" (今暁 / 今晓 / rạng sáng nay) rather than being assigned uniformly to a civil date.
+The daily Houkan structure is intentionally not reduced to a fixed 180-day cycle.
+Its **"six seasonal periods"** (六気 / 六氣 / lục khí) and **"yin-dun"** / **"yang-dun"** structure are represented, but the historical selection of the daily **"jia-zi"** (甲己) reference point remains unresolved.
+
+![kinkaku_hiden](./kinkaku_hiden.jpg)
+
 ### A Shared Foundation: "purple-white-stars" (紫白九星) and the "nine-palaces" (九宮)
 
 The common foundation of the systems covered by this library is the relationship between the **"purple-white-nine-stars"** (紫白九星) and the **"nine-palaces"** (九宮). A star may be assigned to the central palace (中宮) and then allowed to move through the palace (宮) sequence according to a defined rule. Depending on the method, this movement may proceed forward or backward, corresponding to forward flight (順飛 / 顺飞 / thuận phi) and reverse flight (逆飛 / 逆飞 / nghịch phi).

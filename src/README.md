@@ -2,24 +2,28 @@
 
 This directory contains the source modules of the Towngach library.
 
-The current source structure is organized around
-foundational concepts that can be shared by
-multiple East Asian calendrical and cosmological
-systems. The primary calculation scope is the
-Purple-White Nine Star system (紫白九星 / cửu tinh
-tử bạch) and its movement through the Nine Palaces
-(九宮 / cửu cung). Calculation methods are separated
-from the underlying data structures so that
-historically different traditions can share common
-concepts without being forced into the same
-algorithm.
+The current source structure is organized
+around foundational concepts that can be
+shared by multiple East Asian calendrical
+and cosmological systems.
+The primary calculation scope is
+the "purple-white-nine-star"
+(紫白九星 / cửu tinh tử bạch) system
+and its movement through
+the "nine-palaces" (九宮 / cửu cung).
+Calculation methods are separated from
+the underlying data structures so that
+historically different traditions
+can share common concepts
+without being forced into the same algorithm.
 
 The library does not treat every system called
-"Nine Stars" (九星 / cửu tinh) as the same system.
-In particular, the Purple-White Nine Stars
-(紫白九星 / cửu tinh tử bạch) modeled by this source
-tree are conceptually distinct from the Nine Stars
-used by Qimen Dunjia (奇門遁甲 / kỳ môn độn giáp).
+"nine-stars" (九星 / cửu tinh) as the same system.
+In particular, the "purple-white-nine-stars"
+(紫白九星 / cửu tinh tử bạch) modeled
+by this source tree are conceptually
+distinct from the "nine-stars" (九星 / cửu tinh)
+used by "qimen-dunjia" (奇門遁甲 / kỳ môn độn giáp).
 
 ## `constants.js`
 
@@ -27,27 +31,31 @@ Contains library-wide constants that do not belong
 exclusively to a particular domain module.
 
 Domain-specific constants should normally remain
-inside their own modules. For example, the Five
-Elements (五行 / ngũ hành) belong to `elem`, the
-Twelve Earthly Branches (十二地支 / thập nhị địa chi)
-belong to `branch`, and the Purple-White Nine Stars
+inside their own modules. For example,
+the "five-elements" (五行 / ngũ hành)
+belong to `elem`, the "twelve-earthly-branches"
+(十二地支 / thập nhị địa chi) belong to `branch`,
+and the "purple-white-nine-stars"
 (紫白九星 / cửu tinh tử bạch) belong to
 `purple_white/star`.
 
 ## `types.js`
 
-Contains shared typedefs used across multiple source modules.
+Contains shared typedefs used across
+multiple source modules.
 
-Types that belong clearly to a single domain should remain in the file that
-owns that domain. This file is intended only for genuinely cross-cutting type
-definitions.
+Types that belong clearly to a single domain
+should remain in the file that owns that domain.
+This file is intended only for genuinely
+cross-cutting type definitions.
 
 ## `index.js`
 
 Defines the top-level public exports of the library.
 
-The public API should expose stable domain modules and calculation methods while
-allowing internal implementation details to remain private.
+The public API should expose stable domain modules
+and calculation methods while allowing internal
+implementation details to remain private.
 
 ---
 
@@ -600,8 +608,9 @@ Exports the public APIs of the classical method.
 
 ## `purple_white/methods/houkan/` (方鑑 / 方鉴 / phương giám / ほうかん)
 
-Owns the Houkan Purple-White calculation family. It reuses the shared
-Purple-White result and flight structures from `purple_white/`, the
+Owns the Houkan Purple-White calculation family.
+mosaikekkan
+It reuses the shared Purple-White result and flight structures from `purple_white/`, the
 Nine Palaces (九宮 / cửu cung) from `palace/`, and the Luo Shu (洛書 /
 lạc thư) ordering rather than duplicating them.
 

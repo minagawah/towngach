@@ -2,24 +2,28 @@
 
 This directory contains the source modules of the Towngach library.
 
-The current source structure is organized around
-foundational concepts that can be shared by
-multiple East Asian calendrical and cosmological
-systems. The primary calculation scope is the
-Purple-White Nine Star system (紫白九星 / cửu tinh
-tử bạch) and its movement through the Nine Palaces
-(九宮 / cửu cung). Calculation methods are separated
-from the underlying data structures so that
-historically different traditions can share common
-concepts without being forced into the same
-algorithm.
+The current source structure is organized
+around foundational concepts that can be
+shared by multiple East Asian calendrical
+and cosmological systems.
+The primary calculation scope is
+the "purple-white-nine-star"
+(紫白九星 / cửu tinh tử bạch) system
+and its movement through
+the "nine-palaces" (九宮 / cửu cung).
+Calculation methods are separated from
+the underlying data structures so that
+historically different traditions
+can share common concepts
+without being forced into the same algorithm.
 
 The library does not treat every system called
-"Nine Stars" (九星 / cửu tinh) as the same system.
-In particular, the Purple-White Nine Stars
-(紫白九星 / cửu tinh tử bạch) modeled by this source
-tree are conceptually distinct from the Nine Stars
-used by Qimen Dunjia (奇門遁甲 / kỳ môn độn giáp).
+"nine-stars" (九星 / cửu tinh) as the same system.
+In particular, the "purple-white-nine-stars"
+(紫白九星 / cửu tinh tử bạch) modeled
+by this source tree are conceptually
+distinct from the "nine-stars" (九星 / cửu tinh)
+used by "qimen-dunjia" (奇門遁甲 / kỳ môn độn giáp).
 
 ## `constants.js`
 
@@ -27,27 +31,31 @@ Contains library-wide constants that do not belong
 exclusively to a particular domain module.
 
 Domain-specific constants should normally remain
-inside their own modules. For example, the Five
-Elements (五行 / ngũ hành) belong to `elem`, the
-Twelve Earthly Branches (十二地支 / thập nhị địa chi)
-belong to `branch`, and the Purple-White Nine Stars
+inside their own modules. For example,
+the "five-elements" (五行 / ngũ hành)
+belong to `elem`, the "twelve-earthly-branches"
+(十二地支 / thập nhị địa chi) belong to `branch`,
+and the "purple-white-nine-stars"
 (紫白九星 / cửu tinh tử bạch) belong to
 `purple_white/star`.
 
 ## `types.js`
 
-Contains shared typedefs used across multiple source modules.
+Contains shared typedefs used across
+multiple source modules.
 
-Types that belong clearly to a single domain should remain in the file that
-owns that domain. This file is intended only for genuinely cross-cutting type
-definitions.
+Types that belong clearly to a single domain
+should remain in the file that owns that domain.
+This file is intended only for genuinely
+cross-cutting type definitions.
 
 ## `index.js`
 
 Defines the top-level public exports of the library.
 
-The public API should expose stable domain modules and calculation methods while
-allowing internal implementation details to remain private.
+The public API should expose stable domain modules
+and calculation methods while allowing internal
+implementation details to remain private.
 
 ---
 
@@ -598,59 +606,60 @@ Exports the public APIs of the classical method.
 
 ---
 
-## `purple_white/methods/hokkan/` (方鑑 / phương giám)
+## `purple_white/methods/houkan/` (方鑑 / 方鉴 / phương giám / ほうかん)
 
-Contains the Purple-White calculation interfaces
-associated with the Hokkan method family.
+Owns the Houkan Purple-White calculation family.
+mosaikekkan
+It reuses the shared Purple-White result and flight structures from `purple_white/`, the
+Nine Palaces (九宮 / cửu cung) from `palace/`, and the Luo Shu (洛書 /
+lạc thư) ordering rather than duplicating them.
 
-The exact rules of this method should remain
-independent from the classical and modern Kyusei
-implementations even when some underlying cycles or
-Nine Palace flight logic are shared.
+Solar-term (節氣 / tiết khí) timing comes from `solar_term/`, which in
+turn uses the existing astronomy adapter and `sowngwala-js`. Monthly
+periods therefore switch at the actual astronomical solar-term instant:
+before the instant is the previous interval, and at or after it is the
+new interval. This is the library's documented Houkan interpretation,
+not a universal rule of every Purple-White tradition.
 
-### `hokkan/annual.js`
+### `houkan/hourly.js`
 
-Defines:
+Defines `calculate_houkan_hourly` and the inspectable hourly helpers.
+For a 甲己 reference day, 子午卯酉 is 上元, 寅申巳亥 is 中元, and
+辰戌丑未 is 下元. Yang Dun (陽遁 / 阳遁 / dương độn) starts at 一白,
+七赤, 四緑; Yin Dun (陰遁 / 阴遁 / âm độn) starts at 九紫, 三碧, 六白.
+Each origin is five days or sixty traditional double-hours, and one
+star progresses for each double-hour. A new calendrical origin resets
+to its prescribed starting configuration.
 
-- `calculate_hokkan_annual`
+The 子 hour uses the examined 今夜/今暁 distinction. The implementation
+does not assign the whole 子 hour uniformly to one civil date.
 
-The function currently reports an unresolved-rule error
-until the Hokkan annual rule is specified.
+### `houkan/monthly.js`
 
-### `hokkan/monthly.js`
+`determine_houkan_monthly` exposes the actual solar-term boundary. The
+final monthly starting-star rule is not yet established by the examined
+material available to this repository, so `calculate_houkan_monthly`
+fails explicitly rather than returning an inferred result.
 
-Defines:
+### `houkan/daily.js`
 
-- `calculate_hokkan_monthly`
+The six documented daily periods are represented: winter solstice,
+rain water, and grain rain use Yang Dun; summer solstice, limit of heat,
+and frost descent use Yin Dun. Their Upper/Middle/Lower Yuan starting
+stars are preserved. The historical daily 甲子 reference-point choice
+remains unresolved, so `calculate_houkan_daily` explicitly throws when a
+final star configuration would be required.
 
-The function currently reports an unresolved-rule error
-until the Hokkan monthly rule is specified.
+### `houkan/annual.js`
 
-### `hokkan/daily.js`
+The examined material currently does not establish a Houkan-specific
+annual starting-star rule. The function remains an explicit unresolved
+boundary rather than silently substituting modern Kyusei logic.
 
-Defines:
-
-- `calculate_hokkan_daily`
-
-The function currently reports an unresolved-rule error
-until the Hokkan daily rule is specified.
-
-The eventual implementation should preserve the
-Hokkan method's own Three Epoch (三元 / tam nguyên)
-and transition logic.
-
-### `hokkan/hourly.js`
-
-Defines:
-
-- `calculate_hokkan_hourly`
-
-The function currently reports an unresolved-rule error
-until the Hokkan hourly rule is specified.
-
-### `hokkan/index.js`
-
-Exports the public APIs of the Hokkan method.
+The relevant historical material is associated with Matsura Kinkaku
+(松浦琴鶴), Iida Tengai (飯田天涯), and Kikuchi Yosaku (菊池要佐久).
+Comments and APIs distinguish their documented structures, library-level
+interpretations, and unresolved historical questions.
 
 ---
 

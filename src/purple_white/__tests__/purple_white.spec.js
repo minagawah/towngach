@@ -10,9 +10,8 @@ describe('A test suite for: purple_white/purple_white', () => {
   });
 
   it('localizes Purple-White star definitions', () => {
-    const definition = get_purple_white_star_definition(
-      'one_white'
-    );
+    const definition =
+      get_purple_white_star_definition('one_white');
 
     expect(definition.name.en.primary).toBe('one white');
     expect(definition.name.vi.primary).toBe('nhất bạch');

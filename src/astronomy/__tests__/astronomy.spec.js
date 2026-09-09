@@ -42,7 +42,7 @@ describe('A test suite for: astronomy', () => {
     expect(Number.isFinite(longitude)).toBe(true);
     expect(get_sun_ecliptic_longitude(date)).toBeCloseTo(
       longitude,
-      12,
+      12
     );
   });
 
@@ -50,15 +50,17 @@ describe('A test suite for: astronomy', () => {
     const boundary = search_longitude_boundary(
       new Date(Date.UTC(2026, 0, 20, 0, 0, 0)),
       new Date(Date.UTC(2026, 1, 20, 0, 0, 0)),
-      get_solar_term_target_longitude(0),
+      get_solar_term_target_longitude(0)
     );
 
     const before = new Date(boundary.timestamp - 60_000);
     const after = new Date(boundary.timestamp + 60_000);
 
-    expect(get_sun_ecliptic_longitude(before)).toBeLessThan(315);
-    expect(get_sun_ecliptic_longitude(after)).toBeGreaterThanOrEqual(
-      315,
+    expect(get_sun_ecliptic_longitude(before)).toBeLessThan(
+      315
     );
+    expect(
+      get_sun_ecliptic_longitude(after)
+    ).toBeGreaterThanOrEqual(315);
   });
 });

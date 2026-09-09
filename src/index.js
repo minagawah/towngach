@@ -17,4 +17,5 @@ export * as Astronomy from './astronomy';
 export * as SanYuan from './san_yuan';
 export * as Sexagen from './sexagen';
 export * as SolarTerm from './solar_term';
+export * as Terminology from './terminology';
 export * as PurpleWhite from './purple_white';

@@ -40,26 +40,74 @@ require.extensions['.js'] = (module, filename) => {
 };
 
 const { create_calendar_date } = require('../src/calendar');
+const { get_terminology } = require('../src/terminology');
 const houkan = require('../src/purple_white/methods/houkan');
+const { get_branch_definition } = require('../src/branch');
+const { get_stem_definition } = require('../src/stem');
 const {
+  get_solar_term_definition,
+} = require('../src/solar_term');
+const {
+  get_san_yuan_definition,
+} = require('../src/san_yuan');
+const {
+  get_purple_white_star,
+  get_purple_white_star_definition,
   get_purple_white_star_number,
 } = require('../src/purple_white/star');
 
+// Marty McFly escaping the Libyans at Twin Pines Mall
 const DEFAULTS = Object.freeze({
-  year: 1974,
-  month: 5,
-  day: 10,
-  hour: 4,
-  minute: 0,
+  year: 1985,
+  month: 10,
+  day: 26,
+  hour: 1,
+  minute: 35,
 });
 
 const FIELDS = Object.freeze([
-  ['year', 'Year'],
-  ['month', 'Month'],
-  ['day', 'Day'],
-  ['hour', 'Hour'],
-  ['minute', 'Minute'],
+  ['year', 'year'],
+  ['month', 'month'],
+  ['day', 'day'],
+  ['hour', 'hour'],
+  ['minute', 'minute'],
 ]);
+
+const DAILY_SOLAR_TERMS = Object.freeze({
+  winter_solstice: 'dongzhi',
+  rain_water: 'yushui',
+  grain_rain: 'guyu',
+  summer_solstice: 'xiazhi',
+  limit_of_heat: 'chushu',
+  frost_descent: 'shuangjiang',
+});
+
+const get_term = key => get_terminology(key);
+
+const label = key => {
+  const term = get_term(key);
+  return `${term.en.primary} (${term.zh_tw.primary})`;
+};
+
+const value = definition =>
+  `${definition.name.zh_tw.primary} (${definition.name.en.primary})`;
+
+const get_sexagen_value = day => {
+  const stem = get_stem_definition(day.stem);
+  const branch = get_branch_definition(day.branch);
+  return (
+    `${stem.name.zh_tw.primary}${branch.name.zh_tw.primary}` +
+    ` (${stem.name.en.primary}_${branch.name.en.primary})`
+  );
+};
+
+const get_dun_value = direction =>
+  direction === 'forward'
+    ? value({ name: get_term('yang_dun') })
+    : value({ name: get_term('yin_dun') });
+
+const get_flight_value = direction =>
+  value({ name: get_term(direction) });
 
 const parse_value = (value, field) => {
   const parsed = Number(value);
@@ -92,10 +140,10 @@ const ask_for_values = async values => {
     output: stdout,
   });
   try {
-    for (const [key, label] of FIELDS) {
+    for (const [key] of FIELDS) {
       if (values[key] !== undefined) continue;
       const answer = await prompt.question(
-        `${label} [${DEFAULTS[key]}]: `
+        `${label(key)} [${DEFAULTS[key]}]: `
       );
       values[key] =
         answer.trim() === ''
@@ -128,7 +176,9 @@ const print_unresolved = (label, callback) => {
     callback();
   } catch (error) {
     console.log(
-      `  ${label}: unresolved (${error.message})`
+      `  ${label}: ${value({
+        name: get_term('unresolved'),
+      })} (${error.message})`
     );
   }
 };
@@ -144,44 +194,79 @@ const run = async () => {
     houkan.determine_houkan_daily_period(target);
   const day = houkan.get_houkan_day_sexagen(target);
 
-  console.log('\nHoukan Purple-White check');
-  console.log(`  Input: ${format_date(target)}`);
-  console.log('\nHourly');
-  console.log(`  Day: ${day.sexagen}`);
-  console.log(`  Hour branch: ${hourly.hour_branch}`);
   console.log(
-    `  Dun: ${hourly.direction === 'forward' ? 'yang' : 'yin'}`
+    `\n${label('houkan')} ${value({
+      name: get_term('purple_white'),
+    })} check`
   );
-  console.log(`  Three Yuan: ${hourly.san_yuan}`);
   console.log(
-    `  Star: ${hourly.star} (#${get_purple_white_star_number(hourly.star)})`
+    '\nMarty McFly escaping the Libyans at Twin Pines Mall\n'
   );
-  console.log(`  Flight: ${hourly.direction}`);
   console.log(
-    `  Origin: ${format_date(hourly.origin_start)}`
+    `  ${label('input')}: ${format_date(target)}`
+  );
+  console.log(`\n${label('hourly')}`);
+  console.log(
+    `  ${label('day_sexagen')}: ${get_sexagen_value(day)}`
+  );
+  console.log(
+    `  ${label('hour_branch')}: ${value(
+      get_branch_definition(hourly.hour_branch)
+    )}`
+  );
+  console.log(
+    `  ${label('dun')}: ${get_dun_value(hourly.direction)}`
+  );
+  console.log(
+    `  ${label('three_yuan')}: ${value(
+      get_san_yuan_definition(hourly.san_yuan)
+    )}`
+  );
+  console.log(
+    `  ${label('star')}: ${value(
+      get_purple_white_star_definition(hourly.star)
+    )} (#${get_purple_white_star_number(hourly.star)})`
+  );
+  console.log(
+    `  ${label('flight')}: ${get_flight_value(hourly.direction)}`
+  );
+  console.log(
+    `  ${label('origin')}: ${format_date(hourly.origin_start)}`
   );
 
-  console.log('\nMonthly boundary');
-  console.log(`  Solar term: ${monthly.solar_term}`);
+  console.log(`\n${label('monthly_boundary')}`);
   console.log(
-    `  Boundary: ${format_date(monthly.boundary)}`
+    `  ${label('solar_term')}: ${value(
+      get_solar_term_definition(monthly.solar_term)
+    )}`
+  );
+  console.log(
+    `  ${label('boundary')}: ${format_date(monthly.boundary)}`
   );
 
-  console.log('\nDaily structure');
+  console.log(`\n${label('daily_structure')}`);
   for (const [term, dun, san_yuan, star] of daily.periods) {
+    const solar_term = DAILY_SOLAR_TERMS[term];
+    const star_definition =
+      get_purple_white_star_definition(
+        get_purple_white_star(star)
+      );
     console.log(
-      `  ${term}: ${dun}, ${san_yuan}, star ${star}`
+      `  ${value(get_solar_term_definition(solar_term))}: ` +
+        `${value({ name: get_term(`${dun}_dun`) })}, ` +
+        `${value({ name: get_term(san_yuan) })}, ` +
+        `${value(star_definition)}`
     );
   }
 
-  console.log('\nCalculation availability');
-  print_unresolved('Annual result', () =>
+  console.log(`\n${label('calculation_availability')}`);
+  print_unresolved(label('annual_result'), () =>
     houkan.calculate_houkan_annual(target)
   );
-  print_unresolved('Monthly result', () =>
+  print_unresolved(label('monthly_result'), () =>
     houkan.calculate_houkan_monthly(target)
   );
-  print_unresolved('Daily result', () =>
+  print_unresolved(label('daily_result'), () =>
     houkan.calculate_houkan_daily(target)
   );
 };

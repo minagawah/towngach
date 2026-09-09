@@ -48,6 +48,16 @@ describe('Purple-White Houkan methods', () => {
     ).toBe('six_white');
   });
 
+  it('provides localized Houkan terminology', () => {
+    const {
+      get_terminology,
+    } = require('../../../terminology');
+    const term = get_terminology('three_yuan');
+
+    expect(term.en.primary).toBe('Three Yuan');
+    expect(term.zh_tw.primary).toBe('三元');
+  });
+
   it('does not guess the daily Jia Zi reference point', () => {
     expect(() =>
       methods.houkan.calculate_houkan_daily(

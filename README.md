@@ -116,7 +116,46 @@ The intended scope of this library is therefore the broad family of calculations
 
 The library does not attempt to treat every historical system that uses the name **"nine-stars"** (九星 / cửu tinh) as part of the same algorithm. In particular, **"qimen-dunjia"** (奇門遁甲 / 奇门遁甲 / kỳ môn độn giáp) and its own **"nine-stars"** (九星 / cửu tinh) and **"three-epochs"** (三元 / tam nguyên) divisions belong to a different technical context. The goal here is instead to preserve the specific family of **"purple-white"** (紫白 / tử bạch) calculations based on the numbered stars, the **"nine-palaces"** (九宮 / 九宫 / cửu cung), and their historically distinct but structurally related methods of movement.
 
-## 6. Installed NPM Packages
+## 6. Houkan Check Script
+
+The repository includes a small manual checker
+for the **"Houkan Purple-White"** (方鑑紫白 / 方鉴紫白) calculations:
+
+```bash
+node scripts/check_houkan.js
+```
+
+When run interactively, the script asks for the year,
+month, day, hour, and minute.
+Blank answers use the predefined example datetime:
+
+```text
+1985-10-26 01:35:00
+```
+
+You can also provide the values as positional arguments:
+
+```bash
+node scripts/check_houkan.js 1985 10 26 1 35
+```
+
+The checker reports the hourly day and branch,
+"yin/yang-dun" (陰陽遁), "three-yuan" (三元),
+"purple-white-star" (紫白星), "flight" (飛泊),
+the "monthly-solar-term-boundary" (節氣交節),
+and the documented daily structure.
+It also reports annual, monthly, and daily calculations
+as unresolved where the historical rule
+is intentionally not guessed.
+
+The example datetime is accompanied by the following message:
+
+> Marty McFly escaping the Libyans at Twin Pines Mall
+
+The script uses UTC-normalized Towngach dates
+and the existing astronomy adapter.
+
+## 7. Installed NPM Packages
 
 ### Babel
 
@@ -184,7 +223,7 @@ npm install --save-dev \
   rimraf nodemon concurrently cross-env
 ```
 
-## 7. License
+## 8. License
 
 ### For Towngach Library
 

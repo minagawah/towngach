@@ -17,3 +17,7 @@ export {
   get_houkan_hour_branch,
   get_houkan_hourly_starting_star,
 } from './hourly';
+export {
+  TERMINOLOGY as HOUKAN_TERMS,
+  get_terminology as get_houkan_term,
+} from '../../../terminology';

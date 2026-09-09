@@ -1,7 +1,9 @@
 import { build_method_result } from '../_shared';
 
 /**
- * Calculates annual Houkan Purple-White.
+ * Calculates annual Purple-White
+ * (年家紫白) for Houkan (方鑑).
+ *
  * @param {*} date
  * @returns {PurpleWhiteResult}
  */

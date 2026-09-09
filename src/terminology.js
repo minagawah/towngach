@@ -1,10 +1,13 @@
 import { set_multi_helper } from './locale';
 
 /**
- * Shared localized terminology for Eastern astrological concepts.
+ * Shared localized terminology
+ * for Eastern astrological concepts.
  *
- * English is the source-facing label; Traditional Chinese is the
- * default display value used by the manual checkers.
+ * English is the source-facing label;
+ * Traditional Chinese is the default
+ * display value used by
+ * the manual checkers.
  */
 const TERMINOLOGY = set_multi_helper(
   [
@@ -55,7 +58,8 @@ const TERMINOLOGY = set_multi_helper(
 );
 
 /**
- * Returns a localized terminology definition.
+ * Returns a localized
+ * terminology definition.
  *
  * @param {string} key
  * @returns {Object}

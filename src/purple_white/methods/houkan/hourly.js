@@ -10,7 +10,9 @@ import {
 } from './_shared';
 
 /**
- * Calculates hourly Houkan Purple-White.
+ * Calculates hourly Purple-White
+ * (時家紫白) for Houkan (方鑑).
+ *
  * @param {*} date
  * @returns {PurpleWhiteResult}
  */
@@ -20,13 +22,17 @@ export const calculate_houkan_hourly = date => {
   const san_yuan = determine_houkan_hourly_san_yuan(branch);
   const day = get_houkan_day_sexagen(date);
   const origin = determine_houkan_hourly_origin(date);
+
   const initial = get_houkan_hourly_starting_star(
     dun.dun,
     san_yuan
   );
+
   const initial_number =
     get_purple_white_star_number(initial);
+
   const direction = dun.dun === 'yang' ? 1 : -1;
+
   const star_number =
     ((((initial_number -
       1 +
@@ -35,6 +41,7 @@ export const calculate_houkan_hourly = date => {
       9) %
       9) +
     1;
+
   return {
     ...create_houkan_result(star_number, dun.dun),
     solar_term: dun.solar_term,

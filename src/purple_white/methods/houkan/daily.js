@@ -1,7 +1,9 @@
 import { build_method_result } from '../_shared';
 
 /**
- * Returns the documented six-period daily structure.
+ * Returns the documented six-period
+ * (六段節氣期) daily structure.
+ *
  * @param {*} date
  * @returns {Object}
  */
@@ -18,7 +20,9 @@ export const determine_houkan_daily_period = date => ({
 });
 
 /**
- * Calculates daily Houkan Purple-White.
+ * Calculates daily Purple-White
+ * (日家紫白) for Houkan (方鑑).
+ *
  * @param {*} date
  * @returns {PurpleWhiteResult}
  */

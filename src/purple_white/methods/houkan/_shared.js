@@ -1,3 +1,7 @@
+/**
+ * @module purple_white/methods/houkan/_shared
+ */
+
 import { normalize_calendar_date } from '../../../calendar';
 import { get_branch } from '../../../branch';
 
@@ -13,9 +17,9 @@ import {
   get_solar_term_start,
 } from '../../../solar_term';
 
-import { create_purple_white_flight } from '../../flight';
-import { create_purple_white_result } from '../../purple_white';
-import { get_purple_white_star } from '../../star';
+import { create_purple_white_flight } from '../../core/movement/flight';
+import { create_purple_white_result } from '../../core/utils/purple_white';
+import { get_purple_white_star } from '../../core/nine_stars/star';
 
 const HOUR_MS = 2 * 60 * 60 * 1000;
 const DAY_MS = 24 * 60 * 60 * 1000;

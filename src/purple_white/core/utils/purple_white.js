@@ -1,6 +1,10 @@
-import { PURPLE_WHITE_STARS } from './star';
-import { PALACES } from '../palace';
-import { FLIGHT_DIRECTIONS } from './flight';
+/**
+ * @module purple_white/core/utils/purple_white
+ */
+
+import { PURPLE_WHITE_STARS } from '../nine_stars/star';
+import { PALACES } from '../../../palace';
+import { FLIGHT_DIRECTIONS } from '../movement/flight';
 
 /**
  * The Purple-White Nine Stars

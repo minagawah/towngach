@@ -1,0 +1,63 @@
+# Eastern Astrological Terminology
+
+Translations are listed in this order: Japanese, Traditional
+Chinese, Simplified Chinese, and Vietnamese. Identical Japanese,
+Traditional Chinese, and Simplified Chinese forms are listed once.
+
+- **Annual Calculation**: 年家 / niên gia
+- **Annual Cycle**: 歲運 / 岁运 / tuế vận
+- **Boundary**: 境界 / 边界 / ranh giới
+- **Central Palace**: 中宮 / 中宫 / trung cung
+- **Daily Calculation**: 日家 / nhật gia
+- **Double-Hour**: 時辰 / 时辰 / giờ âm lịch
+- **Dun**: 遁 / độn
+- **Earthly Branches**: 地支 / địa chi
+- **Flight**: 飛泊 / phi bạc
+- **Flying Star**: 飛星 / 飞星 / phi tinh
+- **Forward Flight**: 順飛 / 顺飞 / thuận phi
+- **Houkan**: 方鑑 / 方鉴 / phương giám
+- **Hourly Calculation**: 時家 / 时家 / thời gia
+- **Initial Star**: 起始星 / khởi thủy tinh
+- **Jia-Ji**: 甲己 / giáp-kỷ
+- **Jia-Zi**: 甲子 / giáp-tý
+- **Kyusei**: 九星気学 / 九星氣學 / 九星气学 / cửu tinh khí học
+- **Luo-Shu**: 洛書 / 洛书 / lạc thư
+- **Monthly Calculation**: 月家 / nguyệt gia
+- **Monthly Sequence**: 月建 / nguyệt kiến
+- **Nine Palaces**: 九宮 / 九宫 / cửu cung
+- **Nine-Palace Flight**: 九宮飛泊 / 九宫飞泊 / cửu cung phi bạc
+- **Nine Stars**: 九星 / cửu tinh
+- **Nine-Star-Ki-Gaku**: 九星気学 / 九星氣學 / 九星气学 / cửu tinh khí học
+- **Origin**: 元 / nguyên
+- **Palace**: 宮 / 宫 / cung
+- **Purple-White**: 紫白 / tử bạch
+- **Purple-White Nine Stars**: 紫白九星 / cửu tinh tử bạch
+  - **One-White**: 一白 / nhất bạch
+  - **Two-Black**: 二黒 / 二黑 / nhị hắc
+  - **Three-Blue**: 三碧 / tam bích
+  - **Four-Green**: 四緑 / 四綠 / 四绿 / tứ lục
+  - **Five-Yellow**: 五黄 / 五黃 / ngũ hoàng
+  - **Six-White**: 六白 / lục bạch
+  - **Seven-Red**: 七赤 / thất xích
+  - **Eight-White**: 八白 / bát bạch
+  - **Nine-Purple**: 九紫 / cửu tử
+- **Qimen-Dunjia**: 奇門遁甲 / 奇门遁甲 / kỳ môn độn giáp
+- **Reverse Flight**: 逆飛 / 逆飞 / nghịch phi
+- **Sexagenary Cycle**: 六十干支 / 六十花甲 / lục thập can chi
+- **Six Seasonal Periods**: 六気 / 六氣 / 六气 / lục khí
+- **Solar Term**: 節氣 / 节气 / tiết khí
+- **Solar-Term Boundary**: 節氣交節 / 节气交节 / tiết khí giao tiết
+- **Solstices**: 二至 / nhị chí
+- **Star**: 星 / tinh
+- **Starting Star**: 起始星 / khởi thủy tinh
+- **Summer Solstice**: 夏至 / hạ chí
+- **Three Epochs**: 三元 / tam nguyên
+- **Three Epochs and Nine Periods**: 三元九運 / 三元九运 / tam nguyên cửu vận
+- **Three-Epoch Purple-White**: 三元紫白 / tam nguyên tử bạch
+- **Winter Solstice**: 冬至 / đông chí
+- **Xuan-Kong**: 玄空 / huyền không
+- **Xuan-Kong Flying Stars**: 玄空飛星 / 玄空飞星 / huyền không phi tinh
+- **Yang Dun**: 陽遁 / 阳遁 / dương độn
+- **Yin Dun**: 陰遁 / 阴遁 / âm độn
+- **Zi Hour**: 子時 / 子时 / giờ Tý
+- **Zi-Wu-Mao-You**: 子午卯酉 / tý ngọ mão dậu

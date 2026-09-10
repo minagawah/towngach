@@ -5,4 +5,4 @@ declare global {
   var Towngach: Record<TowngachChunk, any>;
 }
 
-export {}
+export {};

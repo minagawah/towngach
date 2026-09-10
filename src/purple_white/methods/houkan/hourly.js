@@ -1,4 +1,8 @@
-import { get_purple_white_star_number } from '../../star';
+/**
+ * @module purple_white/methods/houkan/hourly
+ */
+
+import { get_purple_white_star_number } from '../../core/nine_stars/star';
 import {
   determine_houkan_dun,
   determine_houkan_hourly_origin,

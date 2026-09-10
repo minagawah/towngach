@@ -2,6 +2,8 @@
  * Reports that a historical Purple-White rule
  * has not been specified.
  *
+ * @module purple_white/core/utils/method
+ *
  * @param {string} method
  * @param {string} period
  * @throws {Error}

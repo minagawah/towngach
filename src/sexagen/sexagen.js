@@ -1,3 +1,7 @@
+/**
+ * @module sexagen/sexagen
+ */
+
 import { create_cycle } from '../lib/cycle';
 import { BRANCHES, get_branch } from '../branch';
 import { STEMS, get_stem } from '../stem';

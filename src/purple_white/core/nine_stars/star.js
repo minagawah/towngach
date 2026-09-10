@@ -1,5 +1,9 @@
-import { create_cycle } from '../lib/cycle';
-import { set_multi_helper } from '../locale';
+/**
+ * @module purple_white/core/nine_stars/star
+ */
+
+import { create_cycle } from '../../../lib/cycle';
+import { set_multi_helper } from '../../../locale';
 
 /**
  * One of the Purple-White stars

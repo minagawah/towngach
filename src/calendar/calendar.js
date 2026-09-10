@@ -5,6 +5,8 @@
  * Date fields represent a UTC instant. Object
  * inputs without a timezone are interpreted as UTC.
  *
+ * @module calendar/calendar
+ *
  * @typedef {Object} CalendarDate
  */
 

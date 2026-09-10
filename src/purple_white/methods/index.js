@@ -2,7 +2,8 @@
  * Purple-White method exports.
  *
  * Purple-White method families.
+ *
+ * @module purple_white/methods
  */
-export * as classical from './classical';
 export * as houkan from './houkan';
-export * as modern_kyusei from './modern_kyusei';
+export * as kyusei from './kyusei';

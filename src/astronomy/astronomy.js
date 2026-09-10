@@ -1,3 +1,7 @@
+/**
+ * @module astronomy/astronomy
+ */
+
 import {
   create_calendar_date,
   normalize_calendar_date,

@@ -20,11 +20,9 @@ describe('A test suite for: purple_white/purple_white', () => {
     expect(definition.name.ja.kanji).toBe('一白');
   });
 
-  it('does not fabricate unresolved historical results', () => {
-    expect(() =>
-      methods.classical.calculate_classical_annual(
-        new Date(Date.UTC(2026, 0, 1))
-      )
-    ).toThrow('Historical rule is unresolved');
+  it('exports identifiable Purple-White methods', () => {
+    expect(methods.classical).toBeUndefined();
+    expect(methods.houkan).toBeDefined();
+    expect(methods.kyusei).toBeDefined();
   });
 });

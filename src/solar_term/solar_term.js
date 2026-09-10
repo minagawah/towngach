@@ -1,3 +1,7 @@
+/**
+ * @module solar_term/solar_term
+ */
+
 import {
   compare_calendar_dates,
   normalize_calendar_date,

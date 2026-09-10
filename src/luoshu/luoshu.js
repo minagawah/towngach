@@ -1,6 +1,8 @@
 /**
  * A position in the Luoshu arrangement.
  *
+ * @module luoshu/luoshu
+ *
  * @typedef {Object} LuoshuPosition
  */
 

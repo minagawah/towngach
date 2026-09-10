@@ -1,4 +1,8 @@
-import { build_method_result } from '../_shared';
+/**
+ * @module purple_white/methods/houkan/monthly
+ */
+
+import { build_method_result } from '../../core/utils/method';
 import { determine_houkan_monthly_period } from './_shared';
 
 /**

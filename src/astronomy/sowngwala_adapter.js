@@ -1,3 +1,7 @@
+/**
+ * @module astronomy/sowngwala_adapter
+ */
+
 import { chrono, sun } from 'sowngwala-js';
 import { normalize_calendar_date } from '../calendar';
 

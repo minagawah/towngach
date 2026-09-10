@@ -37,7 +37,7 @@ belong to `elem`, the "twelve-earthly-branches"
 (十二地支 / thập nhị địa chi) belong to `branch`,
 and the "purple-white-nine-stars"
 (紫白九星 / cửu tinh tử bạch) belong to
-`purple_white/star`.
+`purple_white/core/nine_stars`.
 
 ## `types.js`
 
@@ -450,7 +450,7 @@ historical and modern traditions.
 
 ---
 
-## `purple_white/purple_white.js`
+## `purple_white/core/utils/purple_white.js`
 
 Defines:
 
@@ -468,7 +468,7 @@ It should not contain the calculation rules of a particular school.
 
 ---
 
-## `purple_white/star.js`
+## `purple_white/core/nine_stars/star.js`
 
 Defines:
 
@@ -486,8 +486,9 @@ Defines:
 This module defines the nine stars from One White
 through Nine Purple and their stable properties.
 
-The identities of the stars belong here. Their movement through the Nine
-Palaces belongs to `flight.js`.
+The identities of the stars belong here. Their
+movement through the Nine Palaces belongs to
+`core/movement/flight.js`.
 
 Each star definition keeps its canonical ID, number,
 element, and color while exposing localized `name`
@@ -495,7 +496,7 @@ presentation data.
 
 ---
 
-## `purple_white/flight.js`
+## `purple_white/core/movement/flight.js`
 
 Defines:
 
@@ -524,10 +525,38 @@ use the shared flight structure where the method's rules permit it.
 
 # Purple-White Calculation Methods
 
+## `purple_white/core/` (shared foundations / 共用基礎)
+
+Contains reusable Purple-White foundations that do not select a
+historical calculation method.
+
+### `core/nine_stars/`
+
+Contains the localized Purple-White Nine Star
+(紫白九星 / cửu tinh tử bạch) definitions and
+cyclic star operations.
+
+### `core/movement/`
+
+Contains reusable Nine Palace flight
+(九宮飛泊 / cửu cung phi bạc) structures.
+It determines how a supplied starting star
+moves; it does not determine that star.
+
+### `core/utils/`
+
+Contains Purple-White result normalization and
+the explicit unresolved-rule error helper.
+
+The existing general-purpose `palace/` and
+`luoshu/` modules remain outside this tree and
+are reused directly. No redundant wrapper is
+created for them.
+
 ## `purple_white/methods/` (紫白九星 / cửu tinh tử bạch)
 
-Contains method-specific Purple-White calculation
-interfaces.
+Contains identifiable method-specific Purple-White
+calculation interfaces.
 
 The method directories are separated because
 different traditions may share the same Nine Palace
@@ -543,66 +572,9 @@ flight while differing in:
 - Solar Term (節氣 / tiết khí) or solstice
   transitions (二至 / nhị chí).
 
-The purpose of this structure is to allow shared foundational logic without
-forcing historically distinct methods into a single universal algorithm.
-
----
-
-## `purple_white/methods/classical/` (三元紫白 / tam nguyên tử bạch)
-
-Contains the classical Three Epoch Purple-White
-calculation interfaces.
-
-### `classical/annual.js`
-
-Defines:
-
-- `calculate_classical_annual`
-
-This function defines the classical annual method boundary.
-It currently reports an unresolved-rule error because
-the historical rule has not been specified.
-
-### `classical/monthly.js`
-
-Defines:
-
-- `calculate_classical_monthly`
-
-This function defines the classical monthly method boundary.
-It currently reports an unresolved-rule error because
-the historical rule has not been specified.
-
-### `classical/daily.js`
-
-Defines:
-
-- `calculate_classical_daily`
-
-This function defines the classical daily method boundary.
-It currently reports an unresolved-rule error because
-the historical rule has not been specified.
-
-Its eventual implementation should explicitly
-determine the relevant sexagenary cycle
-(六十干支 / lục thập hoa giáp), Three Epoch
-classification (三元 / tam nguyên), transition
-rules, and starting conditions required by the
-method.
-
-### `classical/hourly.js`
-
-Defines:
-
-- `calculate_classical_hourly`
-
-This function defines the classical hourly method boundary.
-It currently reports an unresolved-rule error because
-the historical rule has not been specified.
-
-### `classical/index.js`
-
-Exports the public APIs of the classical method.
+The purpose of this structure is to allow shared
+foundational logic without forcing historically
+distinct methods into one universal algorithm.
 
 ---
 
@@ -663,7 +635,7 @@ interpretations, and unresolved historical questions.
 
 ---
 
-## `purple_white/methods/modern_kyusei/` (九星気学 / cửu tinh khí học)
+## `purple_white/methods/kyusei/` (九星気学 / cửu tinh khí học)
 
 Contains calculation interfaces for the supported
 modern Kyusei method family.
@@ -674,29 +646,29 @@ traditions while using their own definitions of
 year boundaries, monthly boundaries, daily
 transitions, and other practical rules.
 
-### `modern_kyusei/annual.js`
+### `kyusei/annual.js`
 
 Defines:
 
-- `calculate_modern_kyusei_annual`
+- `calculate_kyusei_annual`
 
 The function currently reports an unresolved-rule error
 until the modern Kyusei annual rule is specified.
 
-### `modern_kyusei/monthly.js`
+### `kyusei/monthly.js`
 
 Defines:
 
-- `calculate_modern_kyusei_monthly`
+- `calculate_kyusei_monthly`
 
 The function currently reports an unresolved-rule error
 until the modern Kyusei monthly rule is specified.
 
-### `modern_kyusei/daily.js`
+### `kyusei/daily.js`
 
 Defines:
 
-- `calculate_modern_kyusei_daily`
+- `calculate_kyusei_daily`
 
 The function currently reports an unresolved-rule error
 until the modern Kyusei daily rule is specified.
@@ -705,16 +677,16 @@ The eventual implementation should explicitly define
 which sexagenary-day (六十干支 / lục thập hoa giáp)
 and boundary rules are supported.
 
-### `modern_kyusei/hourly.js`
+### `kyusei/hourly.js`
 
 Defines:
 
-- `calculate_modern_kyusei_hourly`
+- `calculate_kyusei_hourly`
 
 The function currently reports an unresolved-rule error
 until the modern Kyusei hourly rule is specified.
 
-### `modern_kyusei/index.js`
+### `kyusei/index.js`
 
 Exports the public APIs of the modern Kyusei method.
 

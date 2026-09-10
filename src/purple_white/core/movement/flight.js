@@ -1,8 +1,12 @@
+/**
+ * @module purple_white/core/movement/flight
+ */
+
 import {
   get_purple_white_stars,
   is_purple_white_star,
-} from './star';
-import { get_palaces, is_palace } from '../palace';
+} from '../nine_stars/star';
+import { get_palaces, is_palace } from '../../../palace';
 
 /**
  * The direction of Purple-White flight

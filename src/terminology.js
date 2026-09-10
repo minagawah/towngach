@@ -1,3 +1,7 @@
+/**
+ * @module terminology
+ */
+
 import { set_multi_helper } from './locale';
 
 /**

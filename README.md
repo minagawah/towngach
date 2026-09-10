@@ -1,266 +1,681 @@
 # towngach
 
-A computational library for East Asian calendrical,
-astronomical, directional, and purple-white nine-star
-traditions &mdash; combining solar-term and celestial
-calculations with historically distinct methods
-for annual, monthly, daily, and hourly divination.
+## Table of Contents
 
-## 1. About
+- [1. Overview](#1-overview)
+  - [1-1. About](#1-1-about)
+  - [1-2. What is "Towngach"?](#1-2-what-is-towngach)
+  - [1-3. Which "9 Stars"?](#1-3-which-9-stars)
+- [2. Purple-White Stars (紫白星)](#2-purple-white-stars-紫白星)
+  - [2-1 Nine Palaces (九宮)](#2-1-nine-palaces-九宮)
+  - [2-2. Four Calendrical Levels](#2-2-four-calendrical-levels)
+  - [2-3. Three-Epoch Purple-White (三元紫白)](#2-3-three-epoch-purple-white-三元紫白)
+  - [2-4. Daily Purple-White (日家紫白)](#2-4-daily-purple-white-日家紫白)
+  - [2-5. Alternatives for "Daily" (日家)](#2-5-alternatives-for-daily-日家)
+  - [2-6. Japanese Kyusei Kigaku (九星気学)](#2-6-japanese-kyusei-kigaku-九星気学)
+  - [2-7. Xuan-Kong Fei-Xing Feng-Shui (玄空飛星風水)](#2-7-xuan-kong-fei-xing-feng-shui-玄空飛星風水)
+  - [2-8. Historical Variants](#2-8-historical-variants)
+  - [2-9. Purple-White (紫白) Compatibility](#2-9-purple-white-紫白-compatibility)
+  - [2-10. Implemented Methods](#2-10-implemented-methods)
+- [3. Programs and Resources](#3-programs-and-resources)
+  - [3-1. Shared Logic](#3-1-shared-logic)
+  - [3-2. Scripts](#3-2-scripts)
+    - [(a) Checking Mizuno Kigaku](#a-checking-mizuno-kigaku)
+- [4. Installed NPM Packages](#4-installed-npm-packages)
+  - [4-1. Babel](#4-1-babel)
+  - [4-2. ESLint & Prettier](#4-2-eslint--prettier)
+  - [4-3. JSDoc](#4-3-jsdoc)
+  - [4-4. Jest](#4-4-jest)
+  - [4-5. Others](#4-5-others)
+- [5. FAQ](#5-faq)
+  - [5-1. Dictionary](#5-1-dictionary)
+  - [5-2. "九宮" vs "九宫"](#5-2-九宮-vs-九宫)
+- [6. License](#6-license)
+  - [6-1. For Towngach](#6-1-for-towngach)
 
 ![astrolabe](./astrolabe.jpg)
 
-### What is "Towngach"?
+## 1. Overview
 
-The name **Towngach** (`/taʊŋˈɡætʃ/`) originates from "Tawgač" (`/tɑwˈɣɑtʃ/` or tahw-GHAHCH) or "Tabgach" (`/tɑbˈɣɑtʃ/` or tahb-GHAHCH), an ancient Turkic (突厥) term recorded in historical monuments like the Bilge Khagan Inscription (毗伽可汗碑) to denote the Tang Dynasty (唐) and the vast sovereign realm of China. Grammatically, the suffix `-č` in Ancient Turkic signifies _"people of"_ or _"clan of"_. The root traces back to the Tuobay (拓跋) clan of the Xianbei (鮮卑) who founded the Northern Wei Dynasty (北魏). To the Turks (突厥) and Sogdian (ソグド) merchants along the Silk Road, this word transcended a single clan name to become a universal noun representing _"the sovereign imperial domain of the East, bathed in celestial light"_.
+### 1-1. About
 
-This royal bloodline of the Tuoba (拓跋) clan-endowed with advanced metal refining technologies and military prowess &mdash; originally migrated eastward from ancient Western Asia (Sumer and Babylonia). Centuries later, this same lineage founded the Western Xia Dynasty (西夏). The royal family carried this ancient heritage, creating _"the Tangut script"_ (西夏文字) as a revival of the sacred, highly mystical pictographs from China's ancient Shang Dynasty (殷) &mdash; a script from an era before characters became abstracted, preserving intense spiritual depth.
+This is a computational library for
+**Purple-White Stars** (紫白星 / zi-bai-xing /
+tử bạch tinh), the East Asian calendrical
+system&mdash;combining solar-term and
+celestial calculations with historically
+distinct methods for annual, monthly, daily,
+and hourly divination.
 
-Furthermore, the state religion of Western Xia (西夏) was a deeply mystical Esoteric Buddhism (密教) transmitted from Tibet and Central Asia. This ritualistic tradition placed supreme importance on the positions and movements of celestial bodies, including the Sun, Moon, and the Big Dipper (北斗七星). This cosmic veneration directly inherited the ancient astral worship of Sumer and Babylonia, where priests observed the night sky to commune with the divine. Flowing through Persia and India, this astral lore culminated during the Tang Dynasty (唐) and infused the entire East Asian cultural sphere.
+I have implemented only a small portion of
+what I initially planned.  
+So... bear with me.
 
-Although East Asian astrological calculations &mdash; such as "nine-stars" (九星), "qimen-dunjia" (奇門遁甲), and "ziwei-doushu" (紫微斗数) &mdash; eventually branched into specialized systems across different regions, they all share this single, grand origin.
+Two resources are available:
+- [docs/definitions.md](./docs/definitions.md)  
+  Explains the implemented divination
+  logic in detail, as well as features
+  that are not yet implemented.
+- [docs/terminology.md](./docs/terminology.md)  
+  Defines the terminology used
+  in this repository.
 
-By taking the name as **"Towngach"**, this library honors that deep historical thread: connecting Mesopotamian celestial worship, the metallurgical and royal heritage of the Tuoba (拓跋) clan, the mystical arts of Tang-era Asia, and modern computational algorithms into a single unified toolkit.
+### 1-2. What is "Towngach"?
 
-### Scope: "Purple-White Nine-Stars" (紫白九星) rather than "Qimen Nine-Stars" (奇門九星)
+The name **"Towngach"** (`/taʊŋˈɡætʃ/`)
+originates from "Tawgač" (`/tɑwˈɣɑtʃ/`
+or tahw-GHAHCH) or "Tabgach" (`/tɑbˈɣɑtʃ/`
+or tahb-GHAHCH), an ancient **Turkic**
+(突厥 / tu-jue) term recorded in historical
+monuments like the **Bilge Khagan
+Inscription** (毗伽可汗碑 / pi-jia-ke-han-bei)
+to denote the **Tang Dynasty** (唐 / tang)
+and the vast sovereign realm of China.
 
-This library is primarily concerned with the calculation and movement of the **"purple-white-nine-stars"** (紫白九星 / cửu tinh tử bạch) through the **"nine-palaces"** (九宮 / cửu cung). Its subject is therefore the cosmological and calendrical system of stars commonly represented by the numbers and colors **"one-white"** (一白 / nhất bạch) through **"nine-purple"** (九紫 / cửu-tử), and their movement according to the structure of the **"luo-shu"** (洛書 / 洛书 / lạc thư) and the **"nine-palaces"** (九宮).
+Grammatically, the suffix `-č` in Ancient
+Turkic signifies _"people of"_ or _"clan of"_.
+The root traces back to the **"Tuoba"** (拓跋 /
+tuo-ba) clan of the **Xianbei** (鮮卑 / xian-bei)
+who founded the **Northern Wei Dynasty** (北魏 /
+bei-wei). To the **Turks** (突厥 / tu-jue) and
+**Sogdian** merchants along the Silk Road,
+this word transcended a single clan name to
+become a universal noun representing
+_**"the sovereign imperial domain of the East,
+bathed in celestial light"**_.
 
-The library does not, at least in its primary scope, attempt to calculate the nine stars of **"qimen-dunjia"** (奇門遁甲 / 奇门遁甲 / kỳ môn độn giáp), such as "tian-peng" (天蓬星 / thiên bồng), "tinh-tian-rui" (天芮星 / thiên nhuế), "tinh-tian-chong" (天衝星 / 天冲星 / thiên xung tinh) and the other stars belonging to that system. Although both traditions use the expression "Nine Stars", they represent different technical systems.
+This royal bloodline of the **Tuoba**
+(拓跋 / tuo-ba) clan &mdash; endowed with
+advanced metal refining technologies and
+military prowess &mdash; originally migrated
+eastward from ancient **Sumer** and **Babylonia**.
+Centuries later, this same lineage founded
+the **Western Xia Dynasty** (西夏 / xi-xia).
+The royal family carried this ancient heritage,
+creating the **"Tangut script"** (西夏文字 /
+xi-xia-wen-zi) as a revival of the sacred,
+highly mystical pictographs from China's
+ancient **Shang Dynasty** (殷 / yin)
+&mdash; a script from an era before
+characters became abstracted,
+preserving intense spiritual depth.
 
-### A Shared Foundation: "Purple-White Stars" (紫白九星) and the "Nine-Palaces" (九宮)
+Furthermore, the state religion of
+**Western Xia** (西夏 / xi-xia) was
+a deeply mystical **Esoteric Buddhism**
+(密教 / mi-jiao) transmitted from Tibet
+and Central Asia. This ritualistic
+tradition placed supreme importance on
+the positions and movements of
+celestial bodies, including the Sun, Moon,
+and the **Big Dipper** (北斗七星 /
+bei-dou-qi-xing). This cosmic veneration
+directly inherited the ancient astral
+worship of Sumer and Babylonia,
+where priests observed the night sky
+to commune with the divine. Flowing
+through Persia and India, this astral
+lore culminated during the **Tang Dynasty**
+(唐 / tang) and infused the entire East
+Asian cultural sphere. Although East Asian
+astrological calculations &mdash;
+such as the **Purple-White Stars**
+(紫白星 / zi-bai-xing / tử bạch tinh)
+**Qi-Men Dun-Jia** (奇門遁甲 / 奇门遁甲 /
+kỳ môn độn giáp), and **Zi-Wei Dou-Shu**
+(紫微斗數 / 紫微斗数 / tử vi đẩu số) &mdash;
+eventually branched into specialized
+systems across different regions, they
+all share this single, grand origin.
 
-The common foundation of the systems covered by this library is the relationship between the **"purple-white-nine-stars"** (紫白九星) and the **"nine-palaces"** (九宮). A star may be assigned to the central palace (中宮) and then allowed to move through the palace (宮) sequence according to a defined rule. Depending on the method, this movement may proceed forward or backward, corresponding to forward flight (順飛 / 顺飞 / thuận phi) and reverse flight (逆飛 / 逆飞 / nghịch phi).
+By using the name **"Towngach"**, this
+library honors that deep historical thread:
+connecting Mesopotamian celestial worship,
+the metallurgical and royal heritage of
+the **Tuoba** (拓跋 / tuo-ba) clan,
+the mystical arts of Tang-era Asia,
+and modern computational algorithms
+into a single unified toolkit.
 
-This common foundation makes it possible for apparently different traditions to share a substantial amount of computational logic. The same **"nine-palace"** (九宮) structure can support annual, monthly, daily, and hourly calculations, even when the rules used to determine the initial star or the calendrical boundary differ.
+### 1-3. Which "9 Stars"?
 
-### Four Calendrical Levels
+**Feng-Shui** (風水 / 风水 /
+phong thủy) derived historically from
+**"Qi-Men Dun-Jia"** (奇門遁甲 / 奇门遁甲 /
+kỳ môn độn giáp), and the two share the same
+theoretical and operational concepts.
 
-The **"purple-white"** (紫白) system is commonly applied at four calendrical levels: **annual calculation** (年家 / niên gia), **monthly calculation** (月家 / nguyệt gia), **daily calculation** (日家 / nhật gia), and **hourly calculation** (時家 / 时家 / thời gia).
+In **Qi-Men Dun-Jia** (奇門遁甲) &mdash;
+or simply referred to as **"Qi-Men"** (奇門)
+&mdash; there is a concept of
+the **"Nine Stars"** (九星 / jiu-xing /
+cửu tinh), whose stars are those of
+the **Big Dipper**. It also includes
+the concept of the **"Nine Palaces"**
+(九宮 / 九宫 / jiu-gong / cửu cung) and
+its stars derived from the legendary
+**"Luo-Shu"** (洛書 / 洛书 / lạc thư) diagram.
 
-These four levels should not necessarily be understood as four unrelated systems. They share the same general cosmological vocabulary of **"purple-white stars"** (紫白九星) and the **"nine-palaces"** (九宮), but each level may define its own temporal cycles, starting points, transitions, and rules for determining the initial star. For this reason, a reusable implementation should recognize both their shared structure and their independent calendrical logic.
+Now, there is an issue here... In different
+traditions, people call **"Nine Palaces"** (九宮)
+in different manner... and this is where
+all the troubles begin...
 
-### Classical "Three-Epoch Purple-White" (三元紫白) Traditions
+In **"Xuan-Kong Fei-Xing Feng-Shui"** (玄空飛星風水 /
+玄空飞星风水 / phong thủy huyền không phi tinh)
+(a.k.a. the **"Flying Stars"** in the West),
+they say **"Nine Stars"** (九星) when referring
+to the "Nine Palaces". The same goes
+for the Japanese Nine-Star system **"Kyusei Kigaku"**
+(九星気学 / jiu-xing-qi-xue / cửu tinh khí học)
+in which they refer to the "Nine Palaces" when
+they say, **"Nine Stars"** (九星).
 
-One major family of methods is the classical **"three-epochs-purple-white"** (三元紫白 / tam nguyên tử bạch) system found in Chinese calendrical and selection traditions. Within this family, annual (年家), monthly (月家), daily (日家), and hourly (時家) purple-white (紫白) calculations are treated as related expressions of the same general system.
+For the library's sake, I will call them:
 
-The **annual calculation** (年家) is based on the large cycle of the **"three-epochs"** (三元 / tam nguyên), traditionally expressed through a sequence of 60 year units and a larger 180 year cycle. The **monthly calculation** (月家) uses its own relationship between annual cycles (歲運 / 岁运 / tuế vận), terrestrial branches (地支 / địa chi), and the monthly sequence (月建 / 月建 / nguyệt kiến). The **daily calculation** (日家) is based on a 60 day unit and a larger cycle of 3 such units. The **hourly calculation** (時家) again uses its own division of time, often derived from the classification of the day and the sequence of the traditional **"double-hours"** (時辰 / 时辰 / giờ âm lịch).
+- **"Purple-White Stars"**  
+  (紫白星 / zi-bai-xing / tử bạch tinh)
 
-These methods form an important baseline for the library because they provide one of the most coherent historical families of "purple-white" (紫白) calculations.
+because **Qi-Men Dun-Jia** (奇門遁甲) calls them so,
+as well as other **Qi-Men** (奇門) derived traditions.
 
-### Houkan (方鑑): Japanese Directional-and-Divinatory Traditions
+It has **"Purple"** (紫) and **"White"** (白)
+in its name because it has particular numbers
+and colors as the attributes for these stars.
+They start with the **"One-White"** (一白 / yi-bai /
+nhất bạch) and ends with the **"Nine-Purple"**
+(九紫 / jiu-zi / cửu-tử). In many East Asian
+calendrical systems, this can readily refer to the
+**Purple-Nine Stars** (紫白星), meaning the stars
+associated with the **Luo-Shu** (洛書)
+or its **Nine Palaces** (九宮), but not to
+the 9 stars of **Qi-Men Dun-Jia** (奇門遁甲).
 
-Japanese **"directional-and-divinatory (Houkan)"**
-(方鑑 / 方鉴 / phương giám) traditions,
-including the calculation family represented
-in this library as **"Houkan"**,
-adopted and reorganized **"purple-white"** (紫白)
-calculations within their own calendrical
-and practical traditions. The implementation
-is examined especially through the works
-and traditions associated with
-**Matsura Kinkaku** (松浦琴鶴), **Iida Tengai** (飯田天涯),
-and **Kikuchi Yosaku** (菊池要佐久), while recognizing
-that historical methods are not always identical.
-The implementation therefore distinguishes
-documented rules from library interpretations
-and unresolved questions.
+It is important to make a distinction because
+it has become more common &mdash;
+even in published materials nowadays &mdash;
+for people to mix up two different systems
+of stars by saying the **"Nine Stars"** (九星).
+Thus, let me make it clear &mdash; otherwise,
+it would cause more confusion &mdash;
+that this library does NOT intend to provide
+calculations associated with the **Nine Stars**
+(九星) of **Qi-Men Dun-Jia** (奇門遁甲),
+but of the **Purple-White Stars** (紫白星).
 
-At the level of general structure,
-these Japanese methods share important features
-with the classical **"three-epoch-purple-white"**
-(三元紫白 / tam nguyên tử bạch) tradition.
-Annual, monthly, daily, and hourly stars
-may be calculated through
-the **"nine-palaces"** (九宮 / cửu cung),
-while the **"sixty-unit-cycle (sexagenary)"**
-(六十干支 / lục thập can chi)
-and the **"three-epochs"** (三元 / tam nguyên)
-remain important structural principles.
-At the same time, Japanese traditions developed
-their own questions concerning calendrical
-boundaries, the relationship between
-seasonal transitions and stellar movement,
-and the proper treatment of transitions
-between cycles. Methods that appear identical
-at the level of a main cycle may therefore differ
-substantially in their boundary conditions.
+Conceptually, the **Nine Stars** (九星)
+of **Qi-Men Dun-Jia** (奇門遁甲) represent
+the workings of **Heaven** (天 / tian / thiên)
+whereas for the **Nine Palaces** (九宮), that of
+**Earth** (地 / dì / địa). So, we could well say,
+the library deals with the **Earth** aspect
+of the East Asian calendrical systems.
 
-For the Houkan implementation, where
-the examined material treats entry into a
-**"solar-term"** (節氣 / 节气 / tiết khí)
-as the relevant boundary (境界 / 边界 / ranh giới),
-the library uses the actual astronomical
-"solar-term" (節氣) transition instant
-supplied by its existing
-[sowngwala-js](https://github.com/minagawah/sowngwala-js)
-adapter. Thus, if a transition occurs at 05:00:00,
-04:59:59 remains in the previous interval,
-while the new interval begins at
-the transition itself. The boundary is
-not rounded to midnight or given
-an artificial leap adjustment.
+## 2. Purple-White Stars (紫白星)
 
-The Houkan **"hourly"** (時家 / 时家 / thời gia)
-calculation uses the **"three-epochs"**
-(三元 / tam nguyên) groups
-**"子午卯酉"**, **"寅申巳亥"**, and **"辰戌丑未"**,
-together with the confirmed
-**"jia-ji"** (甲己 / giáp-kỷ) condition.
+### 2-1. Nine-Palaces (九宮)
 
-**IMPORTANT** &mdash; Notice it is not
-**"jia-zi"** (甲子) but **"jia-ji"** (甲己).
+Let us explore the rest of the topics for
+the **Purple-White Stars** (紫白星).
 
-In **"yang-dun"** (陽遁 / 阳遁 / dương độn),
-the "three-epoch" begins with **"one-white"** (一白),
-**"seven-red"** (七赤), and **"four-green"** (四緑).
+For any **Qi-Men** (奇門) derived traditions,
+the initial positions for **Purple-White Stars**
+(紫白星) are fixed, and are given by the mentioned
+**Luo-Shu** (洛書) diagram. This is referred to as
+the **"Nine Palaces"** (九宮) because it has
+9 slots in total, arranged as a 3x3 matrix.
+In the West, this is known as a **magic square**.
 
-In **"yin-dun"** (陰遁 / 阴遁 / âm độn),
-they begin with **"nine-purple"** (九紫),
-**"three-blue"** (三碧), and **"six-white"** (六白).
+> Note:  
+> Here is a fun fact about planetary correspondences:
+> - 3x3 &mdash; Saturn (♄)
+> - 4x4 &mdash; Jupiter (♃)
+> - 5x5 &mdash; Mars (♂)
+> - 6x6 &mdash; Sun (☉)
+> - 7x7 &mdash; Venus (♀)
+> - 8x8 &mdash; Mercury (☿)
+> - 9x9 &mdash; Moon (☽)
+> &nbsp;
 
-One **"origin"** (元 / nguyên) consists of
-five days, or 60 traditional
-**"double-hours"** (時辰 / 时辰 / giờ),
-and one star advances for each
-**"double-hour"** (時辰).
-Because 60 does not divide evenly by 9,
-the **"nine-star"** (九星) sequence is not
-artificially adjusted to complete
-at an origin boundary; the calendrical
-and origin boundaries take precedence
-over numerical continuity.
+A star may be assigned to the **"Central Palace"**
+(中宮 / 中宫 / zhong-gong / trung cung) and then
+allowed to move through the **"Palace"** (宮 / 宫 /
+gong / cung) sequence according to a defined rule.
+Depending on the method, this movement may proceed
+forward or backward, corresponding to
+**"Forward Flight"** (順飛 / 顺飞 / shun-fei /
+thuận phi) and **"Reverse Flight"** (逆飛 / 逆飞 /
+ni-fei / nghịch phi).
 
-The **"zi hour"** (子時 / 子时 / giờ Tý)
-follows the examined distinction between
-_"tonight"_ and the _"following morning"_,
-rather than being assigned uniformly
-to a modern civil date. When determining
-the origin containing a target datetime,
-the implementation therefore uses the valid
-starting boundary that has already begun
-relative to that datetime and does not
-treat a future **"zi-hour"** (子時) boundary
-as the beginning of the current origin.
+This common foundation makes it possible
+for apparently different traditions
+to share a substantial amount of
+computational logic. The same **Nine Palace**
+(九宮 / 九宫 / jiu-gong / cửu cung) structure
+can support annual, monthly, daily, and hourly
+calculations, even when the rules used to
+determine the initial star or the calendrical
+boundary differ.
 
-The **"daily calculation"** (日家 / nhật gia)
-requires a more careful distinction
-between historical traditions.
-The Houkan daily structure is intentionally
-not reduced to a fixed 180-day cycle.
-Its **"six seasonal periods"** (六気 / 六氣 / lục khí)
-and Yin/Yang Dun structure are represented,
-but the historical selection of the daily
-**"jia-zi"** (甲子 / giáp-tý) reference point
-remains unresolved. Where that unresolved decision
-is required, the API throws an explicit error
-rather than fabricating a nine-star configuration.
+### 2-2. Four Calendrical Levels
 
-This treatment of Houkan is therefore
-not intended to claim that every Japanese
-directional method follows one universal formula.
-Instead, it preserves the shared
-**"purrple-white"** (紫白九星)
-and **"nine-palace"** (九宮) foundations
-while keeping historically significant differences
-in **"solar-term boundaries"** (節氣交節),
-daily reference points, Yin/Yang progression,
-and origin transitions explicit.
+The **Purple-White Stars** (紫白星) are commonly
+applied at four calendrical levels:
 
-![kinkaku_hiden](./kinkaku_hiden.jpg)
+- **annual calculation** (年家 / nian-jia / niên gia)
+- **monthly calculation** (月家 / yue-jia / nguyệt gia)
+- **daily calculation** (日家 / ri-jia / nhật gia)
+- **hourly calculation** (時家 / shi-jia / thời gia)
 
-### The Daily "Purple-White" (日家紫白) Cycle
+These four levels should not necessarily be understood
+as four unrelated systems. They share the same
+general cosmological vocabulary of
+**Purple-White Stars** (紫白星) and
+the **Nine Palaces** (九宮), but each level
+may define its own temporal cycles, starting points,
+transitions, and rules for determining the initial star.
+For this reason, a reusable implementation should
+recognize both their shared structure and their
+independent calendrical logic.
 
-The **"daily-purple-white"** (日家紫白 / nhật gia tử bạch) calculation is one of the most important areas of variation covered by the historical traditions. A major classical model treats 60 days as **"one epoch"** (一元), with the **"three-epochs"** (三元) forming a 180 day cycle.
+### 2-3. Three-Epoch Purple-White (三元紫白)
 
-This model is fundamentally different from the daily divisions used in **"qimen-dunjia"** (奇門遁甲). In **"purple-white"** (紫白) calculation, the 60 day sexagenary sequence is itself part of the basic structure of the daily (日家) cycle. A library implementing **"purple-white"** (紫白) methods should therefore avoid assuming that a **"qimen"** (奇門) style 15 day **"three-epoch cycle"** (三元) can be used as a substitute.
+One major family of methods is the classical
+**"Three-Epoch Purple-White"** (三元紫白 /
+san-yuan-zi-bai / tam nguyên tử bạch) system
+found in Chinese calendrical and selection traditions.
 
-The daily sequence (日家) is also closely connected with the **"winter solitice"** (冬至 / đông chí) and the **"summer solitice"** (夏至 / hạ chí) and with the distinction between **"yang-progression"** (陽遁 / 阳遁 / dương độn) and **"yin-progression"** (陰遁 / 阴遁 / âᴍ độɴ). Exactly how the transition is handled, however, is one of the places where historical methods diverge.
+Within this family, annual, monthly,
+daily, and hourly Purple-White (紫白)
+calculations are treated as related expressions of
+the same general system. This historical description
+does not represent a single universal method
+in the public API. The repository keeps concrete
+calculations under identifiable method families instead.
 
-### Alternative Rules for "Daily" (日家) Transitions
+- **annual calculation** (年家):  
+  Based on the large cycle of the **Three-Epochs**
+  (三元 / san-yuan / tam nguyên), traditionally
+  expressed **through a sequence of 60-year units
+  and a larger 180-year cycle**.  
+  &nbsp;
+- **monthly calculation** (月家):  
+  Uses its own relationship between
+  **annual cycles** (歲運 / 岁运 / sui-yun / tuế vận),
+  **terrestrial branches** (地支 / di-zhi /   địa chi),
+  and the **monthly sequence** (月建 / yue-jian /
+  nguyệt kiến).  
+  &nbsp;
+- **daily calculation** (日家):  
+  Based on **a 60-day unit** and **a larger cycle
+  of 3 of such units** &mdash; but this also
+  depends on traditions, and I will fully
+  explain this in the next section.  
+  &nbsp;
+- **hourly calculation** (時家):  
+  Uses its own division of time, often derived
+  from the classification of the day and
+  the sequence of traditional **"double-hours"**
+  (時辰 / 时辰 / shi-chen / giờ âm lịch).
 
-Not all historical **"daily-purple-white"** (日家紫白) methods use the same rule for changing between Yang (陽) and Yin (陰) progression. Some methods emphasize calendrical boundaries associated directly with the **"solstices"** (二至 / nhị chí) and the **"three-epoch"** (三元) cycle. Other methods use nearby days associated with the 4 branches (支) **"Zi &ndash; Wu &ndash; Mao &ndash; You"** (子午卯酉 / tý ngọ mão dậu) as practical transition points.
+These methods form an important baseline for the
+library because they provide one of the most
+coherent historical families of
+**Purple-White Stars** (紫白星) calculations.
 
-These methods may share the same 60 day foundation and the same **"nine-palace-flight"** (九宮飛泊 / 九宫飞泊 / cửu cung phi bạc), while differing only in the rule that determines when the direction of movement changes. From the perspective of software design, such methods should therefore not necessarily require completely separate systems. They may instead be represented as variants of a common **"daily-purple-white"** (日家紫白) engine with different transition rules.
+### 2-4. Daily Purple-White (日家紫白)
 
-At the same time, methods that reorganize the **"three-epoch"** (三元) structure itself, rather than merely changing the boundary condition, may require genuinely independent calculation logic.
+As briefly mentioned in the previous section,
+the **Daily Purple-White** (日家紫白 /
+ri-jia-zi-bai / nhật gia tử bạch) calculation
+is one of the most important areas of
+historical variation covered by the library.
 
-### Modern Japanese "Niine-Star" (九星) Systems
+A major classical model treats **60 days**
+as one **"Epoch"** (一元 / yi-yuan / nhất nguyên),
+with **3 Epochs** forming a **180-day** structure.
 
-Modern Japanese **"nine-star"** (九星 / cửu tinh) systems, including traditions commonly associated with **"nine-star-ki-gaku"** (九星気学 / 九星氣學 / 九星气学 / cửu tinh khí học), for which "Sonoda Shinjiro" (園田真次郎) is commonly known, inherit much of the broader **"purple-white"** (紫白) and **"nine-palace"** (九宮) framework.
+> e.g.  
+> For instance the method given by Matsuura Kinkaku
+> (松浦琴鶴) does not simplify to a universally
+> fixed 180-day formula.
 
-**Annual** (年家) and **monthly** (月家) calculations are generally based on recognizable calendrical cycles and seasonal boundaries, while **daily** (日家) and **hourly** (時家) calculations continue to depend on the interaction between the traditional calendar, the sixty-unit (sexagenary) cycle, and the **"nine-palace"** (九宮) movement. These systems can often share substantial computational logic with earlier **"purple-white"** (紫白) traditions, but differences may appear in such matters as the precise definition of a year boundary, the handling of **"solar-terms"** (節氣 / 节气 / tiết khí), and the treatment of daily transitions.
+The repository treats unresolved parts as
+historical reconstruction work rather than
+silently borrowing a convenient rule from
+another tradition.
 
-For this reason, modern Japanese methods are best regarded not as an entirely separate cosmology, but as a family of related implementations built upon the same **"purple-white"** (紫白) foundation.
+The library's reusable foundations still include
+the **Nine Palaces** (九宮), the numbered
+**Purple-White Stars** (紫白星), and Forward /
+Reverse movements. What varies by method
+is how the initial state, direction, epoch,
+and boundary are selected.
 
-### About "Xuan-Kkong Flying Stars" (玄空飛星)
+### 2-5. Alternatives for "Daily" (日家)
 
-The library may also be useful to traditions associated with **"xuan-kong-flying-stars"** (玄空飛星 / 玄空飞星 / huyền không phi tinh). These systems likewise use the **"nine-palaces"** (九宮) and the movement of numbered stars, and therefore share a natural computational vocabulary with **"purple-white"** (紫白) calculation.
+Not all historical **Daily Purple-White**
+(日家紫白) methods use the same rule for changing
+between **"yang"** (陽 / 阳 / yang / dương)
+and **"yin"** (陰 / 阴 / yin / âm) progression
+(like _Matsuura Kinkaku's_ method mentioned
+in the previous section).
 
-However, the concept of the **"three-epochs-and-nine-periods"** (三元九運 / 三元九运 / tam nguyên cửu vận) should not be confused with the **"three-epoch"** (三元) divisions used in annual (年家), monthly (月家), daily (日家), or hourly (時家) **"purple-white"** (紫白) calculations. The two systems may both use the word **"Three Epochs"** (三元) but they describe different temporal structures and may serve different purposes.
+Some methods emphasize calendrical boundaries
+associated directly with the **solstices**
+(二至 / er-zhi / nhị chí) and the
+**Three-Epoch** (三元 / san-yuan / tam nguyên).
 
-For this reason, **"xuan-kong"** (玄空) calculations should be treated as closely related to the library's **"purple-white"** (紫白) core without assuming that every temporal rule can be shared directly.
+Other methods use **nearby days** associated
+with a set of **Four Branches** (the Chinese word
+for **"Branch"** is **"Zhi"** (支 / chi)), namely,
+**"Zi-Wu-Mao-You"** (子午卯酉 / tý-ngọ-mão-dậu)
+being used as practical transition points.
 
-### Shared Logic and Independent Logic
+These methods may share the same 60-day foundation
+and the same **"Nine Palace Flight"**
+(九宮飛泊 / 九宫飞泊 / jiu-gong-fei-bo /
+cửu cung phi bạc), while differing only
+in the rule that determines when
+the direction of movement changes.
 
-The main purpose of supporting multiple traditions is not to erase their differences, but to identify where their computational structures genuinely coincide. The **"nine-palaces"** (九宮 / cửu cung), the sequence of the **"purple-white-stars"** (紫白九星 / cửu tinh tử bạch), and the concepts of **"forward-flight"** (順飛 / 顺飞 / thuận phi) and **"reverse-flight"** (逆飛 / 逆飞 / nghịch phi) provide a common foundation. These can often be implemented once and reused.
+From the perspective of software design, such
+methods should not necessarily require completely
+separate systems. They may instead be represented
+as variants of a common **Daily Purple-White**
+(日家紫白) engine with different transition rules.
+At the same time, methods that reorganize the
+**Three-Epoch** (三元 / san-yuan / tam nguyên)
+structure itself, rather than merely changing
+ boundary condition, may require genuinely
+independent calculation logic.
 
-The determination of the **"starting-star"** (起始星 / khởi thủy tinh), however, may depend on the **annual** (年家 / niên gia), **monthly** (月家 / nguyệt gia), **daily** (日家 / nhật gia), or **hourly** (時家 / 时家 / thời gia) cycle. The definition of a calendrical boundary may depend on **"solar-terms"** (節氣 / 节气 / tiết khí), **"solstices"** (二至 / nhị chí), **"sixty-unit-cycle (sexagenary)"** (六十干支 / 六十花甲 / lục thập hoa giáp), or tradition-specific rules. The definition of the **"three-epochs"** (三元 / Tam Nguyên) may also vary between systems. These differences should therefore remain explicit rather than being hidden behind a single universal formula.
+### 2-6. Japanese Kyusei Kigaku (九星気学)
 
-### Historical Variants as Calculation Rules
+Modern Japanese **Nine Star** (九星)
+systems, including traditions commonly
+associated with **"Kyusei Kigaku"** (九星気学 /
+九星氣學 / 九星气学 / jiu-xing-qi-xue /
+cửu tinh khí học) &mdash; with
+**Sonoda Shinjiro** (園田真次郎) is well known
+&mdash; inherit much of the broader
+**Purple-White Stars** (紫白星) and
+the **Nine Palaces** (九宮) framework.
 
-The traditions represented by this library should be understood as historical and technical variants of **"purple-white"** (紫白 / tử bạch) calculation rather than as mutually exclusive systems. In many cases, two traditions may use exactly the same **"nine-palace-flight"** (九宮飛泊 / 九宫飞泊 / cửu cung phi bạc) while differing only in the way they determine the **"initial-star"** (起始星 / khởi thủy tinh). In other cases, they may share the same **"sixty-unit-cycle (sexagenary)"** (六十干支 / 六十花甲 / lục thập hoa giáp) while differing only in the treatment of a transition near a **"solar-term"** (節氣 / 节气 / tiết khí) or **"solstice"** (二至 / nhị chí).
+For **annual** (年家) and **monthly** (月家)
+calculations are generally based on recognizable
+calendrical cycles and seasonal boundaries,
+while **daily** (日家) and **hourly** (時家)
+calculations continue to depend on
+the interaction between the traditional calendar,
+the **"Sixty-Unit"** (六十干支 / 六十花甲 /
+liu-shi-gan-zhi / lục thập hoa giáp) cycle,
+and the **Nine Palace** (九宮) movement.
 
-A useful implementation can therefore distinguish between the underlying **"purple-white-cycle"** (紫白九星 / cửu tinh tử bạch), the rule used to determine the **"three-epochs"** (三元 / Tam Nguyên), the rule used to select the **"starting-star"** (起始星 / khởi thủy tinh), the rule used to determine **"forward-flight"** (順飛 / 顺飞 / thuận phi) or **"reverse-flight"** (逆飛 / 逆飞 / nghịch phi), and the calendrical method used to determine the relevant boundary. This makes it possible to represent closely related traditions without incorrectly forcing them into complete identity.
+These systems often share substantial
+computational logic with earlier
+**Purple-White Stars** (紫白星) traditions,
+but differences may appear in matters
+such as the precise definition of
+**a year boundary**, the handling of
+**solar terms** (節気 / 節氣 / 节气 / jie-qi /
+tiết khí), and the treatment of
+**daily transitions**.
 
-### A Focus on "Purple-White" (紫白) Compatibility
+For this reason, modern Japanese methods are
+best regarded not as an entirely separate
+cosmology, but as a family of related
+implementations built upon the same
+**Purple-White Stars** (紫白星) foundation.
 
-The intended scope of this library is therefore the broad family of calculations in which the **"purple-white-nine-stars"** (紫白九星 / cửu tinh tử bạch) move through the **"nine-palaces"** (九宮 / 九宫 / cửu cung) across **annual** (年家 / niên gia), **monthly** (月家 / nguyệt gia), **daily** (日家 / nhật gia), and **hourly** (時家 / 时家 / thời gia) time scales. This includes traditions that developed in China and Japan and may also provide a useful computational foundation for related **"flying-star"** (飛星 / 飞星 / phi tinh) traditions.
+### 2-7. Xuan-Kong Fei-Xing Feng-Shui (玄空飛星風水)
 
-The library does not attempt to treat every historical system that uses the name **"nine-stars"** (九星 / cửu tinh) as part of the same algorithm. In particular, **"qimen-dunjia"** (奇門遁甲 / 奇门遁甲 / kỳ môn độn giáp) and its own **"nine-stars"** (九星 / cửu tinh) and **"three-epochs"** (三元 / tam nguyên) divisions belong to a different technical context. The goal here is instead to preserve the specific family of **"purple-white"** (紫白 / tử bạch) calculations based on the numbered stars, the **"nine-palaces"** (九宮 / 九宫 / cửu cung), and their historically distinct but structurally related methods of movement.
+The library may also be useful for traditions
+associated with **"Xuan-Kong Fei-Xing Feng-Shui"**
+(玄空飛星風水 / 玄空飞星风水 / phong thủy huyền không
+phi tinh) (known as **"Flying Star Feng-Shui"**
+in the West). These systems likewise use the
+**Nine Palaces** (九宮) and the movement of
+numbered stars, and therefore share a natural
+computational vocabulary with **Purple-White Stars**
+(紫白星) calculation.
 
-## 6. Houkan (方鑑) Check Script
+However, the concept of **"Three-Epochs
+Nine-Periods"** (三元九運 / 三元九运 /
+san-yuan-jiu-yun / tam nguyên cửu vận)
+should not be confused with the **"Three-Epochs"**
+(三元) divisions used in annual, monthly, daily,
+or hourly **"Purple-White"** (紫白) calculations.
+The two systems may both use the term
+**"Three Epochs"** (三元), but they describe
+different temporal structures and serve
+different purposes.
+
+For this reason, **Xuan-Kong** (玄空)
+calculations should be treated as closely
+related to the library's **Purple-White Stars**
+(紫白星) core without assuming that every
+temporal rule can be shared directly.
+
+### 2-8. Historical Variants
+
+The traditions represented by this library
+should be understood as historical and
+technical variants of **Purple-White Stars**
+(紫白星) calculation rather than as mutually
+exclusive systems.
+
+In many cases, two traditions may use
+exactly the same **Nine Palace Flight**
+(九宮飛泊) while differing only in how they
+determine the **"Starting Star"** (起始星 /
+qi-shi-xing / khởi thủy tinh).
+
+In other cases, they may share the same
+**Sixty-Unit** (六十干支) while
+differing only in the treatment of a transition
+near a **solar term** (節気 / 節氣 / 节气 / jie-qi /
+tiết khí) or **solstice** (二至 / er-zhi / nhị chí).
+
+A useful implementation can therefore
+distinguish between:
+
+1. Underlying **Purple-White Stars** (紫白星)
+2. Rule to determine the **Three-Epochs** (三元)
+3. Rule to select the **Starting Star** (起始星)
+4. Rule to determine **Forward Flight** (順飛)
+  or **Reverse Flight** (逆飛)
+5. Method to determine the **relevant boundary**
+
+This makes it possible to represent closely
+related traditions without incorrectly
+forcing them into complete equivalence.
+
+### 2-9. Purple-White (紫白) Compatibility
+
+The intended scope of this library is
+therefore the broad family of calculations
+in which the **Purple-White Stars** (紫白星)
+move through the **Nine Palaces** (九宮)
+across annual, monthly, daily, and hourly
+time scales. This includes traditions that
+developed in China and Japan and may also
+provide a useful computational foundation
+for related **Flying Star** (飛星 / 飞星 /
+fei-xing / phi tinh) traditions.
+
+The library does not attempt to treat every
+historical system that uses the name
+**Nine Stars** (九星) as part of the same
+algorithm. In particular, as it was
+already be mentioned, **Qi-Men Dun-Jia**
+(奇門遁甲) and its own **Nine Stars** (九星)
+and **Three-Epochs** (三元) divisions belong
+to a different technical context.
+
+The goal here is instead to preserve
+the specific family of **Purple-White Stars**
+(紫白星) calculations based on the numbered stars,
+the **Nine Palaces** (九宮), and their
+historically distinct, but structurally
+related methods of movement.
+
+### 2-10. Implemented Methods
+
+The roadmap for implementing the
+**Purple-White Stars** (紫白星) families includes:
+
+1. **Kyusei Kigaku** (九星気学)
+2. **Mizuno-style Kigaku** (水野気学)
+3. **Houkan** (方鑑 / 方鉴 / fang-jian / phương giám)
+
+I have finished the implementation for (2),
+and (3) is halfway complete.
+
+Let me briefly explain why this library
+has chosen **"Mizuno-style Kigaku"** (水野気学)
+as its primary implementation direction.
+
+Among those who questioned the practice in the
+Japanese calendrical system, **Matsuura Kinkaku**
+(松浦琴鶴) was particularly eccentric,
+as he proposed forcibly restarting the
+**Nine Star** (九星) system from
+**One-White** (一白 / yi-bai / nhất bạch)
+**at a specific hour of the winter solstice**
+(冬至 / dong-zhi / đông chí).
+
+Although symbolically simple and elegant,
+the **Qi** (気 / 氣 / 气 / khí) of the Earth
+(地 / dì / địa) should change more gradually
+than that of the Heaven (天 / tian / thiên).
+Abruptly breaking the rhythm at the level
+of individual hours seems contrary to
+the nature of Earth. If the aim is truly
+to conform to the principles of Heaven and Earth,
+he could have chosen a more precise mathematical
+approach, such as **"Chai-Bu-Fa"** (拆補法 /
+拆补法 / phương pháp tháo bổ) or
+the **"Three-Epoch"** (三元) method.
+
+In a sense, **Sonoda Shinjiro** (園田真次郎)
+was also considered radical because he
+introduced the modern Japanese Nine-Star system
+&mdash; known as **"Kyusei Kigaku"** (九星気学 /
+九星氣學 / 九星气学 / jiu-xing-qi-xue /
+cửu tinh khí học) &mdash; which eliminated
+components other than those corresponding to
+the **Purple-White Stars** (紫白星) system.
+
+Yet, **Kyusei Kigaku** also suffered from
+**timing lags** because it determines seasonal
+transitions based on the **Jia-Zi Day** (甲子日).
+
+To address this, **Mizuno Yoshitome** (水野義留)
+sought to overcome this structural looseness of
+**Kyusei Kigaku** by retaining its calculations
+for the yearly and monthly stars, while
+incorporating the **"Zi-Bai-Jue"** (紫白訣 /
+紫白诀 / quyết tử bạch) of
+**Xuan-Kong Fei-Xing Feng-Shui** (玄空飛星風水)
+into daily and hourly calculations.
+Thus, **Mizuno-style Kigaku** shares annual
+and monthly infrastructure with the
+**Kyusei Kigaku** while keeping its
+**direct astronomical daily and seasonal
+hourly rules** distinct.
+
+## 3. Programs and Resources
+
+### 3-1. Shared Logic
+
+The main purpose of supporting multiple traditions
+is not to erase their differences, but to identify
+where their computational structures genuinely
+coincide.
+
+The **Nine Palaces** (九宮), the sequence of
+**Purple-White Stars** (紫白星), and the
+concepts of **Forward Flight** (順飛) and
+**Reverse Flight** (逆飛) provide
+a common foundation. These can often be
+implemented once and reused.
+
+The determination of the **Starting Star**
+(起始星), however, may depend on the annual,
+monthly, daily, and hourly cycle.
+
+The definition of a calendrical boundary
+may depend on **solar terms** (節気),
+**solstices** (二至),
+the **Sixty-Unit** (六十干支),
+or tradition-specific rules. The definition
+of the **Three-Epochs** (三元) may also
+vary between systems. These differences
+should remain explicit rather than being
+hidden behind a single universal formula.
+
+The implementation separates reusable
+**Purple-White Stars** (紫白星) foundations under
+`src/purple_white/core/` from identifiable
+calculation methods under
+`src/purple_white/methods/`.
+
+Future method families can be added without
+forcing every tradition into one algorithm.
+Shared **Nine Star** (九星), star movement,
+and result structures do not imply that those
+methods use one identical historical algorithm.
+
+### 3-2. Scripts
+
+#### (a) Check Script for Mizuno Kigaku (水野気学)
 
 The repository includes a small manual checker
-for the **"Houkan Purple-White"** (方鑑紫白) calculations:
+for Mizuno Kigaku (水野気学) calculations:
 
 ```bash
-node scripts/check_houkan.js
+node scripts/check_mizuno.js
 ```
 
-When run interactively, the script asks for the year,
-month, day, hour, and minute.
-Blank answers use the predefined example datetime:
+When run interactively, the script asks for the
+year, month, day, hour, and minute. Blank
+answers use the predefined example datetime:
 
 ```text
 1985-10-26 01:35:00
 ```
 
-You can also provide the values as positional arguments:
+You can also provide the values as positional
+arguments:
 
 ```bash
-node scripts/check_houkan.js 1985 10 26 1 35
+node scripts/check_mizuno.js 1985 10 26 1 35
 ```
 
-The checker reports the hourly day and branch,
-"yin/yang-dun" (陰陽遁), "three-yuan" (三元),
-"purple-white-star" (紫白星), "flight" (飛泊),
-the monthly "solar-term boundary" (節氣交節),
-and the documented daily structure.
-It also reports annual, monthly, and daily
-calculations as unresolved where
+The checker reports the hourly stem and branch,
+**Yin/Yang Dun** (陰陽遁 / 阴阳遁 / yin-yang-dun /
+âm dương độn), **Three-Yuan**
+(三元 / san-yuan / tam nguyên),
+**Purple-White Star** (紫白星), **Flight** (飛泊),
+the **Monthly Solar-term Boundary**
+(節気境界 / 節氣交節 / 节气交节 / jie-qi-jiao-jie /
+tiết khí giao tiết), and the documented
+daily structure. It also reports annual, monthly,
+and daily calculations as unresolved where
 the historical rule is intentionally not guessed.
 
-The example datetime is accompanied by the following message:
+The example datetime is accompanied by the
+following message:
 
 > Marty McFly escaping the Libyans at Twin Pines Mall
 
 The script uses UTC-normalized Towngach dates
 and the existing astronomy adapter.
 
-## 7. Installed NPM Packages
+## 4. Installed NPM Packages
 
-### Babel
+### 4-1. Babel
 
 - core-js
 - @babel/cli
@@ -268,9 +683,9 @@ and the existing astronomy adapter.
 - @babel/preset-env
 - babel-loader
 - babel-plugin-preval
-- babel-plugin-polyfill-corejs3
+- babel-plugin-polyfill-corejs
 
-### ESLint & Prettier
+### 4-2. ESLint & Prettier
 
 - prettier
 - eslint
@@ -279,7 +694,7 @@ and the existing astronomy adapter.
 - eslint-plugin-prettier
 - @stylistic/eslint-plugin
 
-### JSDoc
+### 4-3. JSDoc
 
 - jsdoc
 - jsdoc-tsimport-plugin
@@ -287,12 +702,12 @@ and the existing astronomy adapter.
 - typescript
 - @types/ramda
 
-### Jest
+### 4-4. Jest
 
 - jest
 - babel-jest
 
-### Others
+### 4-5. Others
 
 - rimraf
 - nodemon
@@ -309,9 +724,9 @@ and the existing astronomy adapter.
 # directly into the runtime code
 # (e.g. import "core-js/modules/es.array.flat.js"),
 # the deployment environment needs to have
-# core-js installed in the main dependencies block.
+# core-js installed in main dependencies.
 # If it is only in devDependencies, the app will
-* crash in production with a "Module not found"
+# crash in production with a "Module not found"
 # error when it tries to run those polyfills.
 
 npm install --save core-js ramda luxon csv-parse
@@ -326,9 +741,35 @@ npm install --save-dev \
   rimraf nodemon concurrently cross-env
 ```
 
-## 8. License
+## 5. FAQ
 
-### For Towngach Library
+### 5-1. Dictionary
+
+A. Yes. I prepared a list of terminology used
+in this repo:  
+[docs/terminology.md](./docs/terminology.md)
+
+### 5-2. "九宮" vs "九宫"
+
+A. They are different.
+- **九宮** (Japanese Kanji / Traditional Chinese):  
+  Uses the traditional form of the second
+  character, `宮`, where the two square "mouth"
+  components (`口`) inside are connected by
+  a stroke or written cleanly as two distinct
+  boxes depending on the typeface, matching
+  standard traditional Chinese variants.
+- **九宫** (Simplified Chinese):  
+  In this form, the second character is written
+  as `宫`, which simplifies the inner component
+  by removing the stroke that links the two
+  boxes or changing the internal structure to
+  a single stroke connection (`宀` + `吕`)
+  depending on the script standards.
+
+## 6. License
+
+### 6-1. For Towngach
 
 Dual-licensed under either of the following.  
 Choose whichever you prefer.

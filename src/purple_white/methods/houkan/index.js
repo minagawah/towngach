@@ -1,6 +1,8 @@
 /**
  * Houkan Purple-White methods
  * (方鑑 / 方鉴 / phương giám / ほうかん).
+ *
+ * @module purple_white/methods/houkan
  */
 export { calculate_houkan_annual } from './annual';
 

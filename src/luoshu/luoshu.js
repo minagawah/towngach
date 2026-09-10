@@ -1,6 +1,8 @@
 /**
  * A position in the Luoshu arrangement.
  *
+ * @module luoshu/luoshu
+ *
  * @typedef {Object} LuoshuPosition
  */
 
@@ -24,6 +26,11 @@ const LUOSHU_LAYOUT = Object.freeze([
   [8, 1, 6],
 ]);
 
+/**
+ * Canonical positions for each number in the Luoshu pattern.
+ *
+ * @type {Array.<LuoshuPosition>}
+ */
 const LUOSHU_POSITIONS = Object.freeze([
   { number: 1, palace: 'kan', row: 2, column: 1 },
   { number: 2, palace: 'kun', row: 0, column: 0 },

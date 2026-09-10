@@ -1,5 +1,7 @@
 /**
  * Shared date parts.
+ *
+ * @module types
  */
 
 /** @typedef {number} Year */

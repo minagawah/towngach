@@ -1,4 +1,8 @@
-import { build_method_result } from '../_shared';
+/**
+ * @module purple_white/methods/houkan/daily
+ */
+
+import { build_method_result } from '../../core/utils/method';
 
 /**
  * Returns the documented six-period

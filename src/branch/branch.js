@@ -1,3 +1,7 @@
+/**
+ * @module branch/branch
+ */
+
 import { create_cycle } from '../lib/cycle';
 import { set_multi_helper } from '../locale';
 

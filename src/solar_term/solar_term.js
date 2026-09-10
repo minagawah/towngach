@@ -1,3 +1,7 @@
+/**
+ * @module solar_term/solar_term
+ */
+
 import {
   compare_calendar_dates,
   normalize_calendar_date,
@@ -55,6 +59,23 @@ export const SOLAR_TERMS = Object.freeze([
   'dahan',
 ]);
 
+/**
+ * Localization definitions for Twenty-Four Solar Term names.
+ *
+ * @type {Object.<string, Object>}
+ * @example
+ * {
+ *   lichun: {
+ *     name: {
+ *       en: { primary: 'lichun' },
+ *       vi: { primary: 'lập xuân' },
+ *       zh_ch: { primary: '立春' },
+ *       zh_tw: { primary: '立春' },
+ *       ja: { kanji: '立春', hiragana: 'りっしゅん', katakana: 'リッシュン' },
+ *     },
+ *   },
+ * }
+ */
 const SOLAR_TERM_NAMES = set_multi_helper(
   [
     [
@@ -325,8 +346,18 @@ export const SOLAR_TERM_DEFINITIONS = Object.freeze(
   )
 );
 
+/**
+ * Cyclic iterator for Twenty-Four Solar Terms.
+ *
+ * @private
+ */
 const solar_term_cycle = create_cycle(SOLAR_TERMS);
 
+/**
+ * Approximate calendar month and day anchors for each solar term.
+ *
+ * @constant {Array.<{month: number, day: number}>}
+ */
 const SOLAR_TERM_ANCHORS = Object.freeze([
   { month: 2, day: 4 },
   { month: 2, day: 19 },
@@ -354,9 +385,31 @@ const SOLAR_TERM_ANCHORS = Object.freeze([
   { month: 1, day: 20 },
 ]);
 
+/**
+ * Search window in days around solar term anchors.
+ *
+ * @private
+ * @constant {number}
+ */
 const SEARCH_WINDOW_DAYS = 15;
+
+/**
+ * Milliseconds in one day.
+ *
+ * @private
+ * @constant {number}
+ */
 const DAY_MS = 24 * 60 * 60 * 1000;
 
+/**
+ * Helper to construct a UTC Date instance at 12:00:00 UTC.
+ *
+ * @private
+ * @param {number} year
+ * @param {number} month
+ * @param {number} day
+ * @returns {Date}
+ */
 const create_utc_date = (year, month, day) =>
   new Date(Date.UTC(year, month - 1, day, 12, 0, 0, 0));
 
@@ -418,6 +471,14 @@ export const get_solar_term_definition = solar_term => {
 export const is_solar_term = value =>
   solar_term_cycle.is(value);
 
+/**
+ * Returns the estimated anchor date for a solar term in a given year.
+ *
+ * @private
+ * @param {SolarTerm} solar_term
+ * @param {number} year
+ * @returns {Date}
+ */
 const get_solar_term_anchor = (solar_term, year) => {
   const index = get_solar_term_index(solar_term);
 

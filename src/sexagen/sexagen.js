@@ -1,3 +1,7 @@
+/**
+ * @module sexagen/sexagen
+ */
+
 import { create_cycle } from '../lib/cycle';
 import { BRANCHES, get_branch } from '../branch';
 import { STEMS, get_stem } from '../stem';
@@ -39,6 +43,11 @@ for (let index = 0; index < 60; index += 1) {
 
 Object.freeze(SEXAGEN_DEFINITIONS);
 
+/**
+ * Names of the sixty sexagenary members.
+ *
+ * @constant {Array.<Sexagen>}
+ */
 export const SEXAGEN = Object.freeze(
   SEXAGEN_DEFINITIONS.map(item => item.sexagen)
 );

@@ -1,3 +1,7 @@
+/**
+ * @module san_yuan/san_yuan
+ */
+
 import { create_cycle } from '../lib/cycle';
 import { set_multi_helper } from '../locale';
 

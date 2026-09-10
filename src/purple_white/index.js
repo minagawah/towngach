@@ -9,7 +9,7 @@ export {
   get_purple_white,
   is_purple_white_result,
   create_purple_white_result,
-} from './purple_white';
+} from './core/utils/purple_white';
 export {
   PURPLE_WHITE_STARS,
   PURPLE_WHITE_STAR_DEFINITIONS,
@@ -20,7 +20,7 @@ export {
   is_purple_white_star,
   shift_purple_white_star,
   STAR,
-} from './star';
+} from './core/nine_stars/star';
 export {
   FLIGHT_DIRECTIONS,
   is_flight_direction,
@@ -30,6 +30,6 @@ export {
   get_flight_palace,
   is_purple_white_flight,
   FLIGHT,
-} from './flight';
+} from './core/movement/flight';
 
 export * as methods from './methods';

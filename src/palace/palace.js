@@ -1,3 +1,7 @@
+/**
+ * @module palace/palace
+ */
+
 import { create_cycle } from '../lib/cycle';
 import { set_multi_helper } from '../locale';
 
@@ -31,6 +35,23 @@ const PALACE_SEQUENCE = Object.freeze([
   'center',
 ]);
 
+/**
+ * Localization definitions for Nine Palace names.
+ *
+ * @type {Object.<string, Object>}
+ * @example
+ * {
+ *   qian: {
+ *     name: {
+ *       en: { primary: 'qian' },
+ *       vi: { primary: 'càn' },
+ *       zh_ch: { primary: '乾' },
+ *       zh_tw: { primary: '乾' },
+ *       ja: { kanji: '乾', hiragana: 'けん', katakana: 'ケン' },
+ *     },
+ *   },
+ * }
+ */
 const PALACE_NAMES = set_multi_helper(
   [
     [
@@ -107,6 +128,11 @@ const PALACE_NAMES = set_multi_helper(
  */
 export const PALACES = Object.freeze(PALACE_SEQUENCE);
 
+/**
+ * Structural definitions for each Nine Palace.
+ *
+ * @constant {Array.<Object>}
+ */
 const PALACE_DEFINITIONS = Object.freeze(
   [
     ['qian', 'northwest', 6],
@@ -126,6 +152,11 @@ const PALACE_DEFINITIONS = Object.freeze(
   }))
 );
 
+/**
+ * Cyclic iterator for palace sequence.
+ *
+ * @private
+ */
 const palace_cycle = create_cycle(PALACE_SEQUENCE);
 
 /**

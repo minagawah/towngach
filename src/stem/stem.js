@@ -1,3 +1,7 @@
+/**
+ * @module stem/stem
+ */
+
 import { create_cycle } from '../lib/cycle';
 import { set_multi_helper } from '../locale';
 
@@ -26,6 +30,11 @@ export const STEMS = Object.freeze([
   'gui',
 ]);
 
+/**
+ * The element associated with each Heavenly Stem in index order.
+ *
+ * @constant {Array.<string>}
+ */
 const STEM_ELEMENTS = Object.freeze([
   'wood',
   'wood',
@@ -39,6 +48,23 @@ const STEM_ELEMENTS = Object.freeze([
   'water',
 ]);
 
+/**
+ * Localization definitions for Ten Heavenly Stem names.
+ *
+ * @type {Object.<string, Object>}
+ * @example
+ * {
+ *   jia: {
+ *     name: {
+ *       en: { primary: 'jia' },
+ *       vi: { primary: 'giáp' },
+ *       zh_ch: { primary: '甲' },
+ *       zh_tw: { primary: '甲' },
+ *       ja: { kanji: '甲', hiragana: 'かのえ', katakana: 'カノエ' },
+ *     },
+ *   },
+ * }
+ */
 const STEM_NAMES = set_multi_helper(
   [
     [
@@ -171,6 +197,11 @@ export const STEM_DEFINITIONS = Object.freeze(
   )
 );
 
+/**
+ * Cyclic iterator for Heavenly Stems.
+ *
+ * @private
+ */
 const stem_cycle = create_cycle(STEMS);
 
 /**

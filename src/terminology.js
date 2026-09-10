@@ -1,3 +1,7 @@
+/**
+ * @module terminology
+ */
+
 import { set_multi_helper } from './locale';
 
 /**
@@ -41,6 +45,7 @@ const TERMINOLOGY = set_multi_helper(
     ['annual_result', 'annual result', '年家結果'],
     ['monthly_result', 'monthly result', '月家結果'],
     ['daily_result', 'daily result', '日家結果'],
+    ['hourly_result', 'hourly result', '時家結果'],
     ['unresolved', 'unresolved', '未定'],
     ['forward', 'forward flight', '順飛'],
     ['reverse', 'reverse flight', '逆飛'],

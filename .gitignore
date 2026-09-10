@@ -143,11 +143,10 @@ vite.config.ts.timestamp-*
 .vite/
 
 # project specific
+.continueignore
 .agents/
 .codex/
 copy/
 work/
-docs/procedures/
 memo.txt
 package-lock.json
-src/xxx/

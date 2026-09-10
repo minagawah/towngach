@@ -12,7 +12,7 @@
   "scripts": {
     "eslint": "eslint \"{src,src.check}/**/*.js\"",
     "eslint:fix": "eslint --fix \"{src,src.check,tools}/**/*.js\"",
-    "prettier": "prettier --write \"*.{js,md,json}\" \"{src,src.check,tools}/**/*.js\"",
+    "prettier": "prettier --write \"*.{js,md,json}\" \"{src,scripts}/**/*.js\"",
     "lint": "$npm_execpath run prettier && $npm_execpath run eslint:fix",
     "type:check": "tsc -p tsconfig.json",
     "type:generate": "rimraf types && tsc -p tsconfig.generate.json",

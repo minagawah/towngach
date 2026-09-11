@@ -1,581 +1,834 @@
 # Definitions and Reimplementation Notes
 
-This is a file for repository's logic specification, and is intended to preserve the current model of the supported and investigated calculation families so that the implementation can be reconstructed without relying only on source code.
+This file is the repository's logic specification. It preserves the current model of the supported and investigated calculation families so that the implementation can be reconstructed without relying only on source code.
 
-Status terms:
+It is also written for technically literate third parties who do not already know this project. Basic East Asian calendrical ideas are assumed only at a high level; the project-specific concepts needed to turn Hōkan (方鑑), Purple-White Nine Stars (紫白九星), and related traditions into deterministic software are explained here.
+
+## Status Terms
 
 - **Confirmed**: directly supported by examined material or an established implementation rule.
-- **Working interpretation**: a current repository interpretation that may later change.
+- **Documented**: explicitly described in a source, but not necessarily fully reconstructed as executable logic.
+- **Implemented**: represented in repository code and tests.
+- **Working interpretation**: current interpretation that may later change.
 - **Unresolved**: historically or computationally open; do not replace with a guessed algorithm.
 - **Future research**: a defined task that may change the implementation.
 
-The primary domain is **Purple-White Nine Stars (紫白九星)**, not the different Nine Stars of **Qimen Dunjia (奇門九星)**.
-
 ## 1. Shared Purple-White Core (紫白九星)
 
-- The common star identities are:
-  - **One White (一白)**
-  - **Two Black (二黒)**
-  - **Three Jade (三碧)**
-  - **Four Green (四緑)**
-  - **Five Yellow (五黄)**
-  - **Six White (六白)**
-  - **Seven Red (七赤)**
-  - **Eight White (八白)**
-  - **Nine Purple (九紫)**
-- The shared computational vocabulary includes:
-  - **Nine Palaces (九宮)**
-  - **Central Palace (中宮)**
-  - **Flying / Flight (飛泊 / 飛星)**
-  - **Forward Flight (順飛)**
-  - **Reverse Flight (逆飛)**
-  - **Three Epochs (三元)**
-  - **Sexagenary Cycle (干支 / 六十干支)**
-  - **Solar Terms (節気 / 二十四節気)**
-  - **Winter Solstice (冬至)** and **Summer Solstice (夏至)**
-- A star's numerical identity and its Nine-Palace position must be represented separately.
-- Generic cyclic movement should be reusable:
-  - determine a starting star,
-  - determine a starting palace or central reference,
-  - determine direction,
-  - advance by an offset,
-  - resolve the resulting state.
-- Forward and reverse movement should be explicit state or explicit strategy, not inferred from star number.
-- The four major calendrical levels are:
-  - annual calculation **(年家)**,
-  - monthly calculation **(月家)**,
-  - daily calculation **(日家)**,
-  - hourly calculation **(時家)**.
-- These levels share terminology but are not automatically one algorithm.
-- Two traditions may share the same Nine-Palace flight while differing in:
-  - initial star selection,
-  - Three-Epoch definition,
-  - Yin/Yang progression,
-  - calendrical boundary,
-  - sexagenary reference point,
-  - cycle reset or transformation.
-- Recommended result metadata:
-  - tradition,
-  - calendrical level,
-  - star,
-  - palace/flight position,
-  - epoch,
-  - direction,
-  - sexagenary context,
-  - boundary rule,
-  - boundary instant,
-  - status/confidence.
-- **Unresolved**:
-  - The exact Nine-Palace ordering must follow the repository implementation and tests; do not recreate it from generic memory without checking code.
-  - The word **Three Epochs (三元)** has different meanings in different traditions.
+The primary domain is **Purple-White Nine Stars (紫白九星)**, not the different Nine Stars of **Qimen Dunjia (奇門九星)**.
+
+### 1-1. Star identities
+
+1. **One White (一白)**
+2. **Two Black (二黒)**
+3. **Three Jade (三碧)**
+4. **Four Green (四緑)**
+5. **Five Yellow (五黄)**
+6. **Six White (六白)**
+7. **Seven Red (七赤)**
+8. **Eight White (八白)**
+9. **Nine Purple (九紫)**
+
+A star's numerical identity and its current Nine-Palace position (九宮) must be represented separately.
+
+### 1-2. Shared computational vocabulary
+
+- **Nine Palaces (九宮)**
+- **Central Palace (中宮)**
+- **Flying / Flight (飛泊 / 飛星)**
+- **Forward Flight (順飛)**
+- **Reverse Flight (逆飛)**
+- **Three Epochs / Three Origins (三元)**
+- **Sexagenary Cycle (干支 / 六十干支)**
+- **Solar Terms (節気 / 二十四節気)**
+- **Winter Solstice (冬至)** and **Summer Solstice (夏至)**
+
+A generic cyclic algorithm normally does:
+
+1. determine a starting state;
+2. determine direction;
+3. determine offset;
+4. advance through the cycle;
+5. resolve star/palace state.
+
+Conceptually:
+
+`resultIndex = mod(startIndex + direction * offset, cycleLength)`
+
+The historical palace order itself must follow repository code and tests, not generic memory.
+
+### 1-3. Four calendrical levels
+
+- annual calculation **(年家)**
+- monthly calculation **(月家)**
+- daily calculation **(日家)**
+- hourly calculation **(時家)**
+
+These share terminology but are not automatically one algorithm. Traditions may differ in starting stars, Three-Epoch definitions, Yin/Yang direction, calendrical boundaries, sexagenary reference points, and reset/transformation rules.
+
+Recommended result metadata:
+
+- `tradition`, `level`, `star`, `palace`, `epoch`, `direction`
+- `sexagenaryYear`, `sexagenaryMonth`, `sexagenaryDay`, `sexagenaryHour`
+- `boundaryRule`, `boundaryInstant`, `status`, `notes`
 
 ## 2. Classical Three-Epoch Purple-White (三元紫白)
 
-- This is a major classical family underlying many annual, monthly, daily, and hourly Purple-White calculations.
-- The four levels are structurally related but each has its own temporal cycle and starting rule.
+The annual, monthly, daily, and hourly levels are structurally related but each may have its own temporal cycle and starting rule.
 
-### 2-1. Annual Calculation (年家)
+### 2-1. Annual calculation (年家)
 
-- A major classical structure uses:
-  - one epoch = 60 years,
-  - three epochs = 180 years.
-- The annual result therefore belongs to a larger cycle than a civil year.
-- The implementation should separate:
-  - sexagenary year identity,
-  - epoch identity,
-  - initial annual star,
-  - resulting annual star.
+A major structure uses:
 
-### 2-2. Monthly Calculation (月家)
+- one epoch/origin **(一元)** = 60 years;
+- Upper Origin **(上元)** + Middle Origin **(中元)** + Lower Origin **(下元)** = 180 years.
 
-- Monthly logic may depend on:
-  - annual cycle,
-  - Earthly Branches **(地支)**,
-  - month establishment **(月建)**,
-  - sexagenary month sequence,
-  - selected month boundary.
-- Gregorian month numbers must not be treated as inherently equivalent to traditional month identities.
-- Possible boundaries include:
-  - lunar months,
-  - branch months,
-  - solar-term months,
-  - source-specific operational months.
+Implementation should separate sexagenary year identity, epoch identity, initial annual star, and resulting annual star.
 
-### 2-3. Daily Calculation (日家)
+### 2-2. Monthly calculation (月家)
 
-- A major classical model uses:
-  - 60 days = one epoch,
-  - 180 days = three epochs.
-- This is not the same as Qimen Dunjia's 15-day-style Three-Epoch division.
-- The sexagenary day is a primary structural component.
-- Daily systems may depend on:
-  - sexagenary day,
-  - daily epoch,
-  - initial star,
-  - direction,
-  - solstice/seasonal boundary.
+Monthly logic may depend on:
 
-### 2-4. Hourly Calculation (時家)
+- annual cycle;
+- Earthly Branches **(地支)**;
+- month establishment **(月建)**;
+- sexagenary month sequence;
+- selected month boundary.
 
-- Uses traditional double-hours **(時辰)** rather than merely civil clock hours.
-- One star may advance per double-hour depending on the tradition.
-- The day classification and traditional hour sequence may determine the epoch and starting state.
+A Gregorian month number is not inherently equivalent to a traditional month.
 
-### 2-5. Solstice and transition variants
+Possible boundaries:
 
-- Winter Solstice **(冬至)** is commonly associated with Yang progression **(陽遁)**.
-- Summer Solstice **(夏至)** is commonly associated with Yin progression **(陰遁)**.
-- Historical sources differ on exactly when the transition occurs.
-- Possible transition rules include:
-  - the solstice itself,
-  - a nearby Jia-Zi day **(甲子日)**,
-  - a before/after Jia-Zi rule,
-  - practical branch-day rules such as Zi-Wu-Mao-You **(子午卯酉)**.
-- The architecture should support multiple transition strategies.
+- lunar month;
+- branch month;
+- solar-term month **(節月)**;
+- source-specific operational month.
 
-## 3. Houkan (方鑑 / 方鑑紫白術)
+### 2-3. Daily calculation (日家)
 
-- **Houkan (方鑑)** is the repository's name for the Japanese directional Purple-White calculation family investigated through materials associated with:
-  - Matsura Kinkaku **(松浦琴鶴)**,
-  - Iida Tengai **(飯田天涯)**,
-  - Kikuchi Yosaku **(菊池要佐久)**,
-  - and related Houkan literature.
-- The repository must distinguish:
-  - documented rules,
-  - implementation interpretations,
-  - unresolved historical questions.
-- Houkan should not be replaced with modern Ki-gaku formulas merely because both use numbered Nine Stars.
+A major model uses:
 
-### 3-1. Solar-Term Boundaries (節気)
+- 60 days = one epoch;
+- 180 days = three epochs.
 
-- **Confirmed repository rule**:
-  - when examined Houkan material uses entry into a Solar Term **(節気 / 二十四節気)** as a boundary, use the actual astronomical transition instant.
-- The astronomical transition is supplied through the repository's sowngwala-js astronomy adapter.
-- Example:
-  - if transition = 05:00:00,
-  - 04:59:59 belongs to the previous interval,
-  - 05:00:00 belongs to the new interval.
-- Do not:
-  - round to midnight,
-  - replace the instant with a date-only boundary,
-  - invent leap adjustments for convenience.
+This must not be replaced by Qimen Dunjia's different Three-Epoch logic.
 
-### 3-2. Hourly Calculation (時家)
+### 2-4. Hourly calculation (時家)
 
-- **Confirmed Three-Epoch groups**:
-  - Upper / first group: `子午卯酉`
-  - Middle / second group: `寅申巳亥`
-  - Lower / third group: `辰戌丑未`
-- The investigated material confirms a **Jia-Ji condition (甲己)** used by the hourly logic.
-- **Yang progression (陽遁) starting stars**:
-  - first epoch → **One White (一白)**
-  - second epoch → **Seven Red (七赤)**
-  - third epoch → **Four Green (四緑)**
-- **Yin progression (陰遁) starting stars**:
-  - first epoch → **Nine Purple (九紫)**
-  - second epoch → **Three Jade (三碧)**
-  - third epoch → **Six White (六白)**
-- One epoch **(一元)** is:
-  - five days,
-  - equivalently sixty traditional double-hours.
-- One star advances per traditional double-hour.
-- Conceptual algorithm:
-  - determine traditional day/hour context,
-  - determine Three-Epoch group,
-  - determine Yin or Yang progression,
-  - select the corresponding starting star,
-  - count double-hour offsets,
-  - advance one star per offset in the selected direction.
+Traditional double-hours **(時辰)**, rather than ordinary civil clock hours, may be the relevant unit.
 
-### 3-3. Zi Hour Handling (子時)
+Conceptual algorithm:
 
-- The Zi hour must not be assigned to one universal civil-date rule without checking the historical distinction.
-- The examined material distinguishes concepts corresponding to:
-  - "tonight" **(今夜)**,
-  - "the following morning / this dawn" **(今暁)**.
-- Therefore the traditional day boundary must remain an explicit rule in the implementation.
-- Do not hide this logic inside generic JavaScript date handling.
+1. determine traditional day/hour context;
+2. determine Three-Epoch group;
+3. determine Yin progression **(陰遁)** or Yang progression **(陽遁)**;
+4. select starting star;
+5. count double-hour offsets;
+6. advance according to direction.
 
-### 3-4. Daily Calculation (日家)
+## 3. Hōkan (方鑑 / 方鑑紫白術)
 
-- The Houkan daily structure is intentionally **not** reduced to a simple fixed 180-day cycle.
-- The implementation recognizes:
-  - six seasonal periods **(六気)**,
-  - Yang progression **(陽遁)**,
-  - Yin progression **(陰遁)**.
-- The historical selection of the absolute Jia-Zi reference point remains **unresolved**.
-- Therefore:
-  - the sexagenary 60-day structure is recognized,
-  - seasonal and directional structure is recognized,
-  - but absolute synchronization must not be guessed.
+**Hōkan (方鑑)** is the repository's name for the Japanese directional Purple-White family investigated through material associated with:
 
-### 3-5. Matsura's Daily Three-Epoch Model from Bensetsu (弁説)
+- Matsura Kinkaku **(松浦琴鶴)**;
+- Iida Tengai **(飯田天涯)**;
+- Kikuchi Yosaku **(菊池要佐久)**;
+- related Hōkan literature.
 
-- The examined Bensetsu text describes six daily starting states:
-  - Winter Solstice **(冬至)** Jia-Zi → Yang Upper → **One White (一白)** in the Central Palace **(中宮)**.
-  - Rain Water **(雨水)** Jia-Zi → Yang Middle → **Seven Red (七赤)**.
-  - Grain Rain **(穀雨)** Jia-Zi → Yang Lower → **Four Green (四緑)**.
-  - Summer Solstice **(夏至)** Jia-Zi → Yin Upper → **Nine Purple (九紫)**.
-  - Limit of Heat **(処暑)** Jia-Zi → Yin Middle → **Three Jade (三碧)**.
-  - Frost Descent **(霜降)** Jia-Zi → Yin Lower → **Six White (六白)**.
-- Compact mapping:
-  - Yang Upper → 1,
-  - Yang Middle → 7,
-  - Yang Lower → 4,
-  - Yin Upper → 9,
-  - Yin Middle → 3,
-  - Yin Lower → 6.
-- The source discusses disagreement among older calendar books concerning:
-  - whether the Jia-Zi after a solstice is used,
-  - whether a Jia-Zi before/after a boundary is used,
-  - how the true origin should be established.
-- This disagreement is evidence that the repository must preserve variants rather than force one universal formula.
+The repository must distinguish:
+
+1. documented rules;
+2. implementation interpretations;
+3. unresolved historical questions.
+
+Hōkan must not be replaced with modern Ki-gaku formulas merely because both use numbered Nine Stars.
+
+### 3-1. Solar-Term boundaries (節気)
+
+When examined Hōkan material uses entry into a Solar Term **(節気 / 二十四節気)** as a boundary, use the actual astronomical transition instant.
+
+Example:
+
+- transition at `05:00:00`;
+- `04:59:59` belongs to the previous interval;
+- `05:00:00` belongs to the new interval.
+
+Do not round the transition to midnight or silently replace it with a date-only boundary.
+
+### 3-2. Hourly calculation (時家)
+
+Confirmed Three-Epoch groups:
+
+- Upper / first group: `子午卯酉`
+- Middle / second group: `寅申巳亥`
+- Lower / third group: `辰戌丑未`
+
+The investigated material also confirms a Jia-Ji condition **(甲己)** used by hourly logic.
+
+Yang progression **(陽遁)** starting stars:
+
+- first epoch → **One White (一白)**
+- second epoch → **Seven Red (七赤)**
+- third epoch → **Four Green (四緑)**
+
+Yin progression **(陰遁)** starting stars:
+
+- first epoch → **Nine Purple (九紫)**
+- second epoch → **Three Jade (三碧)**
+- third epoch → **Six White (六白)**
+
+One epoch/origin **(一元)** is:
+
+- five days;
+- sixty traditional double-hours.
+
+One star advances per traditional double-hour.
+
+### 3-3. Zi-hour handling (子時)
+
+The Zi hour must not be assigned one universal civil-date rule without checking the historical distinction.
+
+The examined material distinguishes concepts corresponding to:
+
+- “tonight” **(今夜)**;
+- “the following morning / this dawn” **(今暁)**.
+
+Therefore the traditional day boundary must remain explicit and must not be hidden inside generic JavaScript date handling.
+
+### 3-4. Daily calculation (日家)
+
+The Hōkan daily structure must not be reduced to a guessed fixed 180-day cycle.
+
+The implementation recognizes:
+
+- six seasonal periods **(六気)**;
+- Yang progression **(陽遁)**;
+- Yin progression **(陰遁)**;
+- the continuous sexagenary day cycle.
+
+The historical choice of the absolute Jia-Zi synchronization remains unresolved.
+
+### 3-5. Matsura's daily Three-Epoch model from Bensetsu (弁説)
+
+The examined Bensetsu text describes six daily starting states:
+
+- Winter Solstice **(冬至)** Jia-Zi → Yang Upper → **One White (一白)** in the Central Palace **(中宮)**.
+- Rain Water **(雨水)** Jia-Zi → Yang Middle → **Seven Red (七赤)**.
+- Grain Rain **(穀雨)** Jia-Zi → Yang Lower → **Four Green (四緑)**.
+- Summer Solstice **(夏至)** Jia-Zi → Yin Upper → **Nine Purple (九紫)**.
+- Limit of Heat **(処暑)** Jia-Zi → Yin Middle → **Three Jade (三碧)**.
+- Frost Descent **(霜降)** Jia-Zi → Yin Lower → **Six White (六白)**.
+
+Compact mapping:
+
+- Yang Upper → 1;
+- Yang Middle → 7;
+- Yang Lower → 4;
+- Yin Upper → 9;
+- Yin Middle → 3;
+- Yin Lower → 6.
+
+The source discusses disagreement among older calendar books concerning how the relevant Jia-Zi day should be selected. Preserve variants rather than forcing one universal formula.
 
 ### 3-6. Monthly Three Epochs (月家三元)
 
-- The examined Bensetsu material describes a monthly sexagenary cycle:
-  - Jia-Zi month **(甲子月)** through Gui-Hai month **(癸亥月)** = 60 months = one epoch **(一元)**.
-  - Three such epochs = 180 months.
-- The monthly structure is explicitly compared with the annual Three-Epoch structure.
-- The cycle returns to its origin after the larger sequence.
-- The text presents a simplified association using branch groups such as:
-  - Zi-Wu-Mao-You **(子午卯酉)**,
-  - Yin-Shen-Si-Hai **(寅申巳亥)**,
-  - Chen-Xu-Chou-Wei **(辰戌丑未)**,
-  while also indicating a deeper sexagenary method involving branch positions traditionally described through birth, flourishing, and storage/tomb relationships.
-- **Working interpretation**:
-  - monthly Three Epochs are a real 60-month/180-month structural layer and must not be reduced to ordinary month numbering.
-- **Unresolved**:
-  - the exact operational formula for every historical variant still requires reconstruction from source text and diagrams.
+The examined material describes:
 
-### 3-7. Five Tigers Rule (五虎遁) and Sexagenary Months
+- Jia-Zi month **(甲子月)** through Gui-Hai month **(癸亥月)** = 60 months = one epoch **(一元)**;
+- three such epochs = 180 months.
 
-- General sexagenary month logic is required to interpret Houkan historical statements.
-- For the Wu/Gui year-stem group **(戊癸)**, the Tiger month begins as Jia-Yin **(甲寅)**.
-- Advancing stems through branch months produces the relevant sexagenary month sequence, including:
-  - Zi month **(子月)** → Jia-Zi month **(甲子月)**,
-  - Chou month **(丑月)** → Yi-Chou month **(乙丑月)**,
-  under the relevant sequence.
-- This helps explain Matsura-style statements such as:
-  - previous eleventh month = Jia-Zi month,
-  - twelfth month = Yi-Chou month,
-  - following months continuing the sexagenary sequence.
-- **Critical caution**:
-  - traditional "eleventh month" is not automatically Gregorian November.
-  - possible meanings include branch month, lunar month, solar-term month, or source-specific month.
-- Boundary convention must be explicit in code and test vectors.
+The monthly structure is explicitly compared with the annual Three-Epoch structure.
 
-### 3-8. Current Jia-Zi Synchronization Research
+The text uses branch groups such as:
 
-- A central unresolved phrase in the investigated Houkan material concerns:
-  - Jia-Zi month **(甲子月)**,
-  - Jia-Zi day **(甲子日)**,
-  - circulation through sixty months **(六十箇月)**,
-  - transformation or renewal of day-star/sexagenary correspondence at monthly Three-Epoch beginnings.
-- Current research principles:
-  - distinguish sexagenary month from Gregorian month,
-  - verify candidate dates using reliable historical calendar data,
-  - never trust one online calendar alone,
-  - cross-check by sexagenary continuity and modulo-60 arithmetic.
-- A Jia-Zi month does not necessarily contain a Jia-Zi day.
-- Therefore "Jia-Zi month + Jia-Zi day" is an actual synchronization condition requiring date-level verification.
-- Meiji-period investigation has shown why source checking is essential:
-  - year labels, Gregorian years, lunar months, solar-term months, and day cycles can easily be mixed,
-  - even 1888 and 1988 can be confused by weak calendar search results.
-- Candidate synchronizations must become hard-coded anchors only after independent verification.
+- Zi-Wu-Mao-You **(子午卯酉)**;
+- Yin-Shen-Si-Hai **(寅申巳亥)**;
+- Chen-Xu-Chou-Wei **(辰戌丑未)**;
 
-### 3-9. Houkan Implementation Status
+while indicating deeper sexagenary logic involving branch positions traditionally described through birth, flourishing, and storage/tomb relationships.
 
-- Hourly calculation:
-  - structurally implemented from confirmed epoch groups and starting stars.
-- Solar-term boundary handling:
-  - implemented with actual astronomical transition instants.
-- Daily calculation:
-  - six-period and Yin/Yang framework represented,
-  - absolute historical Jia-Zi synchronization unresolved.
-- Monthly calculation:
-  - 60-month and 180-month structure documented,
-  - complete operational reconstruction remains under research.
-- Annual calculation:
-  - related Purple-White structures are known,
-  - exact Houkan-specific behavior should remain explicit rather than guessed.
+**Working interpretation:** monthly Three Epochs are a real 60-month/180-month structural layer and must not be reduced to ordinary month numbering.
 
-## 4. Nine-Star Ki-gaku (九星気学)
+### 3-7. Five Tigers Rule (五虎遁)
 
-- Ki-gaku is a modern Japanese Nine-Star family related to the broader Purple-White **(紫白)** and Nine-Palace **(九宮)** framework.
-- It should not be treated as entirely unrelated to Houkan, but neither should it be assumed identical.
-- Shared concepts may include:
-  - numbered Nine Stars,
-  - Nine Palaces,
-  - annual and monthly cycles,
-  - directional use.
-- Differences may include:
-  - year boundary,
-  - solar-term convention,
-  - daily rules,
-  - practical standardization,
-  - modern formula selection.
-- Implementation principle:
-  - reuse the generic Purple-White core where mechanics genuinely agree,
-  - define Ki-gaku-specific initialization and boundary rules separately.
-- Annual logic must distinguish:
-  - Gregorian year,
-  - astrological/calendrical year,
-  - annual star.
-- Monthly logic must distinguish:
-  - Gregorian month number,
-  - traditional/solar-term month identity,
-  - selected modern Ki-gaku convention.
-- Daily and hourly logic must not automatically inherit Matsura's unresolved Houkan synchronization.
-- **Future research**:
-  - define the exact Ki-gaku variant(s) intended by the repository,
-  - establish authoritative test vectors for all four levels.
+For the Wu/Gui year-stem group **(戊癸)**, the Tiger month begins as Jia-Yin **(甲寅)**. Advancing stems through branch months gives:
 
-## 5. Xuan Kong Flying Stars (玄空飛星)
+- 寅 = 甲寅;
+- 卯 = 乙卯;
+- 辰 = 丙辰;
+- 巳 = 丁巳;
+- 午 = 戊午;
+- 未 = 己未;
+- 申 = 庚申;
+- 酉 = 辛酉;
+- 戌 = 壬戌;
+- 亥 = 癸亥;
+- 子 = 甲子;
+- 丑 = 乙丑.
 
-- Xuan Kong Flying Stars are closely related through:
-  - Nine Palaces **(九宮)**,
-  - numbered stars,
-  - flying movement.
-- They should remain an independent calculation family where temporal structure differs.
-- **Critical distinction**:
-  - Three Epochs and Nine Periods **(三元九運)** is not automatically the same as the Three-Epoch divisions used by annual/monthly/daily/hourly Purple-White systems.
-- Reuse only genuinely common primitives:
-  - star identities where applicable,
-  - palace representation,
-  - cyclic movement,
-  - forward/reverse operations.
-- Keep independent:
-  - epoch/period definitions,
-  - chart construction,
-  - orientation rules,
-  - building/time references,
-  - tradition-specific starting rules.
-- **Future research**:
-  - define exact Xuan Kong variants before implementation.
+Therefore, in the relevant Wu/Gui year-stem group:
 
-## 6. Qimen Dunjia Separation Rule (奇門遁甲)
+- Zi month **(子月)** → Jia-Zi month **(甲子月)**;
+- Chou month **(丑月)** → Yi-Chou month **(乙丑月)**.
 
-- Purple-White Nine Stars **(紫白九星)** are not Qimen Nine Stars **(奇門九星)**.
-- Qimen stars such as Tian Peng **(天蓬)**, Tian Rui **(天芮)**, and Tian Chong **(天衝)** must not be substituted for One White through Nine Purple.
-- Qimen Three-Epoch logic must not be substituted for Purple-White daily Three-Epoch logic.
-- A Qimen-style 15-day structure is not a replacement for the Purple-White 60-day epoch.
-- Shared utilities may include:
-  - stems,
-  - branches,
-  - sexagenary indexing,
-  - date arithmetic,
-  - modular arithmetic.
-- Star domains and cycle engines must remain separate modules/namespaces.
+This explains Matsura-style examples such as:
 
-## 7. Sexagenary Calendar Infrastructure (干支暦)
+- previous eleventh month = Jia-Zi;
+- twelfth month = Yi-Chou;
+- following month = Bing-Yin.
 
-- The infrastructure should support sexagenary:
-  - year,
-  - month,
-  - day,
-  - hour.
-- Represent the cycle as indexed cyclic data, not merely concatenated display strings.
+**Critical caution:** “eleventh month” is not automatically Gregorian November.
 
-### 7-1. Month Stems
+## 4. The Jia-Zi Month / Jia-Zi Day Synchronization Problem (甲子月・甲子日)
 
-- Month-stem logic must support Five Tigers **(五虎遁)** or another explicitly selected rule.
-- Store separately:
-  - branch-month identity,
-  - month stem,
-  - full sexagenary month.
-- This is necessary because Jia-Zi month **(甲子月)** is a calendrical identity, not a Gregorian date label.
+A central phrase is:
 
-### 7-2. Boundary Conventions
+> 「甲子の月甲子の日に起、而して六十箇月の間を順逆次第に循環する」
 
-- Every calculation should declare the boundary convention when relevant:
-  - civil midnight,
-  - traditional day boundary,
-  - Zi-hour boundary,
-  - solar-term transition,
-  - lunar month boundary,
-  - branch-month boundary.
-- Never silently mix these conventions.
+Current working interpretation:
 
-### 7-3. Historical Verification
+- a relevant arrangement begins at a synchronization satisfying:
+  - month = Jia-Zi month **(甲子月)**;
+  - day = Jia-Zi day **(甲子日)**;
+- it then circulates through sixty months **(六十箇月)** according to forward/reverse order **(順逆次第)**.
 
-- Historical date verification should use:
-  - independent calendar sources,
-  - sexagenary continuity,
-  - modulo-60 arithmetic,
-  - explicit year/month/day conventions.
-- Common failure modes:
-  - century-digit mistakes,
-  - Gregorian/traditional year mixing,
-  - time-zone differences,
-  - lunar vs solar-term month confusion,
-  - different day-boundary conventions.
+### 4-1. Why this is a synchronization problem
 
-## 8. Solar-Term Astronomy (二十四節気)
+A Jia-Zi month is determined by sexagenary month rules.
 
-- Solar-term transitions are instants, not merely named calendar days.
-- Infrastructure should expose:
-  - term name,
-  - transition timestamp,
-  - normalized instant/time zone,
-  - interval before and after transition.
-- Test boundaries with:
-  - immediately before,
-  - exact transition,
-  - immediately after.
-- Required terms for current Houkan work include:
-  - Winter Solstice **(冬至)**,
-  - Rain Water **(雨水)**,
-  - Grain Rain **(穀雨)**,
-  - Summer Solstice **(夏至)**,
-  - Limit of Heat **(処暑)**,
-  - Frost Descent **(霜降)**.
+A Jia-Zi day is determined by the continuous 60-day cycle.
 
-## 9. Result Model and Explicit Uncertainty
+Therefore:
 
-- Results should preserve provenance and uncertainty.
-- Recommended fields:
-  - `tradition`,
-  - `level`,
-  - `star`,
-  - `palace`,
-  - `epoch`,
-  - `direction`,
-  - `sexagenaryYear`,
-  - `sexagenaryMonth`,
-  - `sexagenaryDay`,
-  - `sexagenaryHour`,
-  - `boundaryRule`,
-  - `boundaryInstant`,
-  - `status`,
-  - `notes`.
-- Recommended status values:
-  - `confirmed`,
-  - `documented`,
-  - `implemented`,
-  - `working-interpretation`,
-  - `unresolved`,
-  - `not-applicable`.
-- An unresolved historical rule should produce an explicit unresolved state rather than a fabricated result.
+`sexagenaryMonth(date) == Jia-Zi`
 
-## 10. Testing and Reimplementation Strategy
+and
 
-### 10-1. Shared primitives
+`sexagenaryDay(date) == Jia-Zi`
 
-- Test modulo-9 progression.
-- Test forward and reverse flight.
-- Test wrap-around.
-- Test star identity independently from palace position.
+are independent conditions.
 
-### 10-2. Sexagenary cycle
+A Jia-Zi month does not automatically contain a Jia-Zi day.
 
-- Test 60-step wrap-around.
-- Test consecutive day increments.
-- Test Five Tigers month-stem sequences.
-- Test branch month independently from Gregorian month.
+### 4-2. Desired implementation architecture
 
-### 10-3. Solar-term boundaries
+`solar-term calculation`
+→ `sexagenary month calculation`
+→ `sexagenary day calculation`
+→ `Jia-Zi synchronization test`
+→ `60-month forward/reverse cycle`
+→ `monthly/daily Nine-Star calculation`
 
-- Test exact astronomical transition instants.
-- Test before/exact/after states.
-- Test time-zone normalization.
-- Verify no rounding to midnight.
+Historical dates should be verification vectors, not the primary algorithm.
 
-### 10-4. Houkan hourly tests
+### 4-3. Jia-Zi month calculation
 
-- Test all three epoch branch groups.
-- Test Yang starts: 1, 7, 4.
-- Test Yin starts: 9, 3, 6.
-- Test one star per double-hour.
-- Test sixty double-hours / five-day epoch wrap.
-- Test Zi-hour historical boundary behavior.
+A sexagenary month can be calculated by:
 
-### 10-5. Houkan daily research tests
+1. determining the relevant solar-term month boundary;
+2. determining the branch month;
+3. deriving the month stem using Five Tigers **(五虎遁)**;
+4. combining stem and branch;
+5. testing for Jia-Zi **(甲子)**.
 
-- Do not encode a guessed Jia-Zi synchronization as confirmed.
-- Use separate fixtures for:
-  - documented seasonal states,
-  - documented epoch starts,
-  - candidate synchronizations,
-  - hypotheses.
-- Promote candidates to regression tests only after independent verification.
+Therefore Jia-Zi month detection does not inherently require a lookup table.
 
-### 10-6. Historical regression metadata
+### 4-4. Jia-Zi day calculation
 
-- Every historical fixture should record:
-  - source,
-  - calendar convention,
-  - time zone,
-  - exact input,
-  - expected result,
-  - confidence/status.
+The day sexagenary cycle is continuous.
 
-## 11. Current Research Backlog
+A general implementation can:
 
-- Establish a reliable historical calendar baseline for Meiji-period sexagenary dates.
-- Independently verify candidate Jia-Zi month/Jia-Zi day synchronization points.
-- Determine recurrence intervals of verified synchronizations.
-- Determine the exact algorithmic meaning of "circulate through sixty months" **(六十箇月)**.
-- Determine whether a 60-month interval:
-  - is an independent operating cycle,
-  - begins only at a synchronization point,
-  - resets at monthly Three-Epoch boundaries,
-  - or transforms rather than resets.
-- Determine the exact operational meaning of transformation/renewal of correspondence **(配遇を改華)** at monthly Three-Epoch starts.
-- Compare reconstructed algorithms with the historical diagrams and tables already examined.
-- Keep Matsura's **Hiden (秘伝)** and **Bensetsu (弁説)** separate until exact agreement/disagreement is demonstrated.
-- Treat Meiji 16/17 publication and contemporary practical use as a historical clue about computability, not as proof of a particular synchronization date.
-- Maintain a strict distinction among:
-  - source text,
-  - mathematical inference,
-  - historical calendar reconstruction,
-  - implementation decision.
+1. convert the date/time using an explicit day-boundary convention;
+2. derive a continuous day number;
+3. map that number to a sexagenary index modulo 60;
+4. test for Jia-Zi.
 
-## 12. Repository Maintenance Rules
+Conceptually:
 
-- Update this file whenever:
-  - a historical rule is confirmed,
-  - an unresolved problem is solved,
-  - a calculation family is added,
-  - a boundary convention changes,
-  - a test vector is accepted or rejected.
-- Preserve uncertainty history when it matters to reproducibility.
-- Do not silently rewrite an old hypothesis as if it had always been confirmed.
-- For each major update, preferably record:
-  - source-derived rule,
-  - implementation interpretation,
-  - unresolved issue,
-  - testing impact,
-  - migration impact.
-- If source code and this file disagree:
-  - inspect historical basis and tests,
-  - determine which is stale,
-  - do not assume executable code is automatically historically authoritative.
+`sexagenaryDayIndex = mod(dayNumber - epochOffset, 60)`
 
-## 13. Current Hard Boundaries Between Families
+The exact epoch constant and convention must be independently validated.
+
+### 4-5. Efficient synchronization test inside a Jia-Zi month
+
+If Jia-Zi is index `0` and the relevant starting day has index `i`:
+
+`offset = mod(60 - i, 60)`
+
+A synchronization occurs if the resulting Jia-Zi day lies inside the actual Jia-Zi-month interval.
+
+This reduces the problem from “search every day forever” to:
+
+1. identify Jia-Zi months;
+2. determine the day-cycle phase;
+3. calculate the next Jia-Zi offset;
+4. test the month interval.
+
+### 4-6. Boundary distinction
+
+The month begins at a solar-term instant, not necessarily at civil midnight.
+
+Therefore software must distinguish:
+
+- the astronomical transition instant;
+- the sexagenary day containing that instant;
+- the selected project convention for date-level daily classification.
+
+### 4-7. Unresolved
+
+The current research has not yet established:
+
+- a closed-form recurrence for all synchronizations;
+- the exact long-term recurrence pattern;
+- the exact relationship between synchronization points and Matsura's sixty-month cycle;
+- the exact operational meaning of **配遇改華**.
+
+## 5. Sixty Months (六十箇月) and Monthly Three Epochs
+
+The month system explicitly contains:
+
+- 60 months = one epoch **(一元)**;
+- Upper Origin **(上元)** + Middle Origin **(中元)** + Lower Origin **(下元)** = 180 months.
+
+The phrase:
+
+> 「六十箇月の間を順逆次第に循環する」
+
+must be compared with this explicit structure.
+
+Possible interpretations:
+
+- one arrangement lasts for one 60-month epoch;
+- each epoch has its own day-star pairing;
+- the 60-month period is a table cycle;
+- a 60-month boundary triggers transformation/renewal **(配遇改華)**;
+- synchronization is an anchor from which month offsets are counted.
+
+These remain hypotheses.
+
+## 6. Page22 / Table Reconstruction
+
+A previously analyzed table referred to as “page22” must eventually be connected to:
+
+- actual sexagenary day;
+- Nine Star;
+- forward/reverse arrangement **(順局 / 逆局)**;
+- monthly Three Epoch **(月家三元)**.
+
+A key phrase has been interpreted as implying that, at a monthly Three-Epoch boundary, the correspondence or pairing **(配遇)** between day stars and sexagenary structure is altered or renewed **(改華)**.
+
+Competing interpretations:
+
+- starting star changes;
+- star cycle continues but mapping changes;
+- calculation switches table layer;
+- operation re-synchronizes with a larger 60-month epoch.
+
+These require tests against consecutive dates and verified boundaries.
+
+## 7. Nine-Star Ki-gaku (九星気学)
+
+Ki-gaku is a modern Japanese Nine-Star family related to the broader Purple-White **(紫白)** and Nine-Palace **(九宮)** framework.
+
+Shared concepts may include:
+
+- numbered Nine Stars;
+- Nine Palaces;
+- annual and monthly cycles;
+- directional use.
+
+Differences may include:
+
+- year boundary;
+- solar-term convention;
+- daily rules;
+- practical standardization;
+- modern formula selection.
+
+Reuse generic Purple-White mechanics only where they genuinely agree. Daily and hourly Ki-gaku logic must not automatically inherit Matsura's unresolved Hōkan synchronization.
+
+## 8. Xuan Kong Flying Stars (玄空飛星)
+
+Xuan Kong Flying Stars are related through:
+
+- Nine Palaces **(九宮)**;
+- numbered stars;
+- flying movement.
+
+They remain an independent calculation family where temporal structure differs.
+
+**Critical distinction:** Three Epochs and Nine Periods **(三元九運)** is not automatically the same as the Three-Epoch structures used in annual/monthly/daily/hourly Purple-White systems.
+
+## 9. Qimen Dunjia Separation Rule (奇門遁甲)
+
+Purple-White Nine Stars **(紫白九星)** are not Qimen Nine Stars **(奇門九星)**.
+
+Qimen stars such as:
+
+- Tian Peng **(天蓬)**;
+- Tian Rui **(天芮)**;
+- Tian Chong **(天衝)**
+
+must not be substituted for One White through Nine Purple.
+
+Likewise:
+
+- Qimen Three-Epoch logic must not replace Purple-White Three-Epoch logic;
+- a Qimen-style 15-day structure is not a replacement for a Purple-White 60-day epoch.
+
+Shared utilities may include stems, branches, sexagenary indexing, date arithmetic, and modular arithmetic. Star domains and cycle engines must remain separate.
+
+## 10. Sexagenary Calendar Infrastructure (干支暦)
+
+The infrastructure should support sexagenary:
+
+- year;
+- month;
+- day;
+- hour.
+
+Represent cycles as indexed cyclic data, not merely concatenated display strings.
+
+### 10-1. Indexed representation
+
+Recommended:
+
+- `0..9` for Heavenly Stems **(十干)**;
+- `0..11` for Earthly Branches **(十二支)**;
+- `0..59` for the Sexagenary Cycle **(六十干支)**.
+
+### 10-2. Month stems
+
+Store separately:
+
+- branch-month identity;
+- month stem;
+- full sexagenary month.
+
+This is necessary because Jia-Zi month **(甲子月)** is a calendrical identity, not a Gregorian date label.
+
+### 10-3. Boundary conventions
+
+Every calculation should declare relevant boundaries:
+
+- civil midnight;
+- traditional day boundary;
+- Zi-hour boundary;
+- solar-term transition;
+- lunar month boundary;
+- branch-month boundary.
+
+Never silently mix them.
+
+### 10-4. Historical verification
+
+Use:
+
+- independent calendar sources;
+- sexagenary continuity;
+- modulo-60 arithmetic;
+- explicit year/month/day conventions.
+
+Common failures:
+
+- century-digit mistakes;
+- Gregorian/traditional year mixing;
+- time-zone differences;
+- lunar vs solar-term month confusion;
+- different day-boundary conventions.
+
+The 1888/1988 confusion discovered during this project is a concrete warning.
+
+## 11. Solar-Term Astronomy (二十四節気)
+
+Solar-term transitions are instants, not merely named dates.
+
+Infrastructure should expose:
+
+- term name;
+- transition timestamp;
+- normalized instant/time zone;
+- before/exact/after behavior.
+
+Important terms include:
+
+- Winter Solstice **(冬至)**;
+- Rain Water **(雨水)**;
+- Grain Rain **(穀雨)**;
+- Summer Solstice **(夏至)**;
+- Limit of Heat **(処暑)**;
+- Frost Descent **(霜降)**;
+- Major Snow **(大雪)**;
+- Minor Cold **(小寒)**.
+
+## 12. Result Model and Explicit Uncertainty
+
+Recommended fields:
+
+- `tradition`
+- `level`
+- `star`
+- `palace`
+- `epoch`
+- `direction`
+- `sexagenaryYear`
+- `sexagenaryMonth`
+- `sexagenaryDay`
+- `sexagenaryHour`
+- `boundaryRule`
+- `boundaryInstant`
+- `status`
+- `notes`
+
+Recommended status values:
+
+- `confirmed`
+- `documented`
+- `implemented`
+- `working-interpretation`
+- `unresolved`
+- `not-applicable`
+
+An unresolved historical rule should produce an explicit unresolved state rather than a fabricated result.
+
+## 13. Testing and Reimplementation Strategy
+
+### Shared primitives
+
+Test:
+
+- modulo-9 progression;
+- forward and reverse flight;
+- wrap-around;
+- star identity independently from palace position.
+
+### Sexagenary cycle
+
+Test:
+
+- 60-step wrap-around;
+- consecutive day increments;
+- Five Tigers month-stem sequences;
+- branch month independently from Gregorian month;
+- independent day-index calculation from a fixed epoch.
+
+### Solar-term boundaries
+
+Test:
+
+- exact astronomical transition instants;
+- before/exact/after states;
+- time-zone normalization;
+- no rounding to midnight.
+
+### Hōkan hourly tests
+
+Test:
+
+- all three epoch branch groups;
+- Yang starts: 1, 7, 4;
+- Yin starts: 9, 3, 6;
+- one star per double-hour;
+- sixty double-hours / five-day epoch wrap;
+- Zi-hour historical boundary behavior.
+
+### Hōkan daily/monthly research tests
+
+Do not encode a guessed synchronization as confirmed.
+
+Use separate fixtures for:
+
+- documented seasonal states;
+- documented epoch starts;
+- candidate synchronizations;
+- hypotheses.
+
+Promote candidates only after independent verification.
+
+## 14. Current Research Backlog
+
+- establish a reliable historical calendar baseline for Meiji dates;
+- independently verify Jia-Zi month/Jia-Zi day fixtures;
+- determine recurrence intervals and, if possible, a direct recurrence rule;
+- determine the exact meaning of **六十箇月**;
+- determine the operational meaning of **配遇改華**;
+- compare reconstructed algorithms with diagrams and tables;
+- keep Matsura's **Hiden (秘伝)** and **Bensetsu (弁説)** separate until agreement/disagreement is demonstrated;
+- continue literature search for prior work on sexagenary synchronization, recurrence, conjunction, **会合 / 會合**, **上元**, and **暦積 / 曆積**.
+
+## 15. Repository Maintenance Rules
+
+Update this file whenever:
+
+- a historical rule is confirmed;
+- an unresolved problem is solved;
+- a calculation family is added;
+- a boundary convention changes;
+- a test vector is accepted or rejected.
+
+Do not silently rewrite old hypotheses as if they had always been confirmed.
+
+Maintain a distinction among:
+
+- source text;
+- mathematical inference;
+- historical reconstruction;
+- implementation decision.
+
+## 16. Current Hard Boundaries Between Families
 
 - **Shared Purple-White Core (紫白九星)**:
-  - reusable star identities,
-  - cyclic arithmetic,
-  - Nine Palaces,
+  - reusable star identities;
+  - cyclic arithmetic;
+  - Nine Palaces;
   - forward/reverse flight.
+
 - **Classical Three-Epoch Purple-White (三元紫白)**:
-  - 60-unit and 180-unit structures,
+  - 60-unit and 180-unit structures;
   - historically variable transitions.
-- **Houkan (方鑑)**:
-  - Japanese directional Purple-White reconstruction,
-  - exact astronomical solar-term boundaries where documented,
-  - confirmed hourly groups and starting stars,
-  - unresolved absolute daily Jia-Zi synchronization.
+
+- **Hōkan (方鑑)**:
+  - Japanese directional Purple-White reconstruction;
+  - exact astronomical solar-term boundaries where documented;
+  - confirmed hourly groups and starting stars;
+  - unresolved absolute daily/monthly Jia-Zi synchronization.
+
 - **Nine-Star Ki-gaku (九星気学)**:
-  - related modern Japanese family,
+  - related modern Japanese family;
   - reuse only genuinely shared mechanics.
+
 - **Xuan Kong Flying Stars (玄空飛星)**:
-  - related flying-star family,
-  - Three Epochs/Nine Periods remains distinct from Purple-White Three-Epoch cycles.
+  - related flying-star family;
+  - Three Epochs/Nine Periods remains distinct.
+
 - **Qimen Dunjia (奇門遁甲)**:
-  - explicitly separate star domain,
-  - shared calendar utilities may be reused,
+  - explicitly separate star domain;
+  - shared calendar utilities may be reused;
   - star and epoch algorithms must not be conflated.
 
-This document is a living specification. It is intended to function as both a reimplementation map and a research ledger: it should make clear what is known, what is implemented, what is inferred, and what remains unresolved.
+---
+
+# References: Jia-Zi Month / Jia-Zi Day Synchronization Research
+
+This section records current research fixtures and supporting web sources. Status labels are important. A candidate must not be treated as a final historical epoch unless independently rechecked.
+
+## A. Current synchronization fixtures
+
+### 1. 1888-12-19 — Working historical fixture; re-verification required
+
+Working claim:
+
+- `戊子年・甲子月・甲子日`
+
+Status:
+
+- **working fixture / continued independent verification required**
+- 1888 = 戊子 and 1889 = 己丑 under the year sequence used here.
+- Earlier investigation contained an erroneous 1888/1988 source mix-up.
+- The candidate must not be discarded merely because that later contradictory claim used the wrong Gregorian year.
+
+Earlier research referred to DateDB and Bao Lam Dong calendar pages, but their exact URLs were not preserved in the currently available handoff text. They are therefore not reconstructed from memory here.
+
+### 2. 1958-12-13 — Confirmed working synchronization fixture
+
+Claim:
+
+- `戊戌年・甲子月・甲子日`
+
+Sources:
+
+- https://www.chinesecalendaronline.com/zh/1958/12/13.htm
+- https://www.kumokiri.net/data/1958/12.html
+
+Related boundary/day reference:
+
+- https://www.rili.com.cn/wannianli/1958/1207.html
+
+Note: the Major Snow **(大雪)** transition can occur late within a civil date, so sources may disagree on the month pillar for the entire transition date.
+
+### 3. 1968-12-20 — Confirmed working synchronization fixture
+
+Claim:
+
+- `戊申年・甲子月・甲子日`
+
+Source:
+
+- https://www.chinesecalendaronline.com/1968/12/
+
+### 4. 1978-12-28 — Confirmed working synchronization fixture
+
+Claim:
+
+- `戊午年・甲子月・甲子日`
+
+Source:
+
+- https://www.kumokiri.net/data/1978/12.html
+
+## B. Diagnostic non-synchronizing candidates
+
+### 1953-12-07
+
+Reported as:
+
+- `癸巳年・甲子月・壬辰日`
+
+Source:
+
+- https://m.life.httpcn.com/huangli_date/1953-12-7
+
+With `甲子 = 0`, `壬辰` has index 28.
+
+`offset = 60 - 28 = 32`
+
+The next Jia-Zi day therefore falls outside a normal Jia-Zi-month interval.
+
+### 1963-12-08
+
+Reported as:
+
+- `癸卯年・甲子月・乙酉日`
+
+Source:
+
+- https://m.life.httpcn.com/huangli_date/1963-12-8/
+
+With `甲子 = 0`, `乙酉` has index 21.
+
+`offset = 60 - 21 = 39`
+
+The next Jia-Zi day therefore falls outside a normal Jia-Zi-month interval.
+
+## C. Sources for underlying calculations
+
+- Sexagenary day-cycle validation:
+  https://wiki.openfate.ai/ja/bazi/calendar/sexagenary-day-cycle-validation
+
+- Chinese calendar / sexagenary calculation:
+  https://ytliu0.github.io/ChineseCalendar/sexagenary.html
+
+- Historical calendar mathematics:
+  https://www.kurims.kyoto-u.ac.jp/~kyodo/kokyuroku/contents/pdf/1787-02.pdf
+
+- Classical Chinese calendrical text:
+  https://ctext.org/wiki.pl?chapter=720301&if=gb
+
+- Month-cycle reference:
+  https://en.wikipedia.org/wiki/Sexagenary_cycle
+
+## D. Research rule for references
+
+Do not use one calendar website as the sole production authority.
+
+For any synchronization promoted to a permanent regression anchor:
+
+1. verify sexagenary year;
+2. verify sexagenary month using an explicit month-boundary convention;
+3. verify sexagenary day using an independent continuous-day calculation;
+4. record source URLs;
+5. record time zone and boundary rule;
+6. retain contradictory sources when they reveal a convention difference.
+
+This document is a living specification. It should make clear what is known, implemented, inferred, and unresolved.

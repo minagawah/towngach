@@ -2,7 +2,69 @@
 
 This file is the repository's logic specification. It preserves the current model of the supported and investigated calculation families so that the implementation can be reconstructed without relying only on source code.
 
-It is also written for technically literate third parties who do not already know this project. Basic East Asian calendrical ideas are assumed only at a high level; the project-specific concepts needed to turn Hōkan (方鑑), Purple-White Nine Stars (紫白九星), and related traditions into deterministic software are explained here.
+It is also written for technically literate third parties who do not already know this project. Basic East Asian calendrical ideas are assumed only at a high level; the project-specific concepts needed to turn Hōkan (方鑑 / fang-jian), Purple-White Nine Stars (紫白九星 / zi-bai-jiu-xing), and related traditions into deterministic software are explained here.
+
+## Table of Contents
+
+- [Status Terms](#status-terms)
+- [1. Shared Purple-White Core (紫白九星)](#1-shared-purple-white-core-紫白九星)
+  - [1-1. Star identities](#1-1-star-identities)
+  - [1-3. Four calendrical levels](#1-3-four-calendrical-levels)
+- [2. Classical Three-Epoch Purple-White (三元紫白)](#2-classical-three-epoch-purple-white-三元紫白)
+  - [2-1. Annual calculation (年家)](#2-1-annual-calculation-年家)
+  - [2-2. Monthly calculation (月家)](#2-2-monthly-calculation-月家)
+  - [2-3. Daily calculation (日家)](#2-3-daily-calculation-日家)
+  - [2-4. Hourly calculation (時家)](#2-4-hourly-calculation-時家)
+- [3. Hōkan (方鑑 / 方鑑紫白術)](#3-hōkan-方鑑-方鑑紫白術)
+  - [3-1. Solar-Term boundaries (節気)](#3-1-solar-term-boundaries-節気)
+  - [3-2. Hourly calculation (時家)](#3-2-hourly-calculation-時家)
+  - [3-3. Zi-hour handling (子時)](#3-3-zi-hour-handling-子時)
+  - [3-4. Daily calculation (日家)](#3-4-daily-calculation-日家)
+  - [3-5. Matsuura's daily Three-Epoch model from Bensetsu (弁説)](#3-5-matsuuras-daily-three-epoch-model-from-bensetsu-弁説)
+  - [3-6. Monthly Three Epochs (月家三元)](#3-6-monthly-three-epochs-月家三元)
+  - [3-7. Five Tigers Rule (五虎遁)](#3-7-five-tigers-rule-五虎遁)
+- [4. The Jia-Zi Month / Jia-Zi Day Synchronization Problem (甲子月・甲子日)](#4-the-jia-zi-month--jia-zi-day-synchronization-problem-甲子月甲子日)
+  - [4-1. Why this is a synchronization problem](#4-1-why-this-is-a-synchronization-problem)
+  - [4-2. Desired implementation architecture](#4-2-desired-implementation-architecture)
+  - [4-3. Jia-Zi month calculation](#4-3-jia-zi-month-calculation)
+  - [4-4. Jia-Zi day calculation](#4-4-jia-zi-day-calculation)
+  - [4-5. Efficient synchronization test inside a Jia-Zi month](#4-5-efficient-synchronization-test-inside-a-jia-zi-month)
+  - [4-6. Boundary distinction](#4-6-boundary-distinction)
+  - [4-7. Unresolved](#4-7-unresolved)
+- [5. Sixty Months (六十箇月) and Monthly Three Epochs](#5-sixty-months-六十箇月-and-monthly-three-epochs)
+- [6. Page22: Reconstruction of the Daily-Star Diagrams in Matsuura's Hiden (秘伝)](#6-page22-reconstruction-of-the-daily-star-diagrams-in-matsuuras-hiden-秘伝)
+  - [6-1. Monthly-to-daily connection in Matsuura's own statement](#6-1-monthly-to-daily-connection-in-matsuuras-own-statement)
+- [7. Nine-Star Kigaku (九星気学)](#7-nine-star-ki-gaku-九星気学)
+- [8. Xuan Kong Flying Stars (玄空飛星)](#8-xuan-kong-flying-stars-玄空飛星)
+- [9. Qimen Dunjia Separation Rule (奇門遁甲)](#9-qimen-dunjia-separation-rule-奇門遁甲)
+- [10. Sexagenary Calendar Infrastructure (干支暦)](#10-sexagenary-calendar-infrastructure-干支暦)
+  - [10-1. Indexed representation](#10-1-indexed-representation)
+  - [10-2. Month stems](#10-2-month-stems)
+  - [10-3. Boundary conventions](#10-3-boundary-conventions)
+  - [10-4. Historical verification](#10-4-historical-verification)
+- [11. Solar-Term Astronomy (二十四節気)](#11-solar-term-astronomy-二十四節気)
+- [12. Result Model and Explicit Uncertainty](#12-result-model-and-explicit-uncertainty)
+- [13. Testing and Reimplementation Strategy](#13-testing-and-reimplementation-strategy)
+  - [Shared primitives](#shared-primitives)
+  - [Sexagenary cycle](#sexagenary-cycle)
+  - [Solar-term boundaries](#solar-term-boundaries-1)
+  - [Hōkan hourly tests](#hōkan-hourly-tests)
+  - [Hōkan daily/monthly research tests](#hōkan-dailymonthly-research-tests)
+- [14. Current Research Backlog](#14-current-research-backlog)
+- [15. Repository Maintenance Rules](#15-repository-maintenance-rules)
+- [16. Current Hard Boundaries Between Families](#16-current-hard-boundaries-between-families)
+- [References: Jia-Zi Month / Jia-Zi Day Synchronization Research](#references-jia-zi-month--jia-zi-day-synchronization-research)
+  - [A. Current synchronization fixtures](#a-current-synchronization-fixtures)
+    - [1. 1888-12-19 — Working historical fixture; re-verification required](#1-1888-12-19--working-historical-fixture-re-verification-required)
+    - [2. 1958-12-13 — Confirmed working synchronization fixture](#2-1958-12-13--confirmed-working-synchronization-fixture)
+    - [3. 1968-12-20 — Confirmed working synchronization fixture](#3-1968-12-20--confirmed-working-synchronization-fixture)
+    - [4. 1978-12-28 — Confirmed working synchronization fixture](#4-1978-12-28--confirmed-working-synchronization-fixture)
+  - [B. Diagnostic non-synchronizing candidates](#b-diagnostic-non-synchronizing-candidates)
+    - [1953-12-07](#1953-12-07)
+    - [1963-12-08](#1963-12-08)
+  - [C. Sources for underlying calculations](#c-sources-for-underlying-calculations)
+  - [D. Research rule for references](#d-research-rule-for-references)
+  - [E. Comparative reference: 移宮接氣 / Daily Three-Epoch Purple-White](#e-comparative-reference-移宮接氣--daily-three-epoch-purple-white)
 
 ## Status Terms
 
@@ -15,54 +77,28 @@ It is also written for technically literate third parties who do not already kno
 
 ## 1. Shared Purple-White Core (紫白九星)
 
-The primary domain is **Purple-White Nine Stars (紫白九星)**, not the different Nine Stars of **Qimen Dunjia (奇門九星)**.
+The primary domain is **Purple-White Nine Stars (紫白九星 / zi-bai-jiu-xing)**, not the different Nine Stars of **Qimen Dunjia (奇門九星 / qi-men-jiu-xing)**.
 
 ### 1-1. Star identities
 
-1. **One White (一白)**
-2. **Two Black (二黒)**
-3. **Three Jade (三碧)**
-4. **Four Green (四緑)**
-5. **Five Yellow (五黄)**
-6. **Six White (六白)**
-7. **Seven Red (七赤)**
-8. **Eight White (八白)**
-9. **Nine Purple (九紫)**
+1. **One White (一白 / yi-bai)**
+2. **Two Black (二黒 / er-hei)**
+3. **Three Jade (三碧 / san-bi)**
+4. **Four Green (四緑 / si-lv)**
+5. **Five Yellow (五黄 / wu-huang)**
+6. **Six White (六白 / liu-bai)**
+7. **Seven Red (七赤 / qi-chi)**
+8. **Eight White (八白 / ba-bai)**
+9. **Nine Purple (九紫 / jiu-zi)**
 
-A star's numerical identity and its current Nine-Palace position (九宮) must be represented separately.
-
-### 1-2. Shared computational vocabulary
-
-- **Nine Palaces (九宮)**
-- **Central Palace (中宮)**
-- **Flying / Flight (飛泊 / 飛星)**
-- **Forward Flight (順飛)**
-- **Reverse Flight (逆飛)**
-- **Three Epochs / Three Origins (三元)**
-- **Sexagenary Cycle (干支 / 六十干支)**
-- **Solar Terms (節気 / 二十四節気)**
-- **Winter Solstice (冬至)** and **Summer Solstice (夏至)**
-
-A generic cyclic algorithm normally does:
-
-1. determine a starting state;
-2. determine direction;
-3. determine offset;
-4. advance through the cycle;
-5. resolve star/palace state.
-
-Conceptually:
-
-`resultIndex = mod(startIndex + direction * offset, cycleLength)`
-
-The historical palace order itself must follow repository code and tests, not generic memory.
+A star's numerical identity and its current Nine-Palace position (九宮 / jiu-gong) must be represented separately.
 
 ### 1-3. Four calendrical levels
 
-- annual calculation **(年家)**
-- monthly calculation **(月家)**
-- daily calculation **(日家)**
-- hourly calculation **(時家)**
+- annual calculation **(年家 / nian-jia)**
+- monthly calculation **(月家 / yue-jia)**
+- daily calculation **(日家 / ri-jia)**
+- hourly calculation **(時家 / shi-jia)**
 
 These share terminology but are not automatically one algorithm. Traditions may differ in starting stars, Three-Epoch definitions, Yin/Yang direction, calendrical boundaries, sexagenary reference points, and reset/transformation rules.
 
@@ -80,8 +116,8 @@ The annual, monthly, daily, and hourly levels are structurally related but each 
 
 A major structure uses:
 
-- one epoch/origin **(一元)** = 60 years;
-- Upper Origin **(上元)** + Middle Origin **(中元)** + Lower Origin **(下元)** = 180 years.
+- one epoch/origin **(一元 / yi-yuan)** = 60 years;
+- Upper Origin **(上元 / shang-yuan)** + Middle Origin **(中元 / zhong-yuan)** + Lower Origin **(下元 / xia-yuan)** = 180 years.
 
 Implementation should separate sexagenary year identity, epoch identity, initial annual star, and resulting annual star.
 
@@ -90,8 +126,8 @@ Implementation should separate sexagenary year identity, epoch identity, initial
 Monthly logic may depend on:
 
 - annual cycle;
-- Earthly Branches **(地支)**;
-- month establishment **(月建)**;
+- Earthly Branches **(地支 / di-zhi)**;
+- month establishment **(月建 / yue-jian)**;
 - sexagenary month sequence;
 - selected month boundary.
 
@@ -101,7 +137,7 @@ Possible boundaries:
 
 - lunar month;
 - branch month;
-- solar-term month **(節月)**;
+- solar-term month **(節月 / jie-yue)**;
 - source-specific operational month.
 
 ### 2-3. Daily calculation (日家)
@@ -115,22 +151,22 @@ This must not be replaced by Qimen Dunjia's different Three-Epoch logic.
 
 ### 2-4. Hourly calculation (時家)
 
-Traditional double-hours **(時辰)**, rather than ordinary civil clock hours, may be the relevant unit.
+Traditional double-hours **(時辰 / shi-chen)**, rather than ordinary civil clock hours, may be the relevant unit.
 
 Conceptual algorithm:
 
 1. determine traditional day/hour context;
 2. determine Three-Epoch group;
-3. determine Yin progression **(陰遁)** or Yang progression **(陽遁)**;
+3. determine Yin progression **(陰遁 / yin-dun)** or Yang progression **(陽遁 / yang-dun)**;
 4. select starting star;
 5. count double-hour offsets;
 6. advance according to direction.
 
 ## 3. Hōkan (方鑑 / 方鑑紫白術)
 
-**Hōkan (方鑑)** is the repository's name for the Japanese directional Purple-White family investigated through material associated with:
+**Hōkan (方鑑 / fang-jian)** is the repository's name for the Japanese directional Purple-White family investigated through material associated with:
 
-- Matsura Kinkaku **(松浦琴鶴)**;
+- Matsuura Kinkaku **(松浦琴鶴)**;
 - Iida Tengai **(飯田天涯)**;
 - Kikuchi Yosaku **(菊池要佐久)**;
 - related Hōkan literature.
@@ -141,11 +177,11 @@ The repository must distinguish:
 2. implementation interpretations;
 3. unresolved historical questions.
 
-Hōkan must not be replaced with modern Ki-gaku formulas merely because both use numbered Nine Stars.
+Hōkan must not be replaced with modern Kigaku formulas merely because both use numbered Nine Stars.
 
 ### 3-1. Solar-Term boundaries (節気)
 
-When examined Hōkan material uses entry into a Solar Term **(節気 / 二十四節気)** as a boundary, use the actual astronomical transition instant.
+When examined Hōkan material uses entry into a Solar Term **(節気 / 二十四節気 / jie-qi)** as a boundary, use the actual astronomical transition instant.
 
 Example:
 
@@ -163,21 +199,21 @@ Confirmed Three-Epoch groups:
 - Middle / second group: `寅申巳亥`
 - Lower / third group: `辰戌丑未`
 
-The investigated material also confirms a Jia-Ji condition **(甲己)** used by hourly logic.
+The investigated material also confirms a Jia-Ji condition **(甲己 / jia-ji)** used by hourly logic.
 
-Yang progression **(陽遁)** starting stars:
+Yang progression **(陽遁 / yang-dun)** starting stars:
 
-- first epoch → **One White (一白)**
-- second epoch → **Seven Red (七赤)**
-- third epoch → **Four Green (四緑)**
+- first epoch → **One White (一白 / yi-bai)**
+- second epoch → **Seven Red (七赤 / qi-chi)**
+- third epoch → **Four Green (四緑 / si-lv)**
 
-Yin progression **(陰遁)** starting stars:
+Yin progression **(陰遁 / yin-dun)** starting stars:
 
-- first epoch → **Nine Purple (九紫)**
-- second epoch → **Three Jade (三碧)**
-- third epoch → **Six White (六白)**
+- first epoch → **Nine Purple (九紫 / jiu-zi)**
+- second epoch → **Three Jade (三碧 / san-bi)**
+- third epoch → **Six White (六白 / liu-bai)**
 
-One epoch/origin **(一元)** is:
+One epoch/origin **(一元 / yi-yuan)** is:
 
 - five days;
 - sixty traditional double-hours.
@@ -190,8 +226,8 @@ The Zi hour must not be assigned one universal civil-date rule without checking 
 
 The examined material distinguishes concepts corresponding to:
 
-- “tonight” **(今夜)**;
-- “the following morning / this dawn” **(今暁)**.
+- “tonight” **(今夜 / jin-ye)**;
+- “the following morning / this dawn” **(今暁 / jin-xiao)**.
 
 Therefore the traditional day boundary must remain explicit and must not be hidden inside generic JavaScript date handling.
 
@@ -201,23 +237,23 @@ The Hōkan daily structure must not be reduced to a guessed fixed 180-day cycle.
 
 The implementation recognizes:
 
-- six seasonal periods **(六気)**;
-- Yang progression **(陽遁)**;
-- Yin progression **(陰遁)**;
+- six seasonal periods **(六気 / liu-qi)**;
+- Yang progression **(陽遁 / yang-dun)**;
+- Yin progression **(陰遁 / yin-dun)**;
 - the continuous sexagenary day cycle.
 
 The historical choice of the absolute Jia-Zi synchronization remains unresolved.
 
-### 3-5. Matsura's daily Three-Epoch model from Bensetsu (弁説)
+### 3-5. Matsuura's daily Three-Epoch model from Bensetsu (弁説)
 
 The examined Bensetsu text describes six daily starting states:
 
-- Winter Solstice **(冬至)** Jia-Zi → Yang Upper → **One White (一白)** in the Central Palace **(中宮)**.
-- Rain Water **(雨水)** Jia-Zi → Yang Middle → **Seven Red (七赤)**.
-- Grain Rain **(穀雨)** Jia-Zi → Yang Lower → **Four Green (四緑)**.
-- Summer Solstice **(夏至)** Jia-Zi → Yin Upper → **Nine Purple (九紫)**.
-- Limit of Heat **(処暑)** Jia-Zi → Yin Middle → **Three Jade (三碧)**.
-- Frost Descent **(霜降)** Jia-Zi → Yin Lower → **Six White (六白)**.
+- Winter Solstice **(冬至 / dong-zhi)** Jia-Zi → Yang Upper → **One White (一白 / yi-bai)** in the Central Palace **(中宮 / zhong-gong)**.
+- Rain Water **(雨水 / yu-shui)** Jia-Zi → Yang Middle → **Seven Red (七赤 / qi-chi)**.
+- Grain Rain **(穀雨 / gu-yu)** Jia-Zi → Yang Lower → **Four Green (四緑 / si-lv)**.
+- Summer Solstice **(夏至 / xia-zhi)** Jia-Zi → Yin Upper → **Nine Purple (九紫 / jiu-zi)**.
+- Limit of Heat **(処暑 / chu-shu)** Jia-Zi → Yin Middle → **Three Jade (三碧 / san-bi)**.
+- Frost Descent **(霜降 / shuang-jiang)** Jia-Zi → Yin Lower → **Six White (六白 / liu-bai)**.
 
 Compact mapping:
 
@@ -234,16 +270,16 @@ The source discusses disagreement among older calendar books concerning how the 
 
 The examined material describes:
 
-- Jia-Zi month **(甲子月)** through Gui-Hai month **(癸亥月)** = 60 months = one epoch **(一元)**;
+- Jia-Zi month **(甲子月 / jia-zi-yue)** through Gui-Hai month **(癸亥月 / gui-hai-yue)** = 60 months = one epoch **(一元 / yi-yuan)**;
 - three such epochs = 180 months.
 
 The monthly structure is explicitly compared with the annual Three-Epoch structure.
 
 The text uses branch groups such as:
 
-- Zi-Wu-Mao-You **(子午卯酉)**;
-- Yin-Shen-Si-Hai **(寅申巳亥)**;
-- Chen-Xu-Chou-Wei **(辰戌丑未)**;
+- Zi-Wu-Mao-You **(子午卯酉 / zi-wu-mao-you)**;
+- Yin-Shen-Si-Hai **(寅申巳亥 / yin-shen-si-hai)**;
+- Chen-Xu-Chou-Wei **(辰戌丑未 / chen-xu-chou-wei)**;
 
 while indicating deeper sexagenary logic involving branch positions traditionally described through birth, flourishing, and storage/tomb relationships.
 
@@ -251,7 +287,7 @@ while indicating deeper sexagenary logic involving branch positions traditionall
 
 ### 3-7. Five Tigers Rule (五虎遁)
 
-For the Wu/Gui year-stem group **(戊癸)**, the Tiger month begins as Jia-Yin **(甲寅)**. Advancing stems through branch months gives:
+For the Wu/Gui year-stem group **(戊癸 / wu-gui)**, the Tiger month begins as Jia-Yin **(甲寅 / jia-yin)**. Advancing stems through branch months gives:
 
 - 寅 = 甲寅;
 - 卯 = 乙卯;
@@ -268,10 +304,10 @@ For the Wu/Gui year-stem group **(戊癸)**, the Tiger month begins as Jia-Yin *
 
 Therefore, in the relevant Wu/Gui year-stem group:
 
-- Zi month **(子月)** → Jia-Zi month **(甲子月)**;
-- Chou month **(丑月)** → Yi-Chou month **(乙丑月)**.
+- Zi month **(子月 / zi-yue)** → Jia-Zi month **(甲子月 / jia-zi-yue)**;
+- Chou month **(丑月 / chou-yue)** → Yi-Chou month **(乙丑月 / yi-chou-yue)**.
 
-This explains Matsura-style examples such as:
+This explains Matsuura-style examples such as:
 
 - previous eleventh month = Jia-Zi;
 - twelfth month = Yi-Chou;
@@ -283,14 +319,17 @@ This explains Matsura-style examples such as:
 
 A central phrase is:
 
-> 「甲子の月甲子の日に起、而して六十箇月の間を順逆次第に循環する」
+> 「日の三元九星は、其(その)始、甲子の月・甲子の日に起(おこる)、
+> 而(しか)して六十箇月の間を、順逆(じゆんぎやく)次第(しだい)に循環(じゆんかん)する」
 
-Current working interpretation:
+Current working interpretation, based on
+Matsuura Kinkaku's (松浦琴鶴 / song-pu-qin-he) **"Hiden"** ("方鑑秘伝集", Dec.1883 edition / fang-jian-mi-chuan-ji) text,
+and its daily-start diagram  reconstruction:
 
 - a relevant arrangement begins at a synchronization satisfying:
-  - month = Jia-Zi month **(甲子月)**;
-  - day = Jia-Zi day **(甲子日)**;
-- it then circulates through sixty months **(六十箇月)** according to forward/reverse order **(順逆次第)**.
+  - month = Jia-Zi month **(甲子月 / jia-zi-yue)**;
+  - day = Jia-Zi day **(甲子日 / jia-zi-ri)**;
+- it then circulates through sixty months **(六十箇月 / liu-shi-ge-yue)** according to forward/reverse order **(順逆次第 / shun-ni-ci-di)**.
 
 ### 4-1. Why this is a synchronization problem
 
@@ -327,9 +366,9 @@ A sexagenary month can be calculated by:
 
 1. determining the relevant solar-term month boundary;
 2. determining the branch month;
-3. deriving the month stem using Five Tigers **(五虎遁)**;
+3. deriving the month stem using Five Tigers **(五虎遁 / wu-hu-dun)**;
 4. combining stem and branch;
-5. testing for Jia-Zi **(甲子)**.
+5. testing for Jia-Zi **(甲子 / jia-zi)**.
 
 Therefore Jia-Zi month detection does not inherently require a lookup table.
 
@@ -381,19 +420,19 @@ The current research has not yet established:
 
 - a closed-form recurrence for all synchronizations;
 - the exact long-term recurrence pattern;
-- the exact relationship between synchronization points and Matsura's sixty-month cycle;
-- the exact operational meaning of **配遇改華**.
+- the exact relationship between synchronization points and Matsuura's sixty-month cycle;
+- the exact operational meaning of **配遇改革**.
 
 ## 5. Sixty Months (六十箇月) and Monthly Three Epochs
 
 The month system explicitly contains:
 
-- 60 months = one epoch **(一元)**;
-- Upper Origin **(上元)** + Middle Origin **(中元)** + Lower Origin **(下元)** = 180 months.
+- 60 months = one epoch **(一元 / yi-yuan)**;
+- Upper Origin **(上元 / shang-yuan)** + Middle Origin **(中元 / zhong-yuan)** + Lower Origin **(下元 / xia-yuan)** = 180 months.
 
 The phrase:
 
-> 「六十箇月の間を順逆次第に循環する」
+> 「六十箇月の間を、順逆(じゆんぎやく)次第(しだい)に循環(じゆんかん)する」
 
 must be compared with this explicit structure.
 
@@ -402,34 +441,57 @@ Possible interpretations:
 - one arrangement lasts for one 60-month epoch;
 - each epoch has its own day-star pairing;
 - the 60-month period is a table cycle;
-- a 60-month boundary triggers transformation/renewal **(配遇改華)**;
+- a 60-month boundary triggers transformation/renewal **(配遇改革 / pei-yu-gai-ge)**;
 - synchronization is an anchor from which month offsets are counted.
 
 These remain hypotheses.
 
-## 6. Page22 / Table Reconstruction
+## 6. Page22: Reconstruction of the Daily-Star Diagrams in Matsuura's Hiden (秘伝)
 
-A previously analyzed table referred to as “page22” must eventually be connected to:
+There are daily-start diagrams on the relevant page
+of Matsuura Kinkaku's (松浦琴鶴 / song-pu-qin-he) **"Hiden"**,
+fixed for this research as "方鑑秘伝集" (Dec.1883 edition).
+It is not an independent modern reference table.
+The purpose of the workbook is to expose the internal structure of
+Matsuura's printed daily-star diagrams
+in a form that can be tested computationally.
 
-- actual sexagenary day;
-- Nine Star;
-- forward/reverse arrangement **(順局 / 逆局)**;
-- monthly Three Epoch **(月家三元)**.
+The workbook contains two sheets, `left` and `right`. Their common structure is significant:
 
-A key phrase has been interpreted as implying that, at a monthly Three-Epoch boundary, the correspondence or pairing **(配遇)** between day stars and sexagenary structure is altered or renewed **(改華)**.
+- the upper three rows contain three nine-star sequences;
+- the `left` sheet gives the reverse-running side, with starting stars **Nine Purple → Six White → Three Jade**;
+- the `right` sheet gives the forward-running side, with starting stars **One White → Four Green → Seven Red**;
+- the lower rows contain palace sequences and the corresponding sexagenary-day arrangement;
+- the sexagenary-day arrangement is shared between the two sheets.
 
-Competing interpretations:
+The current reconstruction therefore treats `left` and `right` as two directional/phase arrangements applied to the same sexagenary-day framework, rather than as unrelated day tables. The exact selection and transformation rule is still under investigation.
 
-- starting star changes;
-- star cycle continues but mapping changes;
-- calculation switches table layer;
-- operation re-synchronizes with a larger 60-month epoch.
+### 6-1. Monthly-to-daily connection in Matsuura's own statement
 
-These require tests against consecutive dates and verified boundaries.
+The central problem is not merely to compare diagrams. Matsuura explicitly connects the daily arrangement to the monthly Three-Epoch structure. In the examined **Hiden** passage he writes:
 
-## 7. Nine-Star Ki-gaku (九星気学)
+> 「日の三元九星は其始甲子の月甲子の日に起而して六十箇月の間を順逆次第に循環する…月三元の首毎に日星干支の配遇改革して用るを例とす」
 
-Ki-gaku is a modern Japanese Nine-Star family related to the broader Purple-White **(紫白)** and Nine-Palace **(九宮)** framework.
+For implementation purposes, the currently established reading is:
+
+- the relevant daily arrangement begins from a **Jia-Zi month / Jia-Zi day** condition;
+- it circulates through **sixty months** in forward/reverse order;
+- at each beginning of a monthly Three Epoch **(月三元の首 / yue-san-yuan)**, the pairing **(配遇 / pei-yu)** of daily stars and sexagenary structure is **transformed/renewed (改革 / gai-ge)**.
+
+This passage is direct evidence that the monthly and daily layers must be investigated as connected parts of Matsuura's method. It does **not yet** prove which exact computational operation implements **配遇改革**. The remaining task is to recover that operation from Matsuura's text and diagrams, especially the said "daily-star diagrams" (of Matsuura's) reconstruction, without replacing it with a rule borrowed from another tradition.
+
+Current competing implementation hypotheses remain:
+
+- the starting star changes;
+- the direction/phase changes while the sexagenary-day framework remains fixed;
+- the star-to-day pairing changes at the monthly Three-Epoch boundary;
+- a larger sixty-month cycle re-synchronizes the arrangement.
+
+These hypotheses must be tested against the actual diagram structure and verified month/day boundaries.
+
+## 7. Nine-Star Kigaku (九星気学)
+
+Kigaku is a modern Japanese Nine-Star family related to the broader Purple-White **(紫白 / zi-bai)** and Nine-Palace **(九宮 / jiu-gong)** framework.
 
 Shared concepts may include:
 
@@ -446,29 +508,29 @@ Differences may include:
 - practical standardization;
 - modern formula selection.
 
-Reuse generic Purple-White mechanics only where they genuinely agree. Daily and hourly Ki-gaku logic must not automatically inherit Matsura's unresolved Hōkan synchronization.
+Reuse generic Purple-White mechanics only where they genuinely agree. Daily and hourly Kigaku logic must not automatically inherit Matsuura's unresolved Hōkan synchronization.
 
 ## 8. Xuan Kong Flying Stars (玄空飛星)
 
 Xuan Kong Flying Stars are related through:
 
-- Nine Palaces **(九宮)**;
+- Nine Palaces **(九宮 / jiu-gong)**;
 - numbered stars;
 - flying movement.
 
 They remain an independent calculation family where temporal structure differs.
 
-**Critical distinction:** Three Epochs and Nine Periods **(三元九運)** is not automatically the same as the Three-Epoch structures used in annual/monthly/daily/hourly Purple-White systems.
+**Critical distinction:** Three Epochs and Nine Periods **(三元九運 / san-yuan-jiu-yun)** is not automatically the same as the Three-Epoch structures used in annual/monthly/daily/hourly Purple-White systems.
 
 ## 9. Qimen Dunjia Separation Rule (奇門遁甲)
 
-Purple-White Nine Stars **(紫白九星)** are not Qimen Nine Stars **(奇門九星)**.
+Purple-White Nine Stars **(紫白九星 / zi-bai-jiu-xing)** are not Qimen Nine Stars **(奇門九星 / qi-men-jiu-xing)**.
 
 Qimen stars such as:
 
-- Tian Peng **(天蓬)**;
-- Tian Rui **(天芮)**;
-- Tian Chong **(天衝)**
+- Tian Peng **(天蓬 / tian-peng)**;
+- Tian Rui **(天芮 / tian-rui)**;
+- Tian Chong **(天衝 / tian-chong)**
 
 must not be substituted for One White through Nine Purple.
 
@@ -494,9 +556,9 @@ Represent cycles as indexed cyclic data, not merely concatenated display strings
 
 Recommended:
 
-- `0..9` for Heavenly Stems **(十干)**;
-- `0..11` for Earthly Branches **(十二支)**;
-- `0..59` for the Sexagenary Cycle **(六十干支)**.
+- `0..9` for Heavenly Stems **(十干 / shi-gan)**;
+- `0..11` for Earthly Branches **(十二支 / shi-er-zhi)**;
+- `0..59` for the Sexagenary Cycle **(六十干支 / liu-shi-gan-zhi)**.
 
 ### 10-2. Month stems
 
@@ -506,7 +568,7 @@ Store separately:
 - month stem;
 - full sexagenary month.
 
-This is necessary because Jia-Zi month **(甲子月)** is a calendrical identity, not a Gregorian date label.
+This is necessary because Jia-Zi month **(甲子月 / jia-zi-yue)** is a calendrical identity, not a Gregorian date label.
 
 ### 10-3. Boundary conventions
 
@@ -553,14 +615,14 @@ Infrastructure should expose:
 
 Important terms include:
 
-- Winter Solstice **(冬至)**;
-- Rain Water **(雨水)**;
-- Grain Rain **(穀雨)**;
-- Summer Solstice **(夏至)**;
-- Limit of Heat **(処暑)**;
-- Frost Descent **(霜降)**;
-- Major Snow **(大雪)**;
-- Minor Cold **(小寒)**.
+- Winter Solstice **(冬至 / dong-zhi)**;
+- Rain Water **(雨水 / yu-shui)**;
+- Grain Rain **(穀雨 / gu-yu)**;
+- Summer Solstice **(夏至 / xia-zhi)**;
+- Limit of Heat **(処暑 / chu-shu)**;
+- Frost Descent **(霜降 / shuang-jiang)**;
+- Major Snow **(大雪 / da-xue)**;
+- Minor Cold **(小寒 / xiao-han)**.
 
 ## 12. Result Model and Explicit Uncertainty
 
@@ -648,14 +710,14 @@ Promote candidates only after independent verification.
 
 ## 14. Current Research Backlog
 
-- establish a reliable historical calendar baseline for Meiji dates;
-- independently verify Jia-Zi month/Jia-Zi day fixtures;
-- determine recurrence intervals and, if possible, a direct recurrence rule;
-- determine the exact meaning of **六十箇月**;
-- determine the operational meaning of **配遇改華**;
-- compare reconstructed algorithms with diagrams and tables;
-- keep Matsura's **Hiden (秘伝)** and **Bensetsu (弁説)** separate until agreement/disagreement is demonstrated;
-- continue literature search for prior work on sexagenary synchronization, recurrence, conjunction, **会合 / 會合**, **上元**, and **暦積 / 曆積**.
+- Establish a reliable historical calendar baseline for Meiji dates;
+- Independently verify Jia-Zi month/Jia-Zi day fixtures;
+- Determine recurrence intervals and, if possible, a direct recurrence rule;
+- Determine the exact meaning of **六十箇月**;
+- Determine the operational meaning of **配遇改革**;
+- Compare reconstructed algorithms with diagrams and tables;
+- Keep Matsuura's **Hiden (秘伝 / mi-chuan)** and **Bensetsu (弁説 / bian-shuo)** separate until agreement/disagreement is demonstrated;
+- Continue literature search for prior work on sexagenary synchronization, recurrence, conjunction, **会合 / 會合**, **上元**, and **暦積 / 曆積**.
 
 ## 15. Repository Maintenance Rules
 
@@ -678,31 +740,31 @@ Maintain a distinction among:
 
 ## 16. Current Hard Boundaries Between Families
 
-- **Shared Purple-White Core (紫白九星)**:
+- **Shared Purple-White Core (紫白九星 / zi-bai-jiu-xing)**:
   - reusable star identities;
   - cyclic arithmetic;
   - Nine Palaces;
   - forward/reverse flight.
 
-- **Classical Three-Epoch Purple-White (三元紫白)**:
+- **Classical Three-Epoch Purple-White (三元紫白 / san-yuan-zi-bai)**:
   - 60-unit and 180-unit structures;
   - historically variable transitions.
 
-- **Hōkan (方鑑)**:
+- **Hōkan (方鑑 / fang-jian)**:
   - Japanese directional Purple-White reconstruction;
   - exact astronomical solar-term boundaries where documented;
   - confirmed hourly groups and starting stars;
   - unresolved absolute daily/monthly Jia-Zi synchronization.
 
-- **Nine-Star Ki-gaku (九星気学)**:
+- **Nine-Star Kigaku (九星気学 / jiu-xing-qi-xue)**:
   - related modern Japanese family;
   - reuse only genuinely shared mechanics.
 
-- **Xuan Kong Flying Stars (玄空飛星)**:
+- **Xuan Kong Flying Stars (玄空飛星 / xuan-kong-fei-xing)**:
   - related flying-star family;
   - Three Epochs/Nine Periods remains distinct.
 
-- **Qimen Dunjia (奇門遁甲)**:
+- **Qimen Dunjia (奇門遁甲 / qi-men-dun-jia)**:
   - explicitly separate star domain;
   - shared calendar utilities may be reused;
   - star and epoch algorithms must not be conflated.
@@ -745,7 +807,7 @@ Related boundary/day reference:
 
 - https://www.rili.com.cn/wannianli/1958/1207.html
 
-Note: the Major Snow **(大雪)** transition can occur late within a civil date, so sources may disagree on the month pillar for the entire transition date.
+Note: the Major Snow **(大雪 / da-xue)** transition can occur late within a civil date, so sources may disagree on the month pillar for the entire transition date.
 
 ### 3. 1968-12-20 — Confirmed working synchronization fixture
 
@@ -832,3 +894,15 @@ For any synchronization promoted to a permanent regression anchor:
 6. retain contradictory sources when they reveal a convention difference.
 
 This document is a living specification. It should make clear what is known, implemented, inferred, and unresolved.
+
+## E. Comparative reference: 移宮接氣 / Daily Three-Epoch Purple-White
+
+The following comparative source is retained for research interest only. It is **not** used to replace Matsuura's own algorithm. The source is relevant because its **日家三元紫白** section explicitly organizes daily Purple-White by the seasonal groups **冬至・雨水・穀雨** and **夏至・處暑・霜降**, assigns Jia-Zi starting states, and uses forward movement for the Yang side and reverse movement for the Yin side. It also states:
+
+> 「蓋日白之法，惟此訣得陰陽順逆節節相續之義。至諸家每多錯亂舛謬者，由不知古人移宮接氣之理也。」
+
+The same text describes the broader principle as **移宮接氣**: connecting palace/star states across seasonal boundaries so that forward/reverse movement continues without breaking the sequence.
+
+Source:
+
+- 《選擇紀要／上編》, Wikisource: https://zh.wikisource.org/zh-hant/選擇紀要/上編

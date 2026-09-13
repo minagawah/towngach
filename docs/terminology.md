@@ -20,7 +20,7 @@ Traditional Chinese, and Simplified Chinese forms are listed once.
 - **Initial Star**: 起始星 / khởi thủy tinh
 - **Jia-Ji**: 甲己 / giáp-kỷ
 - **Jia-Zi**: 甲子 / giáp-tý
-- **Kyusei**: 九星気学 / 九星氣學 / 九星气学 / cửu tinh khí học
+- **Kigaku**: 九星気学 / 九星氣學 / 九星气学 / jiu-xing-qi-xue / cửu tinh khí học
 - **Luo-Shu**: 洛書 / 洛书 / lạc thư
 - **Monthly Calculation**: 月家 / nguyệt gia
 - **Monthly Sequence**: 月建 / nguyệt kiến

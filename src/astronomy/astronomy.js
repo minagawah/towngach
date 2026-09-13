@@ -9,7 +9,10 @@ import {
 import { get_sun_ecliptic_longitude as get_sun_ecliptic_longitude_from_adapter } from './sowngwala_adapter';
 
 const DAY_MS = 24 * 60 * 60 * 1000;
-const TOLERANCE_MS = 1000;
+// Keep the boundary on the millisecond grid used by CalendarDate.  A
+// one-second tolerance is not sufficient for method rules that switch at the
+// astronomical instant itself.
+const TOLERANCE_MS = 1;
 
 const normalize_longitude = longitude => {
   const value = longitude % 360;

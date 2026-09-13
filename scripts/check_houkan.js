@@ -84,36 +84,9 @@
  * @property {Date} origin_start
  */
 
-const path = require('path');
 const readline = require('readline/promises');
 const { stdin, stdout } = require('process');
-const babel = require('@babel/core');
-
-// The source tree uses ES modules, while this
-// manual checker is intended to run directly
-// with Node. Install a small local Babel
-// require hook so the script does not require
-// a separate build step.
-
-const original_loader = require.extensions['.js'];
-
-require.extensions['.js'] = (module, filename) => {
-  if (
-    filename.includes(`${path.sep}node_modules${path.sep}`)
-  ) {
-    original_loader(module, filename);
-    return;
-  }
-
-  const transformed = babel.transformFileSync(filename, {
-    configFile: path.resolve(
-      __dirname,
-      '../babel.config.js'
-    ),
-    envName: 'commonjs',
-  });
-  module._compile(transformed.code, filename);
-};
+require('./shared/manual_checker');
 
 const {
   Branch,

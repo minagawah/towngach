@@ -23,6 +23,7 @@ describe('A test suite for: purple_white/purple_white', () => {
   it('exports identifiable Purple-White methods', () => {
     expect(methods.classical).toBeUndefined();
     expect(methods.houkan).toBeDefined();
-    expect(methods.kyusei).toBeDefined();
+    expect(methods.kigaku).toBeDefined();
+    expect(methods.mizuno).toBeDefined();
   });
 });

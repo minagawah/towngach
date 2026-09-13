@@ -626,7 +626,7 @@ final star configuration would be required.
 
 The examined material currently does not establish a Houkan-specific
 annual starting-star rule. The function remains an explicit unresolved
-boundary rather than silently substituting modern Kyusei logic.
+boundary rather than silently substituting modern Kigaku logic.
 
 The relevant historical material is associated with Matsura Kinkaku
 (松浦琴鶴), Iida Tengai (飯田天涯), and Kikuchi Yosaku (菊池要佐久).
@@ -635,60 +635,31 @@ interpretations, and unresolved historical questions.
 
 ---
 
-## `purple_white/methods/kyusei/` (九星気学 / cửu tinh khí học)
+## `purple_white/methods/kigaku/` (九星気学 / 九星氣學 / 九星气学 / jiu-xing-qi-xue / cửu tinh khí học)
 
-Contains calculation interfaces for the supported
-modern Kyusei method family.
+Contains the modern Nine-Star Kigaku method family.
+Its annual and monthly modules reuse shared astronomical
+boundary and cyclic-star infrastructure.
+Daily and hourly rules remain explicit unresolved
+boundaries until their method-specific rules
+are formally specified; they do not inherit Mizuno rules.
 
-Modern Kyusei implementations may share a broad
-Purple-White and Nine Palace foundation with earlier
-traditions while using their own definitions of
-year boundaries, monthly boundaries, daily
-transitions, and other practical rules.
+Exports `calculate_kigaku_annual`, `calculate_kigaku_monthly`,
+`calculate_kigaku_daily`, and `calculate_kigaku_hourly`.
 
-### `kyusei/annual.js`
+## `purple_white/methods/mizuno/` (Mizuno-style Kigaku)
 
-Defines:
+Contains the primary current Mizuno-style Kigaku family.
+It shares annual and monthly calculations
+with modern Kigaku, but its daily calculation
+switches Yang and Yin at the exact astronomical Winter
+and Summer Solstice instants.
+Its hourly calculation uses Solar Term groups
+and the twelve traditional double-hour indices
+rather than a Heavenly-Stem-derived starting star.
 
-- `calculate_kyusei_annual`
-
-The function currently reports an unresolved-rule error
-until the modern Kyusei annual rule is specified.
-
-### `kyusei/monthly.js`
-
-Defines:
-
-- `calculate_kyusei_monthly`
-
-The function currently reports an unresolved-rule error
-until the modern Kyusei monthly rule is specified.
-
-### `kyusei/daily.js`
-
-Defines:
-
-- `calculate_kyusei_daily`
-
-The function currently reports an unresolved-rule error
-until the modern Kyusei daily rule is specified.
-
-The eventual implementation should explicitly define
-which sexagenary-day (六十干支 / lục thập hoa giáp)
-and boundary rules are supported.
-
-### `kyusei/hourly.js`
-
-Defines:
-
-- `calculate_kyusei_hourly`
-
-The function currently reports an unresolved-rule error
-until the modern Kyusei hourly rule is specified.
-
-### `kyusei/index.js`
-
-Exports the public APIs of the modern Kyusei method.
+Exports `calculate_mizuno_annual`, `calculate_mizuno_monthly`,
+`calculate_mizuno_daily`, and `calculate_mizuno_hourly`.
 
 ---
 

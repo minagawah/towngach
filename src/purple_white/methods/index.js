@@ -6,4 +6,5 @@
  * @module purple_white/methods
  */
 export * as houkan from './houkan';
-export * as kyusei from './kyusei';
+export * as kigaku from './kigaku';
+export * as mizuno from './mizuno';

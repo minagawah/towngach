@@ -59,13 +59,13 @@
 
         
             
-<h4 class="name" id=".ELEMENTS"><span class="type-signature">(static, constant) </span>ELEMENTS<span class="type-signature"> :<a href="module-elem_elem.html#~Elements">module:elem/elem~Elements</a></span></h4>
+<h4 class="name" id=".ELEMENT"><span class="type-signature">(static, constant) </span>ELEMENT<span class="type-signature"> :<a href="module-elem_elem.html#~Element">module:elem/elem~Element</a></span></h4>
 
 
 
 
 <div class="description">
-    Generating at the build-time.
+    The first Five Element.
 </div>
 
 
@@ -74,7 +74,7 @@
     <ul>
         <li>
             
-<span class="param-type"><a href="module-elem_elem.html#~Elements">module:elem/elem~Elements</a></span>
+<span class="param-type"><a href="module-elem_elem.html#~Element">module:elem/elem~Element</a></span>
 
 
         </li>
@@ -126,10 +126,14 @@
 
         
             
-<h4 class="name" id=".ELEMENT_KEYS"><span class="type-signature">(static, constant) </span>ELEMENT_KEYS<span class="type-signature"> :Array.&lt;<a href="module-elem_elem.html#~Key">module:elem/elem~Key</a>></span></h4>
+<h4 class="name" id=".ELEMENTS"><span class="type-signature">(static, constant) </span>ELEMENTS<span class="type-signature"> :Array.&lt;<a href="module-elem_elem.html#~Element">module:elem/elem~Element</a>></span></h4>
 
 
 
+
+<div class="description">
+    The five element names in canonical order.
+</div>
 
 
 
@@ -137,7 +141,7 @@
     <ul>
         <li>
             
-<span class="param-type">Array.&lt;<a href="module-elem_elem.html#~Key">module:elem/elem~Key</a>></span>
+<span class="param-type">Array.&lt;<a href="module-elem_elem.html#~Element">module:elem/elem~Element</a>></span>
 
 
         </li>
@@ -184,6 +188,101 @@
 
 
 
+
+
+
+        
+            
+<h4 class="name" id=".ELEMENT_DEFINITIONS"><span class="type-signature">(static, constant) </span>ELEMENT_DEFINITIONS<span class="type-signature"> :Array.&lt;<a href="module-elem_elem.html#~ElementDefinition">module:elem/elem~ElementDefinition</a>></span></h4>
+
+
+
+
+<div class="description">
+    Stable metadata for each Five Element.
+Generated at build-time from the
+canonical `ELEMENTS` array combined
+with localization data.
+</div>
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">Array.&lt;<a href="module-elem_elem.html#~ElementDefinition">module:elem/elem~ElementDefinition</a>></span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>[
+  {
+    element: 'wood',
+    index: 0,
+    generation: 'fire',
+    control: 'earth',
+    name: { en: { primary: 'wood' }, ... },
+    season: { en: { primary: 'spring' }, ... },
+    color: { en: { primary: 'green' }, ... }
+  },
+  {
+    element: 'fire',
+    index: 1,
+    generation: 'earth',
+    control: 'metal',
+    name: { en: { primary: 'fire' }, ... },
+    season: { en: { primary: 'summer' }, ... },
+    color: { en: { primary: 'red' }, ... }
+  },
+  ...
+]</code></pre>
 
 
 
@@ -197,10 +296,15 @@
 
         
                 
-<h4 class="name" id="~DataMultiSetterArgs">DataMultiSetterArgs</h4>
+<h4 class="name" id="~Element">Element</h4>
 
 
 
+
+<div class="description">
+    One of the "Five Elements"
+(五行 / wu-xing / ngũ hành).
+</div>
 
 
 
@@ -208,7 +312,7 @@
     <ul>
         <li>
             
-<span class="param-type">module:locale/Localizer.DataMultiSetterArgs</span>
+<span class="param-type">string</span>
 
 
         </li>
@@ -260,17 +364,13 @@
 
             
                 
-<h4 class="name" id="~Elements">Elements</h4>
+<h4 class="name" id="~ElementColorData">ElementColorData</h4>
 
 
 
 
 <div class="description">
-    A type signature for ELEMENTS
-generated at the runtime.
-Notice it has longer key length
-compared to the ones in
-the source data.
+    Data entry for a localized Five Element color.
 </div>
 
 
@@ -279,12 +379,64 @@ the source data.
     <ul>
         <li>
             
-<span class="param-type">Object.&lt;string, <a href="module-elem_elem.html#~Item">module:elem/elem~Item</a>></span>
+<span class="param-type">Object</span>
 
 
         </li>
     </ul>
 
+
+
+
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    
+
+<table class="props">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>color</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="module-elem_elem.html#~LocalizedData">module:elem/elem~LocalizedData</a></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The localized element color.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
 
 
 
@@ -321,14 +473,6 @@ the source data.
 
     
 
-    
-    <dt class="tag-todo">To Do:</dt>
-    <dd class="tag-todo">
-        <ul>
-            <li>Probably need "tertiary",
-"quaternary", and "quinary"?</li>
-        </ul>
-    </dd>
     
 </dl>
 
@@ -338,32 +482,17 @@ the source data.
 
     <h5>Example</h5>
     
-    <pre class="prettyprint"><code>// See how the generated data
-// has attribute keys different
-// from the source data.
-{
+    <pre class="prettyprint"><code>{
   wood: {
-    name: {
-      en: { primary: 'wood' },
-      vi: { primary: 'gỗ', secondary: 'go' },
-      zh_ch: { primary: '木', secondary: 'mu' },
-      zh_tw: { primary: '木', secondary: 'mu' },
-      ja: { kanji: '木', hiragana: 'き',
-      katakana: 'キ' },
-    },
-    season: {
-      en: { primary: 'spring' },
-      vi: { primary: 'mùa xuân',
-      secondary: 'mua xuan' },
-      zh_ch: { primary: '春天',
-      secondary: 'chun tian' },
-      zh_tw: { primary: '春天',
-      secondary: 'chun tian' },
-      ja: { kanji: '春', hiragana: 'はる',
-      katakana: 'ハル' },
-    ...
+    color: {
+      en: { primary: 'green' },
+      vi: { primary: 'xanh lá cây' },
+      zh_ch: { primary: '绿色' },
+      zh_tw: { primary: '綠色' },
+      ja: { kanji: '緑', hiragana: 'みどり',
+      katakana: 'ミドリ' }
+    }
   },
-  ...
   ...
 }</code></pre>
 
@@ -371,13 +500,270 @@ the source data.
 
             
                 
-<h4 class="name" id="~Item">Item</h4>
+<h4 class="name" id="~ElementDefinition">ElementDefinition</h4>
 
 
 
 
 <div class="description">
-    Each value being 'LocalizedData'.
+    The Five Element definition.
+</div>
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">Object</span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    
+
+<table class="props">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>element</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="module-elem_elem.html#~Element">module:elem/elem~Element</a></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The canonical element key.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>index</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Position in the canonical cycle.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>generation</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="module-elem_elem.html#~Element">module:elem/elem~Element</a></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Element this one generates.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>control</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="module-elem_elem.html#~Element">module:elem/elem~Element</a></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Element this one controls.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>name</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="module-elem_elem.html#~LocalizedData">module:elem/elem~LocalizedData</a></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Localized element name.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>season</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="module-elem_elem.html#~LocalizedData">module:elem/elem~LocalizedData</a></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Localized element season.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>color</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="module-elem_elem.html#~LocalizedData">module:elem/elem~LocalizedData</a></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Localized element color.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+            
+                
+<h4 class="name" id="~ElementNameData">ElementNameData</h4>
+
+
+
+
+<div class="description">
+    Data entry for a localized Five Element name.
 </div>
 
 
@@ -438,53 +824,7 @@ the source data.
 
             
 
-            <td class="description last"></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>season</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><a href="module-elem_elem.html#~LocalizedData">module:elem/elem~LocalizedData</a></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>color</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><a href="module-elem_elem.html#~LocalizedData">module:elem/elem~LocalizedData</a></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
+            <td class="description last">The localized element name.</td>
         </tr>
 
     
@@ -533,13 +873,34 @@ the source data.
 
 
 
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>{
+  wood: {
+    name: {
+      en: { primary: 'wood' },
+      vi: { primary: 'gỗ' },
+      zh_ch: { primary: '木' },
+      zh_tw: { primary: '木' },
+      ja: { kanji: '木', hiragana: 'き',
+      katakana: 'キ' }
+    }
+  },
+  ...
+}</code></pre>
+
+
 
             
                 
-<h4 class="name" id="~Key">Key</h4>
+<h4 class="name" id="~ElementSeasonData">ElementSeasonData</h4>
 
 
 
+
+<div class="description">
+    Data entry for a localized Five Element season.
+</div>
 
 
 
@@ -547,24 +908,64 @@ the source data.
     <ul>
         <li>
             
-<span class="param-type">'wood'</span>
-|
-
-<span class="param-type">'fire'</span>
-|
-
-<span class="param-type">'earth'</span>
-|
-
-<span class="param-type">'metal'</span>
-|
-
-<span class="param-type">'water'</span>
+<span class="param-type">Object</span>
 
 
         </li>
     </ul>
 
+
+
+
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    
+
+<table class="props">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>season</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="module-elem_elem.html#~LocalizedData">module:elem/elem~LocalizedData</a></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The localized element season.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
 
 
 
@@ -608,67 +1009,21 @@ the source data.
 
 
 
-
-            
-                
-<h4 class="name" id="~Locale">Locale</h4>
-
-
-
-
-
-
-    <h5>Type:</h5>
-    <ul>
-        <li>
-            
-<span class="param-type">module:locale/constants.Locale</span>
-
-
-        </li>
-    </ul>
-
-
-
-
-
-<dl class="details">
-
+    <h5>Example</h5>
     
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
+    <pre class="prettyprint"><code>{
+  wood: {
+    season: {
+      en: { primary: 'spring' },
+      vi: { primary: 'mùa xuân' },
+      zh_ch: { primary: '春天' },
+      zh_tw: { primary: '春天' },
+      ja: { kanji: '春', hiragana: 'はる',
+      katakana: 'ハル' }
+    }
+  },
+  ...
+}</code></pre>
 
 
 
@@ -685,70 +1040,7 @@ the source data.
     <ul>
         <li>
             
-<span class="param-type">module:locale/Localizer.LocalizedData</span>
-
-
-        </li>
-    </ul>
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-            
-                
-<h4 class="name" id="~Source">Source</h4>
-
-
-
-
-
-
-    <h5>Type:</h5>
-    <ul>
-        <li>
-            
-<span class="param-type">Object.&lt;<a href="module-elem_elem.html#~Key">module:elem/elem~Key</a>, Object.&lt;<a href="module-elem_elem.html#~Locale">module:elem/elem~Locale</a>, <a href="module-elem_elem.html#~DataMultiSetterArgs">module:elem/elem~DataMultiSetterArgs</a>>></span>
+<span class="param-type"><a href="module-elem_elem.html#~LocalizedData">module:elem/elem~LocalizedData</a></span>
 
 
         </li>
@@ -804,7 +1096,7 @@ the source data.
     
 
     
-    <h4 class="name" id="~get_controlled_element"><span class="type-signature"></span>get_controlled_element<span class="signature">(element)</span><span class="type-signature"> &rarr; {<a href="module-elem_elem.html#~Key">module:elem/elem~Key</a>}</span></h4>
+    <h4 class="name" id="~get_controlled_element"><span class="type-signature"></span>get_controlled_element<span class="signature">(element)</span><span class="type-signature"> &rarr; {<a href="module-elem_elem.html#~Element">module:elem/elem~Element</a>}</span></h4>
     
 
     
@@ -854,7 +1146,7 @@ the source data.
             <td class="type">
             
                 
-<span class="param-type"><a href="module-elem_elem.html#~Key">module:elem/elem~Key</a></span>
+<span class="param-type"><a href="module-elem_elem.html#~Element">module:elem/elem~Element</a></span>
 
 
             
@@ -936,7 +1228,7 @@ the source data.
     </dt>
     <dd>
         
-<span class="param-type"><a href="module-elem_elem.html#~Key">module:elem/elem~Key</a></span>
+<span class="param-type"><a href="module-elem_elem.html#~Element">module:elem/elem~Element</a></span>
 
 
     </dd>
@@ -954,7 +1246,7 @@ the source data.
     
 
     
-    <h4 class="name" id="~get_elements"><span class="type-signature"></span>get_elements<span class="signature">()</span><span class="type-signature"> &rarr; {Array.&lt;<a href="module-elem_elem.html#~Key">module:elem/elem~Key</a>>}</span></h4>
+    <h4 class="name" id="~get_element"><span class="type-signature"></span>get_element<span class="signature">(index)</span><span class="type-signature"> &rarr; {<a href="module-elem_elem.html#~Element">module:elem/elem~Element</a>}</span></h4>
     
 
     
@@ -962,8 +1254,457 @@ the source data.
 
 
 <div class="description">
-    Returns all Five Elements in their
-canonical order.
+    Returns the element at a cyclic index.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>index</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="module-elem_elem.html#~Element">module:elem/elem~Element</a></span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+            
+                
+
+    
+
+    
+    <h4 class="name" id="~get_element_definition"><span class="type-signature"></span>get_element_definition<span class="signature">(element)</span><span class="type-signature"> &rarr; {<a href="module-elem_elem.html#~ElementDefinition">module:elem/elem~ElementDefinition</a>}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Returns stable metadata for a Five Element.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>element</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="module-elem_elem.html#~Element">module:elem/elem~Element</a></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="module-elem_elem.html#~ElementDefinition">module:elem/elem~ElementDefinition</a></span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+            
+                
+
+    
+
+    
+    <h4 class="name" id="~get_element_index"><span class="type-signature"></span>get_element_index<span class="signature">(element)</span><span class="type-signature"> &rarr; {number}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Returns the canonical element index.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>element</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="module-elem_elem.html#~Element">module:elem/elem~Element</a></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">number</span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+            
+                
+
+    
+
+    
+    <h4 class="name" id="~get_elements"><span class="type-signature"></span>get_elements<span class="signature">()</span><span class="type-signature"> &rarr; {Array.&lt;<a href="module-elem_elem.html#~Element">module:elem/elem~Element</a>>}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    Returns all Five Elements.
 </div>
 
 
@@ -1038,7 +1779,7 @@ canonical order.
     </dt>
     <dd>
         
-<span class="param-type">Array.&lt;<a href="module-elem_elem.html#~Key">module:elem/elem~Key</a>></span>
+<span class="param-type">Array.&lt;<a href="module-elem_elem.html#~Element">module:elem/elem~Element</a>></span>
 
 
     </dd>
@@ -1056,7 +1797,7 @@ canonical order.
     
 
     
-    <h4 class="name" id="~get_generated_element"><span class="type-signature"></span>get_generated_element<span class="signature">(element)</span><span class="type-signature"> &rarr; {<a href="module-elem_elem.html#~Key">module:elem/elem~Key</a>}</span></h4>
+    <h4 class="name" id="~get_generated_element"><span class="type-signature"></span>get_generated_element<span class="signature">(element)</span><span class="type-signature"> &rarr; {<a href="module-elem_elem.html#~Element">module:elem/elem~Element</a>}</span></h4>
     
 
     
@@ -1106,7 +1847,7 @@ canonical order.
             <td class="type">
             
                 
-<span class="param-type"><a href="module-elem_elem.html#~Key">module:elem/elem~Key</a></span>
+<span class="param-type"><a href="module-elem_elem.html#~Element">module:elem/elem~Element</a></span>
 
 
             
@@ -1188,7 +1929,7 @@ canonical order.
     </dt>
     <dd>
         
-<span class="param-type"><a href="module-elem_elem.html#~Key">module:elem/elem~Key</a></span>
+<span class="param-type"><a href="module-elem_elem.html#~Element">module:elem/elem~Element</a></span>
 
 
     </dd>
@@ -1214,8 +1955,7 @@ canonical order.
 
 
 <div class="description">
-    Checks whether a value is a Five
-Element.
+    Checks whether a value is a Five Element.
 </div>
 
 
@@ -1357,7 +2097,7 @@ Element.
     
 
     
-    <h4 class="name" id="~shift_element"><span class="type-signature"></span>shift_element<span class="signature">(element, offset)</span><span class="type-signature"> &rarr; {<a href="module-elem_elem.html#~Key">module:elem/elem~Key</a>}</span></h4>
+    <h4 class="name" id="~shift_element"><span class="type-signature"></span>shift_element<span class="signature">(element, offset)</span><span class="type-signature"> &rarr; {<a href="module-elem_elem.html#~Element">module:elem/elem~Element</a>}</span></h4>
     
 
     
@@ -1365,8 +2105,7 @@ Element.
 
 
 <div class="description">
-    Shifts a Five Element through the
-cycle.
+    Shifts a Five Element through the cycle.
 </div>
 
 
@@ -1408,7 +2147,7 @@ cycle.
             <td class="type">
             
                 
-<span class="param-type"><a href="module-elem_elem.html#~Key">module:elem/elem~Key</a></span>
+<span class="param-type"><a href="module-elem_elem.html#~Element">module:elem/elem~Element</a></span>
 
 
             
@@ -1513,7 +2252,7 @@ cycle.
     </dt>
     <dd>
         
-<span class="param-type"><a href="module-elem_elem.html#~Key">module:elem/elem~Key</a></span>
+<span class="param-type"><a href="module-elem_elem.html#~Element">module:elem/elem~Element</a></span>
 
 
     </dd>
@@ -1539,13 +2278,13 @@ cycle.
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-astronomy.html">astronomy</a></li><li><a href="module-astronomy_astronomy.html">astronomy/astronomy</a></li><li><a href="module-astronomy_sowngwala_adapter.html">astronomy/sowngwala_adapter</a></li><li><a href="module-branch.html">branch</a></li><li><a href="module-branch_branch.html">branch/branch</a></li><li><a href="module-calendar.html">calendar</a></li><li><a href="module-elem.html">elem</a></li><li><a href="module-elem_elem.html">elem/elem</a></li><li><a href="module-lib_Result.html">lib/Result</a></li><li><a href="module-lib_cycle.html">lib/cycle</a></li><li><a href="module-locale.html">locale</a></li><li><a href="module-locale_Localizer.html">locale/Localizer</a></li><li><a href="module-locale_constants.html">locale/constants</a></li><li><a href="module-luoshu.html">luoshu</a></li><li><a href="module-palace.html">palace</a></li><li><a href="module-palace_palace.html">palace/palace</a></li><li><a href="module-purple_white.html">purple_white</a></li><li><a href="module-purple_white_core_movement.html">purple_white/core/movement</a></li><li><a href="module-purple_white_core_movement_flight.html">purple_white/core/movement/flight</a></li><li><a href="module-purple_white_core_nine_stars.html">purple_white/core/nine_stars</a></li><li><a href="module-purple_white_core_nine_stars_star.html">purple_white/core/nine_stars/star</a></li><li><a href="module-purple_white_core_utils.html">purple_white/core/utils</a></li><li><a href="module-purple_white_core_utils_method.html">purple_white/core/utils/method</a></li><li><a href="module-purple_white_core_utils_purple_white.html">purple_white/core/utils/purple_white</a></li><li><a href="module-purple_white_methods.html">purple_white/methods</a></li><li><a href="module-purple_white_methods_houkan.html">purple_white/methods/houkan</a></li><li><a href="module-purple_white_methods_houkan_annual.html">purple_white/methods/houkan/annual</a></li><li><a href="module-purple_white_methods_houkan_daily.html">purple_white/methods/houkan/daily</a></li><li><a href="module-purple_white_methods_houkan_hourly.html">purple_white/methods/houkan/hourly</a></li><li><a href="module-purple_white_methods_houkan_monthly.html">purple_white/methods/houkan/monthly</a></li><li><a href="module-purple_white_methods_kyusei.html">purple_white/methods/kyusei</a></li><li><a href="module-purple_white_methods_kyusei_annual.html">purple_white/methods/kyusei/annual</a></li><li><a href="module-purple_white_methods_kyusei_daily.html">purple_white/methods/kyusei/daily</a></li><li><a href="module-purple_white_methods_kyusei_hourly.html">purple_white/methods/kyusei/hourly</a></li><li><a href="module-purple_white_methods_kyusei_monthly.html">purple_white/methods/kyusei/monthly</a></li><li><a href="module-san_yuan.html">san_yuan</a></li><li><a href="module-san_yuan_san_yuan.html">san_yuan/san_yuan</a></li><li><a href="module-sexagen.html">sexagen</a></li><li><a href="module-sexagen_sexagen.html">sexagen/sexagen</a></li><li><a href="module-solar_term.html">solar_term</a></li><li><a href="module-solar_term_solar_term.html">solar_term/solar_term</a></li><li><a href="module-stem.html">stem</a></li><li><a href="module-stem_stem.html">stem/stem</a></li><li><a href="module-terminology.html">terminology</a></li><li><a href="module-towngach.html">towngach</a></li><li><a href="module-towngach_constants.html">towngach/constants</a></li><li><a href="module-types.html">types</a></li><li><a href="module-utils.html">utils</a></li></ul><h3>Interfaces</h3><ul><li><a href="module-lib_Result-ResultInterface.html">ResultInterface</a></li><li><a href="module-locale_Localizer-LocalizerInterface.html">LocalizerInterface</a></li></ul><h3>Global</h3><ul><li><a href="global.html#CALENDAR">CALENDAR</a></li><li><a href="global.html#LUOSHU">LUOSHU</a></li><li><a href="global.html#LUOSHU_LAYOUT">LUOSHU_LAYOUT</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-astronomy.html">astronomy</a></li><li><a href="module-astronomy_astronomy.html">astronomy/astronomy</a></li><li><a href="module-astronomy_sowngwala_adapter.html">astronomy/sowngwala_adapter</a></li><li><a href="module-branch.html">branch</a></li><li><a href="module-branch_branch.html">branch/branch</a></li><li><a href="module-calendar.html">calendar</a></li><li><a href="module-calendar_calendar.html">calendar/calendar</a></li><li><a href="module-elem.html">elem</a></li><li><a href="module-elem_elem.html">elem/elem</a></li><li><a href="module-lib_Result.html">lib/Result</a></li><li><a href="module-lib_cycle.html">lib/cycle</a></li><li><a href="module-locale.html">locale</a></li><li><a href="module-locale_Localizer.html">locale/Localizer</a></li><li><a href="module-locale_constants.html">locale/constants</a></li><li><a href="module-luoshu.html">luoshu</a></li><li><a href="module-luoshu_luoshu.html">luoshu/luoshu</a></li><li><a href="module-palace.html">palace</a></li><li><a href="module-palace_palace.html">palace/palace</a></li><li><a href="module-purple_white.html">purple_white</a></li><li><a href="module-purple_white_core_movement.html">purple_white/core/movement</a></li><li><a href="module-purple_white_core_movement_flight.html">purple_white/core/movement/flight</a></li><li><a href="module-purple_white_core_nine_stars.html">purple_white/core/nine_stars</a></li><li><a href="module-purple_white_core_nine_stars_star.html">purple_white/core/nine_stars/star</a></li><li><a href="module-purple_white_core_utils.html">purple_white/core/utils</a></li><li><a href="module-purple_white_core_utils_method.html">purple_white/core/utils/method</a></li><li><a href="module-purple_white_core_utils_purple_white.html">purple_white/core/utils/purple_white</a></li><li><a href="module-purple_white_methods.html">purple_white/methods</a></li><li><a href="module-purple_white_methods_houkan.html">purple_white/methods/houkan</a></li><li><a href="module-purple_white_methods_houkan_annual.html">purple_white/methods/houkan/annual</a></li><li><a href="module-purple_white_methods_houkan_daily.html">purple_white/methods/houkan/daily</a></li><li><a href="module-purple_white_methods_houkan_hourly.html">purple_white/methods/houkan/hourly</a></li><li><a href="module-purple_white_methods_houkan_monthly.html">purple_white/methods/houkan/monthly</a></li><li><a href="module-purple_white_methods_kigaku.html">purple_white/methods/kigaku</a></li><li><a href="module-purple_white_methods_kigaku_annual.html">purple_white/methods/kigaku/annual</a></li><li><a href="module-purple_white_methods_kigaku_daily.html">purple_white/methods/kigaku/daily</a></li><li><a href="module-purple_white_methods_kigaku_hourly.html">purple_white/methods/kigaku/hourly</a></li><li><a href="module-purple_white_methods_kigaku_monthly.html">purple_white/methods/kigaku/monthly</a></li><li><a href="module-purple_white_methods_mizuno.html">purple_white/methods/mizuno</a></li><li><a href="module-purple_white_methods_mizuno_annual.html">purple_white/methods/mizuno/annual</a></li><li><a href="module-purple_white_methods_mizuno_daily.html">purple_white/methods/mizuno/daily</a></li><li><a href="module-purple_white_methods_mizuno_hourly.html">purple_white/methods/mizuno/hourly</a></li><li><a href="module-purple_white_methods_mizuno_monthly.html">purple_white/methods/mizuno/monthly</a></li><li><a href="module-san_yuan.html">san_yuan</a></li><li><a href="module-san_yuan_san_yuan.html">san_yuan/san_yuan</a></li><li><a href="module-sexagen.html">sexagen</a></li><li><a href="module-sexagen_sexagen.html">sexagen/sexagen</a></li><li><a href="module-solar_term.html">solar_term</a></li><li><a href="module-solar_term_solar_term.html">solar_term/solar_term</a></li><li><a href="module-stem.html">stem</a></li><li><a href="module-stem_stem.html">stem/stem</a></li><li><a href="module-terminology.html">terminology</a></li><li><a href="module-towngach.html">towngach</a></li><li><a href="module-towngach_constants.html">towngach/constants</a></li><li><a href="module-types.html">types</a></li><li><a href="module-utils.html">utils</a></li></ul><h3>Interfaces</h3><ul><li><a href="module-lib_Result-ResultInterface.html">ResultInterface</a></li><li><a href="module-locale_Localizer-LocalizerInterface.html">LocalizerInterface</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.5</a> on Thu Sep 10 2026 10:45:37 GMT+0700 (Indochina Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.5</a> on Mon Sep 21 2026 15:34:50 GMT+0700 (Indochina Time)
 </footer>
 
 <script> prettyPrint(); </script>

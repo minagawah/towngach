@@ -6,24 +6,11 @@ This document is the single detailed specification for Towngach's Purple-White N
 
 Towngach calculates Purple-White Nine Stars through the Nine Palaces (九宮 / 九宫 / jiu-gong / Cửu Cung). It does not implement Qimen Dunjia (奇門遁甲 / 奇门遁甲 / qi-men-dun-jia / Kỳ Môn Độn Giáp); Qimen star identities, epochs, and algorithms must not enter this domain.
 
-The source tree contains:
-
-```text
-src/purple_white/
-  core/       shared stars, palaces, cyclic arithmetic, and flight
-  methods/
-    kigaku/   modern Nine-Star Kigaku
-    mizuno/   Mizuno-style Kigaku
-    houkan/   preserved Houkan research method
-```
-
 Method identity is part of the public API. Shared calculations may be reused when rules genuinely agree, but method-specific boundaries and formulas remain in their method family. Mizuno-style Kigaku is the primary current implementation direction. It is a variation of modern Nine-Star Kigaku: annual and monthly calculations share infrastructure, while daily and hourly rules are distinct.
 
 ## 2. Shared infrastructure
 
-`purple_white/core/` owns Purple-White star identities, star numbers one through nine, Nine Palace identities, forward and reverse flight, and normalized result construction. The calendar layer represents an absolute UTC instant with millisecond precision. The astronomy layer is the only Towngach dependency on `sowngwala-js`.
-
-Astronomy provides Sun ecliptic longitude, Solar Term target longitudes, and exact boundary searching. Method modules use this abstraction and do not import `sowngwala-js` directly.
+The calendar layer represents an absolute UTC instant with millisecond precision. The astronomy layer is the only Towngach dependency on `sowngwala-js`. Astronomy provides Sun ecliptic longitude, Solar Term target longitudes, and exact boundary searching. Method modules use this abstraction and do not import `sowngwala-js` directly.
 
 The Sexagenary Cycle (六十干支 / liu-shi-gan-zhi / Lục Thập Can Chi) is indexed from Jia-Zi (甲子 / jia-zi / Giáp Tý) at zero. The repository's date reference is 2000-01-07 for the traditional day calculation; the traditional Zi hour begins at 23:00 UTC in the existing calendar convention.
 

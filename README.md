@@ -1,4 +1,4 @@
-# towngach
+can chi# towngach
 
 ## Table of Contents
 
@@ -118,15 +118,15 @@ through Persia and India, this astral
 lore culminated during the **Tang Dynasty**
 (唐 / tang) and infused the entire East
 Asian cultural sphere. Although East Asian
-astrological calculations &mdash;
-such as the **Purple-White Stars**
-(紫白星 / zi-bai-xing / tử bạch tinh)
-**Qi-Men Dun-Jia** (奇門遁甲 / 奇门遁甲 /
-kỳ môn độn giáp), and **Zi-Wei Dou-Shu**
-(紫微斗數 / 紫微斗数 / tử vi đẩu số) &mdash;
-eventually branched into specialized
-systems across different regions, they
-all share this single, grand origin.
+astrological calculations &mdash; such as
+the **Qi-Men Dun-Jia** (奇門遁甲 / 奇门遁甲 /
+kỳ môn độn giáp), **Purple-White Stars**
+(紫白星 / zi-bai-xing / tử bạch tinh),
+and **Zi-Wei Dou-Shu** (紫微斗數 / 紫微斗数 /
+tử vi đẩu số) &mdash; eventually branched
+into specialized systems across different
+regions, they all share this single,
+grand origin.
 
 By using the name **"Towngach"**, this
 library honors that deep historical thread:
@@ -139,11 +139,11 @@ into a single unified toolkit.
 
 ### 1-3. Which "9 Stars"?
 
-**Feng-Shui** (風水 / 风水 /
-phong thủy) derived historically from
-**"Qi-Men Dun-Jia"** (奇門遁甲 / 奇门遁甲 /
-kỳ môn độn giáp), and the two share the same
-theoretical and operational concepts.
+**Feng-Shui** (風水 / 风水 / phong thủy)
+derived historically from **"Qi-Men Dun-Jia"**
+(奇門遁甲 / 奇门遁甲 / kỳ môn độn giáp),
+and the two share the same theoretical
+and operational concepts.
 
 In **Qi-Men Dun-Jia** (奇門遁甲) &mdash;
 or simply referred to as **"Qi-Men"** (奇門)
@@ -157,19 +157,21 @@ its stars derived from the legendary
 **"Luo-Shu"** (洛書 / 洛书 / lạc thư) diagram.
 
 Now, there is an issue here... In different
-traditions, people call **"Nine Palaces"** (九宮)
-in different manner... and this is where
-all the troubles begin...
+traditions, people call **"Nine Palaces"**
+(九宮) in different manner... and this is
+where all the troubles begin...
 
-In **"Xuan-Kong Fei-Xing Feng-Shui"** (玄空飛星風水 /
-玄空飞星风水 / phong thủy huyền không phi tinh)
+In **"Xuan-Kong Fei-Xing Feng-Shui"**
+(玄空飛星風水 / 玄空飞星风水 /
+phong thủy huyền không phi tinh)
 (a.k.a. the **"Flying Stars"** in the West),
-they say **"Nine Stars"** (九星) when referring
-to the "Nine Palaces". The same goes
-for the Japanese Nine-Star system **"Kyusei Kigaku"**
-(九星気学 / jiu-xing-qi-xue / cửu tinh khí học)
-in which they refer to the "Nine Palaces" when
-they say, **"Nine Stars"** (九星).
+they say **"Nine Stars"** (九星) when
+referring to the "Nine Palaces".
+The same goes for the Japanese Nine-Star
+system **"Kyusei Kigaku"** (九星気学 /
+jiu-xing-qi-xue / cửu tinh khí học)
+in which they refer to the "Nine Palaces"
+when they say, **"Nine Stars"** (九星).
 
 For the library's sake, I will call them:
 

@@ -3,9 +3,14 @@
  */
 
 export {
-  ELEMENT_KEYS,
   ELEMENTS,
+  ELEMENT,
+  ELEMENT_NAMES,
+  ELEMENT_DEFINITIONS,
   get_elements,
+  get_element,
+  get_element_index,
+  get_element_definition,
   is_element,
   shift_element,
   get_generated_element,

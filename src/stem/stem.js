@@ -6,15 +6,14 @@ import { create_cycle } from '../lib/cycle';
 import { set_multi_helper } from '../locale';
 
 /**
- * Represents one of the Ten Heavenly
- * Stems (十天干 / thập thiên can).
+ * Represents one of the "10 Heavenly
+ * Stems" (天干 / tian gan / thập thiên can).
  *
  * @typedef {string} Stem
  */
 
 /**
  * The ten stem names in canonical order.
- *
  * @constant {Array.<Stem>}
  */
 export const STEMS = Object.freeze([
@@ -31,9 +30,13 @@ export const STEMS = Object.freeze([
 ]);
 
 /**
- * The element associated with each Heavenly Stem in index order.
+ * The element associated with each Heavenly
+ * Stem in index order.
  *
- * @constant {Array.<string>}
+ * @constant {Array.<Element>}
+ * @example
+ * ['wood', 'wood', 'fire', 'fire', 'earth',
+ *  'earth', 'metal', 'metal', 'water', 'water']
  */
 const STEM_ELEMENTS = Object.freeze([
   'wood',
@@ -181,9 +184,24 @@ const STEM_NAMES = set_multi_helper(
 );
 
 /**
+ * Data entry for a Heavenly Stem definition.
+ *
+ * @typedef {Object} StemDefinition
+ * @property {Stem} stem - The canonical stem key.
+ * @property {number} index - Position in the
+ *   canonical cycle.
+ * @property {'yang'|'yin'} polarity - The stem
+ *   polarity.
+ * @property {Element} element - The associated
+ *   Five Element.
+ * @property {LocalizedData} name - Localized
+ *   stem name.
+ */
+
+/**
  * Stable metadata for each Heavenly Stem.
  *
- * @constant {Array.<Object>}
+ * @constant {Array.<StemDefinition>}
  */
 export const STEM_DEFINITIONS = Object.freeze(
   STEMS.map((stem, index) =>
@@ -235,15 +253,18 @@ export const get_stem = index => stem_cycle.get(index);
  * @param {Stem} stem
  * @returns {number}
  */
-export const get_stem_index = stem =>
-  stem_cycle.index_of(stem);
+export const get_stem_index = stem => {
+  const index = stem_cycle.index_of(stem);
+  if (index < 0) throw new TypeError('Invalid stem.');
+  return index;
+};
 
 /**
  * Returns stable metadata for a Heavenly Stem.
  *
  * @typedef {function} get_stem_definition
  * @param {Stem} stem
- * @returns {Object}
+ * @returns {StemDefinition}
  */
 export const get_stem_definition = stem => {
   const definition = STEM_DEFINITIONS.find(

@@ -1,24 +1,22 @@
 /**
- * A normalized calendar date used by
- * Towngach.
- *
+ * @module calendar/calendar
+ */
+
+/**
+ * A normalized calendar date.
  * Date fields represent a UTC instant. Object
  * inputs without a timezone are interpreted as UTC.
- *
- * @module calendar/calendar
  *
  * @typedef {Object} CalendarDate
  */
 
 /**
  * A calendar range.
- *
  * @typedef {Object} CalendarRange
  */
 
 /**
  * Creates a normalized calendar date.
- *
  * @typedef {function} create_calendar_date
  * @param {*} value
  * @returns {CalendarDate}

@@ -146,6 +146,7 @@ vite.config.ts.timestamp-*
 .continueignore
 .agents/
 .codex/
+.qwen/
 copy/
 work/
 memo.txt

@@ -1,24 +1,16 @@
 /**
- * A position in the Luoshu arrangement.
- *
  * @module luoshu/luoshu
- *
- * @typedef {Object} LuoshuPosition
  */
 
 /**
- * The Luoshu (洛書 / lạc thư) pattern
- * linked to the Nine Palaces
- * (九宮 / cửu cung).
- *
- * @typedef {Object} Luoshu
+ * @typedef {Array.<Array.<number>>} LuoshuLayout
  */
 
 /**
- * The canonical Luoshu layout
- * (洛書 / lạc thư).
+ * The canonical layout for ""Luo-Shu"
+ * (洛書 / 洛书 / lạc thư).
  *
- * @constant {Luoshu}
+ * @constant {LuoshuLayout}
  */
 const LUOSHU_LAYOUT = Object.freeze([
   [4, 9, 2],
@@ -27,7 +19,17 @@ const LUOSHU_LAYOUT = Object.freeze([
 ]);
 
 /**
- * Canonical positions for each number in the Luoshu pattern.
+ * A position in the Luoshu arrangement.
+ * @typedef {Object} LuoshuPosition
+ * @property {number} number
+ * @property {string} palace
+ * @property {number} row
+ * @property {number} column
+ */
+
+/**
+ * Canonical positions for each number
+ * in the Luoshu pattern.
  *
  * @type {Array.<LuoshuPosition>}
  */
@@ -42,6 +44,16 @@ const LUOSHU_POSITIONS = Object.freeze([
   { number: 8, palace: 'gen', row: 2, column: 0 },
   { number: 9, palace: 'li', row: 0, column: 1 },
 ]);
+
+/**
+ * The "Luo-Shu" (洛書 / 洛书 / lạc thư)
+ * pattern linked to the "Nine Palaces"
+ * (九宮 / 九宫 / jiu-gong / cửu cung).
+ *
+ * @typedef {Object} Luoshu
+ * @property {LuoshuLayout} layout
+ * @property {LuoshuPosition} positions
+ */
 
 /**
  * The Luoshu pattern.

@@ -15,21 +15,21 @@ describe('Mizuno-style Kigaku methods', () => {
   });
 
   it('switches daily mode at Winter Solstice exactly', () => {
-    const boundary = get_solar_term_start('dongzhi', 2026);
+    const boundary = get_solar_term_start('dong_zhi', 2026);
     const before = mizuno.calculate_mizuno_daily(
       date_before(boundary)
     );
     const at = mizuno.calculate_mizuno_daily(boundary.date);
 
-    expect(before.solstice).toBe('xiazhi');
-    expect(at.solstice).toBe('dongzhi');
+    expect(before.solstice).toBe('xia_zhi');
+    expect(at.solstice).toBe('dong_zhi');
     expect(at.solstice_boundary.timestamp).toBe(
       boundary.date.timestamp
     );
   });
 
   it('switches daily mode at Summer Solstice exactly', () => {
-    const boundary = get_solar_term_start('xiazhi', 2026);
+    const boundary = get_solar_term_start('xia_zhi', 2026);
     const before = mizuno.calculate_mizuno_daily(
       date_before(boundary)
     );
@@ -56,7 +56,7 @@ describe('Mizuno-style Kigaku methods', () => {
   });
 
   it('uses seasonal groups for hourly starting stars', () => {
-    const boundary = get_solar_term_start('lichun', 2026);
+    const boundary = get_solar_term_start('li_chun', 2026);
     const result = mizuno.calculate_mizuno_hourly(
       boundary.date
     );

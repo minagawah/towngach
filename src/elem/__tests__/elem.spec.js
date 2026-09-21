@@ -1,22 +1,22 @@
-const { ELEMENTS } = require('../index');
+const {
+  ELEMENTS,
+  ELEMENT,
+  ELEMENT_NAMES,
+  ELEMENT_DEFINITIONS,
+  get_elements,
+  get_element,
+  get_element_index,
+  get_element_definition,
+  is_element,
+  shift_element,
+  get_generated_element,
+  get_controlled_element,
+} = require('../index');
 
 describe('A test suite for: elem/elem', () => {
-  describe('ELEMENT_KEYS', () => {
-    it('exports ELEMENT_KEYS array', () => {
-      const { ELEMENT_KEYS } = require('../elem');
-      expect(ELEMENT_KEYS).toEqual([
-        'wood',
-        'fire',
-        'earth',
-        'metal',
-        'water',
-      ]);
-    });
-  });
-
-  describe('ELEMENTS structure', () => {
-    it('has all five elements', () => {
-      expect(Object.keys(ELEMENTS)).toEqual([
+  describe('ELEMENTS array', () => {
+    it('exports ELEMENTS in canonical order', () => {
+      expect(ELEMENTS).toEqual([
         'wood',
         'fire',
         'earth',
@@ -25,17 +25,12 @@ describe('A test suite for: elem/elem', () => {
       ]);
     });
 
-    it('each element has name, season, and color', () => {
-      for (const key of Object.keys(ELEMENTS)) {
-        const element = ELEMENTS[key];
-        expect(element).toHaveProperty('name');
-        expect(element).toHaveProperty('season');
-        expect(element).toHaveProperty('color');
-      }
+    it('exports the first element as ELEMENT', () => {
+      expect(ELEMENT).toBe('wood');
     });
   });
 
-  describe('All elements have complete localized data', () => {
+  describe('Localization (ELEMENT_NAMES)', () => {
     const expectedLocales = [
       'en',
       'vi',
@@ -44,152 +39,180 @@ describe('A test suite for: elem/elem', () => {
       'ja',
     ];
 
-    for (const elementKey of Object.keys(ELEMENTS)) {
-      for (const prop of ['name', 'season', 'color']) {
-        it(`${elementKey}.${prop} has all required locales`, () => {
-          const data = ELEMENTS[elementKey][prop];
-          for (const locale of expectedLocales) {
-            expect(data).toHaveProperty(locale);
-            if (locale === 'ja') {
-              const ja = data.ja;
-              expect(ja).toHaveProperty('kanji');
-              expect(ja).toHaveProperty('hiragana');
-              expect(ja).toHaveProperty('katakana');
-              expect(typeof ja.kanji).toBe('string');
-              expect(typeof ja.hiragana).toBe('string');
-              expect(typeof ja.katakana).toBe('string');
-            } else {
-              const loc = data[locale];
-              expect(loc).toHaveProperty('primary');
-              expect(typeof loc.primary).toBe('string');
-              // secondary may be undefined for English
-              if (loc.secondary !== undefined) {
-                expect(typeof loc.secondary).toBe('string');
-              }
-            }
+    it('contains translations for all elements', () => {
+      expect(Object.keys(ELEMENT_NAMES)).toEqual(ELEMENTS);
+    });
+
+    for (const key of ELEMENTS) {
+      it(`${key} has complete localization data`, () => {
+        const data = ELEMENT_NAMES[key].name;
+        for (const locale of expectedLocales) {
+          expect(data).toHaveProperty(locale);
+          if (locale === 'ja') {
+            expect(data.ja).toHaveProperty('kanji');
+            expect(data.ja).toHaveProperty('hiragana');
+            expect(data.ja).toHaveProperty('katakana');
+          } else {
+            expect(data[locale]).toHaveProperty('primary');
           }
-        });
-      }
+        }
+      });
     }
   });
 
-  describe('No missing data for wood element (reference element)', () => {
-    it('wood has all properties fully populated', () => {
-      const wood = ELEMENTS.wood;
-      // name
-      expect(wood.name.en.primary).toBeTruthy();
-      expect(wood.name.vi.primary).toBeTruthy();
-      expect(wood.name.zh_ch.primary).toBeTruthy();
-      expect(wood.name.zh_tw.primary).toBeTruthy();
-      expect(wood.name.ja.kanji).toBeTruthy();
-      // season
-      expect(wood.season.en.primary).toBeTruthy();
-      expect(wood.season.vi.primary).toBeTruthy();
-      expect(wood.season.zh_ch.primary).toBeTruthy();
-      expect(wood.season.zh_tw.primary).toBeTruthy();
-      expect(wood.season.ja.kanji).toBeTruthy();
-      // color
-      expect(wood.color.en.primary).toBeTruthy();
-      expect(wood.color.vi.primary).toBeTruthy();
-      expect(wood.color.zh_ch.primary).toBeTruthy();
-      expect(wood.color.zh_tw.primary).toBeTruthy();
-      expect(wood.color.ja.kanji).toBeTruthy();
+  describe('Metadata (ELEMENT_DEFINITIONS)', () => {
+    it('contains definitions for all elements', () => {
+      expect(
+        ELEMENT_DEFINITIONS.map(d => d.element)
+      ).toEqual(ELEMENTS);
+    });
+
+    for (const key of ELEMENTS) {
+      it(`${key} definition has all required properties`, () => {
+        const def = ELEMENT_DEFINITIONS.find(
+          d => d.element === key
+        );
+        expect(def).toBeDefined();
+        expect(def).toHaveProperty('element');
+        expect(def).toHaveProperty('index');
+        expect(def).toHaveProperty('generation');
+        expect(def).toHaveProperty('control');
+        expect(def).toHaveProperty('name');
+        expect(def).toHaveProperty('season');
+        expect(def).toHaveProperty('color');
+      });
+    }
+  });
+
+  describe('Cycle functions', () => {
+    it('get_elements returns a copy of ELEMENTS', () => {
+      const result = get_elements();
+      expect(result).toEqual(ELEMENTS);
+      expect(result).not.toBe(ELEMENTS);
+    });
+
+    for (const key of ELEMENTS) {
+      it(`get_element(${get_element_index(key)}) returns ${key}`, () => {
+        expect(get_element_index(key)).toBe(
+          ELEMENTS.indexOf(key)
+        );
+        expect(get_element(ELEMENTS.indexOf(key))).toBe(
+          key
+        );
+      });
+    }
+
+    it('get_element wraps around for negative/overflow indices', () => {
+      expect(get_element(-1)).toBe(
+        ELEMENTS[ELEMENTS.length - 1]
+      );
+      expect(get_element(ELEMENTS.length)).toBe(
+        ELEMENTS[0]
+      );
+      expect(get_element(ELEMENTS.length + 1)).toBe(
+        ELEMENTS[1]
+      );
     });
   });
 
-  describe('No missing data for fire element (reference element)', () => {
-    it('fire has all properties fully populated', () => {
-      const fire = ELEMENTS.fire;
-      // name
-      expect(fire.name.en.primary).toBeTruthy();
-      expect(fire.name.vi.primary).toBeTruthy();
-      expect(fire.name.zh_ch.primary).toBeTruthy();
-      expect(fire.name.zh_tw.primary).toBeTruthy();
-      expect(fire.name.ja.kanji).toBeTruthy();
-      // season
-      expect(fire.season.en.primary).toBeTruthy();
-      expect(fire.season.vi.primary).toBeTruthy();
-      expect(fire.season.zh_ch.primary).toBeTruthy();
-      expect(fire.season.zh_tw.primary).toBeTruthy();
-      expect(fire.season.ja.kanji).toBeTruthy();
-      // color
-      expect(fire.color.en.primary).toBeTruthy();
-      expect(fire.color.vi.primary).toBeTruthy();
-      expect(fire.color.zh_ch.primary).toBeTruthy();
-      expect(fire.color.zh_tw.primary).toBeTruthy();
-      expect(fire.color.ja.kanji).toBeTruthy();
+  describe('get_element_index', () => {
+    for (const key of ELEMENTS) {
+      it(`returns correct index for ${key}`, () => {
+        expect(get_element_index(key)).toBe(
+          ELEMENTS.indexOf(key)
+        );
+      });
+    }
+  });
+
+  describe('get_element_definition', () => {
+    for (const key of ELEMENTS) {
+      it(`returns definition for ${key}`, () => {
+        const def = get_element_definition(key);
+        expect(def.element).toBe(key);
+        expect(def.index).toBe(ELEMENTS.indexOf(key));
+      });
+    }
+
+    it('throws for invalid element', () => {
+      expect(() =>
+        get_element_definition('invalid')
+      ).toThrow(TypeError);
     });
   });
 
-  describe('No missing data for earth element (reference element)', () => {
-    it('earth has all properties fully populated', () => {
-      const earth = ELEMENTS.earth;
-      // name
-      expect(earth.name.en.primary).toBeTruthy();
-      expect(earth.name.vi.primary).toBeTruthy();
-      expect(earth.name.zh_ch.primary).toBeTruthy();
-      expect(earth.name.zh_tw.primary).toBeTruthy();
-      expect(earth.name.ja.kanji).toBeTruthy();
-      // season
-      expect(earth.season.en.primary).toBeTruthy();
-      expect(earth.season.vi.primary).toBeTruthy();
-      expect(earth.season.zh_ch.primary).toBeTruthy();
-      expect(earth.season.zh_tw.primary).toBeTruthy();
-      expect(earth.season.ja.kanji).toBeTruthy();
-      // color
-      expect(earth.color.en.primary).toBeTruthy();
-      expect(earth.color.vi.primary).toBeTruthy();
-      expect(earth.color.zh_ch.primary).toBeTruthy();
-      expect(earth.color.zh_tw.primary).toBeTruthy();
-      expect(earth.color.ja.kanji).toBeTruthy();
+  describe('is_element', () => {
+    for (const key of ELEMENTS) {
+      it(`${key} is a valid element`, () => {
+        expect(is_element(key)).toBe(true);
+      });
+    }
+
+    it('rejects invalid values', () => {
+      expect(is_element('invalid')).toBe(false);
+      expect(is_element(null)).toBe(false);
+      expect(is_element(undefined)).toBe(false);
+      expect(is_element(1)).toBe(false);
     });
   });
 
-  describe('No missing data for metal element (reference element)', () => {
-    it('metal has all properties fully populated', () => {
-      const metal = ELEMENTS.metal;
-      // name
-      expect(metal.name.en.primary).toBeTruthy();
-      expect(metal.name.vi.primary).toBeTruthy();
-      expect(metal.name.zh_ch.primary).toBeTruthy();
-      expect(metal.name.zh_tw.primary).toBeTruthy();
-      expect(metal.name.ja.kanji).toBeTruthy();
-      // season
-      expect(metal.season.en.primary).toBeTruthy();
-      expect(metal.season.vi.primary).toBeTruthy();
-      expect(metal.season.zh_ch.primary).toBeTruthy();
-      expect(metal.season.zh_tw.primary).toBeTruthy();
-      expect(metal.season.ja.kanji).toBeTruthy();
-      // color
-      expect(metal.color.en.primary).toBeTruthy();
-      expect(metal.color.vi.primary).toBeTruthy();
-      expect(metal.color.zh_ch.primary).toBeTruthy();
-      expect(metal.color.zh_tw.primary).toBeTruthy();
-      expect(metal.color.ja.kanji).toBeTruthy();
+  describe('shift_element', () => {
+    it('shifts wood by +1 to fire', () => {
+      expect(shift_element('wood', 1)).toBe('fire');
+    });
+
+    it('shifts water by -1 to metal', () => {
+      expect(shift_element('water', -1)).toBe('metal');
+    });
+
+    it('shifts water by +1 to wood (wrap)', () => {
+      expect(shift_element('water', 1)).toBe('wood');
+    });
+
+    it('shifts wood by +5 to wood (full cycle)', () => {
+      expect(shift_element('wood', 5)).toBe('wood');
+    });
+
+    it('throws for invalid element', () => {
+      expect(() => shift_element('invalid', 1)).toThrow(
+        TypeError
+      );
     });
   });
 
-  describe('No missing data for water element (reference element)', () => {
-    it('water has all properties fully populated', () => {
-      const water = ELEMENTS.water;
-      // name
-      expect(water.name.en.primary).toBeTruthy();
-      expect(water.name.vi.primary).toBeTruthy();
-      expect(water.name.zh_ch.primary).toBeTruthy();
-      expect(water.name.zh_tw.primary).toBeTruthy();
-      expect(water.name.ja.kanji).toBeTruthy();
-      // season
-      expect(water.season.en.primary).toBeTruthy();
-      expect(water.season.vi.primary).toBeTruthy();
-      expect(water.season.zh_ch.primary).toBeTruthy();
-      expect(water.season.zh_tw.primary).toBeTruthy();
-      expect(water.season.ja.kanji).toBeTruthy();
-      // color
-      expect(water.color.en.primary).toBeTruthy();
-      expect(water.color.vi.primary).toBeTruthy();
-      expect(water.color.zh_ch.primary).toBeTruthy();
-      expect(water.color.zh_tw.primary).toBeTruthy();
-      expect(water.color.ja.kanji).toBeTruthy();
+  describe('get_generated_element', () => {
+    it('wood -> fire', () => {
+      expect(get_generated_element('wood')).toBe('fire');
+    });
+    it('fire -> earth', () => {
+      expect(get_generated_element('fire')).toBe('earth');
+    });
+    it('earth -> metal', () => {
+      expect(get_generated_element('earth')).toBe('metal');
+    });
+    it('metal -> water', () => {
+      expect(get_generated_element('metal')).toBe('water');
+    });
+    it('water -> wood', () => {
+      expect(get_generated_element('water')).toBe('wood');
+    });
+  });
+
+  describe('get_controlled_element', () => {
+    it('wood -> earth', () => {
+      expect(get_controlled_element('wood')).toBe('earth');
+    });
+    it('fire -> metal', () => {
+      expect(get_controlled_element('fire')).toBe('metal');
+    });
+    it('earth -> water', () => {
+      expect(get_controlled_element('earth')).toBe('water');
+    });
+    it('metal -> wood', () => {
+      expect(get_controlled_element('metal')).toBe('wood');
+    });
+    it('water -> fire', () => {
+      expect(get_controlled_element('water')).toBe('fire');
     });
   });
 });

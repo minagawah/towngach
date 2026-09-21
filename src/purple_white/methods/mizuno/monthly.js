@@ -4,6 +4,7 @@
 import {
   get_effective_year,
   get_latest_boundary,
+  MONTH_TERMS,
   get_month_star_number,
   get_result,
 } from '../kigaku/_shared';
@@ -17,20 +18,7 @@ import {
  */
 export const calculate_mizuno_monthly = date => {
   const effective_year = get_effective_year(date);
-  const boundary = get_latest_boundary(date, [
-    'lichun',
-    'jingzhe',
-    'qingming',
-    'lixia',
-    'mangzhong',
-    'xiaoshu',
-    'liqiu',
-    'bailu',
-    'hanlu',
-    'lidong',
-    'daxue',
-    'xiaohan',
-  ]);
+  const boundary = get_latest_boundary(date, MONTH_TERMS);
   return get_result(
     'mizuno_monthly',
     'monthly',

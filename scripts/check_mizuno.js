@@ -45,8 +45,10 @@ const {
   ask_for_values,
   create_target,
   format_date,
+  format_datetime,
   get_command_line_values,
   get_term,
+  formatted_value,
   label,
   print_unresolved,
   value,
@@ -60,7 +62,7 @@ const {
  * @returns {string} Localized star value.
  */
 const get_star_value = star =>
-  `${value(get_purple_white_star_definition(star))}` +
+  `${formatted_value(get_purple_white_star_definition(star))}` +
   ` (#${get_purple_white_star_number(star)})`;
 
 /**
@@ -71,7 +73,7 @@ const get_star_value = star =>
  * @returns {string} Localized mode value.
  */
 const get_mode_value = mode =>
-  value({ name: get_term(`${mode}_dun`) });
+  formatted_value({ name: get_term(`${mode}_dun`) });
 
 /**
  * Runs the Mizuno manual checker.
@@ -107,67 +109,79 @@ const run = async () => {
   console.log(
     `  ${label('star')}: ${get_star_value(annual.star)}`
   );
-  console.log(`  effective year: ${annual.effective_year}`);
+  console.log(
+    `  ${label('effective_year')}: ${annual.effective_year}`
+  );
 
   console.log(`\n${label('monthly_result')}`);
   console.log(
     `  ${label('star')}: ${get_star_value(monthly.star)}`
   );
   console.log(
-    `  ${label('solar_term')}: ${value(
+    `  ${label('solar_term')}: ${formatted_value(
       get_solar_term_definition(monthly.solar_term)
     )}`
   );
   console.log(
-    `  ${label('boundary')}: ${format_date(
+    `  ${label('boundary')}: ${format_datetime(
       monthly.solar_term_boundary
     )}`
   );
 
   console.log(`\n${label('daily_result')}`);
-  console.log(`  mode: ${get_mode_value(daily.mode)}`);
+  console.log(
+    `  ${label('mode')}: ${get_mode_value(daily.mode)}`
+  );
   console.log(
     `  ${label('star')}: ${get_star_value(daily.star)}`
   );
-  console.log(`  day index: ${daily.day_index}`);
   console.log(
-    `  ${label('boundary')}: ${format_date(
+    `  ${label('day_index')}: ${daily.day_index}`
+  );
+  console.log(
+    `  ${label('boundary')}: ${format_datetime(
       daily.solstice_boundary
     )}`
   );
 
   console.log(`\n${label('hourly_result')}`);
-  console.log(`  mode: ${get_mode_value(hourly.mode)}`);
+  console.log(
+    `  ${label('mode')}: ${get_mode_value(hourly.mode)}`
+  );
   console.log(
     `  ${label('star')}: ${get_star_value(hourly.star)}`
   );
-  console.log(`  time index: ${hourly.time_index}`);
   console.log(
-    `  solar-term group: ${hourly.solar_term_group}`
+    `  ${label('time_index')}: ${hourly.time_index}`
   );
-  console.log(`  base star: ${hourly.base_star}`);
   console.log(
-    `  ${label('solar_term')}: ${value(
+    `  ${label('solar_term_group')}: ${hourly.solar_term_group}`
+  );
+  console.log(
+    `  ${label('base_star')}: ${hourly.base_star}`
+  );
+  console.log(
+    `  ${label('solar_term')}: ${formatted_value(
       get_solar_term_definition(hourly.solar_term)
     )}`
   );
   console.log(
-    `  ${label('boundary')}: ${format_date(
+    `  ${label('boundary')}: ${format_datetime(
       hourly.solar_term_boundary
     )}`
   );
 
-  console.log(`\n${label('calculation_availability')}`);
-  print_unresolved('Kigaku daily result', () =>
-    PurpleWhite.methods.kigaku.calculate_kigaku_daily(
-      target
-    )
-  );
-  print_unresolved('Kigaku hourly result', () =>
-    PurpleWhite.methods.kigaku.calculate_kigaku_hourly(
-      target
-    )
-  );
+  // console.log(`\n${label('calculation_availability')}`);
+  // print_unresolved('Kigaku daily result', () =>
+  //   PurpleWhite.methods.kigaku.calculate_kigaku_daily(
+  //     target
+  //   )
+  // );
+  // print_unresolved('Kigaku hourly result', () =>
+  //   PurpleWhite.methods.kigaku.calculate_kigaku_hourly(
+  //     target
+  //   )
+  // );
 };
 
 run().catch(error => {

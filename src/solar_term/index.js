@@ -6,6 +6,7 @@
 
 export {
   SOLAR_TERMS,
+  SOLAR_TERM,
   SOLAR_TERM_DEFINITIONS,
   get_solar_terms,
   get_solar_term,

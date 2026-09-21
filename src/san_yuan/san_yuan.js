@@ -6,21 +6,19 @@ import { create_cycle } from '../lib/cycle';
 import { set_multi_helper } from '../locale';
 
 /**
- * Represents one of the Three Epochs
- * (三元 / tam nguyên).
+ * Represents one of the "Three-Epochs"
+ * (三元 / san-yuan / tam nguyên).
  *
  * @typedef {string} SanYuan
  */
 
 /**
  * A method-specific Three Epoch result.
- *
  * @typedef {Object} SanYuanResult
  */
 
 /**
  * The Three Epoch names.
- *
  * @constant {Array.<SanYuan>}
  */
 export const SAN_YUAN = Object.freeze([
@@ -29,6 +27,34 @@ export const SAN_YUAN = Object.freeze([
   'lower',
 ]);
 
+/**
+ * Data entry for a localized Three Epoch
+ * name.
+ *
+ * @typedef {Object} SanYuanNameData
+ * @property {LocalizedData} name - The localized
+ *   three-epoch name.
+ */
+
+/**
+ * Localization definitions for Three Epoch
+ * names.
+ *
+ * @type {Object.<string, SanYuanNameData>}
+ * @example
+ * {
+ *   upper: {
+ *     name: {
+ *       en: { primary: 'upper' },
+ *       vi: { primary: 'thượng nguyên' },
+ *       zh_ch: { primary: '上元' },
+ *       zh_tw: { primary: '上元' },
+ *       ja: { kanji: '上元', hiragana: 'じょうげん',
+ *       katakana: 'ジョウゲン' }
+ *     }
+ *   },
+ * }
+ */
 const SAN_YUAN_NAMES = set_multi_helper(
   [
     {
@@ -74,9 +100,21 @@ const SAN_YUAN_NAMES = set_multi_helper(
 );
 
 /**
+ * Data entry for a Three Epoch definition.
+ *
+ * @typedef {Object} SanYuanDefinition
+ * @property {SanYuan} san_yuan - The canonical
+ *   three-epoch key.
+ * @property {number} index - Position in the
+ *   canonical cycle.
+ * @property {LocalizedData} name - Localized
+ *   three-epoch name.
+ */
+
+/**
  * Stable metadata for the Three Epochs.
  *
- * @constant {Array.<Object>}
+ * @constant {Array.<SanYuanDefinition>}
  */
 export const SAN_YUAN_DEFINITIONS = Object.freeze(
   SAN_YUAN.map((san_yuan, index) =>
@@ -123,7 +161,7 @@ export const get_san_yuan_index = san_yuan =>
  *
  * @typedef {function} get_san_yuan_definition
  * @param {SanYuan} san_yuan
- * @returns {Object}
+ * @returns {SanYuanDefinition}
  */
 export const get_san_yuan_definition = san_yuan => {
   const definition = SAN_YUAN_DEFINITIONS.find(

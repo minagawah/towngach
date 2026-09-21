@@ -6,8 +6,8 @@ import { create_cycle } from '../lib/cycle';
 import { set_multi_helper } from '../locale';
 
 /**
- * Represents one of the Nine Palaces
- * (九宮 / cửu cung).
+ * One of the "Nine Palaces" (九宮 / 九宫 /
+ * jiu-gong / cửu cung).
  *
  * @typedef {string} Palace
  */
@@ -16,14 +16,18 @@ import { set_multi_helper } from '../locale';
  * A structural description for a palace.
  *
  * @typedef {Object} PalaceDefinition
+ * @property {Palace} palace - The canonical palace key.
+ * @property {number} index - Position in the canonical sequence.
+ * @property {string} direction - The compass direction.
+ * @property {number} number - The Luoshu number.
+ * @property {Object} name - Localized palace name.
  */
 
 /**
  * The nine palace names in canonical order.
- *
  * @constant {Array.<Palace>}
  */
-const PALACE_SEQUENCE = Object.freeze([
+export const PALACES = Object.freeze([
   'qian',
   'kun',
   'zhen',
@@ -122,13 +126,6 @@ const PALACE_NAMES = set_multi_helper(
 );
 
 /**
- * The Nine Palaces in canonical order.
- *
- * @constant {Array.<Palace>}
- */
-export const PALACES = Object.freeze(PALACE_SEQUENCE);
-
-/**
  * Structural definitions for each Nine Palace.
  *
  * @constant {Array.<Object>}
@@ -157,7 +154,14 @@ const PALACE_DEFINITIONS = Object.freeze(
  *
  * @private
  */
-const palace_cycle = create_cycle(PALACE_SEQUENCE);
+const palace_cycle = create_cycle(PALACES);
+
+/**
+ * The first Nine Palace.
+ *
+ * @constant {Palace}
+ */
+export const PALACE = PALACES[0];
 
 /**
  * Returns all Nine Palaces.
@@ -183,8 +187,11 @@ export const get_palace = index => palace_cycle.get(index);
  * @param {Palace} palace
  * @returns {number}
  */
-export const get_palace_index = palace =>
-  palace_cycle.index_of(palace);
+export const get_palace_index = palace => {
+  const index = palace_cycle.index_of(palace);
+  if (index < 0) throw new TypeError('Invalid palace.');
+  return index;
+};
 
 /**
  * Checks whether a value is a palace.
@@ -216,12 +223,14 @@ export const shift_palace = (palace, offset) =>
 export const get_palace_definition = palace => {
   const index = get_palace_index(palace);
 
-  if (index < 0) {
+  const definition = PALACE_DEFINITIONS[index];
+
+  if (!definition) {
     throw new TypeError('Invalid palace.');
   }
 
   return {
-    ...PALACE_DEFINITIONS[index],
+    ...definition,
     index,
   };
 };

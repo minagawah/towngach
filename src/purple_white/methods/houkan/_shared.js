@@ -26,15 +26,15 @@ const DAY_MS = 24 * 60 * 60 * 1000;
 const DAY_REFERENCE = Date.UTC(2000, 0, 7);
 
 const YANG_DUN_TERMS = Object.freeze([
-  'dongzhi',
-  'yushui',
-  'guyu',
+  'dong_zhi',
+  'yu_shui',
+  'gu_yu',
 ]);
 
 const YIN_DUN_TERMS = Object.freeze([
-  'xiazhi',
-  'chushu',
-  'shuangjiang',
+  'xia_zhi',
+  'chu_shu',
+  'shuang_jiang',
 ]);
 
 const HOURLY_GROUPS = Object.freeze({

@@ -9,21 +9,22 @@ import {
 import { get_palaces, is_palace } from '../../../palace';
 
 /**
- * The direction of Purple-White flight
- * (順飛 / thuận phi, 逆飛 / nghịch phi).
+ * The direction of "Purple-White Flight"
+ * represented as "Forward Flight" (順飛 / 顺飞 /
+ * shun-fei / thuận phi) and "Reverse Flight"
+ * (逆飛 / 逆飞 / ni-fei / nghịch phi).
+
  *
  * @typedef {string} FlightDirection
  */
 
 /**
  * A Purple-White flight map.
- *
  * @typedef {Object} PurpleWhiteFlight
  */
 
 /**
  * The supported flight directions.
- *
  * @constant {Array.<FlightDirection>}
  */
 export const FLIGHT_DIRECTIONS = Object.freeze([

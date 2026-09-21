@@ -72,6 +72,9 @@ const get_term = key => get_terminology(key);
 
 /**
  * Formats an English-first display label.
+ * Title-cases the English portion, preserving
+ * already-properly-cased words and handling
+ * hyphens (e.g. "Purple-White" stays intact).
  *
  * @function label
  * @param {string} key Terminology key.
@@ -79,7 +82,18 @@ const get_term = key => get_terminology(key);
  */
 const label = key => {
   const term = get_term(key);
-  return `${term.en.primary} (${term.zh_tw.primary})`;
+  const en = term.en.primary.replace(/_/g, ' ');
+  const formatted = en
+    .split(/([\s-]+)/)
+    .map(part => {
+      if (/^[\s-]+$/.test(part)) return part;
+      const lower = part.toLowerCase();
+      return part[0] !== lower[0]
+        ? part
+        : part.charAt(0).toUpperCase() + part.slice(1);
+    })
+    .join('');
+  return `${formatted} (${term.zh_tw.primary})`;
 };
 
 /**
@@ -91,6 +105,38 @@ const label = key => {
  */
 const value = definition =>
   `${definition.name.zh_tw.primary} (${definition.name.en.primary})`;
+
+/**
+ * Formats an English value into kebab-case
+ * with each segment capitalized.
+ * Replaces spaces and underscores with hyphens,
+ * then title-cases each segment.
+ *
+ * @function format_value
+ * @param {string} value English display value.
+ * @returns {string} Capitalized kebab-case value.
+ */
+const format_value = value =>
+  value
+    .replace(/[\s_]+/g, '-')
+    .split('-')
+    .map(
+      segment =>
+        segment.charAt(0).toUpperCase() +
+        segment.slice(1).toLowerCase()
+    )
+    .join('-');
+
+/**
+ * Formats a Traditional-Chinese-first value.
+ * The en portion is formatted as kebab-case.
+ *
+ * @function formatted_value
+ * @param {Object} definition Localized definition.
+ * @returns {string} Display value.
+ */
+const formatted_value = definition =>
+  `${definition.name.zh_tw.primary} (${format_value(definition.name.en.primary)})`;
 
 /**
  * Parses one integer input field.
@@ -192,6 +238,35 @@ const format_date = value => {
 };
 
 /**
+ * Formats a JavaScript Date as a human-readable
+ * timestamp with UTC offset.
+ *
+ * Format: YYYY-MM-DD HH:mm:ss UTC (+HH:MM).
+ *
+ * @function format_datetime
+ * @param {CalendarDate|Date} value Date value.
+ * @returns {string} Human-readable datetime string.
+ */
+const format_datetime = value => {
+  const date =
+    value.date instanceof Date ? value.date : value;
+
+  const year = date.getUTCFullYear();
+  const month = String(date.getUTCMonth() + 1).padStart(2, '0');
+  const day = String(date.getUTCDate()).padStart(2, '0');
+  const hour = String(date.getUTCHours()).padStart(2, '0');
+  const minute = String(date.getUTCMinutes()).padStart(2, '0');
+  const second = String(date.getUTCSeconds()).padStart(2, '0');
+
+  const offsetMinutes = -date.getTimezoneOffset();
+  const offsetSign = offsetMinutes >= 0 ? '+' : '-';
+  const offsetHours = String(Math.floor(Math.abs(offsetMinutes) / 60)).padStart(2, '0');
+  const offsetMinutesPart = String(Math.abs(offsetMinutes) % 60).padStart(2, '0');
+
+  return `${year}-${month}-${day} ${hour}:${minute}:${second} UTC (${offsetSign}${offsetHours}:${offsetMinutesPart})`;
+};
+
+/**
  * Prints an unresolved historical rule.
  *
  * @function print_unresolved
@@ -217,6 +292,9 @@ module.exports = {
   ask_for_values,
   create_target,
   format_date,
+  format_datetime,
+  format_value,
+  formatted_value,
   get_command_line_values,
   get_term,
   label,

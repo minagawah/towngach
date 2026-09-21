@@ -59,6 +59,73 @@
 
         
             
+<h4 class="name" id=".SEXAGEN"><span class="type-signature">(static, constant) </span>SEXAGEN<span class="type-signature"> :Array.&lt;<a href="module-sexagen_sexagen.html#~Sexagen">module:sexagen/sexagen~Sexagen</a>></span></h4>
+
+
+
+
+<div class="description">
+    The sixty sexagenary members in canonical order.
+</div>
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">Array.&lt;<a href="module-sexagen_sexagen.html#~Sexagen">module:sexagen/sexagen~Sexagen</a>></span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+        
+            
 <h4 class="name" id=".SEXAGENARY_CYCLE"><span class="type-signature">(static, constant) </span>SEXAGENARY_CYCLE<span class="type-signature"> :<a href="module-sexagen_sexagen.html#~Sexagen">module:sexagen/sexagen~Sexagen</a></span></h4>
 
 
@@ -126,13 +193,13 @@
 
         
             
-<h4 class="name" id=".SEXAGEN_DEFINITIONS"><span class="type-signature">(static, constant) </span>SEXAGEN_DEFINITIONS<span class="type-signature"> :Array.&lt;<a href="module-sexagen_sexagen.html#~Sexagen">module:sexagen/sexagen~Sexagen</a>></span></h4>
+<h4 class="name" id=".SEXAGEN_DEFINITIONS"><span class="type-signature">(static, constant) </span>SEXAGEN_DEFINITIONS<span class="type-signature"> :Array.&lt;<a href="module-sexagen_sexagen.html#~SexagenDefinition">module:sexagen/sexagen~SexagenDefinition</a>></span></h4>
 
 
 
 
 <div class="description">
-    The sixty sexagenary members.
+    Stable metadata for each sexagenary member.
 </div>
 
 
@@ -141,7 +208,7 @@
     <ul>
         <li>
             
-<span class="param-type">Array.&lt;<a href="module-sexagen_sexagen.html#~Sexagen">module:sexagen/sexagen~Sexagen</a>></span>
+<span class="param-type">Array.&lt;<a href="module-sexagen_sexagen.html#~SexagenDefinition">module:sexagen/sexagen~SexagenDefinition</a>></span>
 
 
         </li>
@@ -188,6 +255,16 @@
 
 
 
+
+
+    <h5>Example</h5>
+    
+    <pre class="prettyprint"><code>{
+  sexagen: 'jia_zi',
+  stem: 'jia',
+  branch: 'zi',
+  index: 0
+}</code></pre>
 
 
 
@@ -274,8 +351,8 @@
 
 
 <div class="description">
-    A stem-and-branch pairing
-(干支 / can chi).
+    A "Stem" and "Branch" pairing
+(干支 / gan-zhi / can chi).
 </div>
 
 
@@ -290,6 +367,127 @@
         </li>
     </ul>
 
+
+
+
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    
+
+<table class="props">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>sexagen</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="module-sexagen_sexagen.html#~Sexagen">module:sexagen/sexagen~Sexagen</a></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The canonical compound key (e.g. "jia_zi").</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>stem</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Stem</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The associated Heavenly Stem.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>branch</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Branch</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The associated Earthly Branch.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>index</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Position in the canonical 60-member cycle.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
 
 
 
@@ -749,8 +947,7 @@
 
 
 <div class="description">
-    Returns a sexagenary member from stem
-and branch (干支 / can chi).
+    Returns a sexagenary member from stem and branch.
 </div>
 
 
@@ -923,8 +1120,7 @@ and branch (干支 / can chi).
 
 
 <div class="description">
-    Returns stable metadata for one sexagenary
-member.
+    Returns stable metadata for a sexagenary member.
 </div>
 
 
@@ -1074,7 +1270,7 @@ member.
 
 
 <div class="description">
-    Returns the sexagenary index.
+    Returns the canonical sexagenary index.
 </div>
 
 
@@ -1374,7 +1570,7 @@ member.
 
 
 <div class="description">
-    Checks whether a value is sexagenary.
+    Checks whether a value is a sexagenary member.
 </div>
 
 
@@ -1524,7 +1720,7 @@ member.
 
 
 <div class="description">
-    Shifts a sexagenary member.
+    Shifts a sexagenary member through the cycle.
 </div>
 
 
@@ -1697,13 +1893,13 @@ member.
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-astronomy.html">astronomy</a></li><li><a href="module-astronomy_astronomy.html">astronomy/astronomy</a></li><li><a href="module-astronomy_sowngwala_adapter.html">astronomy/sowngwala_adapter</a></li><li><a href="module-branch.html">branch</a></li><li><a href="module-branch_branch.html">branch/branch</a></li><li><a href="module-calendar.html">calendar</a></li><li><a href="module-elem.html">elem</a></li><li><a href="module-elem_elem.html">elem/elem</a></li><li><a href="module-lib_Result.html">lib/Result</a></li><li><a href="module-lib_cycle.html">lib/cycle</a></li><li><a href="module-locale.html">locale</a></li><li><a href="module-locale_Localizer.html">locale/Localizer</a></li><li><a href="module-locale_constants.html">locale/constants</a></li><li><a href="module-luoshu.html">luoshu</a></li><li><a href="module-palace.html">palace</a></li><li><a href="module-palace_palace.html">palace/palace</a></li><li><a href="module-purple_white.html">purple_white</a></li><li><a href="module-purple_white_core_movement.html">purple_white/core/movement</a></li><li><a href="module-purple_white_core_movement_flight.html">purple_white/core/movement/flight</a></li><li><a href="module-purple_white_core_nine_stars.html">purple_white/core/nine_stars</a></li><li><a href="module-purple_white_core_nine_stars_star.html">purple_white/core/nine_stars/star</a></li><li><a href="module-purple_white_core_utils.html">purple_white/core/utils</a></li><li><a href="module-purple_white_core_utils_method.html">purple_white/core/utils/method</a></li><li><a href="module-purple_white_core_utils_purple_white.html">purple_white/core/utils/purple_white</a></li><li><a href="module-purple_white_methods.html">purple_white/methods</a></li><li><a href="module-purple_white_methods_houkan.html">purple_white/methods/houkan</a></li><li><a href="module-purple_white_methods_houkan_annual.html">purple_white/methods/houkan/annual</a></li><li><a href="module-purple_white_methods_houkan_daily.html">purple_white/methods/houkan/daily</a></li><li><a href="module-purple_white_methods_houkan_hourly.html">purple_white/methods/houkan/hourly</a></li><li><a href="module-purple_white_methods_houkan_monthly.html">purple_white/methods/houkan/monthly</a></li><li><a href="module-purple_white_methods_kyusei.html">purple_white/methods/kyusei</a></li><li><a href="module-purple_white_methods_kyusei_annual.html">purple_white/methods/kyusei/annual</a></li><li><a href="module-purple_white_methods_kyusei_daily.html">purple_white/methods/kyusei/daily</a></li><li><a href="module-purple_white_methods_kyusei_hourly.html">purple_white/methods/kyusei/hourly</a></li><li><a href="module-purple_white_methods_kyusei_monthly.html">purple_white/methods/kyusei/monthly</a></li><li><a href="module-san_yuan.html">san_yuan</a></li><li><a href="module-san_yuan_san_yuan.html">san_yuan/san_yuan</a></li><li><a href="module-sexagen.html">sexagen</a></li><li><a href="module-sexagen_sexagen.html">sexagen/sexagen</a></li><li><a href="module-solar_term.html">solar_term</a></li><li><a href="module-solar_term_solar_term.html">solar_term/solar_term</a></li><li><a href="module-stem.html">stem</a></li><li><a href="module-stem_stem.html">stem/stem</a></li><li><a href="module-terminology.html">terminology</a></li><li><a href="module-towngach.html">towngach</a></li><li><a href="module-towngach_constants.html">towngach/constants</a></li><li><a href="module-types.html">types</a></li><li><a href="module-utils.html">utils</a></li></ul><h3>Interfaces</h3><ul><li><a href="module-lib_Result-ResultInterface.html">ResultInterface</a></li><li><a href="module-locale_Localizer-LocalizerInterface.html">LocalizerInterface</a></li></ul><h3>Global</h3><ul><li><a href="global.html#CALENDAR">CALENDAR</a></li><li><a href="global.html#LUOSHU">LUOSHU</a></li><li><a href="global.html#LUOSHU_LAYOUT">LUOSHU_LAYOUT</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-astronomy.html">astronomy</a></li><li><a href="module-astronomy_astronomy.html">astronomy/astronomy</a></li><li><a href="module-astronomy_sowngwala_adapter.html">astronomy/sowngwala_adapter</a></li><li><a href="module-branch.html">branch</a></li><li><a href="module-branch_branch.html">branch/branch</a></li><li><a href="module-calendar.html">calendar</a></li><li><a href="module-calendar_calendar.html">calendar/calendar</a></li><li><a href="module-elem.html">elem</a></li><li><a href="module-elem_elem.html">elem/elem</a></li><li><a href="module-lib_Result.html">lib/Result</a></li><li><a href="module-lib_cycle.html">lib/cycle</a></li><li><a href="module-locale.html">locale</a></li><li><a href="module-locale_Localizer.html">locale/Localizer</a></li><li><a href="module-locale_constants.html">locale/constants</a></li><li><a href="module-luoshu.html">luoshu</a></li><li><a href="module-luoshu_luoshu.html">luoshu/luoshu</a></li><li><a href="module-palace.html">palace</a></li><li><a href="module-palace_palace.html">palace/palace</a></li><li><a href="module-purple_white.html">purple_white</a></li><li><a href="module-purple_white_core_movement.html">purple_white/core/movement</a></li><li><a href="module-purple_white_core_movement_flight.html">purple_white/core/movement/flight</a></li><li><a href="module-purple_white_core_nine_stars.html">purple_white/core/nine_stars</a></li><li><a href="module-purple_white_core_nine_stars_star.html">purple_white/core/nine_stars/star</a></li><li><a href="module-purple_white_core_utils.html">purple_white/core/utils</a></li><li><a href="module-purple_white_core_utils_method.html">purple_white/core/utils/method</a></li><li><a href="module-purple_white_core_utils_purple_white.html">purple_white/core/utils/purple_white</a></li><li><a href="module-purple_white_methods.html">purple_white/methods</a></li><li><a href="module-purple_white_methods_houkan.html">purple_white/methods/houkan</a></li><li><a href="module-purple_white_methods_houkan_annual.html">purple_white/methods/houkan/annual</a></li><li><a href="module-purple_white_methods_houkan_daily.html">purple_white/methods/houkan/daily</a></li><li><a href="module-purple_white_methods_houkan_hourly.html">purple_white/methods/houkan/hourly</a></li><li><a href="module-purple_white_methods_houkan_monthly.html">purple_white/methods/houkan/monthly</a></li><li><a href="module-purple_white_methods_kigaku.html">purple_white/methods/kigaku</a></li><li><a href="module-purple_white_methods_kigaku_annual.html">purple_white/methods/kigaku/annual</a></li><li><a href="module-purple_white_methods_kigaku_daily.html">purple_white/methods/kigaku/daily</a></li><li><a href="module-purple_white_methods_kigaku_hourly.html">purple_white/methods/kigaku/hourly</a></li><li><a href="module-purple_white_methods_kigaku_monthly.html">purple_white/methods/kigaku/monthly</a></li><li><a href="module-purple_white_methods_mizuno.html">purple_white/methods/mizuno</a></li><li><a href="module-purple_white_methods_mizuno_annual.html">purple_white/methods/mizuno/annual</a></li><li><a href="module-purple_white_methods_mizuno_daily.html">purple_white/methods/mizuno/daily</a></li><li><a href="module-purple_white_methods_mizuno_hourly.html">purple_white/methods/mizuno/hourly</a></li><li><a href="module-purple_white_methods_mizuno_monthly.html">purple_white/methods/mizuno/monthly</a></li><li><a href="module-san_yuan.html">san_yuan</a></li><li><a href="module-san_yuan_san_yuan.html">san_yuan/san_yuan</a></li><li><a href="module-sexagen.html">sexagen</a></li><li><a href="module-sexagen_sexagen.html">sexagen/sexagen</a></li><li><a href="module-solar_term.html">solar_term</a></li><li><a href="module-solar_term_solar_term.html">solar_term/solar_term</a></li><li><a href="module-stem.html">stem</a></li><li><a href="module-stem_stem.html">stem/stem</a></li><li><a href="module-terminology.html">terminology</a></li><li><a href="module-towngach.html">towngach</a></li><li><a href="module-towngach_constants.html">towngach/constants</a></li><li><a href="module-types.html">types</a></li><li><a href="module-utils.html">utils</a></li></ul><h3>Interfaces</h3><ul><li><a href="module-lib_Result-ResultInterface.html">ResultInterface</a></li><li><a href="module-locale_Localizer-LocalizerInterface.html">LocalizerInterface</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.5</a> on Thu Sep 10 2026 10:45:37 GMT+0700 (Indochina Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.5</a> on Mon Sep 21 2026 15:34:50 GMT+0700 (Indochina Time)
 </footer>
 
 <script> prettyPrint(); </script>

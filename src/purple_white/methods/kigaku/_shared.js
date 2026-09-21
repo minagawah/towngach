@@ -47,46 +47,46 @@ const DAY_MS = 24 * 60 * 60 * 1000;
 const DAY_REFERENCE = Date.UTC(2000, 0, 7);
 
 export const MONTH_TERMS = Object.freeze([
-  'lichun',
-  'jingzhe',
-  'qingming',
-  'lixia',
-  'mangzhong',
-  'xiaoshu',
-  'liqiu',
-  'bailu',
-  'hanlu',
-  'lidong',
-  'daxue',
-  'xiaohan',
+  'li_chun',
+  'jing_zhe',
+  'qing_ming',
+  'li_xia',
+  'mang_zhong',
+  'xiao_shu',
+  'li_qiu',
+  'bai_lu',
+  'han_lu',
+  'li_dong',
+  'da_xue',
+  'xiao_han',
 ]);
 
 export const HOURLY_GROUPS = Object.freeze({
   group_a: Object.freeze([
-    'dongzhi',
-    'jingzhe',
-    'qingming',
-    'lixia',
-    'mangzhong',
-    'xiaoshu',
+    'dong_zhi',
+    'jing_zhe',
+    'qing_ming',
+    'li_xia',
+    'mang_zhong',
+    'xiao_shu',
   ]),
   group_b: Object.freeze([
-    'lichun',
-    'chunfen',
-    'guyu',
-    'dashu',
-    'liqiu',
-    'bailu',
+    'li_chun',
+    'chun_fen',
+    'gu_yu',
+    'da_shu',
+    'li_qiu',
+    'bai_lu',
   ]),
   group_c: Object.freeze([
-    'yushui',
-    'xiaoman',
-    'xiazhi',
-    'chushu',
-    'qiufen',
-    'shuangjiang',
-    'xiaoxue',
-    'daxue',
+    'yu_shui',
+    'xiao_man',
+    'xia_zhi',
+    'chu_shu',
+    'qiu_fen',
+    'shuang_jiang',
+    'xiao_xue',
+    'da_xue',
   ]),
 });
 
@@ -141,7 +141,7 @@ export const get_latest_solar_term = date =>
  * @returns {number} Effective year.
  */
 export const get_effective_year = date =>
-  get_latest_boundary(date, ['lichun']).date.year;
+  get_latest_boundary(date, ['li_chun']).date.year;
 
 /**
  * Returns the reverse annual star number.

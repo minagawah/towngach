@@ -6,21 +6,29 @@ import { create_cycle } from '../../../lib/cycle';
 import { set_multi_helper } from '../../../locale';
 
 /**
- * One of the Purple-White stars
+ * One of the "Purple-White Stars"
  * (紫白星 / zi-bai-xing / tử bạch tinh).
  *
  * @typedef {string} PurpleWhiteStar
  */
 
 /**
+ * @typedef {import('../../../locale/Localizer').LocalizedData} LocalizedData
+ */
+
+/**
  * A Purple-White star definition.
  *
  * @typedef {Object} PurpleWhiteStarDefinition
+ * @property {PurpleWhiteStar} star - The canonical star key.
+ * @property {number} number - The star number (1-9).
+ * @property {string} element - The associated element.
+ * @property {string} color - The associated color.
+ * @property {LocalizedData} name - Localized star name.
  */
 
 /**
  * The nine Purple-White stars.
- *
  * @constant {Array.<PurpleWhiteStar>}
  */
 export const PURPLE_WHITE_STARS = Object.freeze([
@@ -36,9 +44,10 @@ export const PURPLE_WHITE_STARS = Object.freeze([
 ]);
 
 /**
- * Localization definitions for Purple-White star names.
+ * Data entry for a localized Purple-White star name.
  *
- * @type {Object.<string, Object>}
+ * @typedef {Object} StarNameData
+ * @property {LocalizedData} name - The localized star name.
  * @example
  * {
  *   one_white: {
@@ -47,10 +56,17 @@ export const PURPLE_WHITE_STARS = Object.freeze([
  *       vi: { primary: 'nhất bạch' },
  *       zh_ch: { primary: '一白' },
  *       zh_tw: { primary: '一白' },
- *       ja: { kanji: '一白', hiragana: 'いっぱく', katakana: 'イッパク' },
+ *       ja: { kanji: '一白', hiragana: 'いっぱく',
+ *       katakana: 'イッパク' },
  *     },
  *   },
  * }
+ */
+
+/**
+ * Localization definitions for Purple-White star names.
+ *
+ * @type {Object.<string, StarNameData>}
  */
 const STAR_NAMES = set_multi_helper(
   [
@@ -159,7 +175,6 @@ const STAR_NAMES = set_multi_helper(
 
 /**
  * Stable star metadata.
- *
  * @constant {Array.<PurpleWhiteStarDefinition>}
  */
 export const PURPLE_WHITE_STAR_DEFINITIONS = Object.freeze([
@@ -230,21 +245,18 @@ export const PURPLE_WHITE_STAR_DEFINITIONS = Object.freeze([
 
 /**
  * Cyclic iterator for Purple-White stars.
- *
  * @private
  */
 const star_cycle = create_cycle(PURPLE_WHITE_STARS);
 
 /**
  * The first Purple-White star.
- *
  * @constant {PurpleWhiteStar}
  */
 export const STAR = PURPLE_WHITE_STARS[0];
 
 /**
  * Returns all Purple-White stars.
- *
  * @typedef {function} get_purple_white_stars
  * @returns {Array.<PurpleWhiteStar>}
  */
@@ -264,8 +276,7 @@ export const get_purple_white_star = number =>
 /**
  * Returns the star number.
  *
- * @typedef {function}
- * @name get_purple_white_star_number
+ * @typedef {function} get_purple_white_star_number
  * @param {PurpleWhiteStar} star
  * @returns {number}
  */
@@ -282,10 +293,22 @@ export const get_purple_white_star_number = star => {
 };
 
 /**
+ * Returns the canonical star index.
+ *
+ * @typedef {function} get_purple_white_star_index
+ * @param {PurpleWhiteStar} star
+ * @returns {number}
+ */
+export const get_purple_white_star_index = star => {
+  const index = star_cycle.index_of(star);
+  if (index < 0) throw new TypeError('Invalid star.');
+  return index;
+};
+
+/**
  * Returns the star definition.
  *
- * @typedef {function}
- * @name get_purple_white_star_definition
+ * @typedef {function} get_purple_white_star_definition
  * @param {PurpleWhiteStar} star
  * @returns {PurpleWhiteStarDefinition}
  */

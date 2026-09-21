@@ -15,8 +15,8 @@ import { create_cycle } from '../lib/cycle';
 import { set_multi_helper } from '../locale';
 
 /**
- * One of the Twenty-Four Solar Terms
- * (節氣 / tiết khí).
+ * One of the "24 Solar Terms" (節気 / 節氣 /
+ * 节气 / jie-qi / tiết khí).
  *
  * @typedef {string} SolarTerm
  */
@@ -25,38 +25,39 @@ import { set_multi_helper } from '../locale';
  * A solar term occurrence.
  *
  * @typedef {Object} SolarTermOccurrence
+ * @property {Date} date - The occurrence date.
+ * @property {SolarTerm} solar_term - The solar term key.
  */
 
 /**
  * The twenty-four solar terms.
- *
  * @constant {Array.<SolarTerm>}
  */
 export const SOLAR_TERMS = Object.freeze([
-  'lichun',
-  'yushui',
-  'jingzhe',
-  'chunfen',
-  'qingming',
-  'guyu',
-  'lixia',
-  'xiaoman',
-  'mangzhong',
-  'xiazhi',
-  'xiaoshu',
-  'dashu',
-  'liqiu',
-  'chushu',
-  'bailu',
-  'qiufen',
-  'hanlu',
-  'shuangjiang',
-  'lidong',
-  'xiaoxue',
-  'daxue',
-  'dongzhi',
-  'xiaohan',
-  'dahan',
+  'li_chun',
+  'yu_shui',
+  'jing_zhe',
+  'chun_fen',
+  'qing_ming',
+  'gu_yu',
+  'li_xia',
+  'xiao_man',
+  'mang_zhong',
+  'xia_zhi',
+  'xiao_shu',
+  'da_shu',
+  'li_qiu',
+  'chu_shu',
+  'bai_lu',
+  'qiu_fen',
+  'han_lu',
+  'shuang_jiang',
+  'li_dong',
+  'xiao_xue',
+  'da_xue',
+  'dong_zhi',
+  'xiao_han',
+  'da_han',
 ]);
 
 /**
@@ -65,9 +66,9 @@ export const SOLAR_TERMS = Object.freeze([
  * @type {Object.<string, Object>}
  * @example
  * {
- *   lichun: {
+ *   li_chun: {
  *     name: {
- *       en: { primary: 'lichun' },
+ *       en: { primary: 'li chun' },
  *       vi: { primary: 'lập xuân' },
  *       zh_ch: { primary: '立春' },
  *       zh_tw: { primary: '立春' },
@@ -79,8 +80,8 @@ export const SOLAR_TERMS = Object.freeze([
 const SOLAR_TERM_NAMES = set_multi_helper(
   [
     [
-      'lichun',
-      'lichun',
+      'li_chun',
+      'li chun',
       'lập xuân',
       '立春',
       '立春',
@@ -89,8 +90,8 @@ const SOLAR_TERM_NAMES = set_multi_helper(
       'リッシュン',
     ],
     [
-      'yushui',
-      'yushui',
+      'yu_shui',
+      'yu shui',
       'vũ thủy',
       '雨水',
       '雨水',
@@ -99,8 +100,8 @@ const SOLAR_TERM_NAMES = set_multi_helper(
       'ウスイ',
     ],
     [
-      'jingzhe',
-      'jingzhe',
+      'jing_zhe',
+      'jing zhe',
       'kinh trập',
       '惊蛰',
       '驚蟄',
@@ -109,8 +110,8 @@ const SOLAR_TERM_NAMES = set_multi_helper(
       'ケイチツ',
     ],
     [
-      'chunfen',
-      'chunfen',
+      'chun_fen',
+      'chun fen',
       'xuân phân',
       '春分',
       '春分',
@@ -119,8 +120,8 @@ const SOLAR_TERM_NAMES = set_multi_helper(
       'シュンブン',
     ],
     [
-      'qingming',
-      'qingming',
+      'qing_ming',
+      'qing ming',
       'thanh minh',
       '清明',
       '清明',
@@ -129,8 +130,8 @@ const SOLAR_TERM_NAMES = set_multi_helper(
       'セイメイ',
     ],
     [
-      'guyu',
-      'guyu',
+      'gu_yu',
+      'gu yu',
       'cốc vũ',
       '谷雨',
       '穀雨',
@@ -139,8 +140,8 @@ const SOLAR_TERM_NAMES = set_multi_helper(
       'コクウ',
     ],
     [
-      'lixia',
-      'lixia',
+      'li_xia',
+      'li xia',
       'lập hạ',
       '立夏',
       '立夏',
@@ -149,8 +150,8 @@ const SOLAR_TERM_NAMES = set_multi_helper(
       'リッカ',
     ],
     [
-      'xiaoman',
-      'xiaoman',
+      'xiao_man',
+      'xiao man',
       'tiểu mãn',
       '小满',
       '小滿',
@@ -159,8 +160,8 @@ const SOLAR_TERM_NAMES = set_multi_helper(
       'ショウマン',
     ],
     [
-      'mangzhong',
-      'mangzhong',
+      'mang_zhong',
+      'mang zhong',
       'mang chủng',
       '芒种',
       '芒種',
@@ -169,8 +170,8 @@ const SOLAR_TERM_NAMES = set_multi_helper(
       'ボウシュ',
     ],
     [
-      'xiazhi',
-      'xiazhi',
+      'xia_zhi',
+      'xia zhi',
       'hạ chí',
       '夏至',
       '夏至',
@@ -179,8 +180,8 @@ const SOLAR_TERM_NAMES = set_multi_helper(
       'ゲシ',
     ],
     [
-      'xiaoshu',
-      'xiaoshu',
+      'xiao_shu',
+      'xiao shu',
       'tiểu thử',
       '小暑',
       '小暑',
@@ -189,8 +190,8 @@ const SOLAR_TERM_NAMES = set_multi_helper(
       'ショウショ',
     ],
     [
-      'dashu',
-      'dashu',
+      'da_shu',
+      'da shu',
       'đại thử',
       '大暑',
       '大暑',
@@ -199,8 +200,8 @@ const SOLAR_TERM_NAMES = set_multi_helper(
       'タイショ',
     ],
     [
-      'liqiu',
-      'liqiu',
+      'li_qiu',
+      'li qiu',
       'lập thu',
       '立秋',
       '立秋',
@@ -209,8 +210,8 @@ const SOLAR_TERM_NAMES = set_multi_helper(
       'リッシュウ',
     ],
     [
-      'chushu',
-      'chushu',
+      'chu_shu',
+      'chu shu',
       'xử thử',
       '处暑',
       '處暑',
@@ -219,8 +220,8 @@ const SOLAR_TERM_NAMES = set_multi_helper(
       'ショショ',
     ],
     [
-      'bailu',
-      'bailu',
+      'bai_lu',
+      'bai lu',
       'bạch lộ',
       '白露',
       '白露',
@@ -229,8 +230,8 @@ const SOLAR_TERM_NAMES = set_multi_helper(
       'ハクロ',
     ],
     [
-      'qiufen',
-      'qiufen',
+      'qiu_fen',
+      'qiu fen',
       'thu phân',
       '秋分',
       '秋分',
@@ -239,8 +240,8 @@ const SOLAR_TERM_NAMES = set_multi_helper(
       'シュウブン',
     ],
     [
-      'hanlu',
-      'hanlu',
+      'han_lu',
+      'han lu',
       'hàn lộ',
       '寒露',
       '寒露',
@@ -249,8 +250,8 @@ const SOLAR_TERM_NAMES = set_multi_helper(
       'カンロ',
     ],
     [
-      'shuangjiang',
-      'shuangjiang',
+      'shuang_jiang',
+      'shuang jiang',
       'sương giáng',
       '霜降',
       '霜降',
@@ -259,8 +260,8 @@ const SOLAR_TERM_NAMES = set_multi_helper(
       'ソウコウ',
     ],
     [
-      'lidong',
-      'lidong',
+      'li_dong',
+      'li dong',
       'lập đông',
       '立冬',
       '立冬',
@@ -269,8 +270,8 @@ const SOLAR_TERM_NAMES = set_multi_helper(
       'リットウ',
     ],
     [
-      'xiaoxue',
-      'xiaoxue',
+      'xiao_xue',
+      'xiao xue',
       'tiểu tuyết',
       '小雪',
       '小雪',
@@ -279,8 +280,8 @@ const SOLAR_TERM_NAMES = set_multi_helper(
       'ショウセツ',
     ],
     [
-      'daxue',
-      'daxue',
+      'da_xue',
+      'da xue',
       'đại tuyết',
       '大雪',
       '大雪',
@@ -289,8 +290,8 @@ const SOLAR_TERM_NAMES = set_multi_helper(
       'タイセツ',
     ],
     [
-      'dongzhi',
-      'dongzhi',
+      'dong_zhi',
+      'dong zhi',
       'đông chí',
       '冬至',
       '冬至',
@@ -299,8 +300,8 @@ const SOLAR_TERM_NAMES = set_multi_helper(
       'トウジ',
     ],
     [
-      'xiaohan',
-      'xiaohan',
+      'xiao_han',
+      'xiao han',
       'tiểu hàn',
       '小寒',
       '小寒',
@@ -309,8 +310,8 @@ const SOLAR_TERM_NAMES = set_multi_helper(
       'ショウカン',
     ],
     [
-      'dahan',
-      'dahan',
+      'da_han',
+      'da han',
       'đại hàn',
       '大寒',
       '大寒',
@@ -352,6 +353,13 @@ export const SOLAR_TERM_DEFINITIONS = Object.freeze(
  * @private
  */
 const solar_term_cycle = create_cycle(SOLAR_TERMS);
+
+/**
+ * The first solar term.
+ *
+ * @constant {SolarTerm}
+ */
+export const SOLAR_TERM = SOLAR_TERMS[0];
 
 /**
  * Approximate calendar month and day anchors for each solar term.
@@ -439,8 +447,11 @@ export const get_solar_term = index =>
  * @param {SolarTerm} solar_term
  * @returns {number}
  */
-export const get_solar_term_index = solar_term =>
-  solar_term_cycle.index_of(solar_term);
+export const get_solar_term_index = solar_term => {
+  const index = solar_term_cycle.index_of(solar_term);
+  if (index < 0) throw new TypeError('Invalid solar term.');
+  return index;
+};
 
 /**
  * Returns stable metadata for a Solar Term identity.

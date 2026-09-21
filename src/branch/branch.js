@@ -33,6 +33,32 @@ export const BRANCHES = Object.freeze([
   'hai',
 ]);
 
+/**
+ * Localization definitions for Twelve Earthly
+ * Branch names.
+ *
+ * @type {Object.<string, BranchNameData>}
+ */
+
+/**
+ * Data entry for a localized Earthly Branch
+ * name.
+ *
+ * @typedef {Object} BranchNameData
+ * @property {LocalizedData} name - The localized branch name.
+ * @example
+ * {
+ *   zi: {
+ *     name: {
+ *       en: { primary: 'zi' },
+ *       vi: { primary: 'tý' },
+ *       zh_ch: { primary: '子' },
+ *       zh_tw: { primary: '子' },
+ *       ja: { kanji: '子', hiragana: 'ね', katakana: 'ネ' }
+ *     }
+ *   },
+ * }
+ */
 const BRANCH_NAMES = set_multi_helper(
   [
     ['zi', 'zi', 'tý', '子', '子', '子', 'ね', 'ネ'],
@@ -97,9 +123,19 @@ const BRANCH_NAMES = set_multi_helper(
 );
 
 /**
+ * Data entry for an Earthly Branch definition.
+ *
+ * @typedef {Object} BranchDefinition
+ * @property {Branch} branch - The canonical branch key.
+ * @property {number} index - Position in the canonical cycle.
+ * @property {'yang'|'yin'} polarity - The branch polarity.
+ * @property {LocalizedData} name - Localized branch name.
+ */
+
+/**
  * Stable metadata for each Earthly Branch.
  *
- * @constant {Array.<Object>}
+ * @constant {Array.<BranchDefinition>}
  */
 export const BRANCH_DEFINITIONS = Object.freeze(
   BRANCHES.map((branch, index) =>
@@ -145,15 +181,18 @@ export const get_branch = index => branch_cycle.get(index);
  * @param {Branch} branch
  * @returns {number}
  */
-export const get_branch_index = branch =>
-  branch_cycle.index_of(branch);
+export const get_branch_index = branch => {
+  const index = branch_cycle.index_of(branch);
+  if (index < 0) throw new TypeError('Invalid branch.');
+  return index;
+};
 
 /**
  * Returns stable metadata for an Earthly Branch.
  *
  * @typedef {function} get_branch_definition
  * @param {Branch} branch
- * @returns {Object}
+ * @returns {BranchDefinition}
  */
 export const get_branch_definition = branch => {
   const definition = BRANCH_DEFINITIONS.find(

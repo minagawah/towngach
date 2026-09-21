@@ -12,14 +12,15 @@ export {
 } from './core/utils/purple_white';
 export {
   PURPLE_WHITE_STARS,
+  STAR,
   PURPLE_WHITE_STAR_DEFINITIONS,
   get_purple_white_stars,
   get_purple_white_star,
   get_purple_white_star_number,
+  get_purple_white_star_index,
   get_purple_white_star_definition,
   is_purple_white_star,
   shift_purple_white_star,
-  STAR,
 } from './core/nine_stars/star';
 export {
   FLIGHT_DIRECTIONS,

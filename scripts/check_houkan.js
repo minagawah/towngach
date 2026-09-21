@@ -84,10 +84,7 @@
  * @property {Date} origin_start
  */
 
-const readline = require('readline/promises');
-const { stdin, stdout } = require('process');
-require('./shared/manual_checker');
-
+const shared = require('./shared/manual_checker');
 const {
   Branch,
   Calendar,
@@ -98,8 +95,19 @@ const {
   PurpleWhite,
 } = require('../src');
 
-const { create_calendar_date } = Calendar;
-const { get_terminology } = Terminology;
+const {
+  ask_for_values,
+  create_target,
+  format_date,
+  format_datetime,
+  get_command_line_values,
+  get_term,
+  formatted_value,
+  label,
+  print_unresolved,
+  value,
+} = shared;
+
 const { get_branch_definition } = Branch;
 const { get_stem_definition } = Stem;
 const { get_solar_term_definition } = SolarTerm;
@@ -114,101 +122,26 @@ const {
 const houkan = PurpleWhite.methods.houkan;
 
 /**
- * Input values for the target date and time.
- *
- * @typedef {Object} InputValues
- * @property {number} [year] Gregorian year.
- * @property {number} [month] Gregorian month.
- * @property {number} [day] Gregorian day.
- * @property {number} [hour] Hour from 0
- * through 23.
- * @property {number} [minute] Minute from 0
- * through 59.
- */
-
-// Marty McFly escaping the
-// Libyans at Twin Pines Mall
-
-/**
- * Default Gregorian datetime.
- * @constant {InputValues}
- */
-const DEFAULTS = Object.freeze({
-  year: 1985,
-  month: 10,
-  day: 26,
-  hour: 1,
-  minute: 35,
-});
-
-/**
- * Input fields accepted by the checker.
- *
- * @constant {Array.<Array.<string>>}
- */
-const FIELDS = Object.freeze([
-  ['year', 'year'],
-  ['month', 'month'],
-  ['day', 'day'],
-  ['hour', 'hour'],
-  ['minute', 'minute'],
-]);
-
-/**
  * Maps daily period names to solar-term
- * (二十四節気) IDs. solar-term IDs belong
+ * (二十四節気) IDs. Solar-term IDs belong
  * to the API.
+ *
  * @constant {Object.<string, string>}
  */
 const DAILY_SOLAR_TERMS = Object.freeze({
-  winter_solstice: 'dongzhi',
-  rain_water: 'yushui',
-  grain_rain: 'guyu',
-  summer_solstice: 'xiazhi',
-  limit_of_heat: 'chushu',
-  frost_descent: 'shuangjiang',
+  winter_solstice: 'dong_zhi',
+  rain_water: 'yu_shui',
+  grain_rain: 'gu_yu',
+  summer_solstice: 'xia_zhi',
+  limit_of_heat: 'chu_shu',
+  frost_descent: 'shuang_jiang',
 });
-
-/**
- * Returns shared terminology by key.
- *
- * @function
- * @param {string} key Terminology key.
- * @returns {LocalizedData}
- */
-const get_term = key => get_terminology(key);
-
-/**
- * Formats an English-first display label.
- *
- * @function
- * @param {string} key Terminology key.
- * @returns {string} English and Traditional
- * Chinese.
- */
-const label = key => {
-  const term = get_term(key);
-  return `${term.en.primary} (${term.zh_tw.primary})`;
-};
-
-/**
- * Formats a Traditional-Chinese-first value.
- *
- * @function
- * @param {LocalizedDefinition} definition
- * Localized definition.
- * @returns {string} Traditional Chinese
- * and English.
- */
-const value = definition =>
-  `${definition.name.zh_tw.primary} (${definition.name.en.primary})`;
 
 /**
  * Formats a sexagenary day (日干支).
  *
- * @function
+ * @function get_sexagen_value
  * @param {HoukanDaySexagen} day
- * Sexagenary day data.
  * @returns {string} Localized sexagenary day.
  */
 const get_sexagen_value = day => {
@@ -223,150 +156,24 @@ const get_sexagen_value = day => {
 /**
  * Formats "yin/yang dun" (陰陽遁).
  *
- * @function
- * @param {FlightDirection} direction
- * Flight direction.
+ * @function get_dun_value
+ * @param {string} direction Flight direction.
  * @returns {string} Localized Dun value.
  */
 const get_dun_value = direction =>
   direction === 'forward'
-    ? value({ name: get_term('yang_dun') })
-    : value({ name: get_term('yin_dun') });
+    ? formatted_value({ name: get_term('yang_dun') })
+    : formatted_value({ name: get_term('yin_dun') });
 
 /**
  * Formats "purple-white-flight" (紫白飛泊).
  *
- * @function
- * @param {FlightDirection} direction
- * Flight direction.
+ * @function get_flight_value
+ * @param {string} direction Flight direction.
  * @returns {string} Localized flight value.
  */
 const get_flight_value = direction =>
-  value({ name: get_term(direction) });
-
-/**
- * Parses one integer input field.
- *
- * @function
- * @param {string} value Raw user input.
- * @param {string} field Field name.
- * @returns {number} Parsed integer.
- * @throws {Error} If input is not an integer.
- */
-const parse_value = (value, field) => {
-  const parsed = Number(value);
-  if (!Number.isInteger(parsed)) {
-    throw new Error(`${field} must be an integer.`);
-  }
-  return parsed;
-};
-
-/**
- * Reads positional command-line values.
- *
- * @function
- * @returns {InputValues} Supplied input
- * values.
- */
-const get_command_line_values = () => {
-  const values = process.argv.slice(2);
-  return FIELDS.reduce((result, [key], index) => {
-    if (values[index] !== undefined) {
-      result[key] = parse_value(values[index], key);
-    }
-    return result;
-  }, {});
-};
-
-/**
- * Asks for missing values in
- * interactive mode.
- *
- * @function
- * @param {InputValues} values
- * Existing input values.
- * @returns {Promise.<InputValues>}
- * Completed values.
- */
-const ask_for_values = async values => {
-  if (
-    !stdin.isTTY ||
-    Object.keys(values).length === FIELDS.length
-  ) {
-    return values;
-  }
-
-  const prompt = readline.createInterface({
-    input: stdin,
-    output: stdout,
-  });
-
-  try {
-    for (const [key] of FIELDS) {
-      if (values[key] !== undefined) continue;
-      const answer = await prompt.question(
-        `${label(key)} [${DEFAULTS[key]}]: `
-      );
-      values[key] =
-        answer.trim() === ''
-          ? DEFAULTS[key]
-          : parse_value(answer, key);
-    }
-    return values;
-  } finally {
-    prompt.close();
-  }
-};
-
-/**
- * Creates a normalized calendar date.
- *
- * @function
- * @param {InputValues} values Input values.
- * @returns {CalendarDate} Normalized date.
- */
-const create_target = values =>
-  create_calendar_date({
-    year: values.year ?? DEFAULTS.year,
-    month: values.month ?? DEFAULTS.month,
-    day: values.day ?? DEFAULTS.day,
-    hour: values.hour ?? DEFAULTS.hour,
-    minute: values.minute ?? DEFAULTS.minute,
-  });
-
-/**
- * Formats a Towngach date or JS Date.
- *
- * @function
- * @param {CalendarDate|Date} value
- * @returns {string} ISO datetime string.
- */
-const format_date = value => {
-  const date =
-    value.date instanceof Date ? value.date : value;
-  return date.toISOString().replace('.000Z', 'Z');
-};
-
-/**
- * Prints an unresolved historical rule.
- *
- * @function
- * @param {string} label Display label.
- * @param {Function} callback
- * Calculation callback.
- * @returns {void}
- */
-const print_unresolved = (label, callback) => {
-  try {
-    callback();
-  } catch (error) {
-    console.log(
-      `  ${label}: ${value({
-        name: get_term('unresolved'),
-      })} (${error.message})`
-    );
-  }
-};
+  formatted_value({ name: get_term(direction) });
 
 /**
  * Runs the Houkan manual checker.
@@ -383,14 +190,11 @@ const run = async () => {
   const values = await ask_for_values(
     get_command_line_values()
   );
-
   const target = create_target(values);
   const hourly = houkan.calculate_houkan_hourly(target);
   const monthly = houkan.determine_houkan_monthly(target);
-
   const daily =
     houkan.determine_houkan_daily_period(target);
-
   const day = houkan.get_houkan_day_sexagen(target);
 
   console.log(
@@ -424,13 +228,13 @@ const run = async () => {
   );
 
   console.log(
-    `  ${label('three_yuan')}: ${value(
+    `  ${label('three_yuan')}: ${formatted_value(
       get_san_yuan_definition(hourly.san_yuan)
     )}`
   );
 
   console.log(
-    `  ${label('star')}: ${value(
+    `  ${label('star')}: ${formatted_value(
       get_purple_white_star_definition(hourly.star)
     )} (#${get_purple_white_star_number(hourly.star)})`
   );
@@ -440,19 +244,19 @@ const run = async () => {
   );
 
   console.log(
-    `  ${label('origin')}: ${format_date(hourly.origin_start)}`
+    `  ${label('origin')}: ${format_datetime(hourly.origin_start)}`
   );
 
   console.log(`\n${label('monthly_boundary')}`);
 
   console.log(
-    `  ${label('solar_term')}: ${value(
+    `  ${label('solar_term')}: ${formatted_value(
       get_solar_term_definition(monthly.solar_term)
     )}`
   );
 
   console.log(
-    `  ${label('boundary')}: ${format_date(monthly.boundary)}`
+    `  ${label('boundary')}: ${format_datetime(monthly.boundary)}`
   );
 
   console.log(`\n${label('daily_structure')}`);
@@ -465,26 +269,12 @@ const run = async () => {
       );
 
     console.log(
-      `  ${value(get_solar_term_definition(solar_term))}: ` +
-        `${value({ name: get_term(`${dun}_dun`) })}, ` +
-        `${value({ name: get_term(san_yuan) })}, ` +
-        `${value(star_definition)}`
+      `  ${formatted_value(get_solar_term_definition(solar_term))}: ` +
+        `${formatted_value({ name: get_term(`${dun}_dun`) })}, ` +
+        `${formatted_value({ name: get_term(san_yuan) })}, ` +
+        `${formatted_value(star_definition)}`
     );
   }
-
-  console.log(`\n${label('calculation_availability')}`);
-
-  print_unresolved(label('annual_result'), () =>
-    houkan.calculate_houkan_annual(target)
-  );
-
-  print_unresolved(label('monthly_result'), () =>
-    houkan.calculate_houkan_monthly(target)
-  );
-
-  print_unresolved(label('daily_result'), () =>
-    houkan.calculate_houkan_daily(target)
-  );
 };
 
 run().catch(error => {

@@ -6,6 +6,7 @@
 
 export {
   PALACES,
+  PALACE,
   get_palaces,
   get_palace,
   get_palace_index,

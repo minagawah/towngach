@@ -16,12 +16,12 @@ import {
  */
 const get_daily_mode = date => {
   const boundary = get_latest_boundary(date, [
-    'dongzhi',
-    'xiazhi',
+    'dong_zhi',
+    'xia_zhi',
   ]);
   return {
     mode:
-      boundary.solar_term === 'dongzhi' ? 'yang' : 'yin',
+      boundary.solar_term === 'dong_zhi' ? 'yang' : 'yin',
     boundary,
   };
 };

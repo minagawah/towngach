@@ -8,50 +8,60 @@ import { STEMS, get_stem } from '../stem';
 
 /**
  * One member of the sexagenary cycle.
- *
  * @typedef {string} Sexagen
  */
 
 /**
- * A stem-and-branch pairing
- * (干支 / can chi).
+ * A "Stem" and "Branch" pairing
+ * (干支 / gan-zhi / can chi).
  *
  * @typedef {Object} SexagenDefinition
+ * @property {Sexagen} sexagen - The canonical compound key (e.g. "jia_zi").
+ * @property {Stem} stem - The associated Heavenly Stem.
+ * @property {Branch} branch - The associated Earthly Branch.
+ * @property {number} index - Position in the canonical 60-member cycle.
  */
 
 /**
- * The sixty sexagenary members.
- *
- * @constant {Array.<Sexagen>}
- */
-export const SEXAGEN_DEFINITIONS = [];
-
-for (let index = 0; index < 60; index += 1) {
-  const stem = get_stem(index % STEMS.length);
-  const branch = get_branch(index % BRANCHES.length);
-  const sexagen = `${stem}_${branch}`;
-
-  SEXAGEN_DEFINITIONS.push(
-    Object.freeze({
-      sexagen,
-      stem,
-      branch,
-      index,
-    })
-  );
-}
-
-Object.freeze(SEXAGEN_DEFINITIONS);
-
-/**
- * Names of the sixty sexagenary members.
- *
+ * The sixty sexagenary members in canonical order.
  * @constant {Array.<Sexagen>}
  */
 export const SEXAGEN = Object.freeze(
-  SEXAGEN_DEFINITIONS.map(item => item.sexagen)
+  Array.from(
+    { length: 60 },
+    (_, index) =>
+      `${get_stem(index % STEMS.length)}_${get_branch(index % BRANCHES.length)}`
+  )
 );
 
+/**
+ * Stable metadata for each sexagenary member.
+ *
+ * @constant {Array.<SexagenDefinition>}
+ * @example
+ * {
+ *   sexagen: 'jia_zi',
+ *   stem: 'jia',
+ *   branch: 'zi',
+ *   index: 0
+ * }
+ */
+export const SEXAGEN_DEFINITIONS = Object.freeze(
+  SEXAGEN.map((sexagen, index) =>
+    Object.freeze({
+      sexagen,
+      stem: STEMS[index % STEMS.length],
+      branch: BRANCHES[index % BRANCHES.length],
+      index,
+    })
+  )
+);
+
+/**
+ * Cyclic iterator for sexagenary cycle.
+ *
+ * @private
+ */
 const sexagen_cycle = create_cycle(SEXAGEN);
 
 /**
@@ -80,18 +90,20 @@ export const get_sexagen_by_index = index =>
   sexagen_cycle.get(index);
 
 /**
- * Returns the sexagenary index.
+ * Returns the canonical sexagenary index.
  *
  * @typedef {function} get_sexagen_index
  * @param {Sexagen} sexagen
  * @returns {number}
  */
-export const get_sexagen_index = sexagen =>
-  sexagen_cycle.index_of(sexagen);
+export const get_sexagen_index = sexagen => {
+  const index = sexagen_cycle.index_of(sexagen);
+  if (index < 0) throw new TypeError('Invalid sexagen.');
+  return index;
+};
 
 /**
- * Returns stable metadata for one sexagenary
- * member.
+ * Returns stable metadata for a sexagenary member.
  *
  * @typedef {function} get_sexagen_definition
  * @param {Sexagen} sexagen
@@ -110,72 +122,7 @@ export const get_sexagen_definition = sexagen => {
 };
 
 /**
- * Returns a sexagenary member from stem
- * and branch (干支 / can chi).
- *
- * @typedef {function}
- * @name get_sexagen_by_stem_and_branch
- * @param {Stem} stem
- * @param {Branch} branch
- * @returns {Sexagen}
- */
-export const get_sexagen_by_stem_and_branch = (
-  stem,
-  branch
-) => {
-  const found = SEXAGEN_DEFINITIONS.find(
-    item => item.stem === stem && item.branch === branch
-  );
-
-  if (!found) {
-    throw new TypeError('Invalid sexagen pair.');
-  }
-
-  return found.sexagen;
-};
-
-/**
- * Returns the Heavenly Stem for a sexagen.
- *
- * @typedef {function}
- * @name get_sexagen_stem
- * @param {Sexagen} sexagen
- * @returns {Stem}
- */
-export const get_sexagen_stem = sexagen => {
-  const found = SEXAGEN_DEFINITIONS.find(
-    item => item.sexagen === sexagen
-  );
-
-  if (!found) {
-    throw new TypeError('Invalid sexagen.');
-  }
-
-  return found.stem;
-};
-
-/**
- * Returns the Earthly Branch for a sexagen.
- *
- * @typedef {function}
- * @name get_sexagen_branch
- * @param {Sexagen} sexagen
- * @returns {Branch}
- */
-export const get_sexagen_branch = sexagen => {
-  const found = SEXAGEN_DEFINITIONS.find(
-    item => item.sexagen === sexagen
-  );
-
-  if (!found) {
-    throw new TypeError('Invalid sexagen.');
-  }
-
-  return found.branch;
-};
-
-/**
- * Checks whether a value is sexagenary.
+ * Checks whether a value is a sexagenary member.
  *
  * @typedef {function} is_sexagen
  * @param {*} value
@@ -184,7 +131,7 @@ export const get_sexagen_branch = sexagen => {
 export const is_sexagen = value => sexagen_cycle.is(value);
 
 /**
- * Shifts a sexagenary member.
+ * Shifts a sexagenary member through the cycle.
  *
  * @typedef {function} shift_sexagen
  * @param {Sexagen} sexagen
@@ -193,3 +140,50 @@ export const is_sexagen = value => sexagen_cycle.is(value);
  */
 export const shift_sexagen = (sexagen, offset) =>
   sexagen_cycle.shift(sexagen, offset);
+
+/**
+ * Returns the Heavenly Stem for a sexagen.
+ *
+ * @typedef {function} get_sexagen_stem
+ * @param {Sexagen} sexagen
+ * @returns {Stem}
+ */
+export const get_sexagen_stem = sexagen => {
+  const definition = get_sexagen_definition(sexagen);
+  return definition.stem;
+};
+
+/**
+ * Returns the Earthly Branch for a sexagen.
+ *
+ * @typedef {function} get_sexagen_branch
+ * @param {Sexagen} sexagen
+ * @returns {Branch}
+ */
+export const get_sexagen_branch = sexagen => {
+  const definition = get_sexagen_definition(sexagen);
+  return definition.branch;
+};
+
+/**
+ * Returns a sexagenary member from stem and branch.
+ *
+ * @typedef {function} get_sexagen_by_stem_and_branch
+ * @param {Stem} stem
+ * @param {Branch} branch
+ * @returns {Sexagen}
+ */
+export const get_sexagen_by_stem_and_branch = (
+  stem,
+  branch
+) => {
+  const definition = SEXAGEN_DEFINITIONS.find(
+    item => item.stem === stem && item.branch === branch
+  );
+
+  if (!definition) {
+    throw new TypeError('Invalid sexagen pair.');
+  }
+
+  return definition.sexagen;
+};

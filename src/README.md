@@ -1,10 +1,10 @@
-# Source Modules
+# Implemented Programs
 
 This directory contains the source modules of the Towngach library.
 
-The current source structure is organized around foundational concepts that can be shared by multiple East Asian calendrical and cosmological systems. The primary calculation scope is the "purple-white-nine-star" (紫白九星 / cửu tinh tử bạch) system and its movement through the "nine-palaces" (九宮 / cửu cung). Calculation methods are separated from the underlying data structures so that historically different traditions can share common concepts without being forced into the same algorithm.
+The current source structure is organized around foundational concepts that can be shared by multiple East Asian calendrical and cosmological systems. The primary calculation scope is the **"Purple-White Nine Star"** (紫白九星 / cửu tinh tử bạch) system and its movement through the **"Nine Palaces"** (九宮 / cửu cung). Calculation methods are separated from the underlying data structures so that historically different traditions can share common concepts without being forced into the same algorithm.
 
-The library does not treat every system called "nine-stars" (九星 / cửu tinh) as the same system. In particular, the "purple-white-nine-stars" (紫白九星 / cửu tinh tử bạch) modeled by this source tree are conceptually distinct from the "nine-stars" (九星 / cửu tinh) used by "qimen-dunjia" (奇門遁甲 / kỳ môn độn giáp).
+The library does not treat every system called **"Nine Stars"** (九星 / cửu tinh) as the same system. In particular, the **"Purple-White Nine Stars"** (紫白九星 / cửu tinh tử bạch) modeled by this source tree are conceptually distinct from the **"Nine Stars"** (九星 / cửu tinh) used by **"Qi-Men Dun-Jia"** (奇門遁甲 / kỳ môn độn giáp).
 
 ## Top-level entries
 
@@ -12,7 +12,7 @@ The library does not treat every system called "nine-stars" (九星 / cửu tinh
 
 Contains library-wide constants that do not belong exclusively to a particular domain module.
 
-Domain-specific constants should normally remain inside their own modules. For example, the "five-elements" (五行 / ngũ hành) belong to `elem`, the "twelve-earthly-branches" (十二地支 / thập nhị địa chi) belong to `branch`, and the "purple-white-nine-stars" (紫白九星 / cửu tinh tử bạch) belong to `purple_white/core/nine_stars`.
+Domain-specific constants should normally remain inside their own modules. For example, the **"Five Elements"** (五行 / ngũ hành) belong to `elem`, the **"12 Earthly Branches"** (十二地支 / thập nhị địa chi) belong to `branch`, and the **"Purple-White Nine Stars"** (紫白九星 / cửu tinh tử bạch) belong to `purple_white/core/nine_stars`.
 
 ### `types.js`
 
@@ -590,3 +590,42 @@ Purple-White method tests (紫白九星 / cửu tinh tử bạch) should disting
 - historically distinct calculation results.
 
 This distinction is important because two methods may legitimately share the same Nine Palace flight (九宮飛泊 / cửu cung phi bạc) while producing different results because they use different definitions of a calendrical boundary or Three Epoch transition (三元 / tam nguyên).
+
+
+## Historical reconstruction status: Houkan (方鑑)
+
+The **Houkan** (方鑑) method is under
+historical reconstruction and is not
+equivalent to the **Kyusei Kigaku** (九星気学)
+implementation.
+
+The reusable source tree provides
+the common **"Nine-Palace"**, **"Nine-Star"**,
+**"sexagenary-cycle"**, **"solar-term"**,
+and **"Forward Flight"**/**"Reverse Flight"**
+infrastructure. The unresolved
+**"Matsuura"**(松浦琴鶴)-specific rules
+remain method-level concerns.
+
+For the **"daily"** (日家) **"Houkan"** (方鑑)
+calculation, the documented starting states are:
+
+- **"Yang"** (陽)): **"Winter Solstice" (冬至) = 1, **"Rain Water"** (雨水) = 7, **"Grain Rain"** (穀雨) = 4;
+- **"Yin"** (陰): **"Summer Solstice"** (夏至) = 9, **"End of Heat"** (処暑) = 3, **"Frost Descent"** (霜降) = 6.
+
+The historical material additionally
+describes a **"Jia-Zi Month"** (甲子月)
++ **"Jia-Zi Day"** (甲子日) starting condition,
+a **"60-month"** circulation, and a reform
+of the daily-star/sexagenary pairing at each
+**"monthly"** **"Three-Epoch"** boundary (配遇改革).
+The exact operation of that reform and the
+leap-bureau correction are still being
+reconstructed.
+
+Consequently, source modules should not
+introduce a generic 180-day daily formula
+merely to produce a complete-looking result.
+A historical rule that is not yet established
+should remain explicit in the method
+layer and in its documentation.

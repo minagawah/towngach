@@ -6,14 +6,15 @@ import { create_cycle } from '../lib/cycle';
 import { set_multi_helper } from '../locale';
 
 /**
- * Represents one of the "10 Heavenly
- * Stems" (天干 / tian gan / thập thiên can).
+ * One of the 10 Tian-Gan (Heavenly Stems)
+ * (天干 / tian-gan / thập thiên can).
  *
  * @typedef {string} Stem
  */
 
 /**
- * The ten stem names in canonical order.
+ * 10 Gan (stem) names in canonical order.
+ *
  * @constant {Array.<Stem>}
  */
 export const STEMS = Object.freeze([
@@ -30,8 +31,8 @@ export const STEMS = Object.freeze([
 ]);
 
 /**
- * The element associated with each Heavenly
- * Stem in index order.
+ * The element associated with each Tian-Gan
+ * (Heavenly Stem) in index order.
  *
  * @constant {Array.<Element>}
  * @example
@@ -52,7 +53,7 @@ const STEM_ELEMENTS = Object.freeze([
 ]);
 
 /**
- * Localization definitions for Ten Heavenly Stem names.
+ * Localization definitions for 10 Tian-Gan (Heavenly Stem) names.
  *
  * @type {Object.<string, Object>}
  * @example
@@ -184,22 +185,18 @@ const STEM_NAMES = set_multi_helper(
 );
 
 /**
- * Data entry for a Heavenly Stem definition.
+ * Data entry for a Tian-Gan (Heavenly Stem) definition.
  *
  * @typedef {Object} StemDefinition
  * @property {Stem} stem - The canonical stem key.
- * @property {number} index - Position in the
- *   canonical cycle.
- * @property {'yang'|'yin'} polarity - The stem
- *   polarity.
- * @property {Element} element - The associated
- *   Five Element.
- * @property {LocalizedData} name - Localized
- *   stem name.
+ * @property {number} index - Position in the canonical cycle.
+ * @property {'yang'|'yin'} polarity - The stem polarity.
+ * @property {Element} element - The associated Five Element.
+ * @property {LocalizedData} name - Localized stem name.
  */
 
 /**
- * Stable metadata for each Heavenly Stem.
+ * Stable metadata for each Tian-Gan (Heavenly Stem).
  *
  * @constant {Array.<StemDefinition>}
  */
@@ -216,21 +213,21 @@ export const STEM_DEFINITIONS = Object.freeze(
 );
 
 /**
- * Cyclic iterator for Heavenly Stems.
+ * Cyclic iterator for Tian-Gan (Heavenly Stems).
  *
  * @private
  */
 const stem_cycle = create_cycle(STEMS);
 
 /**
- * The first Heavenly Stem.
+ * The first Tian-Gan (Heavenly Stem).
  *
  * @constant {Stem}
  */
 export const STEM = STEMS[0];
 
 /**
- * Returns all Ten Heavenly Stems.
+ * Returns all 10 Tian-Gan (Heavenly Stems).
  *
  * @typedef {function} get_stems
  * @returns {Array.<Stem>}
@@ -238,7 +235,7 @@ export const STEM = STEMS[0];
 export const get_stems = () => stem_cycle.get_all();
 
 /**
- * Returns the stem at a cyclic index.
+ * Returns the Gan (stem) at a cyclic index.
  *
  * @typedef {function} get_stem
  * @param {number} index
@@ -247,7 +244,7 @@ export const get_stems = () => stem_cycle.get_all();
 export const get_stem = index => stem_cycle.get(index);
 
 /**
- * Returns the canonical stem index.
+ * Returns the canonical Gan (stem) index.
  *
  * @typedef {function} get_stem_index
  * @param {Stem} stem
@@ -260,7 +257,7 @@ export const get_stem_index = stem => {
 };
 
 /**
- * Returns stable metadata for a Heavenly Stem.
+ * Returns stable metadata for a Tian-Gan (Heavenly Stem).
  *
  * @typedef {function} get_stem_definition
  * @param {Stem} stem
@@ -279,7 +276,7 @@ export const get_stem_definition = stem => {
 };
 
 /**
- * Checks whether a value is a stem.
+ * Checks whether a value is a Gan (stem).
  *
  * @typedef {function} is_stem
  * @param {*} value
@@ -288,7 +285,7 @@ export const get_stem_definition = stem => {
 export const is_stem = value => stem_cycle.is(value);
 
 /**
- * Shifts a stem through the cycle.
+ * Shifts a Gan (stem) through the cycle.
  *
  * @typedef {function} shift_stem
  * @param {Stem} stem

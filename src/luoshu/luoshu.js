@@ -7,8 +7,7 @@
  */
 
 /**
- * The canonical layout for ""Luo-Shu"
- * (洛書 / 洛书 / lạc thư).
+ * The canonical layout for "Luo-Shu" (洛書 / 洛书 / lạc thư).
  *
  * @constant {LuoshuLayout}
  */
@@ -20,6 +19,7 @@ const LUOSHU_LAYOUT = Object.freeze([
 
 /**
  * A position in the Luoshu arrangement.
+ *
  * @typedef {Object} LuoshuPosition
  * @property {number} number
  * @property {string} palace
@@ -28,8 +28,7 @@ const LUOSHU_LAYOUT = Object.freeze([
  */
 
 /**
- * Canonical positions for each number
- * in the Luoshu pattern.
+ * Canonical positions for each number in the Luoshu pattern.
  *
  * @type {Array.<LuoshuPosition>}
  */
@@ -122,8 +121,7 @@ export const get_luoshu_palace = number =>
   get_luoshu_position(number).palace;
 
 /**
- * Checks whether a value is a valid Luoshu
- * number.
+ * Checks whether a value is a valid Luoshu number.
  *
  * @typedef {function} is_luoshu_number
  * @param {*} value

@@ -6,8 +6,7 @@ import { create_cycle } from '../lib/cycle';
 import { set_multi_helper } from '../locale';
 
 /**
- * One of the "Nine Palaces" (九宮 / 九宫 /
- * jiu-gong / cửu cung).
+ * One of the "Nine Palaces" (九宮 / 九宫 / jiu-gong / cửu cung).
  *
  * @typedef {string} Palace
  */
@@ -25,6 +24,7 @@ import { set_multi_helper } from '../locale';
 
 /**
  * The nine palace names in canonical order.
+ *
  * @constant {Array.<Palace>}
  */
 export const PALACES = Object.freeze([

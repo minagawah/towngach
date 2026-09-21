@@ -1,353 +1,160 @@
-# Houkan Description and Historical Reconstruction Notes
-
-This document preserves the Houkan (方鑑 / fang-jian / phương giám) material that was previously included in `docs/definitions.md`. It is an archival description of the preserved method family, not a replacement for the current primary Mizuno-style Kigaku specification.
+# Details on Kinkaku's "Houkan" (方鑑) Method
 
 ![kinkaku_hiden](../../kinkaku_hiden.jpg)
 
-## 0. Overview
-
-Japanese **"directional-and-divinatory (Houkan)"**
-(方鑑 / 方鉴 / fang-jian / phương giám) traditions,
-including the calculation family represented
-in this library as **"Houkan"**,
-adapted **"purple-white"**
-(紫白 / zi-bai / tử bạch) calculations
-within Japanese calendrical and practical traditions.
-
-The current reconstruction is examined especially
-through material associated with
-**Matsuura Kinkaku** (松浦琴鶴),
-**Iida Tengai** (飯田天涯),
-and **Kikuchi Yosaku** (菊池要佐久).
-Historically different methods are not assumed to be
-identical. The library therefore separates:
-
-- documented rules;
-- implementation interpretations;
-- unresolved historical logic.
-
-The documented Kinkaku material combines:
-
-- A continuous "sixty-unit (sexagenary) day" (六十干支日 / liu-shi-gan-zhi-ri / lục thập can chi nhật) framework;
-- Six "seasonal-starting-states" (季節起局 / ji-jie-qi-ju / quý tiết khởi cục);
-- **"yang-dun"** (陽遁 / 阳遁 / yang-dun / dương độn) and **"yin-dun"** (陰遁 / 阴遁 / yin-dun / âm độn) movement;
-- A "jia-zi-month" (甲子月 / jia-zi-yue / giáp tý nguyệt) / "jia-zi-day" (甲子日 / jia-zi-ri / giáp tý nhật) synchronization;
-- A "sixty-month" (六十箇月 / liu-shi-ge-yue / lục thập cá nguyệt) circulation;
-- A transformation at "monthly-three-epoch" (月三元 / yue-san-yuan / nguyệt tam nguyên) beginnings;
-- A separate **"leap-bureau"** (閏局 / 润局 / run-ju / nhuận cục) correction problem.
-
-For rules that use entry into a
-**"solar-term"**
-(節気 / 節氣 / 节气 / jie-qi / tiết khí)
-as a boundary, Towngach uses the actual
-astronomical transition instant rather than
-rounding the boundary to midnight.
-
-The implemented **"hourly"**
-(時家 / 时家 / shi-jia / thời gia)
-logic currently uses 3 groups:
-
-- 子午卯酉;
-- 寅申巳亥;
-- 辰戌丑未;
-
-with the documented **"jia-ji"**
-(甲己 / jia-ji / giáp-kỷ) condition.
-
-The documented starting phases are:
-
-- **"yang-dun"** (陽遁 / 阳遁 / dương độn):
-  - **"one-white"** (一白)
-  - **"seven-red"** (七赤)
-  - **"four-green"** (四緑)
-- **"yin-dun"** (陰遁 / 阴遁 / âm độn):
-  - **"nine-purple"** (九紫)
-  - **"three-jade"** (三碧)
-  - **"six-white"** (六白)
-
-The historical **"daily"**
-(日家 / ri-jia / nhật gia)
-and **"monthly"**
-(月家 / yue-jia / nguyệt gia)
-logic is more complex and is still under reconstruction.
-
-Kinkaku's fixed **"Hiden"**
-(方鑑秘伝集, Dec.1883 edition) states that
-the daily **"three-epoch-nine-star"**
-(日の三元九星 / ri-jia-san-yuan-jiu-xing)
-arrangement begins from a **"jia-zi-month"**
-(甲子月 / jia-zi-yue / giáp tý nguyệt)
-and **"jia-zi-day"**
-(甲子日 / jia-zi-ri / giáp tý nhật),
-circulates for **"sixty-months"**
-(六十箇月 / liu-shi-ge-yue / lục thập cá nguyệt),
-and changes or renews the **"pairing"**
-(配遇 / pei-yu / phối ngộ) of daily stars and
-the sexagenary structure at the
-beginning of each monthly **"three-epoch"**
-(月三元 / yue-san-yuan / nguyệt tam nguyên).
-
-Kinkaku's **"Bensetsu"**
-(方鑑弁説, April 1884 edition)
-includes corresponding
-monthly diagrams which describes:
-
-- Upper Epoch (上元);
-- Middle Epoch (中元);
-- Lower Epoch (下元).
-
-Those diagrams directly show
-"sexagenary-month"
-(六十干支月 / liu-shi-gan-zhi-yue /
-lục thập can chi nguyệt) rows,
-"nine-star" (九星 / jiu-xing / cửu tinh) rows,
-and associated "sexagenary-year"
-(六十干支年 / liu-shi-gan-zhi-nian /
-lục thập can chi niên) groups.
-They are being compared with
-the "Hiden" (秘伝) daily diagrams
-to recover the exact transformation rule.
+## 1. A plain-language summary of Matsuura Kinkaku's four calendrical levels
 
-A second primary-source research strand is the
-**"leap-bureau"**
-(日家閏局 / 闰局 / run-ju / nhật gia nhuận cục)
-explanation. It describes accumulated
-drift between a regular star progression
-and the seasonal year and gives the phase families:
+Matsuura Kinkaku's (松浦琴鶴) **"Houkan"** (方鑑) method treats the annual, monthly, daily, and hourly **"Nine-Star"** (九星) calculations as related layers of one Purple-White system, but it does not reduce all four layers to one universal arithmetic formula. At the annual level, **"Sixty Gan-Zhi Years"** (干支紀年) form one **"Three-Epoch"** (三元) unit, and three such units form a 180-year cycle. In the **"Upper Epoch"** (上元) the **"Jia-Zi"** (甲子) year begins with One White, in the **"Middle Epoch"** (中元) the **"Jia-Zi"** (甲子) year begins with **"Four Green"** (四緑), and in the **"Lower Epoch"** (下元) the **"Jia-Zi"** (甲子) year begins with **"Seven Red"** (七赤). The annual star is then obtained by combining the **"Sixty Gan-Zhi Years"** (干支紀年) with the **"Three-Epoch"** (三元) in the documented **"forward"** (順飛) and **"reverse"** (逆飛) arrangement; the important point for this historical reconstruction is that the three starting stars belong to the three separate epochs, not to a single temporal sequence called "One-Four-Seven."  
 
-- Yang → **1 / 4 / 7**;
-- Yin → **9 / 6 / 3**.
+The monthly layer has the same 60-unit structure on a shorter timescale. **"Jia-Zi"** (甲子) month through Gui-Hai month make one 60-month epoch, and Upper, Middle, and Lower Epochs together make 180 months. In the **"Upper Epoch"** (上元), **"Jia-Zi"** (甲子) month begins with **"One White"** (一白); in the **"Middle Epoch"** (中元) it begins with **"Four Green"** (四緑); in the **"Lower Epoch"** (下元) it begins with **"Seven Red"** (七赤). The monthly diagrams show the **"Sixty Gan-Zhi Month"** (干支紀月) paired with a **"Nine-Star"** (九星) value, with the star changing one step at a time from month to month. The monthly **"Three-Epoch"** (三元) therefore has its own state and cannot simply be replaced by ordinary Gregorian or civil-month numbering.  
 
-This makes the daily reconstruction
-a stateful historical calculation problem
-involving "seasonal-boundaries"
-(節気 / 節氣 / 节气 / jie-qi /
-tiết khí), "sexagenary-cycles"
-(六十干支 / liu-shi-gan-zhi /
-lục thập can chi),
-"monthly-three-epochs"
-(月三元 / yue-san-yuan /
-nguyệt tam nguyên), and
-"leap-bureau"
-(閏局 / 润局 / run-ju / nhuận cục)
-correction.
+The daily layer is the most distinctive and the least completely reconstructed part of the method. The documented starting states divide the solar year into six seasonal sections. After the **"Winter Solstice"** (冬至 / dong-zhi / đông chí), **"Rain Water"** (雨水 / yu-shui / vũ thủy), and **"Grain Rain"** (穀雨 / 谷雨 / gu-yu / cốc vũ), the system is in **"Yang Flight"** (陽遁) and uses the Upper, Middle, and Lower daily epochs beginning respectively with **"One White"** (一白), **"Seven Red"** (七赤), and **"Four Green"** (四緑) when the relevant day is **"Jia-Zi"** (甲子). After the Summer Solstice, Limit of Heat, and Frost Descent, the system is in Yin Flight and uses the Upper, Middle, and Lower daily epochs beginning respectively with **"Nine Purple"** (九紫), **"Three Jade"** (三碧), and **"Six White"** (六白) at the corresponding **"Jia-Zi"** (甲子) day. These six statements define the documented seasonal starting states, but they do not by themselves define the complete day-by-day calculation. Matsuura explicitly says that the daily circulation requires the transmitted **"Houkan"** rule and that he investigated competing older rules concerning which **"Jia-Zi"** (甲子) near the solstices should be taken as the beginning of an epoch.  
 
-Accordingly, Towngach does not currently
-pretend that the complete historical
-daily/monthly formula has been recovered.
-Where a production result would require
-an unresolved rule, the current API
-explicitly throws `UNRESOLVED_HISTORICAL_RULE`
-rather than fabricating a "nine-star" result.
+The daily system also has a second, deeper layer. Matsuura states that the **"Three-Epoch"** (三元) daily **"Nine-Star"** (九星) arrangement begins at the conjunction of a **"Jia-Zi"** (甲子) month and a **"Jia-Zi"** (甲子) day, then circulates through sixty months according to the relevant **"forward"** (順飛) or **"reverse"** (逆飛) order. At the beginning of each monthly Three Epoch he says that the pairing, or correspondence, between the daily stars and the sexagenary structure is "reformed" or renewed. This statement is the central reason why the daily method cannot safely be replaced by a generic 180-day **"Nine-Star"** (九星) formula. The exact computational meaning of this reform of the pairing is still under historical reconstruction.  
 
-## 1. Houkan method family
+Finally, the hourly layer divides time into three **"Three-Epoch"** (三元) groups of five days each, or sixty traditional double-hours per epoch. The documented Yang starting stars are **"One White"** (一白), **"Seven Red"** (七赤), and **"Four Green"** (四緑) for the three groups, while the Yin starting stars are **"Nine Purple"** (九紫), **"Three Jade"** (三碧), and **"Six White"** (六白). One star is advanced for each traditional double-hour in **"Yang Flight"** (陽遁) and reversed in **"Yin Flight"** (陰遁). The historical material also uses day classifications involving the four branch groups **"zi-wu-mao-you"** (子午卯酉), **"yin-shen-si-hai"** (寅申巳亥), and **"chen-xu-chou-wei"** (辰戌丑未) together with **"Jia-Ji"** (甲己) condition to determine the appropriate starting state. The exact OCR of some individual day names in the surviving transcription is imperfect, so the group-level rule is safer than silently correcting every character.  
 
-Houkan is a Japanese directional Purple-White method family investigated through material associated with:
+The four levels are therefore related but not interchangeable. Annual and monthly calculations have explicit 60-unit **"Three-Epoch"** (三元) structures; the daily calculation adds six seasonal starting states, a **"Jia-Zi"** (甲子) month/**"Jia-Zi"** (甲子) day synchronization, a sixty-month circulation, a transformation of the star/sexagenary pairing at monthly **"Three-Epoch"** (三元) boundaries, and a separate leap-bureau problem; and the hourly calculation uses five-day/sixty-double-hour epochs with its own day-group conditions. The purpose of this document is to preserve what the historical material actually establishes while keeping the still-unresolved parts visibly unresolved.  
 
-- Matsuura Kinkaku (松浦琴鶴);
-- Iida Tengai (飯田天涯);
-- Kikuchi Yosaku (菊池要佐久);
-- related Houkan literature.
+## 2. Scope and historical status  
 
-The method must distinguish documented rules, implementation interpretations, and unresolved historical questions. Houkan must not be replaced with modern Kigaku formulas merely because both use numbered Nine Stars.
+This document describes the **"Houkan"** (方鑑) calculation family investigated in connection with Matsuura Kinkaku (松浦琴鶴), especially the rules preserved in the Meiji-period editions of 方鑑秘伝集 and 方鑑弁説 : 神殺撰要.  
 
-## 2. Solar-Term boundaries
+The reconstruction distinguishes four levels of certainty:  
 
-When Houkan material uses entry into a Solar Term (節気 / jie-qi / tiết khí) as a boundary, use the actual astronomical transition instant.
+-   confirmed: directly supported by a primary text, diagram, or
+    machine-readable transcription;
+-   documented but not yet algorithmically reconstructed: explicitly
+    stated by the source but not yet reducible to an unambiguous
+    program;
+-   working interpretation: a computational hypothesis used for
+    investigation;
+-   unresolved: unsafe to hard-code as historical Matsuura behavior.  
 
-If a transition occurs at `05:00:00`, `04:59:59` belongs to the previous interval and `05:00:00` belongs to the new interval. The transition must not be rounded to midnight or silently replaced with a date-only boundary.
+Modern **"Nine-Star"** (九星) or Purple-White formulas must not be substituted for an
+unresolved Matsuura rule.  
 
-## 3. Hourly calculation
+## 3. Annual calculation (年家)  
 
-The confirmed Three-Epoch (三元 / san-yuan / Tam Nguyên) groups are:
+The historical annual structure treats **"Jia-Zi"** (甲子) through Gui-Hai, the sixty
+sexagenary years, as one epoch. Three such epochs form 180 years.  
 
-- Upper / first group: 子午卯酉;
-- Middle / second group: 寅申巳亥;
-- Lower / third group: 辰戌丑未.
+At the **"Jia-Zi"** (甲子) year of the Upper, Middle, and Lower Epochs the central stars are **"One White"** (一白), **"Four Green"** (四緑), and **"Seven Red"** (七赤) respectively.  
 
-The investigated material also confirms a Jia-Ji (甲己 / jia-ji) condition used by hourly logic.
+The source explicitly explains that "**"One White"** (一白), **"Four Green"** (四緑), **"Seven Red"** (七赤)" are the names of the central stars at the **"Jia-Zi"** (甲子) year of the three separate annual epochs. This is not a claim that a single epoch progresses temporally as 1 → 4 → 7.  
 
-Yang Flight (陽遁 / 阳遁 / yang-dun / Dương Độn) starting stars are:
+The annual source also describes the relationship between the year and the star as involving the documented forward/reverse arrangement. The detailed historical implementation of annual output is not the current research bottleneck; the crucial point is the 60-year/180-year structure and the three **"Jia-Zi"** (甲子) starting states.  
 
-- first epoch: One White;
-- second epoch: Seven Red;
-- third epoch: Four Green.
+Historical examples in the source include a **"Jia-Zi"** (甲子) **"Upper Epoch"** (上元) beginning in the seventeenth century and subsequent Middle and **"Lower Epochs"** (下元). These examples are historical fixtures, not a substitute for the general cycle.  
 
-Yin Flight (陰遁 / 阴遁 / yin-dun / Âm Độn) starting stars are:
+## 4. Monthly calculation (月家)   
 
-- first epoch: Nine Purple;
-- second epoch: Three Jade;
-- third epoch: Six White.
+The monthly **"Three-Epoch"** (三元) has the same structural relationship as the
+annual **"Three-Epoch"** (三元), but with sexagenary months.  
 
-One epoch (一元 / yi-yuan / nhất nguyên) is five days or sixty traditional double-hours. One star advances per traditional double-hour.
+**"Jia-Zi"** (甲子) month through Gui-Hai month comprise 60 months, one epoch; Upper, Middle, and Lower together comprise 180 months.  
 
-## 4. Zi-hour handling
+The **"Jia-Zi"** (甲子) starting stars are **"One White"** (一白), **"Four Green"** (四緑), and **"Seven Red"** (七赤) for the Upper, Middle, and Lower Epochs respectively.  
 
-The Zi hour (子時 / zi-shi / giờ Tý) must not be assigned one universal civil-date rule without checking the historical distinction. The examined material distinguishes concepts corresponding to Tonight (今夜 / jin-ye) and the following morning or This Dawn (今暁 / jin-xiao).
+The monthly diagrams show a twelve-month view in which sexagenary-month entries are paired with **"Nine-Star"** (九星) entries. The month sequence must be interpreted from the actual month labels, because the printed layout runs from December toward January rather than presenting a simple left-to-right January-to-December sequence.  
 
-The traditional day boundary must remain explicit and must not be hidden inside generic JavaScript date handling.
+A directly observed computational pattern is that, within each monthly epoch diagram, the **"Nine-Star"** (九星) value changes by one step from month to month in the reverse numerical direction, wrapping through the nine stars. Thus the **"Upper-Epoch"** sequence beginning at **"Jia-Zi"** (甲子) is 1, 9, 8, 7, 6, 5, 4, 3, 2, 1, 9, 8 for the first twelve sexagenary months; the **"Middle-Epoch"** sequence begins 4, 3, 2, 1, 9, 8, 7, 6, 5, 4, 3, 2; and the **"Lower-Epoch"** sequence begins 7, 6, 5, 4, 3, 2, 1, 9, 8, 7, 6, 5. These sequences are derived from the surviving monthly diagrams and should remain tied to the diagram data until every boundary cell is source-verified.  
 
-## 5. Daily calculation
+Some surviving transcription cells contain apparent OCR or copying anomalies. Such cells must be verified against the page image before becoming authoritative source data.  
 
-The Houkan daily structure must not be reduced to a guessed fixed 180-day cycle. The implementation recognizes six seasonal starting states, Yang and Yin Flight, and the continuous Sexagenary Cycle (六十干支 / liu-shi-gan-zhi / Lục Thập Can Chi).
+## 5. Daily calculation (日家)  
 
-The historical reconstruction contains three distinct layers that must not be collapsed into one formula:
+The daily source explicitly divides the year into six daily **"Three-Epoch"** (三元)
+starting states.  
 
-1. the six seasonal starting states described in Bensetsu (弁説);
-2. the Jia-Zi month (甲子月 / jia-zi-yue / Giáp Tý nguyệt) and Jia-Zi day (甲子日 / jia-zi-ri / Giáp Tý nhật) synchronization and sixty-month circulation described in Hiden (秘伝);
-3. the daily leap-bureau (閏局 / 润局 / run-ju / nhuận cục) correction described in the Secret Explanation passage of Seigi (方鑑正義).
+**"Yang Flight"** (陽遁) uses **"Winter Solstice"** (冬至), **"Rain Water"** (雨水), and **"Grain Rain"** (穀雨). At the corresponding **"Jia-Zi"** (甲子) day, these begin the Upper, Middle, and Lower daily epochs with **"One White"** (一白), **"Seven Red"** (七赤), and **"Four Green"** (四緑) respectively.  
 
-The third layer explains that a simple continuous 60-day/nine-star progression does not remain aligned with the seasonal year indefinitely. The difference between a 360-day two-flight progression and the approximately 365.25-day seasonal year accumulates and produces a leap-bureau correction. The passage gives an example around the 1894 Summer Solstice and explicitly states these phase families:
+**"Yin Flight"** (陰遁) uses **"Summer Solstice"** (夏至), **"End of Heat"** (処暑), and Frost Descent. At the corresponding **"Jia-Zi"** (甲子) day, these begin the Upper, Middle, and Lower daily epochs with **"Nine Purple"** (九紫), **"Three Jade"** (三碧), and **"Six White"** (六白) respectively.  
 
-- Yang Three Epochs: 1, 4, 7;
-- Yin Three Epochs: 9, 6, 3.
+The source describes the six groups together as a 360-day idealized circuit: six groups of sixty days. This statement is a structural description of the **"Nine-Star"** (九星) daily system, not sufficient by itself to produce a complete civil-calendar algorithm.  
 
-It also associates the phase immediately before Summer Solstice with Three Jade and the phase immediately before Winter Solstice with Seven Red.
+**Matsuura** (松浦琴鶴) explicitly discusses disagreement in earlier calendrical literature about whether the relevant **"Jia-Zi"** (甲子) before or after a solstice should be used to establish the beginning of an epoch. He says that he investigated the problem and obtained what he regarded as the true basis, then prepared an allocation diagram. This allocation diagram and the day-by-day circulation it represents are therefore central historical evidence.  
 
-This evidence preserves the leap-bureau mechanism as a required part of the historical reconstruction, but it is not sufficient to hard-code a complete day-star correction formula. The unresolved work is to convert the textual procedure, solstice or Jia-Wu criterion, and sixty-day leap-bureau examples into an unambiguous algorithm with independently reproducible test vectors.
+## 6. The daily **"Jia-Zi"** (甲子) synchronization and 配遇改革  
 
-The production API must therefore continue to reject unresolved daily logic rather than silently substituting a generic 180-day formula.
+The most important historical statement for the unresolved daily calculation is that the daily **"Three-Epoch"** (三元) **"Nine-Star"** (九星) system begins with a **"Jia-Zi"** (甲子) month and a **"Jia-Zi"** (甲子) day, circulates through sixty months, and at each beginning of a monthly Three Epoch reforms the correspondence between the daily star and the sexagenary structure.  
 
-### 5.1 Six seasonal starting states
+The two conditions of a synchronization can be represented computationally as:
+  
+`sexagenaryMonth(date) == Jia-Zi`
+  
+and  
 
-The Bensetsu text describes these daily starting states:
+`sexagenaryDay(date) == Jia-Zi`.  
 
-- Winter Solstice Jia-Zi → Yang Upper → One White in the center palace;
-- Rain Water Jia-Zi → Yang Middle → Seven Red;
-- Grain Rain Jia-Zi → Yang Lower → Four Green;
-- Summer Solstice Jia-Zi → Yin Upper → Nine Purple;
-- Limit of Heat Jia-Zi → Yin Middle → Three Jade;
-- Frost Descent Jia-Zi → Yin Lower → Six White.
+The month condition is determined from the **"Solar-Term"** (節気) month boundary, the month branch, the year stem, and the Five Tigers Rule. The day condition is determined from a continuous day index modulo sixty. These two calculations should remain separate from the historical **"Nine-Star"** (九星) transformation.  
 
-Compact mapping:
+What remains unresolved is the exact meaning of **"Haigu-Kaikaku"** (配遇改革). It may involve a change of phase, a change of starting star, a change of direction, a cyclic transformation of the star/day pairing, or a combination of these. The historical wording alone does not justify selecting one of those possibilities.  
 
-- Yang Upper → 1;
-- Yang Middle → 7;
-- Yang Lower → 4;
-- Yin Upper → 9;
-- Yin Middle → 3;
-- Yin Lower → 6.
+## 7. Leap bureau (日家閏局)  
 
-The source discusses disagreement among older calendar books concerning which relevant Jia-Zi day should be selected. Variants must be preserved rather than forced into one universal formula.
+The historical leap-bureau explanation treats the ordinary **"Yang"** and Yin daily progressions as an idealized 360-day system while the seasonal year is longer. The accumulated difference eventually requires a correction described as a leap bureau.  
 
-These six seasonal states define documented phase families, but the historical system also requires rules for the sixty-month circulation and leap-bureau correction. A correct implementation therefore needs an explicit state model rather than a single hard-coded arithmetic cycle.
+The surviving explanation includes an example around the **"Summer Solstice"** (夏至) of 1894, identifies a **"Jia-Wu"** (甲午) day, and discusses the accumulated seasonal discrepancy. It also explicitly uses the phase families 1 / 4 / 7 for **"Yang"** and 9 / 6 / 3 for **"Yin"**.  
 
-## 6. Monthly Three Epochs
+These expressions are phase-family labels, not statements that the stars necessarily occur in those numerical orders in every diagram or seasonal listing.  
 
-The examined material describes Jia-Zi month through Gui-Hai month as sixty months, or one epoch, with three epochs totaling 180 months. The monthly structure is explicitly compared with the annual Three-Epoch structure.
+The exact entry and exit rule of a leap bureau, whether the correction replaces or overlays ordinary progression, and how it interacts with the **"Jia-Zi"** (甲子) synchronization and monthly **"Three-Epoch"** (三元) transformation remain unresolved.  
 
-Bensetsu contains three monthly diagrams:
+## 8. Hourly calculation (時家)  
 
-- Upper-Epoch Month-Star Diagram;
-- Middle-Epoch Month-Star Diagram;
-- Lower-Epoch Month-Star Diagram.
+The hourly material divides each seasonal section into three epochs. One epoch is five days, corresponding to **"sixty traditional double-hours"** (六十時辰 / 六十时辰 / liu-shi shi-chen / sáu mươi thời thần). **"Three epochs"** (三元) therefore cover fifteen days.  
 
-The diagrams use a common layout: month headings from December to January, alternating sexagenary-month and nine-star rows, and associated sexagenary-year groups. Their computational structure shows:
+The **"Yang"** starting stars are **"One White"** (一白) for the **"Upper Epoch"** (上元), **"Seven Red"** (七赤) for the **"Middle Epoch"** (中元), and **"Four Green"** (四緑) for the **"Lower Epoch"** (下元). The **"Yin"** starting stars are **"Nine Purple"** (九紫), **"Three Jade"** (三碧), and **"Six White"** (六白).  
 
-1. a twelve-month sexagenary-month sequence paired with a twelve-month nine-star sequence;
-2. one-star monthly changes within each complete visible block;
-3. the need to interpret the sheet according to month labels rather than ordinary left-to-right reading;
-4. different phase arrangements across the three diagrams;
-5. year groups that are part of the rule rather than decorative metadata.
+The source groups days by the four branch families **"zi-wu-mao-you"** (子午卯酉), **"yin-shen-si-hai"** (寅申巳亥), and **"chen-xu-chou-wei"** (辰戌丑未) and uses a **"Jia-Ji"** (甲己) condition in determining the starting state. One star is assigned per double-hour, with **"Yang"** using forward movement and **"Yin"** using reverse movement.
+  
+Because the surviving transcription has OCR errors in several individual
+sexagenary-day names, the **"Branch"** (支) group and **"Starting Star"** (起始星) structure should be treated as the confirmed core until the page images are checked character by character.  
 
-Examples include January starting phases such as Eight White → Five Yellow → Two Black for successive complete blocks in the Upper Epoch, Two Black → Five Yellow → Eight White in the Middle Epoch, and Five Yellow → Two Black → Eight White in the Lower Epoch.
+## 9. **"Solar-Term"** (節気) boundary handling  
 
-These observations support a phase rotation among the three monthly epochs, but the diagrams alone do not justify a universal one-line formula for every block. Partial page-boundary cells and apparent transcription anomalies require source verification before those cells become authoritative data.
+Where the implementation needs an actual **"Solar-Term"** (節気) transition, the astronomical transition instant should be preserved. A transition at **05:00:00** belongs to the new interval from **05:00:00** onward; the preceding second remains in the previous interval.  
 
-The material also uses the branch groups Zi-Wu-Mao-You (子午卯酉), Yin-Shen-Si-Hai (寅申巳亥), and Chen-Xu-Chou-Wei (辰戌丑未), together with deeper sexagenary logic involving birth, flourishing, and storage or tomb relationships.
+This infrastructure is independent of the unresolved historical question of which **"Jia-Zi"** (甲子) day a traditional source chooses as an epoch boundary.
+  
+## 10. Five Tigers Rule and **"Jia-Zi"** (甲子) month detection
+  
+For the **"Wu-Gui"** (戊癸) year-stem group, the **"Tiger"** (寅) month begins as **"Jia-Yin"** (甲寅). The stem progression through the branches is:
 
-Working interpretation: monthly Three Epochs are a real 60-month/180-month structural layer and must not be reduced to ordinary civil month numbering.
+- **"yin"** (寅) = **"jia-yin"** (甲寅),
+- **"mao"** (卯) = **"yi-mao"** (乙卯),
+- **"chen"** (辰) = **"bing-chen"** (丙辰),
+- **"si"** (巳) = **"ding-si"** (丁巳),
+- **"wu"** (午) = **"wu-wu"** (戊午),
+- **"wei"** (未) = **"ji-wei"** (己未),
+- **"shen"** (申) = **"geng-shen"** (庚申),
+- **"you"** (酉) = **"xin-you"** (辛酉),
+- **"xu"** (戌) = **"ren-xu"** (壬戌),
+- **"hai"** (亥) = **"gui-hai"** (癸亥),
+- **"zi"** (子) = **"jia-zi"** (甲子),
+- **"chou"** (丑) = **"yi-chou"** (乙丑)
 
-## 7. Five Tigers Rule
+Consequently, in that year-stem group the **"Zi"** (子) month is **"Jia-Zi"** (甲子) and the **"Chou"** (丑) month is **"Yi-Chou"** (乙丑). A historical "eleventh month" in this material must not be confused with Gregorian November.  
 
-For the Wu-Gui year-stem group (戊癸), the Tiger month begins as Jia-Yin (甲寅). Advancing stems through branch months gives:
+## 11. Current software status  
 
-```text
-寅 = 甲寅; 卯 = 乙卯; 辰 = 丙辰; 巳 = 丁巳; 午 = 戊午;
-未 = 己未; 申 = 庚申; 酉 = 辛酉; 戌 = 壬戌; 亥 = 癸亥;
-子 = 甲子; 丑 = 乙丑.
-```
+The reusable calendrical infrastructure is suitable for continued testing: **"Sixty Gan-Zhi Cycles"** (六十干支), stems and branches, **"Solar-Term"** (節気) boundaries, **"Nine-Star"** (九星) identities, **"forward"** (順飛) and **"reverse"** (逆飛) flight representations, **"Three-Epoch"** (三元) categories, **"Jia-Zi"** (甲子) month detection, **"Jia-Zi"** (甲子) day indexing, and synchronization predicates.  
 
-Therefore, in the relevant Wu-Gui year-stem group, the Zi month is Jia-Zi month and the Chou month is Yi-Chou month. This explains examples in which a previous eleventh month is Jia-Zi, the twelfth month is Yi-Chou, and the following month is Bing-Yin.
+The historically unresolved **"Houkan"** annual, monthly, and daily results should not be replaced with generic formulas merely to produce output. The project should continue to surface an unresolved-rule state until the missing historical transformation is reconstructed.  
 
-Critical caution: an eleventh month is not automatically Gregorian November.
+## 12. What is established, what is not  
 
-## 8. Jia-Zi month and Jia-Zi day synchronization
+Established historical structure includes the 60-year annual epoch, the 60-month monthly epoch, the six documented daily starting states, the five-day/sixty-double-hour hourly epoch, the **"Jia-Zi"** (甲子) month/**"Jia-Zi"** (甲子) day statement, the sixty-month circulation statement, the existence of a monthly **"Three-Epoch"** (三元) pairing reform, and the existence of a leap-bureau correction.  
 
-The central historical phrase is:
+Not established is a complete closed-form Matsuura daily formula, a complete closed-form Matsuura monthly formula independent of the diagrams, the exact operation represented by **"Haigu-Kaikaku"** (配遇改革), the absolute synchronization anchor for the sixty-month circulation, and the exact leap-bureau algorithm.  
 
-> 「日の三元九星は、其(その)始、甲子の月・甲子の日に起(おこる)、而(しか)して六十箇月の間を、順逆(じゆんぎやく)次第(しだい)に循環(じゆんかん)する」
+## 13. Important terminology correction  
 
-The current working interpretation is that a relevant arrangement begins at a synchronization satisfying both Jia-Zi month and Jia-Zi day, then circulates through sixty months according to forward or reverse order.
+The expressions **"One-Four-Seven"** (一四七) and **"Nine-Six-Three"** (九六三) must not be described as numerical sequences unless the specific source is explicitly describing an order.
+  
+In the investigated material they are often compact names for star families: **"One-White"** (一白) / **"Four-Green"** (四緑) / **"Seven-Red"** (七赤) and **"Nine-Purple"** (九紫) / **"Six-White"** (六白) / **"Three-Jade"** (三碧). Separately, **"Bensetsu"** (方鑑弁説) gives seasonal starting states in the order **"Winter Solstice"** (冬至) = 1, **"Rain Water"** (雨水) = 7, **"Grain Rain"** (穀雨) = 4, and **"Summer Solstice"** (夏至) = 9, **"End of Heat"** (処暑) = 3, **"Frost Descent"** (霜降) = 6. These are different pieces of information and must not be conflated.  
 
-A Jia-Zi month is determined by sexagenary-month rules, while a Jia-Zi day is determined by the continuous sixty-day cycle. The conjunction is therefore a synchronization problem, not a lookup-table identity:
+## 14. Historical source basis  
 
-```text
-sexagenary_month(date) == jia_zi
-and sexagenary_day(date) == jia_zi
-```
-
-The implementation should keep month calculation, day calculation, synchronization search, and the resulting star arrangement as separate responsibilities.
-
-## 9. Current implementation status
-
-The preserved Houkan behavior is deliberate:
-
-- Houkan hourly calculation has an implemented shared calculation path;
-- Houkan daily calculation intentionally throws `UNRESOLVED_HISTORICAL_RULE`;
-- Houkan monthly calculation intentionally throws `UNRESOLVED_HISTORICAL_RULE`;
-- Houkan annual calculation intentionally throws `UNRESOLVED_HISTORICAL_RULE`.
-
-The library distinguishes implemented mathematics from historically unresolved reconstruction work. The unresolved behavior must not be replaced with guessed formulas.
-
-## 10. Houkan research backlog
-
-### Monthly-to-daily transformation
-
-The immediate historical question is what exact computational operation is meant by transforming or renewing the pairing of daily stars and sexagenary structure at each beginning of a monthly Three Epoch.
-
-The daily diagrams and monthly diagrams must be compared with the explicit Hiden statement. Generic Purple-White formulas must not be used as a substitute for this reconstruction.
-
-### Jia-Zi synchronization model
-
-Established:
-
-- a Jia-Zi month is computable from Solar Term month boundaries and the Five Tigers Rule;
-- a Jia-Zi day is computable from a continuous sexagenary-day index;
-- their conjunction is testable without a permanent lookup table.
-
-Still unresolved:
-
-- the best direct recurrence or search strategy;
-- the exact absolute anchor used by the sixty-month circulation;
-- how synchronization anchors interact with monthly Three-Epoch transformation.
-
-A recurrence of the 60-day phase must not be mistaken for recurrence of the full month/day synchronization.
-
-### Leap-bureau algorithm
-
-The remaining work includes exact parsing of the worked example, definition of the leap-bureau start and end days, the relation between correction and normal daily progression, and independent historical test vectors.
-
-Until these operations are reconstructed, retain shared sexagenary infrastructure, Solar Term boundary handling, Jia-Zi month detection, Jia-Zi day indexing, direction and phase representations, diagram data, and regression fixtures. Do not claim a complete Kinkaku daily or monthly algorithm by filling the gap with a convenient formula or lookup table.
-
-## 11. Houkan testing
-
-Houkan tests should cover:
-
-- all three hourly epoch branch groups;
-- Yang starting stars 1, 7, and 4;
-- Yin starting stars 9, 3, and 6;
-- one star per double-hour;
-- sixty double-hours or one five-day epoch;
-- historical Zi-hour boundary behavior;
-- documented seasonal states;
-- documented epoch starts;
-- candidate synchronizations and hypotheses as separate fixtures.
-
-A guessed synchronization must not be encoded as confirmed behavior.
-
-## 12. Houkan boundary in the repository
-
-The shared Purple-White core provides reusable star identities, cyclic arithmetic, Nine Palaces, and forward or reverse flight. Houkan owns Japanese directional Purple-White reconstruction, documented exact astronomical Solar Term boundaries, confirmed hourly groups and starting stars, and unresolved absolute daily/monthly Jia-Zi synchronization.
-
-Modern Kigaku and Mizuno-style Kigaku are related but remain separate families. Xuan Kong Flying Stars (玄空飛星 / xuan-kong-fei-xing / huyền không phi tinh) and Qimen Dunjia remain outside Houkan's calculation identity and must not be conflated with it.
+The principal historical sources for this reconstruction are Matsuura Kinkaku's (松浦琴鶴) **"方鑑秘伝集"** (or **"Hiden"** for short) (especially the 1883) basis used for the fixed **"Hiden"** text and its daily diagrams, and **"方鑑弁説 : 神殺撰要"** (or **"Bensetsu"** for short), especially the monthly and daily explanatory sections and diagrams. Comparative Chinese material may be used to illuminate terminology or historical context, but it must not be substituted for Matsuura's own rule.

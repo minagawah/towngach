@@ -1,4 +1,4 @@
-# Eastern Astrological Terminology
+# East Asian Astrological Terminology
 
 Translations are listed in this order: Japanese, Traditional
 Chinese, Simplified Chinese, and Vietnamese. Identical Japanese,
@@ -12,9 +12,33 @@ Traditional Chinese, and Simplified Chinese forms are listed once.
 - **Double-Hour**: 時辰 / 时辰 / giờ âm lịch
 - **Dun**: 遁 / độn
 - **Earthly Branches**: 地支 / địa chi
+  - **Zi**: 子 / tý (Rat)
+  - **Chou**: 丑 / sửu (Ox)
+  - **Yin**: 寅 / dần (Tiger)
+  - **Mao**: 卯 / mão (Rabbit)
+  - **Chen**: 辰 / thìn (Dragon)
+  - **Si**: 巳 / tỵ (Snake)
+  - **Wu**: 午 / ngọ (Horse)
+  - **Wei**: 未 / mùi (Goat)
+  - **Shen**: 申 / thân (Monkey)
+  - **You**: 酉 / dậu (Rooster)
+  - **Xu**: 戌 / tuất (Dog)
+  - **Hai**: 亥 / hợi (Pig)
 - **Flight**: 飛泊 / phi bạc
+  - **Forward Flight**: 順飛 / 顺飞 / thuận phi
+  - **Reverse Flight**: 逆飛 / 逆飞 / nghịch phi
 - **Flying Star**: 飛星 / 飞星 / phi tinh
-- **Forward Flight**: 順飛 / 顺飞 / thuận phi
+- **Heavenly Stems**: 天干 / tian-gan / thiên can
+  - **Jia**: 甲 / giáp (Yang Wood)
+  - **Yi**: 乙 / ất (Yin Wood)
+  - **Bing**: 丙 / bính (Yang Fire)
+  - **Ding**: 丁 / đinh (Yin Fire)
+  - **Wu**: 戊 / mậu (Yang Earth)
+  - **Ji**: 己 / kỷ (Yin Earth)
+  - **Geng**: 庚 / canh (Yang Metal)
+  - **Xin**: 辛 / tân (Yin Metal)
+  - **Ren**: 壬 / nhâm (Yang Water)
+  - **Gui**: 癸 / quý (Yin Water)
 - **Houkan**: 方鑑 / 方鉴 / phương giám
 - **Hourly Calculation**: 時家 / 时家 / thời gia
 - **Initial Star**: 起始星 / khởi thủy tinh
@@ -31,33 +55,60 @@ Traditional Chinese, and Simplified Chinese forms are listed once.
 - **Origin**: 元 / nguyên
 - **Palace**: 宮 / 宫 / cung
 - **Purple-White**: 紫白 / tử bạch
-- **Purple-White Nine Stars**: 紫白九星 / cửu tinh tử bạch
-  - **One-White**: 一白 / nhất bạch
-  - **Two-Black**: 二黒 / 二黑 / nhị hắc
-  - **Three-Blue**: 三碧 / tam bích
-  - **Four-Green**: 四緑 / 四綠 / 四绿 / tứ lục
-  - **Five-Yellow**: 五黄 / 五黃 / ngũ hoàng
-  - **Six-White**: 六白 / lục bạch
-  - **Seven-Red**: 七赤 / thất xích
-  - **Eight-White**: 八白 / bát bạch
-  - **Nine-Purple**: 九紫 / cửu tử
+- **Purple-White Nine Stars**: 紫白九星 / zi-bai jiu-xing / cửu tinh tử bạch
+  - **One-White**: 一白 / yi-bai / nhất bạch
+  - **Two-Black**: 二黒 / 二黑 / er-hei / nhị hắc
+  - **Three-Jade**: 三碧 / san-bi / tam bích
+  - **Four-Green**: 四緑 / 四綠 / 四绿 / si-lu / tứ lục
+  - **Five-Yellow**: 五黄 / 五黃 / wu-huang / ngũ hoàng
+  - **Six-White**: 六白 / liu-bai / lục bạch
+  - **Seven-Red**: 七赤 / qi-chi / thất xích
+  - **Eight-White**: 八白 / ba-bai / bát bạch
+  - **Nine-Purple**: 九紫 / jiu-zi / cửu tử
 - **Qimen-Dunjia**: 奇門遁甲 / 奇门遁甲 / kỳ môn độn giáp
-- **Reverse Flight**: 逆飛 / 逆飞 / nghịch phi
-- **Sexagenary Cycle**: 六十干支 / 六十花甲 / lục thập can chi
+- **Sexagenary Cycle**: (see "Sixty Gan-Zhi Unit" bellow)
 - **Six Seasonal Periods**: 六気 / 六氣 / 六气 / lục khí
+- **Sixty Gan-Zhi Unit**: 六十干支 / 六十花甲 / liu-shi-gan-zhi / lục thập hoa giáp
+  - **Sixty Gan-Zhi Years**: 干支紀年 / 干支纪年 / gan-zhi ji-nian / can chi kỷ niên (Sexagenary years)
+  - **Sixty Gan-Zhi Month**: 干支紀月 / 干支纪月 / gan-zhi ji-yue / can chi kỷ nguyệt (Sexagenary month)
+- **Sixty Traditional Double-hours**: 六十時辰 / 六十时辰 / liu-shi shi-chen / sáu mươi thời thần
 - **Solar Term**: 節氣 / 节气 / tiết khí
 - **Solar-Term Boundary**: 節氣交節 / 节气交节 / tiết khí giao tiết
 - **Solstices**: 二至 / nhị chí
 - **Star**: 星 / tinh
 - **Starting Star**: 起始星 / khởi thủy tinh
-- **Summer Solstice**: 夏至 / hạ chí
 - **Three Epochs**: 三元 / tam nguyên
 - **Three Epochs and Nine Periods**: 三元九運 / 三元九运 / tam nguyên cửu vận
 - **Three-Epoch Purple-White**: 三元紫白 / tam nguyên tử bạch
-- **Winter Solstice**: 冬至 / đông chí
+- **Twenty-Four Solar Terms**: 二十四節氣 / 二十四节气 / er-shi-si-jie-qi / tiết khí (hai mươi tư tiết khí)
+  - **Beginning of Spring**: 立春 / li-chun / lập xuân
+  - **Rain Water**: 雨水 / yu-shui / vũ thủy
+  - **Awakening of Insects**: 啓蟄 / 驚蟄 / 惊蛰 / jing-zhe / kinh trập
+  - **Spring Equinox**: 春分 / chun-fen / xuân phân
+  - **Clear and Bright**: 清明 / qing-ming / thanh minh
+  - **Grain Rain**: 穀雨 / 谷雨 / gu-yu / cốc vũ
+  - **Beginning of Summer**: 立夏 / li-xia / lập hạ
+  - **Grain Budding**: 小満 / 小满 / xiao-man / tiểu mãn
+  - **Grain in Ear**: 芒種 / 芒种 / mang-zhong / mang chủng
+  - **Summer Solstice**: 夏至 / xia-zhi / hạ chí
+  - **Minor Heat**: 小暑 / xiao-shu / tiểu thử
+  - **Major Heat**: 大暑 / da-shu / đại thử
+  - **Beginning of Autumn**: 立秋 / li-qiu / lập thu
+  - **End of Heat**: 処暑 / 處暑 / 处暑 / chu-shu / xử thử
+  - **White Dew**: 白露 / bai-lu / bạch lộ
+  - **Autumn Equinox**: 秋分 / qiu-fen / thu phân
+  - **Cold Dew**: 寒露 / han-lu / hàn lộ
+  - **Frost Descent**: 霜降 / shuang-jiang / sương giáng
+  - **Beginning of Winter**: 立冬 / li-dong / lập đông
+  - **Minor Snow**: 小雪 / xiao-xue / tiểu tuyết
+  - **Major Snow**: 大雪 / da-xue / đại tuyết
+  - **Winter Solstice**: 冬至 / dong-zhi / đông chí
+  - **Minor Cold**: 小寒 / xiao-han / tiểu hàn
+  - **Major Cold**: 大寒 / da-han / đại hàn
 - **Xuan-Kong**: 玄空 / huyền không
 - **Xuan-Kong Flying Stars**: 玄空飛星 / 玄空飞星 / huyền không phi tinh
 - **Yang Dun**: 陽遁 / 阳遁 / dương độn
 - **Yin Dun**: 陰遁 / 阴遁 / âm độn
 - **Zi Hour**: 子時 / 子时 / giờ Tý
 - **Zi-Wu-Mao-You**: 子午卯酉 / tý ngọ mão dậu
+

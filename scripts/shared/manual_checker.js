@@ -252,16 +252,29 @@ const format_datetime = value => {
     value.date instanceof Date ? value.date : value;
 
   const year = date.getUTCFullYear();
-  const month = String(date.getUTCMonth() + 1).padStart(2, '0');
+  const month = String(date.getUTCMonth() + 1).padStart(
+    2,
+    '0'
+  );
   const day = String(date.getUTCDate()).padStart(2, '0');
   const hour = String(date.getUTCHours()).padStart(2, '0');
-  const minute = String(date.getUTCMinutes()).padStart(2, '0');
-  const second = String(date.getUTCSeconds()).padStart(2, '0');
+  const minute = String(date.getUTCMinutes()).padStart(
+    2,
+    '0'
+  );
+  const second = String(date.getUTCSeconds()).padStart(
+    2,
+    '0'
+  );
 
   const offsetMinutes = -date.getTimezoneOffset();
   const offsetSign = offsetMinutes >= 0 ? '+' : '-';
-  const offsetHours = String(Math.floor(Math.abs(offsetMinutes) / 60)).padStart(2, '0');
-  const offsetMinutesPart = String(Math.abs(offsetMinutes) % 60).padStart(2, '0');
+  const offsetHours = String(
+    Math.floor(Math.abs(offsetMinutes) / 60)
+  ).padStart(2, '0');
+  const offsetMinutesPart = String(
+    Math.abs(offsetMinutes) % 60
+  ).padStart(2, '0');
 
   return `${year}-${month}-${day} ${hour}:${minute}:${second} UTC (${offsetSign}${offsetHours}:${offsetMinutesPart})`;
 };

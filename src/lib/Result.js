@@ -36,59 +36,64 @@
  */
 
 /**
- * __ResultEntity (instance created)__<br />
- * `ResultEntity` is a monad holding `Ok` value or `Err`.<br />
- * To create an instance, run `Result` factory.
- * @typedef ResultEntity
- * @implements {module:lib/Result~ResultInterface}
+ * __ResultInterface (interface)__<br />
+ * Interface design for `ResultEntity`.
+ *
  * @template T, E
- * @property {function(T):ResultEntity.<T,E>} ok - Marks this Result as Ok.
- * @property {function(E):ResultEntity.<T,E>} err - Marks this Result as Err.
- * @property {function():boolean} is_ok - Returns true if Ok.
- * @property {function():boolean} is_err - Returns true if Err.
- * @property {function():T} unwrap - Returns Ok or throws if Err.
- * @property {function(*):*} unwrap_or - Returns Ok or fallback.
- * @property {function():E} unwrap_err - Returns the Err value.
- * @property {function():void} throw_if_err - Throws if Err.
- * @property {function():T} unwrap_or_throw - Throws if Err, else returns Ok.
- * @property {ResultMapper.<T,U,E>} map - Maps Ok through a function.
- * @property {ResultMapper.<T,U,E>} flatMap - Maps and flattens nested Result.
- * @property {ResultMatcher<T,E>} match - Pattern matches on Ok/Err.
- * @see {@link module:lib/Result~ResultInterface|ResultInterface} - For the interface of "ResultEntity"
+ * @interface ResultInterface
+ * @see {@link module:lib/Result~ResultEntity|ResultEntity} - Although defined in the same file, generates 2 separate pages.
  */
 
 /**
  * A mapper function that transforms the `Ok` value.
- * @callback ResultMapper
- * @template T,U,E
+ *
+ * @callback Mapper
+ * @template T, U, E
  * @param {T} value
- * @returns {ResultEntity.<U, E>}
+ * @returns {U | ResultEntity.<U, E>}
  */
 
 /**
- * A function for pattern matching on `Result` values.
- * @callback ResultMatcher
- * @template T,E
- * @param {{Ok:function(T):any, Err:function(E):any}} pattern
- * @returns {any}
- */
-
-/**
- * __ResultInterface (interface)__<br />
- * Interface design for `ResultEntity`.
- * @interface ResultInterface
+ * An object literal for matching on `Result` states.
+ *
  * @template T, E
- * @see {@link module:lib/Result~ResultEntity|ResultEntity} - Although defined in the same file, generates 2 separate pages.
+ * @typedef {Object} MatchPattern
+ * @property {function(T): *} Ok - Handler executed when state is Ok.
+ * @property {function(E): *} Err - Handler executed when state is Err.
+ */
+
+/**
+ * __ResultEntity (instance created)__<br />
+ * `ResultEntity` is a monad holding `Ok` value or `Err`.<br />
+ * To create an instance, run `Result` factory.
+ *
+ * @typedef ResultEntity
+ * @implements {module:lib/Result~ResultInterface}
+ * @template T, E
+ * @property {function(T): ResultEntity.<T,E>} ok - Marks this Result as Ok.
+ * @property {function(E): ResultEntity.<T,E>} err - Marks this Result as Err.
+ * @property {function(): boolean} is_ok - Returns true if Ok.
+ * @property {function(): boolean} is_err - Returns true if Err.
+ * @property {function(): T} unwrap - Returns Ok or throws if Err.
+ * @property {function(*): *} unwrap_or - Returns Ok or fallback.
+ * @property {function(): E} unwrap_err - Returns the Err value.
+ * @property {function(): void} throw_if_err - Throws if Err.
+ * @property {function(): T} unwrap_or_throw - Throws if Err, else returns Ok.
+ * @property {Mapper.<T, *, E>} map - Maps Ok through a function.
+ * @property {Mapper.<T, *, E>} flatMap - Maps and flattens nested Result.
+ * @property {function(MatchPattern.<T, E>): *} match - Pattern matches on Ok/Err via configuration object.
+ * @see {@link module:lib/Result~ResultInterface|ResultInterface} - For the interface of "ResultEntity"
  */
 
 /**
  * __Result (factory)__<br />
  * A factory function to create `ResultEntity`.<br />
+ *
  * @function
  * @name Result
  * @template T, E
  * @param {T} [value] - If given, it will set the value as the `Ok` value.
- * @returns {ResultEntity.<T,E>}
+ * @returns {ResultEntity.<T, E>}
  * @see {@link module:lib/Result~ResultEntity|ResultEntity} - See definitions of the returned "ResultEntity".
  * @see {@link module:lib/Result~ResultInterface|ResultInterface} - For the interface of "ResultEntity".
  */
@@ -117,6 +122,7 @@ export const Result = value => {
 
   /**
    * For the given value, sets it as `Ok` value, and sets the monad `Ok`.
+   *
    * @function
    * @method module:lib/Result~ResultInterface#ok
    * @param {T} value
@@ -133,6 +139,7 @@ export const Result = value => {
 
   /**
    * For the given value, sets it as `Err` value, and sets the monad `Err`.
+   *
    * @function
    * @method module:lib/Result~ResultInterface#err
    * @param {E} err
@@ -147,6 +154,7 @@ export const Result = value => {
 
   /**
    * Checks if the monad is `Err`.
+   *
    * @function
    * @method module:lib/Result~ResultInterface#is_err
    * @returns {boolean}
@@ -155,6 +163,7 @@ export const Result = value => {
 
   /**
    * Checks if the monad is `Ok`.
+   *
    * @function
    * @method module:lib/Result~ResultInterface#is_ok
    * @returns {boolean}
@@ -163,6 +172,7 @@ export const Result = value => {
 
   /**
    * Returns the `Ok` value or throws if `Err`.
+   *
    * @function
    * @method module:lib/Result~ResultInterface#unwrap
    * @throws {Error}
@@ -181,6 +191,7 @@ export const Result = value => {
 
   /**
    * Returns `Ok` or a fallback value.
+   *
    * @function
    * @method module:lib/Result~ResultInterface#unwrap_or
    * @template U
@@ -191,6 +202,7 @@ export const Result = value => {
 
   /**
    * Regardless of whether the monad being `Ok` or `Err`, returns the internally held `Err`.
+   *
    * @function
    * @method module:lib/Result~ResultInterface#unwrap_err
    * @returns {E}
@@ -199,6 +211,7 @@ export const Result = value => {
 
   /**
    * Throws the `Err` if present.
+   *
    * @function
    * @method module:lib/Result~ResultInterface#throw_if_err
    * @throws {E}
@@ -209,6 +222,7 @@ export const Result = value => {
 
   /**
    * Returns `Ok` or throws the `Err`.
+   *
    * @function
    * @method module:lib/Result~ResultInterface#unwrap_or_throw
    * @throws {*}
@@ -221,12 +235,13 @@ export const Result = value => {
 
   /**
    * Maps the `Ok` value through a function `function(T):U`.
-   * @method module:lib/Result~ResultInterface#map
+   *
    * @template U
    * @function
+   * @method module:lib/Result~ResultInterface#map
    * @param {function(T):U} fn - Mapping function `function(T):U` for transforming `Ok` values.
    * @returns {ResultEntity<U,E>}
-   * @see {@link module:lib/Result~ResultMapper|ResultMapper}
+   * @see {@link module:lib/Result~Mapper|Mapper}
    */
   self.map = function (fn) {
     if (_ok) {
@@ -241,12 +256,13 @@ export const Result = value => {
 
   /**
    * Maps and flattens nested `Result`s `function(T):ResultEntity<U,E>`.
-   * @method module:lib/Result~ResultInterface#flatMap
+   *
    * @template U
    * @function
+   * @method module:lib/Result~ResultInterface#flatMap
    * @param {function(T):ResultEntity.<U, E>} fn - Mapping function `function(T):ResultEntity<U,E>` returning another `Result`.
    * @returns {ResultEntity<U,E>}
-   * @see {@link module:lib/Result~ResultMapper|ResultMapper}
+   * @see {@link module:lib/Result~Mapper|Mapper}
    */
   self.flatMap = function (fn) {
     if (_ok) {
@@ -270,10 +286,12 @@ export const Result = value => {
   /**
    * Pattern matches on `Ok` or `Err` values<br />
    * `function({Ok:function(T):any, Err:function(E):any}):any`.
+   *
+   * @function
    * @method module:lib/Result~ResultInterface#match
-   * @param {{Ok:function(T):any, Err:function(E):any}} pattern - Pattern matcher `function({Ok:function(T):any, Err:function(E):any}):any`.
-   * @see {@link module:lib/Result~ResultMatcher|ResultMatcher}
-   * @returns {any}
+   * @param {MatchPattern.<T, E>} pattern
+   * @see {@link module:lib/Result~MatchPattern|MatchPattern}
+   * @returns {*}
    */
   self.match = function (pattern) {
     if (_ok) {

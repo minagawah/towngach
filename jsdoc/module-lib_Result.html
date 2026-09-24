@@ -362,6 +362,301 @@ A factory function to create `ResultEntity`.<br />
 
         
                 
+
+    
+
+    
+    <h4 class="name" id="~Mapper"><span class="type-signature"></span>Mapper<span class="signature">(value)</span><span class="type-signature"> &rarr; {U|ResultEntity.&lt;U, E>}</span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    A mapper function that transforms the `Ok` value.
+</div>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>value</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">T</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+
+        
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">U</span>
+|
+
+<span class="param-type">ResultEntity.&lt;U, E></span>
+
+
+    </dd>
+</dl>
+
+    
+
+
+
+
+
+            
+                
+<h4 class="name" id="~MatchPattern">MatchPattern</h4>
+
+
+
+
+<div class="description">
+    An object literal for matching on `Result` states.
+</div>
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type">Object</span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    
+
+<table class="props">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>Ok</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">function</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Handler executed when state is Ok.</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>Err</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">function</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Handler executed when state is Err.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+            
+                
 <h4 class="name" id="~ResultEntity">ResultEntity</h4>
 
 
@@ -618,7 +913,7 @@ To create an instance, run `Result` factory.
             <td class="type">
             
                 
-<span class="param-type">ResultMapper.&lt;T, U, E></span>
+<span class="param-type">Mapper.&lt;T, *, E></span>
 
 
             
@@ -641,7 +936,7 @@ To create an instance, run `Result` factory.
             <td class="type">
             
                 
-<span class="param-type">ResultMapper.&lt;T, U, E></span>
+<span class="param-type">Mapper.&lt;T, *, E></span>
 
 
             
@@ -664,7 +959,7 @@ To create an instance, run `Result` factory.
             <td class="type">
             
                 
-<span class="param-type">ResultMatcher.&lt;T, E></span>
+<span class="param-type">function</span>
 
 
             
@@ -674,7 +969,7 @@ To create an instance, run `Result` factory.
 
             
 
-            <td class="description last">Pattern matches on Ok/Err.</td>
+            <td class="description last">Pattern matches on Ok/Err via configuration object.</td>
         </tr>
 
     
@@ -739,306 +1034,6 @@ To create an instance, run `Result` factory.
 
 
             
-                
-
-    
-
-    
-    <h4 class="name" id="~ResultMapper"><span class="type-signature"></span>ResultMapper<span class="signature">(value)</span><span class="type-signature"> &rarr; {ResultEntity.&lt;U, E>}</span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    A mapper function that transforms the `Ok` value.
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>value</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">T</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">ResultEntity.&lt;U, E></span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-
-
-            
-                
-
-    
-
-    
-    <h4 class="name" id="~ResultMatcher"><span class="type-signature"></span>ResultMatcher<span class="signature">(pattern)</span><span class="type-signature"> &rarr; {any}</span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    A function for pattern matching on `Result` values.
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>pattern</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Object</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">any</span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-
-
-            
     
 
     
@@ -1058,7 +1053,7 @@ To create an instance, run `Result` factory.
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.5</a> on Mon Sep 21 2026 15:34:50 GMT+0700 (Indochina Time)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.5</a> on Thu Sep 24 2026 10:50:02 GMT+0700 (Indochina Time)
 </footer>
 
 <script> prettyPrint(); </script>

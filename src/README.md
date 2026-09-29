@@ -467,7 +467,22 @@ The 子 hour uses the examined 今夜/今暁 distinction. The implementation doe
 
 ### `houkan/daily.js`
 
-The six documented daily periods are represented: winter solstice, rain water, and grain rain use Yang Dun; summer solstice, limit of heat, and frost descent use Yin Dun. Their Upper/Middle/Lower Yuan starting stars are preserved. The historical daily 甲子 reference-point choice remains unresolved, so `calculate_houkan_daily` explicitly throws when a final star configuration would be required.
+The 6 documented daily periods are represented:
+**"Winter Solstice"**, **"Rain Water"**, and
+**"Grain Rain"** use **"Yang Dun"**;
+**"Summer Solstice"**, **"End of Heat"**, and
+**"Frost Descent"** use **"Yin Dun"**.
+Their Upper/Middle/Lower **"Yuan"**
+**"Starting Stars"** are preserved.
+The historical material also documents
+a **甲子月** + **甲子日** synchronization,
+a 60-month circulation, monthly pairing reform
+(配遇改革), and a 60-day leap-star interval
+when the relevant solstice coincides with **甲午**.
+The final civil-date calculation remains unresolved
+where the source does not determine a unique
+algorithm, so the implementation must not
+substitute modern Kigaku behavior.
 
 ### `houkan/annual.js`
 

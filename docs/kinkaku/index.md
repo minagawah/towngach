@@ -348,48 +348,43 @@ central historical evidence.
 
 ## 6. The daily **"Jia-Zi"** (甲子) synchronization and 配遇改革  
 
-The most important historical statement
-for the unresolved daily calculation
-is that the daily **"Three-Epoch"** (三元)
-**"Nine-Star"** (九星) system begins with
-a **"Jia-Zi Month"** (甲子月) and
-a **"Jia-Zi Day"** (甲子日), circulates
-through 60 months, and at each beginning
-of a monthly **"Three Epoch"** reforms
-the correspondence between the daily star
-and the sexagenary structure.
+Matsuura's explanation states that the daily
+**"Three-Epoch"** Nine-Star system begins
+from a **Jia-Zi Month** (甲子月) together
+with a **Jia-Zi Day** (甲子日), circulates
+through **60 months**, and at each monthly
+**"Three-Epoch"** boundary reforms the
+correspondence between the daily star
+and the sexagenary structure (配遇改革).
 
-The two conditions of a synchronization
-can be represented computationally as:
-  
-`sexagenaryMonth(date) == Jia-Zi`
-  
-and  
+For the current reconstruction, the safest
+interpretation is an explicit
+**calendar synchronization/reset event**:
+at the monthly **"Three-Epoch"** boundary,
+the daily-star/sexagenary correspondence
+is re-established. The wording does not
+justify inventing a hidden phase variable,
+a **4 ↔ 7** transformation, or another
+unrecorded mathematical operation.
 
-`sexagenaryDay(date) == Jia-Zi`.  
+The exact internal operation of
+the reform remains unresolved.
 
-The month condition is determined
-from the **"Solar-Term"** (節気) month
-boundary, the **"month branch"**,
-the **"year stem"**, and the
-**"Five Tigers Rule"**.
-The day condition is determined
-from a continuous day index modulo 60.
-These two calculations should remain
-separate from the historical
-**"Nine-Star"** (九星) transformation.
+## 7. Leap bureau (日家閏九星)
 
-What remains unresolved is the exact
-meaning of **"Haigu-Kaikaku"** (配遇改革).
-It may involve a change of phase,
-a change of starting star,
-a change of direction, a cyclic
-transformation of the star/day pairing,
-or a combination of these. The historical
-wording alone does not justify selecting
-one of those possibilities.
+The historical explanation explicitly states that a leap star is established when **either the Winter Solstice or Summer Solstice coincides with 甲午**. In the documented Winter-Solstice example, the **later 甲子** is adopted and its 60-day interval is treated as the leap-star interval. The source explicitly identifies the midpoint as **癸巳**, then **甲午**, and ends at **癸亥**; the following day is **甲子**, at which ordinary Yin 九紫 resumes.
 
-## 7. Leap bureau (日家閏局)  
+Thus the leap interval is read as:
+
+```text
+甲子 … 癸巳    30 days
+甲午 … 癸亥    30 days
+翌甲子         ordinary Yin 九紫
+```
+
+The Winter example uses Yin in the first half and Yang in the second. The Summer example gives the opposite directional order. The complete civil-calendar detection rule for every leap case remains unresolved.
+
+ (日家閏局)  
 
 The historical leap-bureau explanation
 treats the ordinary **"Yang"** and **"Yin"**

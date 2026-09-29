@@ -264,47 +264,112 @@ for indexing, but apparent OCR/copying anomalies
 must be checked against the image before becoming
 authoritative data.
 
-## 10. Leap bureau
+## 10. Leap bureau (日家閏九星)
 
-The historical material also describes
-a **daily leap bureau** (日家閏九星 / 日家閏局).
-It treats the ordinary Yang/Yin progression
-as an idealized 360-day circuit and introduces
-a correction after the seasonal discrepancy
-accumulates.
+The historical explanation explicitly states
+that a leap star is established when
+**either the "Winter Solstice" or "Summer Solstice"**
+**coincides with "甲午"**. This is a trigger rule,
+not a general invitation to infer
+a hidden phase correction.
 
-The existence of this correction is established.
-Its exact entry, exit, and interaction with
-the ordinary daily sequence, **"Jia-Zi"**
-synchronization, and monthly pairing reform
-are not yet established. It should therefore
-remain a separate historical layer until
-the original diagrams prove how
-the layers interact.
+For the documented **"Winter-Solstice"** example,
+the earlier **"甲子"** reference is rejected and
+the **later 甲子** is adopted. That **later 甲子**
+begins a 60-day leap-star interval. The text
+explicitly gives the midpoint as the 30th day
+**"癸巳"**, followed by **"甲午"**, and ends
+the second half at **"癸亥"**. The following day
+is **"甲子"**, at which ordinary **"Yin"**
+**"Nine Purple"** (九紫) resumes.
+
+The deterministic structure is therefore:
+
+```text
+甲子 … 癸巳    30 days: first leap half
+甲午 … 癸亥    30 days: second leap half
+翌甲子         ordinary Yin 九紫 resumes
+```
+
+In the **"Winter-Solstice"** example the first
+half is **"Yin"** and the second half is **"Yang"**.
+The **"Summer-Solstice"** example describes
+the opposite directional order: first forward,
+then reverse, followed by ordinary **"Yin"**
+**"Nine Purple"** (九紫) at the next **"甲子"**.
+
+Current reconstruction status:
+
+- **Confirmed:**  
+  trigger = solstice + **"甲午"** coincidence;
+  leap span = **"later 甲子"** through **"癸亥"**;
+  midpoint split = **"癸巳"** | **"甲午"**;
+  next day = ordinary **"甲子"**.
+- **Derived from the sexagenary sequence:**  
+  When endpoints are included, **"甲子"** is day 1
+  and **"癸亥"** is day 60.
+- **Unresolved:**  
+  The complete civil-calendar procedure for
+  detecting the relevant solstice/**甲午**
+  relationship in every year, including
+  the exact reading of OCR-uncertain calendar
+  dates in the worked example.
+
+Do not replace this rule with a modern intercalation
+convention, a fixed 180-day formula, or
+a guessed phase transformation.
 
 ## 11. Research status
 
-Confirmed:
+### Confirmed
 
-- 6 seasonal daily starting configurations;
-- **"Yang"** = 1/7/4 and **"Yin"** = 9/3/6;
-- **"60-day"** sections within the seasonal daily structure;
-- The **"Jia-Zi Month"** + **"Jia-Zi Day"** starting condition;
-- Circulation through 60 months;
-- Monthly **"Three-Epoch"** pairing reform (配遇改革);
-- Existence of a leap-bureau correction.
+- 6 seasonal daily starting configurations.
+- **"Yang"** = **1 / 7 / 4** and
+  **"Yin"** = **9 / 3 / 6**.
+- 6 local **60-day** sections in the idealized
+  **360-day** daily circuit.
+- The **"daily"** system is described as
+  beginning from a **"甲子月" + "甲子日"**
+  conjunction.
+- The system is described as circulating
+  through 60 months.
+- At each monthly **"Three-Epoch"** boundary,
+  the daily-star/sexagenary pairing
+  is **reformed** (配遇改革).
+- A **"leap-star"** correction exists.
+- When **"Winter Solstice"** or
+  **"Summer Solstice"** coincides with **"甲午"**,
+  the source establishes a **60-day leap-star**
+  interval; the documented example explicitly
+  divides it **"甲子"–"癸巳" | "甲午"–"癸亥"**, then resumes
+  ordinary operation at the following **"甲子"**.
 
-Not yet confirmed:
+### Derived from the source structure
 
-- The exact mathematical operation of "配遇改革";
-- The absolute anchor for the 60-month circulation;
-- The complete mapping of every sexagenary day in every
-  historical nine-star local diagram;
-- The exact leap-bureau insertion/overlay/phase rule;
-- A single closed-form civil-date formula reproducing
-  every historical diagram.
+- The **60-day** leap interval is naturally counted
+  inclusively from **"甲子"** through **"癸亥"**.
+- The **30-day** split is exactly the sexagenary
+  midpoint: **"甲子"…"癸巳"** = 30 days, **"甲午"…"癸亥"** = 30 days.
 
-The implementation should continue to expose these
-as historical reconstruction boundaries rather than
-silently substituting modern **"Nine-Star"** conventions.
+### Working interpretation
 
+- "配遇改革" should initially be modeled as
+  a **calendar synchronization/reset event**
+  at the monthly **"Three-Epoch"** boundary.
+  This interpretation deliberately avoids
+  inventing a mathematical phase variable
+  or a star permutation not stated by the source.
+
+### Unresolved
+
+- The exact internal operation of "配遇改革".
+- The absolute anchor of the **60-month** circulation.
+- The complete civil-date detection rule for all leap cases.
+- The exact OCR/character reading of several
+  calendar-date phrases in the leap example.
+- A single closed-form civil-date formula
+  that reproduces every historical diagram.
+
+The implementation must preserve these
+boundaries instead of silently substituting
+**"Kyusei Kigaku"** rules.

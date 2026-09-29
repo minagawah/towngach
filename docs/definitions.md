@@ -87,9 +87,30 @@ The hourly result records its **"Solar Term"** (節気), **"Solar Term boundary"
 
 ## 5. Houkan preservation
 
-**"Houkan"** (方鑑 / fang-jian / phương giám) remains a separate historical/research family under `methods.houkan`. Existing **"Houkan"** (方鑑) modules and confirmed hourly behavior are preserved. Existing unresolved daily, monthly, and annual reconstruction behavior remains explicit and must not be filled with **"Mizuno-style Kigaku"** (水野気学) or **"Kyusei Kigaku"** (九星気学) formulas.
+**"Houkan"** (方鑑 / fang-jian / phương giám)
+remains a separate historical/research family
+under `methods.houkan`. Existing **"Houkan"**
+(方鑑) modules and confirmed hourly behavior
+are preserved. Historical reconstruction now
+distinguishes directly documented rules from
+derived interpretations and unresolved rules.
 
-**"Houkan"** (方鑑) is no longer the primary forward implementation target. This does not claim that **"Houkan"** is invalid; it records that its unresolved historical reconstruction continues independently.
+The current historical findings include the
+6 daily seasonal starting states, the 60-month
+daily synchronization statement, monthly
+**"Three-Epoch"** pairing reform (配遇改革),
+and the explicitly described 60-day leap-star
+interval triggered when the **"Winter Solstice"**
+or **"Summer Solstice"** coincides with **甲午**.
+The leap interval is read as **甲子–癸巳**, then
+**甲午–癸亥**, followed by the next ordinary **甲子**.
+These findings do not yet establish a complete
+civil-date algorithm for all years.
+
+No unresolved Houkan rule may be filled with
+**"Mizuno Kigaku"** (水野気学), **"Kyusei Kigaku"**
+(九星気学), or an invented phase transformation
+merely to obtain an output.
 
 For readers who want the preserved historical description and reconstruction
 context, see [Houkan Description and Historical Reconstruction Notes](archive/houkan_description.md).

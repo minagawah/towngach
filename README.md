@@ -446,45 +446,72 @@ Only (3) is currently implemented as
 a complete production method.  
 (2) and (4) are not yet implemented.
 
-#### 2-6-1. Kingaku's Houkan (方鑑)
+#### 2-6-1. Kinkaku's Houkan (方鑑)
 
-**Matsuura Kinkaku**'s (松浦琴鶴) is known
-as the founder of **"Houkan"** (方鑑).
-For **"Houkan"**, the reconstruction is
-deliberately conservative.
-Where the historical material gives
-a starting configuration or structural rule,
-that rule is documented. Where the historical
-material does not yet determine a closed
-computational formula, the implementation
-and documentation preserve that uncertainty
-rather than borrowing a modern convention.
+**Matsuura Kinkaku** (松浦琴鶴)'s **Houkan**
+(方鑑) is treated as a separate historical
+reconstruction family. The implementation
+is deliberately conservative: a rule is
+implemented only when the historical material
+determines it sufficiently; otherwise the
+library preserves an explicit unresolved
+state rather than borrowing a modern convention.
 
-The following distinctions are especially important:
+The current reconstruction establishes:
 
-- The **"annual"** **One-Four-Seven** (一四七) and
-  **Nine-Six-Three** (九六三) expressions are
-  star-family groupings and must not be
-  interpreted as a universal numerical sequence;
-- The monthly system has its own 60-month
-  **"Three-Epoch"** structure;
-- The **"daily"** system has six documented
-  seasonal starting states;
-- The **"daily"** system additionally describes
-  a 60-month circulation and a reform of
-  the **"daily"**-star/sexagenary pairing at
-  **"Monthly Three-Epoch"** boundaries;
-- The historical **"daily"** system also contains
-  a **"leap-bureau"** correction;
-- None of these unresolved operations should be
-  silently replaced by a generic 180-day formula.
+- **"Annual"**:  
+  Three 60-year epochs, with **"Jia-Zi"** (甲子)
+  starting stars **1 / 4 / 7** for Upper/Middle/
+  Lower Epochs. These are epoch starting states,
+  not a single temporal **1 → 4 → 7** sequence.
+- **"Monthly"**:  
+  Three 60-month epochs, with **"Jia-Zi Month"**
+  starting stars **1 / 4 / 7**. The observed
+  diagrams show a reverse numerical star
+  progression within each epoch.
+- **"Daily"**:  
+  Six seasonal starting states:
+  - **"Yang"**  
+    **"Winter Solstice"** / **"Rain Water"** /
+    **"Grain Rain"** = **1 / 7 / 4**;  
+  - **"Yin"**  
+    **"Summer Solstice"** / **"End of Heat"** /
+    **"Frost Descent"** = **9 / 3 / 6**.
+- **"Daily synchronization"**:  
+  The historical explanation states that
+  the daily **"Three-Epoch"** system begins
+  from a **"Jia-Zi Month"** together with
+  a **"Jia-Zi Day"**, circulates through
+  **60 months**, and **reforms the daily-star/
+  sexagenary pairing at each monthly Three-Epoch
+  boundary** (配遇改革). This is currently
+  interpreted as an explicit calendar
+  synchronization/reset event, not as
+  permission to invent a hidden mathematical
+  phase transformation.
+- **"Daily leap-star rule"**:  
+  When the **"Winter Solstice"** or
+  **"Summer Solstice"** coincides with
+  **"甲午"**, the source explicitly establishes
+  a 60-day leap-star interval. In the documented
+  example, the later **"甲子"** is adopted;
+  the interval runs **甲子–癸巳 (30 days)** and
+  **甲午–癸亥 (30 days)**, after which
+  the following **"甲子"** resumes the ordinary
+  **"Yin"** **"Nine Purple"** (九紫) configuration.
+
+The exact internal operation of "配遇改革",
+the absolute anchor of the 60-month circulation,
+and the complete civil-date detection of
+every leap case remain under historical
+reconstruction. None of these gaps should be
+filled with modern **"Kyusei Kigaku"** (九星気学) rules.
 
 #### 2-6-2. Kyusei Kigaku (九星気学)
 
-As described in
-**["2-5-1. Kyusei Kigaku (九星気学)"](#2-5-1-kyusei-kigaku-九星気学)**
-already, when he **Sonoda Shinjiro** (園田真次郎)
-introduced **"Kyusei Kigaku"** (九星気学), he eliminated
+As described in **"2-5-1"**, when
+**Sonoda Shinjiro** (園田真次郎) introduced
+**"Kyusei Kigaku"** (九星気学), he eliminated
 components other than those corresponding to
 the **"Purple-White Stars"** (紫白星) system.
 

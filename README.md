@@ -550,49 +550,31 @@ hourly rules distinct.
 
 #### 2-7-1. Kinkaku's "Daily"
 
-Now, I need to address we have a problem
-with Kinkaku's **"Houkan"** (方鑑) method
-For his **"Daily Purple-White"** calculations is
-the most important unresolved historical layer.
+The Houkan daily method is being reconstructed as a historical
+recipe/decision procedure rather than as a search for an elegant
+hidden mathematical phase.
 
-Usually, a classical **"Three-Epoch"** (三元)
-daily structure uses 6 seasonal starting states:
+The current evidence establishes:
 
-- "Winter Solstice" (冬至) → **"Jia-Zi"** (甲子) → **"One-White"** (一白)
-- "Rain Water" (雨水) → **"Jia-Zi"** (甲子) → **"Seven-Red"** (七赤)
-- "Grain Rain" (穀雨) → **"Jia-Zi"** (甲子) → **"Four-Green"** (四緑)
-- "Summer Solstice" (夏至) → **"Jia-Zi"** (甲子) → **"Nine-Purple"** (九紫)
-- "End of Heat" (処暑) → **"Jia-Zi"** (甲子) → **"Three-Jade"** (三碧)
-- "Frost Descent" (霜降) → **"Jia-Zi"** (甲子) → **"Six-White"** (六白)
+1. Six ordinary 60-day starting states.
+2. The two solstices (二至) and the sexagenary cycle are central to 閏九星.
+3. 甲午 is the forward midpoint; 癸巳 is the corresponding reverse midpoint.
+4. The winter example explicitly says 「後の甲子を取用ひ」.
+5. The earlier 甲子 is rejected as 「甚だ気候早くして」.
+6. The relevant relation is described as 「甲午の進み、合たる」.
+7. The leap interval is 60 days: 甲子–癸巳 and 甲午–癸亥.
+8. Winter is reverse-first/forward-second; summer is forward-first/reverse-second.
+9. Leap midpoint stars are 七赤 for Yang and 三碧 for Yin.
 
-The first 3 belong to **"Yang Dun"** (陽遁 /
-阳遁 / dương độn) and the latter 3 to
-**"Yin Dun"** (陰遁 / 阴遁 / âm độn).
-The historical source describes 180 days
-for each Yang/Yin half, divided into
-three 60-day sections.
+The current implementation therefore adopts the later 甲子 in the
+documented winter case. The unresolved issue is the complete,
+year-independent civil-date predicate for recognizing every applicable
+solstice/sexagenary relation, especially the Summer Solstice case.
 
-These 6 starting configurations are well
-established in the historical material.
-They should not, however, be treated as proof
-that Matsuura's complete daily algorithm
-is simply the familiar fixed 180-day formula.
-Matsuura's own explanation adds a distinctive
-second layer: the **"Daily Three-Epoch"** system
-begins from the conjunction of a **"Jia-Zi Month"**
-(甲子月) and a **"Jia-Zi Day"** (甲子日), then
-circulates through **"60 months"**.
-At the beginning of each **"Monthly Three-Epoch"**,
-the correspondence between the daily stars and
-the sexagenary structure is described as
-being **"reformed"** (配遇改革).
-
-The exact computational operation represented
-by this reform has not yet been reconstructed.
-It must therefore remain explicit rather than
-being silently replaced by
-a **"Kyusei Kigaku"** (九星気学) rule.  
-(see _**['Kinkaku's "Houkan" - Daily'](./docs/kinkaku/daily.md)**_ for details)
+Do not fill this gap with modern Kyusei Kigaku (九星気学), a generic
+nearest-甲子 convention, or an invented phase formula. An explicit
+finite-state or table-driven rule is acceptable if supported by the
+historical evidence.
 
 ## 3. Technical Details
 

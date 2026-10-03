@@ -1,131 +1,89 @@
 # Definitions
 
-This document is the single detailed specification for Towngach's **"Purple-White Nine Stars"** (紫白九星 / zi-bai-jiu-xing / Tử Bạch Cửu Tinh) calculations. It describes shared infrastructure, method boundaries, confirmed rules, and intentionally unresolved historical rules.
+This document is the detailed public specification for Towngach's Purple-White Nine Stars (紫白九星) calculations. It distinguishes shared infrastructure from historically specific rules.
 
 ## 1. Scope and method families
 
-Towngach calculates the **"Purple-White Nine Stars"** through the **"Nine Palaces"** (九宮 / 九宫 / jiu-gong / Cửu Cung). It does not implement **"Qimen Dunjia"** (奇門遁甲 / 奇门遁甲 / qi-men-dun-jia / Kỳ Môn Độn Giáp); **Qimen** star identities, epochs, and algorithms must not enter this domain.
-
-Method identity is part of the public API. Shared calculations may be reused when rules genuinely agree, but method-specific boundaries and formulas remain in their method family. **"Mizuno-style Kigaku"** (水野気学) is the primary current implementation direction. It is a variation of **"Kyusei Kigaku"** (九星気学): annual and monthly calculations share infrastructure, while daily and hourly rules are distinct.
+Towngach calculates Purple-White Nine Stars (紫白九星) through the Nine Palaces (九宮). Method identity is part of the public API. Houkan (方鑑) is a historical reconstruction family and is distinct from modern Kyusei Kigaku (九星気学) and Mizuno Kigaku (水野気学).
 
 ## 2. Shared infrastructure
 
-The calendar layer represents an absolute UTC instant with millisecond precision. The astronomy layer is the only Towngach dependency on `sowngwala-js`. Astronomy provides Sun ecliptic longitude, Solar Term target longitudes, and exact boundary searching. Method modules use this abstraction and do not import `sowngwala-js` directly.
+The sexagenary cycle (六十干支) is indexed from Jia-Zi (甲子) at zero. Nine-Palace and Forward/Reverse Flight (順飛・逆飛) structures are shared only where the historical methods genuinely agree.
 
-The **"Sixty Gan-Zhi Unit"** (Sexagenary Cycle) (六十干支 / liu-shi-gan-zhi / Lục Thập Can Chi) is indexed from **"Jia-Zi"** (甲子 / jia-zi / Giáp Tý) at zero. The repository's date reference is **2000-01-07** for the traditional day calculation; the traditional **"Zi"** hour begins at **23:00 UTC** in the existing calendar convention.
+## 3. Houkan ordinary daily structure
 
-## 3. Nine-Star Kigaku
+The six documented starting states are:
 
-The public family is `methods.kigaku`, with `calculate_kigaku_annual`, `calculate_kigaku_monthly`, `calculate_kigaku_daily`, and `calculate_kigaku_hourly`. It remains distinct from Mizuno even when annual or monthly results are identical.
+| Seasonal point | Direction | Epoch | 甲子 star |
+|---|---|---|---:|
+| 冬至 | 陽遁 | 上元 | 一白 |
+| 雨水 | 陽遁 | 中元 | 七赤 |
+| 穀雨 | 陽遁 | 下元 | 四緑 |
+| 夏至 | 陰遁 | 上元 | 九紫 |
+| 処暑 | 陰遁 | 中元 | 三碧 |
+| 霜降 | 陰遁 | 下元 | 六白 |
 
-Annual and monthly shared infrastructure follows the rules below. The modern daily and hourly historical rules remain explicit unresolved boundaries until separately specified; they must not silently inherit Mizuno rules.
-
-## 4. Mizuno-style Kigaku
-
-The public family is `methods.mizuno`. Its functions are `calculate_mizuno_annual`, `calculate_mizuno_monthly`, `calculate_mizuno_daily`, and `calculate_mizuno_hourly`.
-
-### 4.1 Annual calculation
-
-The annual boundary is the exact astronomical instant of the **"Beginning of Spring"** (立春 / li-chun / Lập Xuân). The effective year is the year whose **"Beginning of Spring"** boundary has most recently occurred.
-
-The central star progresses in reverse order, `9 -> 8 -> 7 -> ... -> 1 -> 9`. The implementation uses the equivalent cyclic formula `11 - (effective_year % 9)`, normalized to one through nine. This annual rule is shared with the **"Kyusei Kigaku"** (九星気学).
-
-### 4.2 Monthly calculation
-
-The monthly boundary is the exact astronomical instant of the current month-opening **"Solar Term"** (節入り / 节气 / jie-qi / tiết khí), not a civil-date approximation. At the transition instant, the new monthly state applies: one millisecond before belongs to the previous state, and the boundary instant belongs to the new state.
-
-The month-opening terms are **"Li-Chun"** (立春 / lập xuân), **"Jing-Zhe"** (啓蟄 / 驚蟄 / 惊蛰 / kinh trập), **"Qing-Ming"** (清明 / thanh minh), **"Li-Xia"** (立夏 / lập hạ), **"Mang-Zhong"** (芒種 / 芒种 / mang chủng), **"Xiao-Shu"** (小暑 / tiểu thử), **"Li-Qiu"** (立秋 / lập thu), **"Bai-Lu"** (白露 / bạch lộ), **"Han-Lu"** (寒露 / hàn lộ), **"Li-Dong"** (立冬 / lập đông), **"Da-Xue"** (大雪 / đại tuyết), and **"Xiao-Han"** (小寒 / tiểu hàn).
-
-The first month beginning at **"Li-Chun"** (立春) uses the effective annual **"Earthly Branch"** (地支) group:
-
-- **子午卯酉** years: **Eight White** (八白);
-- **寅申巳亥** years: **Five Yellow** (五黄);
-- **辰戌丑未** years: **Two Black** (二黒).
-
-The monthly central star then progresses one step per month in reverse order. This infrastructure is shared with **"Kyusei Kigaku"** (九星気学), while **Mizuno**'s exact transition instant remains explicit in the result.
-
-### 4.3 Daily calculation
-
-Define `day_index` as the zero-based sexagenary-day index: **"Jia-Zi"** is zero and **"Gui-Hai"** is 59.
-
-The **"Yang"** period (陽遁 / 阳遁 / yang-dun / dương độn) begins at the exact astronomical **"Winter Solstice"** (冬至 / dong-zhi / Đông Chí) instant and continues until immediately before the exact astronomical **"Summer Solstice"** (夏至 / xia-zhi / Hạ Chí). Its central star is:
+The idealized cycle is 6 × 60 = 360 sexagenary days. With 甲子 = 0 and day index `i`:
 
 ```text
-(day_index % 9) + 1
+陽遁上元 = normalize9(1 + i)
+陽遁中元 = normalize9(7 + i)
+陽遁下元 = normalize9(4 + i)
+陰遁上元 = normalize9(9 - i)
+陰遁中元 = normalize9(3 - i)
+陰遁下元 = normalize9(6 - i)
 ```
 
-The **"Yin"** period (陰遁 / 阴遁 / yin-dun / âm độn) begins at the exact astronomical **"Summer Solstice"** (夏至) and continues until immediately before the next exact astronomical **"Winter Solstice"** (冬至). Its central star is:
+These reproduce local historical tables but do not determine which table applies to every civil date.
+
+## 4. Current historical implementation source
+
+The current practical leap implementation follows the 1882 second edition of 『日家九星起例一覧』, attributed to **松浦佳宝** and **松浦最陽**. This is an implementation-source decision for a historically situated Houkan procedure, not a claim about universal historical priority.
+
+The broader Houkan framework remains associated with **松浦琴鶴** and his writings.
+
+## 5. 閏九星
+
+The leap-star explanation uses the two solstices (二至) and the sexagenary sequence. Important source wording is:
+
+- 「甲午の進み、合たる」
+- 「甚だ気候早くして」
+- 「後の甲子を取用ひ」
+
+The current implementation adopts the later 甲子 in the documented winter case. The leap interval is:
 
 ```text
-9 - (day_index % 9)
+甲子 … 癸巳    30 days
+甲午 … 癸亥    30 days
+翌甲子         ordinary sequence resumes
 ```
 
-Mizuno switches directly at the astronomical instant. It does not wait for the next **"Jia-Zi"** day (甲子日), use a civil-date approximation, or apply a conventional intercalary waiting period.
+Winter is reverse/Yin first and forward/Yang second. Summer is forward/Yang first and reverse/Yin second. Leap midpoint stars are 七赤 for Yang and 三碧 for Yin.
 
-### 4.4 Hourly calculation
+The project does **not** replace this with a nearest-甲子 rule.
 
-The twelve double-hour indices are `Zi = 0`, `Chou = 1`, through `Hai = 11`. The current **"Solar Term"** determines one of three groups:
+## 6. Central sexagenary points and diagram reading
 
-- **Group A:**
-  - **"Dong-Zhi"** (冬至 / đông chí), **"Jing-Zhe"** (啓蟄 / 驚蟄 / 惊蛰 / kinh trập), **"Qing-Ming"** (清明 / thanh minh), **"Li-Xia"** (立夏 / lập hạ), **"Mang-Zhong"** (芒種 / 芒种 / mang chủng), **"Xiao-Shu"** (小暑 / tiểu thử).
-  - **"Yang"** (陽 / dương) starts at **"One-White"** (一白 / yi-bai / nhất bạch);
-  - **"Yin"** (陰 / âm) starts at **"Nine-Purple"** (九紫 / jiu-zi / cửu tử).
-- **Group B:**
-  - **"Li-Chun"** (立春 / lập xuân), **"Chun-Fen"** (春分 / xuân phân), **"Gu-Yu"** (穀雨 / 谷雨 / cốc vũ), **"Da-Shu"** (大暑 / đại thử), **"Li-Qiu"** (立秋 / lập thu), **"Bai-Lu"** (白露 / bạch lộ).
-  - **"Yang"** (陽 / dương) starts at **"Seven-Red"** (七赤 / qi-chi / thất xích);
-  - **"Yin"** (陰 / âm) starts at **"Three-Blue"** (三碧 / san-bi / tam bích).
-- **Group C:**
-  - All remaining terms.
-  - **"Yang"** (陽 / dương) starts at **"Four-Green"** (四緑 / 四綠 / 四绿 / si-lu / tứ lục);
-  - **"Yin"** (陰 / âm) starts at **"Six-White"** (六白 / liu-bai / lục bạch).
+In the relevant forward sequence, the midpoint is **甲午**. In the reverse orientation, the corresponding midpoint is **癸巳**. The Gan-Zhi region and Nine-Palace region are separate logical structures; visual coordinate matching is not valid.
 
-For **"Yang"**: `((base_star - 1 + time_index) % 9) + 1`.
+The 60 Gan-Zhi are read down a column and then continued from the top of the next column. The seven-column visual arrangement contains exactly 60 logical Gan-Zhi entries.
 
-For **"Yin"**: `((base_star - 1 + (9 - (time_index % 9))) % 9) + 1`.
+## 7. Solar-year drift
 
-The hourly result records its **"Solar Term"** (節気), **"Solar Term boundary"** (節o気境界), group, mode, base star, and time index. It uses the current Mizuno daily **Yin**/**Yang** (陰陽) mode, not a **"Heavenly-Stem"**-derived **"Kyusei Kigaku"** (気学) hourly origin.
+The historical explanation contrasts a 360-day star circuit with **365 days 25 刻**:
 
-## 5. Houkan preservation
+```text
+365 days 25 刻 - 360 days = 5 days 25 刻 per year
+```
 
-**"Houkan"** (方鑑 / fang-jian / phương giám)
-remains a separate historical/research family
-under `methods.houkan`. Existing **"Houkan"**
-(方鑑) modules and confirmed hourly behavior
-are preserved. Historical reconstruction now
-distinguishes directly documented rules from
-derived interpretations and unresolved rules.
+An earlier 355-day transcription was corrected to 365 days 25 刻 and must not be reintroduced.
 
-The current historical findings include the
-6 daily seasonal starting states, the 60-month
-daily synchronization statement, monthly
-**"Three-Epoch"** pairing reform (配遇改革),
-and the explicitly described 60-day leap-star
-interval triggered when the **"Winter Solstice"**
-or **"Summer Solstice"** coincides with **甲午**.
-The leap interval is read as **甲子–癸巳**, then
-**甲午–癸亥**, followed by the next ordinary **甲子**.
-These findings do not yet establish a complete
-civil-date algorithm for all years.
+## 8. 配遇改革: historical evidence, not the current primary algorithm
 
-No unresolved Houkan rule may be filled with
-**"Mizuno Kigaku"** (水野気学), **"Kyusei Kigaku"**
-(九星気学), or an invented phase transformation
-merely to obtain an output.
+Kinkaku's material describes 甲子月 + 甲子日, a 60-month circulation, and reform of the daily-star/sexagenary pairing at monthly Three-Epoch boundaries (**配遇改革**). This remains important historical evidence, but the current reconstruction does not use it as the primary civil-date daily algorithm.
 
-For readers who want the preserved historical description and reconstruction
-context, see [Houkan Description and Historical Reconstruction Notes](archive/houkan_description.md).
-That archive keeps the earlier **"Houkan"**-specific details, open questions, and
-research-oriented test guidance without making them requirements for the
-current **"Mizuno-style"** implementation.
+Do not invent a hidden phase or a 4↔7 transformation from this wording.
 
-## 6. Result and boundary requirements
+## 9. Unresolved rules
 
-Every implemented method result identifies its method and period and uses the shared star, center-palace, direction, and flight structures. Method-specific metadata may include effective year, **"Solar Term"**, exact boundary, mode, day index, base star, or time index.
-
-Astronomical boundary search resolves to the calendar's millisecond grid. Tests cover one millisecond before, exactly at, and one millisecond after **"Solar Term"**, **"Winter Solstice"** (冬至), and **"Summer Solstice"** (夏至) boundaries. Tests also cover **"Yin"** and **"Yang"** daily progression, all three monthly **"Earthly Branch"** (地支) groups, all hourly (時家) groups, all twelve double-hour (時辰) indices, and cyclic wrap-around.
-
-## 7. Confirmed and unresolved behavior
-
-Confirmed behavior may be implemented directly. Historical behavior that lacks a deterministic rule remains an explicit unresolved error with code `UNRESOLVED_HISTORICAL_RULE`. No method may invent a missing historical formula merely to produce a result.
-
-Future method families, including possible **Tsuchimikado Family** (土御門家) methods, may define different solstice switching, intercalary, calendar, and practical-use rules. Those rules must be implemented as separate families rather than added to the shared core.
+The main unresolved question is the exact year-independent civil-date predicate for detecting the historical solstice/sexagenary relation, especially for the Summer Solstice case. Where the evidence does not determine a unique procedure, use an explicit `UNRESOLVED_HISTORICAL_RULE` state rather than modern Kigaku behavior.

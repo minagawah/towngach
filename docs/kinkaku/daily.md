@@ -1,375 +1,82 @@
-# Kinkaku's "Houkan" - Daily Purple-White
+# Houkan Daily Purple-White (日家紫白)
 
-(back to _**["Kinkaku's "Houkan""](./index.md)**_)
-
-**Matsuura Kinkaku** (松浦琴鶴) and the
-**"Houkan"** (方鑑 / 方鉴 / fang-jian /
-phương giám) tradition associated with him
-use six important starting configurations
-for the daily calculation. On the **Yang**
-(陽 / 阳 / yang / dương) side, the
-**Winter Solstice** (冬至 / dong-zhi / đông chí)
-begins with **"One-White"** (一白 / yi-bai /
-nhất bạch), the **"Rain Water"** (雨水 / yu-shui /
-vũ thủy) begins with **Seven-Red** (七赤 /
-qi-chi / thất xích), and the **"Grain Rain"**
-(穀雨 / 谷雨 / gu-yu / cốc vũ) begins with
-**Four-Green** (四綠 / 四绿 / si-lü / tứ lục).
-
-- **"zi-wu-mao-you"** (子午卯酉) = **"Eight-White"** (八白 / ba-bai)
-- **"chen-xu-chou-wei"** (辰戌丑未) = **"Five-Yellow"** (五黄 / wu-huang)
-- **"yin-shen-si-hai"** (寅申巳亥) = **"Two-Black"** (二黒 / er-hei)
-
-On the **Yin** (陰 / 阴 / yin / âm) side,
-the **"Summer Solstice"** (夏至 / xia-zhi / hạ chí)
-begins with **"Nine-Purple"** (九紫 / jiu-zi /
-cửu-tử), the **"End of Heat"** (処暑 / 處暑 /
-处暑 / chu-shu / xử thử) begins with
-**"Three-Jade"** (三碧 / san-bi / tam bích),
-and the **"Frost Descent"** (霜降 / shuang-jiang /
-sương giáng) begins with **"Six-White"**
-(六白 / liu-bai / lục bạch).
-
-These six starting configurations should not,
-however, be regarded as an original invention
-of Matsuura Kinkaku (松浦琴鶴). They can also be
-found in earlier Chinese and Korean traditions of
-**"Three-Epoch Purple-White"** (三元紫白 /
-san-yuan-zi-bai / tam nguyên tử bạch) calculation.
-In particular, the same six daily starting
-configurations appear in the
-**"Seontaek Giro"** (選擇紀要) and in the
-**"Rumen Chongli Zhezhong Kanyu Wanxiaolu"**
-(儒門崇理折衷堪輿完孝錄). The **"Seontaek Giro"**
-explicitly gives the six daily starting points,
-while the **"Rumen Chongli Zhezhong Kanyu Wanxiaolu"**
-contains a section entitled
-**"San Yuan Ri Bai Qili Tushuo"** (三元日白起例圖說).
-
-The **Qing Chinese** tradition is represented,
-among other works, by the
-**"Qinding Xieji Bianfang Shu"** (欽定協紀辨方書),
-a major work of traditional Chinese selection arts.
-Its **Three-Epoch Monthly Purple-White**
-(三元月紫白 / san-yuan-yue-zi-bai / tam nguyên nguyệt
-tử bạch) method does not begin the first month
-with **"One-White"** (一白). Instead, it divides
-the twelve earthly-branch years into three groups.
-In **"Zi"**, **"Wu"**, **"Mao"**, and **"You"** years,
-the first month begins with **"Eight-White"**
-(八白 / ba-bai / bát bạch). In **"Chen"**, **"Xu"**,
-**"Chou"**, and **"Wei"** years, the first month begins
-with **"Five-Yellow"** (五黃 / 五黄 / wu-huang /
-ngũ hoàng). In **"Yin"**, **"Shen"**, **"Si"**, and
-**"Hai"** years, the first month begins with
-**"Two-Black"** (二黑 / er-hei / nhị hắc).
-This is therefore a different monthly arrangement
-from the one found in **Matsuura Kinkaku**'s
-**"Houkan"** (方鑑 / 方鉴).
-
-The **"Seontaek Giro"** (選擇紀要) was compiled
-in 1867 by **Nam Byeong-gil** (南秉吉) during
-the **Joseon** period. It belongs to the Korean
-tradition of **"Seontaek Sul"** (選擇術 / 选择术 /
-xuan-ze-shu / tuyển trạch thuật), the traditional
-arts of calendrical and auspicious-date selection.
-Its daily **"Three-Epoch Purple-White"** (三元紫白)
-method states that after the **Winter Solstice**
-(冬至), the **"Jia-Zi"** (甲子 / jia-zi / giáp tý)
-day begins with **"One-White"** (一白), after the
-**"Rain Water"** (雨水), the **"Jia-Zi"** day begins
-with **"Seven-Red"** (七赤), and after the
-**"Grain Rain"** (穀雨 / 谷雨), the **"Jia-Zi"** day
-begins with **"Four-Green"** (四綠 / 四绿). After
-the **"Summer Solstice"** (夏至), the **"Jia-Zi"**
-day begins with **"Nine-Purple"** (九紫), after
-the **"End of Heat"** (処暑 / 處暑 / 处暑), with
-**"Three-Jade"** (三碧), and after the
-**"Frost Descent"** (霜降), with **"Six-White"** (六白).
-
-- 冬至……甲子一白
-- 雨水……七宮
-- 穀雨……四緑
-- 夏至……九宮
-- 処暑……三碧
-- 霜降……六宮
-
-The same **"Seontaek Giro"** (選擇紀要) uses
-a different monthly system. Its monthly
-**"Three-Epoch Purple-White"** (三元紫白) method
-assigns **"Eight-White"** (八白) to the first month
-in **"Zi"**, **"Wu"**, **"Mao"**, and **"You"** years;
-**"Five-Yellow"** (五黃 / 五黄) in **"Chen"**, **"Xu"**,
-**"Chou"**, and **"Wei"** years; and **"Two-Black"**
-(二黑) in **"Yin"**, **"Shen"**, **"Si"**, and **"Hai"**
-years. Thus, the fact that the daily method begins
-with the six starting configurations described above
-does not mean that the monthly method must also begin
-with **"One-White"** (一白).
-
-- 子・午・卯・酉年 → 正月 八白
-- 辰・戌・丑・未年 → 正月 五黄
-- 寅・申・巳・亥年 → 正月 二黒
-
-The **"Rumen Chongli Zhezhong Kanyu Wanxiaolu"**
-(儒門崇理折衷堪輿完孝錄) contains another clear example
-of the same daily tradition. Its **"San Yuan Ri Bai
-Qili Tushuo"** (三元日白起例圖說) states that after
-the **"Winter Solstice"** (冬至), the **"Yang Dun"**
-(陽遁 / 阳遁 / yang-dun / dương độn) period comprises
-**180 days** divided into **three epochs**.
-The **"Upper Epoch"** (上元 / shang-yuan /
-thượng nguyên) begins with the **"Winter Solstice"**
-(冬至), and its **"Jia-Zi"** (甲子) day begins with
-**"One-White"** (一白). The **"Middle Epoch"** (中元 /
-zhong-yuan / trung nguyên) begins with the
-**"Rain Water"** (雨水), and its **"Jia-Zi"** day
-begins with **"Seven-Red"** (七赤). The **"Lower Epoch"**
-(下元 / xia-yuan / hạ nguyên) begins with the
-**"Grain Rain"** (穀雨 / 谷雨), and its **"Jia-Zi"**
-day begins with **"Four-Green"** (四綠 / 四绿).
-
-- 冬至後・陽遁上元＝甲子一白
-- 雨水＝甲子七赤
-- 穀雨＝甲子四緑
-- 夏至後・陰遁上元＝甲子九紫
-- 処暑＝甲子三碧
-- 霜降＝甲子六白
-
-The same source then describes the **"Yin Dun"**
-(陰遁 / 阴遁 / yin-dun / âm độn) period after
-the **"Summer Solstice"** (夏至) as another 180-day
-structure divided into three epochs.
-Its **"Upper Epoch"** (上元) begins with the
-**"Summer Solstice"** (夏至), and its **"Jia-Zi"**
-(甲子) day begins with **"Nine-Purple"** (九紫).
-Its **"Middle Epoch"** (中元) begins with the
-**"End of Heat"** (処暑 / 處暑 / 处暑), and its
-**"Jia-Zi"** day begins with **"Three-Jade"** (三碧).
-Its **"Lower Epoch"** (下元) begins with the
-**"Frost Descent"** (霜降), and its **"Jia-Zi"** day
-begins with **"Six-White"** (六白). The text further
-states that the daily star is determined through
-the corresponding forward or reverse movement
-through the **"Nine Palaces"** (九宮 / 九宫 /
-jiu-gong / cửu cung).
-
-The **"Rumen Chongli Zhezhong Kanyu Wanxiaolu"**
-(儒門崇理折衷堪輿完孝錄) also attributes the
-underlying rule to **Chen Xiyi** (陳希夷) and his
-**"Three-Epoch Date-Selection Formula"**
-(三元擇日之訣 / san-yuan-ze-ri-zhi-jue /
-tam nguyên trạch nhật chi quyết). The quoted
-formula connects the **"Winter Solstice"** (冬至)
-with the first palace, the **"Rain Water"** (雨水)
-with the seventh palace, the **"Grain Rain"**
-(穀雨 / 谷雨) with the fourth palace, the
-**"Summer Solstice"** (夏至) with the ninth palace,
-the **"End of Heat"** (処暑 / 處暑 / 处暑) with
-the third palace, and the **"Frost Descent"** (霜降)
-with the sixth palace. The text presents this
-as an established method in which the **Yin**
-and **Yang** sequences continue through
-the seasonal transitions.
-
-Taken together, these sources show that the six
-daily starting configurations used by
-**Matsuura Kinkaku** are part of a broader
-historical tradition of
-**Three-Epoch Purple-White** (三元紫白).
-They should therefore not be described
-as an original invention of **Matsuura Kinkaku**.
-
-At the same time, this does not mean that
-**Matsuura Kinkaku**'s entire **"Houkan"** (方鑑 / 方鉴)
-system is identical to the Chinese or Korean systems.
-In particular, his monthly method is structurally
-distinctive. Matsuura's material states that
-the period from the **"Jia-Zi"** month (甲子月 /
-jia-zi-yue / giáp tý nguyệt) through the **"Gui-Hai"**
-month (癸亥月 / gui-hai-yue / quý hợi nguyệt) comprises
-sixty months and constitutes one epoch, with three
-such epochs forming a 180-month cycle. It also
-explicitly states that the **"Jia-Zi"** month (甲子月)
-begins with **"One-White"** (一白).
-
-The historical picture is therefore better understood
-as a broad family of related **Three-Epoch Purple-White**
-(三元紫白) traditions rather than as a single universal
-algorithm. The six daily starting configurations are
-shared across several historical traditions,
-while the monthly calculations can differ substantially.
-Determining precisely how **Matsuura Kinkaku**'s
-distinctive **60-month monthly system** developed,
-and how it relates to his statement about reforming
-the pairing of the daily stars and sexagenary signs
-at each monthly Three-Epoch boundary, remains
-a separate historical reconstruction problem.
-
-The evidence currently establishes the six daily
-starting configurations and their wider historical
-context. It does not yet establish the complete
-computational interpretation of every layer of
-**Matsuura Kinkaku**'s daily diagrams, nor does it
-by itself resolve the exact operation
-described as **"配遇改革"**.
-
-
-## 8. The unresolved Matsuura-specific layer
-
-The six starting configurations above are
-established as historical starting states,
-but they do not by themselves determine
-the complete Matsuura daily date calculation.
-
-Matsuura's explanation adds three facts that must be kept together:
-
-1. the daily Three-Epoch system begins from a **Jia-Zi month**
-   (甲子月) and a **Jia-Zi day** (甲子日);
-2. the system circulates through **sixty months** according to its
-   forward/reverse order;
-3. at the beginning of each monthly Three-Epoch, the correspondence
-   between the daily star and the sexagenary structure is **reformed**
-   (配遇改革).
-
-The third operation is the principal unresolved point.
-The surviving wording does not establish whether
-the reform changes a phase, a starting star,
-a direction, the pairing itself, or more
-than one of these. Therefore a fixed formula such as
-
-`star = normalize9(start_star ± day_index)`
-
-may be useful for describing a local sequential
-diagram, but it must not be presented as
-the complete historical Matsuura algorithm.
-
-## 9. Daily diagrams and reading method
-
-The historical daily material contains separate
-**Forward** (順遁) and **Reverse** (逆遁) diagrams.
-In the surviving tabular material, the sexagenary-day
-layout and the Nine-Palace/star-flight information
-must not be treated as a single coordinate grid.
-In particular, a sexagenary-day cell cannot simply
-be matched to the Nine-Palace cell at the same visual
-row and column.
-
-The large **"Daily Nine-Star Starting-Example List"**
-(日家九星起例一覧) is therefore being reconstructed as
-a collection of nine-star local diagrams, with their
-sexagenary-day allocations read from the original
-page image. The machine transcription is useful
-for indexing, but apparent OCR/copying anomalies
-must be checked against the image before becoming
-authoritative data.
-
-## 10. Leap bureau (日家閏九星)
-
-The historical explanation explicitly states
-that a leap star is established when
-**either the "Winter Solstice" or "Summer Solstice"**
-**coincides with "甲午"**. This is a trigger rule,
-not a general invitation to infer
-a hidden phase correction.
-
-For the documented **"Winter-Solstice"** example,
-the earlier **"甲子"** reference is rejected and
-the **later 甲子** is adopted. That **later 甲子**
-begins a 60-day leap-star interval. The text
-explicitly gives the midpoint as the 30th day
-**"癸巳"**, followed by **"甲午"**, and ends
-the second half at **"癸亥"**. The following day
-is **"甲子"**, at which ordinary **"Yin"**
-**"Nine Purple"** (九紫) resumes.
-
-The deterministic structure is therefore:
+## 1. Ordinary structure
 
 ```text
-甲子 … 癸巳    30 days: first leap half
-甲午 … 癸亥    30 days: second leap half
-翌甲子         ordinary Yin 九紫 resumes
+冬至・上元・陽遁 → 甲子一白
+雨水・中元・陽遁 → 甲子七赤
+穀雨・下元・陽遁 → 甲子四緑
+夏至・上元・陰遁 → 甲子九紫
+処暑・中元・陰遁 → 甲子三碧
+霜降・下元・陰遁 → 甲子六白
 ```
 
-In the **"Winter-Solstice"** example the first
-half is **"Yin"** and the second half is **"Yang"**.
-The **"Summer-Solstice"** example describes
-the opposite directional order: first forward,
-then reverse, followed by ordinary **"Yin"**
-**"Nine Purple"** (九紫) at the next **"甲子"**.
+The idealized circuit is 360 days = 6 × 60.
 
-Current reconstruction status:
+With 甲子 = 0:
 
-- **Confirmed:**  
-  trigger = solstice + **"甲午"** coincidence;
-  leap span = **"later 甲子"** through **"癸亥"**;
-  midpoint split = **"癸巳"** | **"甲午"**;
-  next day = ordinary **"甲子"**.
-- **Derived from the sexagenary sequence:**  
-  When endpoints are included, **"甲子"** is day 1
-  and **"癸亥"** is day 60.
-- **Unresolved:**  
-  The complete civil-calendar procedure for
-  detecting the relevant solstice/**甲午**
-  relationship in every year, including
-  the exact reading of OCR-uncertain calendar
-  dates in the worked example.
+```text
+陽遁上元 = normalize9(1 + i)
+陽遁中元 = normalize9(7 + i)
+陽遁下元 = normalize9(4 + i)
+陰遁上元 = normalize9(9 - i)
+陰遁中元 = normalize9(3 - i)
+陰遁下元 = normalize9(6 - i)
+```
 
-Do not replace this rule with a modern intercalation
-convention, a fixed 180-day formula, or
-a guessed phase transformation.
+## 2. Diagram reading
 
-## 11. Research status
+The Gan-Zhi sequence and Nine-Palace region are separate logical structures. Read the 60 Gan-Zhi down each column and continue at the top of the next column. The forward midpoint is **甲午**; reverse orientation gives **癸巳**.
 
-### Confirmed
+Do not match Gan-Zhi and palace cells merely by visual coordinate.
 
-- 6 seasonal daily starting configurations.
-- **"Yang"** = **1 / 7 / 4** and
-  **"Yin"** = **9 / 3 / 6**.
-- 6 local **60-day** sections in the idealized
-  **360-day** daily circuit.
-- The **"daily"** system is described as
-  beginning from a **"甲子月" + "甲子日"**
-  conjunction.
-- The system is described as circulating
-  through 60 months.
-- At each monthly **"Three-Epoch"** boundary,
-  the daily-star/sexagenary pairing
-  is **reformed** (配遇改革).
-- A **"leap-star"** correction exists.
-- When **"Winter Solstice"** or
-  **"Summer Solstice"** coincides with **"甲午"**,
-  the source establishes a **60-day leap-star**
-  interval; the documented example explicitly
-  divides it **"甲子"–"癸巳" | "甲午"–"癸亥"**, then resumes
-  ordinary operation at the following **"甲子"**.
+## 3. 閏九星
 
-### Derived from the source structure
+The historical explanation links the solstices (二至) to the sexagenary sequence.
 
-- The **60-day** leap interval is naturally counted
-  inclusively from **"甲子"** through **"癸亥"**.
-- The **30-day** split is exactly the sexagenary
-  midpoint: **"甲子"…"癸巳"** = 30 days, **"甲午"…"癸亥"** = 30 days.
+Important wording:
 
-### Working interpretation
+> 「甲午の進み、合たる」
 
-- "配遇改革" should initially be modeled as
-  a **calendar synchronization/reset event**
-  at the monthly **"Three-Epoch"** boundary.
-  This interpretation deliberately avoids
-  inventing a mathematical phase variable
-  or a star permutation not stated by the source.
+> 「甚だ気候早くして」
 
-### Unresolved
+> 「後の甲子を取用ひ」
 
-- The exact internal operation of "配遇改革".
-- The absolute anchor of the **60-month** circulation.
-- The complete civil-date detection rule for all leap cases.
-- The exact OCR/character reading of several
-  calendar-date phrases in the leap example.
-- A single closed-form civil-date formula
-  that reproduces every historical diagram.
+The current implementation adopts the **later 甲子** in the documented winter case.
 
-The implementation must preserve these
-boundaries instead of silently substituting
-**"Kyusei Kigaku"** rules.
+```text
+甲子 … 癸巳    30 days
+甲午 … 癸亥    30 days
+翌甲子         ordinary operation resumes
+```
+
+Winter is reverse/Yin first, then forward/Yang. Summer is forward/Yang first, then reverse/Yin. Leap midpoint stars are 七赤 and 三碧 respectively.
+
+## 4. Why later 甲子
+
+The source explicitly says the earlier 甲子 is 「甚だ気候早くして」 and then directs the use of the later 甲子. This project therefore treats **後の甲子を取用ひ** as the implementation rule, not merely as a nearest-day convenience.
+
+## 5. Solar-year drift
+
+The historical explanation contrasts 360 days with **365 days 25 刻**:
+
+```text
+365 days 25 刻 - 360 days = 5 days 25 刻
+```
+
+## 6. Source positioning
+
+The current practical leap specification is the 1882 second edition of **『日家九星起例一覧』**, attributed to **松浦佳宝** and **松浦最陽**. **松浦琴鶴** remains the principal earlier historical framework used for comparison.
+
+## 7. Withdrawn interpretations
+
+- 配遇改革 as the primary daily civil-date algorithm.
+- Nearest-甲子 as a replacement for the adopted later 甲子.
+- Fixed nine-day blocks.
+- Visual coordinate matching between Gan-Zhi and palace cells.
+- Hidden phase transformations.
+- Modern 九星気学 as a repair mechanism.
+
+## 8. Unresolved
+
+The main question is the exact year-independent civil-date predicate that recognizes the relevant solstice/甲午 relation, especially in the Summer Solstice case. Until established, code should be conservative and may return `UNRESOLVED_HISTORICAL_RULE`.

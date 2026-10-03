@@ -467,22 +467,27 @@ The 子 hour uses the examined 今夜/今暁 distinction. The implementation doe
 
 ### `houkan/daily.js`
 
-The 6 documented daily periods are represented:
-**"Winter Solstice"**, **"Rain Water"**, and
-**"Grain Rain"** use **"Yang Dun"**;
-**"Summer Solstice"**, **"End of Heat"**, and
-**"Frost Descent"** use **"Yin Dun"**.
-Their Upper/Middle/Lower **"Yuan"**
-**"Starting Stars"** are preserved.
-The historical material also documents
-a **甲子月** + **甲子日** synchronization,
-a 60-month circulation, monthly pairing reform
-(配遇改革), and a 60-day leap-star interval
-when the relevant solstice coincides with **甲午**.
-The final civil-date calculation remains unresolved
-where the source does not determine a unique
-algorithm, so the implementation must not
-substitute modern Kigaku behavior.
+The six ordinary daily starting states are preserved:
+
+- 冬至・上元・陽遁 → 甲子一白
+- 雨水・中元・陽遁 → 甲子七赤
+- 穀雨・下元・陽遁 → 甲子四緑
+- 夏至・上元・陰遁 → 甲子九紫
+- 処暑・中元・陰遁 → 甲子三碧
+- 霜降・下元・陰遁 → 甲子六白
+
+The historical reconstruction also specifies an 閏九星 leap procedure.
+The current project adopts the **later 甲子** in the documented winter
+case, following 「後の甲子を取用ひ」 and its explanation
+「甚だ気候早くして」. The leap interval is 60 days, split
+甲子–癸巳 and 甲午–癸亥, with winter reverse-first/forward-second
+and summer forward-first/reverse-second.
+
+The exact year-independent civil-date trigger remains unresolved.
+The historical statement about monthly 配遇改革 is retained as
+context but is not the primary daily civil-date algorithm. The code
+must remain conservative until the trigger can be expressed
+historically and deterministically.
 
 ### `houkan/annual.js`
 

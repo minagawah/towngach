@@ -11,6 +11,14 @@ Traditional Chinese, and Simplified Chinese forms are listed once.
 - **Daily Calculation**: 日家 / nhật gia
 - **Double-Hour**: 時辰 / 时辰 / giờ âm lịch
 - **Dun**: 遁 / độn
+- **Double Solstices**: 二至 / nhị chí
+- **Leap Nine Stars**: 閏九星 / nhuận cửu tinh
+- **Climate / Seasonal Timing**: 気候 / 氣候 / khí hậu
+- **Later Jia-Zi**: 後の甲子 / 後之甲子 / hậu Giáp Tý
+- **Reformation of Pairing**: 配遇改革 / phối ngộ cải cách
+- **Sexagenary Midpoint (Forward)**: 甲午 / Giáp Ngọ
+- **Sexagenary Midpoint (Reverse)**: 癸巳 / Quý Tỵ
+- **Three-Epoch Boundary**: 三元の首 / tam nguyên chi thủ
 - **Earthly Branches**: 地支 / địa chi
   - **Zi**: 子 / tý (Rat)
   - **Chou**: 丑 / sửu (Ox)
@@ -112,3 +120,13 @@ Traditional Chinese, and Simplified Chinese forms are listed once.
 - **Zi Hour**: 子時 / 子时 / giờ Tý
 - **Zi-Wu-Mao-You**: 子午卯酉 / tý ngọ mão dậu
 
+
+## Historical names retained in the Houkan reconstruction
+
+- **Matsuura Kinkaku**: 松浦琴鶴
+- **Matsuura Keihō**: 松浦佳宝
+- **Matsuura Saiyō**: 松浦最陽
+- **Nikka Kyūsei Kirei Ichiran**: 『日家九星起例一覧』
+
+The Japanese forms are intentionally retained because they are useful
+search keys when consulting historical material.

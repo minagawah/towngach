@@ -48,6 +48,78 @@ const STARTING_STARS = Object.freeze({
   yin: Object.freeze({ upper: 9, middle: 3, lower: 6 }),
 });
 
+const DAILY_PERIODS = Object.freeze([
+  Object.freeze({
+    name: 'winter_solstice',
+    solar_term: 'dong_zhi',
+    dun: 'yang',
+    san_yuan: 'upper',
+    starting_star: 1,
+  }),
+  Object.freeze({
+    name: 'rain_water',
+    solar_term: 'yu_shui',
+    dun: 'yang',
+    san_yuan: 'middle',
+    starting_star: 7,
+  }),
+  Object.freeze({
+    name: 'grain_rain',
+    solar_term: 'gu_yu',
+    dun: 'yang',
+    san_yuan: 'lower',
+    starting_star: 4,
+  }),
+  Object.freeze({
+    name: 'summer_solstice',
+    solar_term: 'xia_zhi',
+    dun: 'yin',
+    san_yuan: 'upper',
+    starting_star: 9,
+  }),
+  Object.freeze({
+    name: 'limit_of_heat',
+    solar_term: 'chu_shu',
+    dun: 'yin',
+    san_yuan: 'middle',
+    starting_star: 3,
+  }),
+  Object.freeze({
+    name: 'frost_descent',
+    solar_term: 'shuang_jiang',
+    dun: 'yin',
+    san_yuan: 'lower',
+    starting_star: 6,
+  }),
+]);
+
+const DAILY_SOLSTICES = Object.freeze([
+  Object.freeze({
+    solar_term: 'dong_zhi',
+    name: 'winter_solstice',
+    first: Object.freeze({
+      direction: -1,
+      starting_star: 9,
+    }),
+    second: Object.freeze({
+      direction: 1,
+      starting_star: 8,
+    }),
+  }),
+  Object.freeze({
+    solar_term: 'xia_zhi',
+    name: 'summer_solstice',
+    first: Object.freeze({
+      direction: 1,
+      starting_star: 9,
+    }),
+    second: Object.freeze({
+      direction: -1,
+      starting_star: 2,
+    }),
+  }),
+]);
+
 const get_traditional_day_date = date => {
   const normalized = normalize_calendar_date(date);
   const day = new Date(normalized.timestamp);
@@ -298,3 +370,170 @@ export const HOUKAN_SOLAR_TERM_PERIODS = Object.freeze({
   yang: YANG_DUN_TERMS,
   yin: YIN_DUN_TERMS,
 });
+
+const shift_calendar_day = (date, days) => {
+  const shifted = new Date(date.getTime());
+  shifted.setUTCDate(shifted.getUTCDate() + days);
+  return shifted;
+};
+
+/**
+ * Returns the first 甲子 on or after a traditional day.
+ *
+ * @private
+ * @param {Date} day
+ * @returns {Date}
+ */
+const get_jia_zi_on_or_after = day => {
+  const sexagen = get_houkan_day_sexagen(day);
+  return shift_calendar_day(
+    sexagen.traditional_day,
+    sexagen.index === 0 ? 0 : 60 - sexagen.index
+  );
+};
+
+const get_daily_period_occurrences = year =>
+  DAILY_PERIODS.map(period => {
+    const boundary = get_solar_term_start(
+      period.solar_term,
+      year
+    ).date;
+    const boundary_day =
+      get_houkan_day_sexagen(boundary).traditional_day;
+    const start = get_jia_zi_on_or_after(boundary_day);
+
+    return {
+      ...period,
+      boundary,
+      start,
+      start_sexagen: 'jia_zi',
+      year,
+    };
+  });
+
+/**
+ * Determines the active ordinary daily 60-day state.
+ *
+ * The historical tables are keyed by 甲子 starts, not by
+ * the astronomical instant of the named solar term itself.
+ * The first 甲子 on or after each seasonal boundary is used.
+ *
+ * @param {*} date
+ * @returns {Object}
+ */
+export const determine_houkan_daily_period = date => {
+  const normalized = normalize_calendar_date(date);
+  const candidates = [
+    ...get_daily_period_occurrences(normalized.year - 1),
+    ...get_daily_period_occurrences(normalized.year),
+    ...get_daily_period_occurrences(normalized.year + 1),
+  ]
+    .filter(
+      item => item.start.getTime() <= normalized.timestamp
+    )
+    .sort(
+      (left, right) =>
+        left.start.getTime() - right.start.getTime()
+    );
+
+  const active = candidates.at(-1);
+
+  if (!active)
+    throw new Error(
+      'Unable to determine Houkan daily period.'
+    );
+
+  return {
+    ...active,
+    date: normalized,
+    direction: active.dun === 'yang' ? 1 : -1,
+    periods: DAILY_PERIODS.map(period => [
+      period.name,
+      period.dun,
+      period.san_yuan,
+      period.starting_star,
+    ]),
+  };
+};
+
+const get_leap_occurrences = year =>
+  DAILY_SOLSTICES.map(solstice => {
+    const boundary = get_solar_term_start(
+      solstice.solar_term,
+      year
+    ).date;
+    const boundary_day = get_houkan_day_sexagen(boundary);
+
+    if (boundary_day.sexagen !== 'jia_wu') return null;
+
+    // The source's 「後の甲子を取用ひ」 is implemented literally:
+    // 甲午 is followed by 甲子 exactly 30 days later.
+    const start = shift_calendar_day(
+      boundary_day.traditional_day,
+      30
+    );
+    const end = shift_calendar_day(start, 59);
+
+    return {
+      name: solstice.name,
+      solar_term: solstice.solar_term,
+      boundary,
+      boundary_day: boundary_day.traditional_day,
+      trigger_sexagen: boundary_day.sexagen,
+      start,
+      end,
+      first: solstice.first,
+      second: solstice.second,
+      year,
+    };
+  }).filter(Boolean);
+
+/**
+ * Determines whether a date is inside an applicable 閏九星
+ * interval, returning the active half of the 60-day recipe.
+ *
+ * Winter: 30 days reverse/Yin, then 30 days forward/Yang.
+ * Summer: 30 days forward/Yang, then 30 days reverse/Yin.
+ *
+ * @param {*} date
+ * @returns {Object|null}
+ */
+export const get_houkan_daily_leap_period = date => {
+  const normalized = normalize_calendar_date(date);
+  const occurrences = [
+    ...get_leap_occurrences(normalized.year - 1),
+    ...get_leap_occurrences(normalized.year),
+    ...get_leap_occurrences(normalized.year + 1),
+  ];
+
+  const leap = occurrences.find(item => {
+    const timestamp =
+      get_houkan_day_sexagen(
+        normalized
+      ).traditional_day.getTime();
+    return (
+      timestamp >= item.start.getTime() &&
+      timestamp <= item.end.getTime()
+    );
+  });
+
+  if (!leap) return null;
+
+  const elapsed_days = Math.floor(
+    (get_houkan_day_sexagen(
+      normalized
+    ).traditional_day.getTime() -
+      leap.start.getTime()) /
+      DAY_MS
+  );
+  const half = elapsed_days < 30 ? leap.first : leap.second;
+
+  return {
+    ...leap,
+    phase: elapsed_days < 30 ? 'first' : 'second',
+    direction: half.direction,
+    dun: half.direction === 1 ? 'yang' : 'yin',
+    starting_star: half.starting_star,
+    elapsed_days,
+  };
+};

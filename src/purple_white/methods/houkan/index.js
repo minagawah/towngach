@@ -14,6 +14,7 @@ export {
 export {
   calculate_houkan_daily,
   determine_houkan_daily_period,
+  get_houkan_daily_leap_period,
 } from './daily';
 
 export {

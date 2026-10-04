@@ -19,7 +19,6 @@
     - [2-6-2. Kyusei Kigaku (九星気学)](#2-6-2-kyusei-kigaku-九星気学)
     - [2-6-3. Mizuno Kigaku (水野気学)](#2-6-3-mizuno-kigaku-水野気学)
   - [2-7. Unresolved Issues](#2-7-unresolved-issues)
-    - [2-7-1. Kinkaku's "Daily"](#2-7-1-kinkakus-daily)
 - [3. Technical Details](#3-technical-details)
   - [3-1. Implemented Programs](#3-1-implemented-programs)
   - [3-2. Shared Logic](#3-2-shared-logic)
@@ -34,7 +33,7 @@
     - [(e) Others](#e-others)
 - [4. FAQ](#4-faq)
   - [4-1. Do you have a dictionary?](#4-1-do-you-have-a-dictionary)
-  - [4-2. How "九宮" and "九宫" different?](#4-2-how-九宮-and-九宫-different)
+  - [4-2. How are "九宮" and "九宫" different?](#4-2-how-九宮-and-九宫-different)
 - [6. Resources](#6-resources)
 - [7. License](#7-license)
   - [7-1. For Towngach](#7-1-for-towngach)
@@ -44,7 +43,7 @@
 > For details about words throughout this document
 > having translations in parenthesis, see
 > **["docs/translations.md"](./docs/translations.md)**.
-> To simply put, we have **'ja'**, **'zh_tw'**,
+> Simply put, we have **'ja'**, **'zh_tw'**,
 > **'zh_ch'**, and **'vi'** for translations.
 
 ## 1. Overview
@@ -78,14 +77,14 @@ bathed in celestial light"_.
 
 ### 1-3. Which "9 Stars"?
 
-**Feng-Shui (風水 / 风水 / phong thủy)**
+**"Feng-Shui"** (風水 / 风水 / feng-shui / phong thủy)
 derived historically from **"Qi-Men Dun-Jia"**
 (奇門遁甲 / 奇门遁甲 / kỳ môn độn giáp),
 and the two share the same theoretical
 and operational concepts.
 
 In **Qi-Men Dun-Jia**, there is a concept of
-the **"Nine Stars"** (九星 / jiu-xing /
+the **"Nine Stars"** (九星 / 九星 / jiu-xing /
 cửu tinh). As the name suggests, it has
 "9 stars". These stars are of **the Big Dipper**.
 
@@ -95,14 +94,18 @@ cửu cung). Although it may sound strange,
 there is another set of **"9 stars"** associated
 with the **"Nine Palaces"**. These stars derived
 from the legendary **"Luo-Shu"** (洛書 / 洛书 /
-lạc thư) diagram. As you can imagine, it has been
-the major cause of confusions throughout ages...
+luo-shu / lạc thư) diagram. As you can imagine,
+it has been the major cause of confusions
+throughout ages...
 
-For instance, in **"Xuan-Kong Fei-Xing Feng-Shui"**
-(玄空飛星風水 / 玄空飞星风水 / phong thủy huyền không
-phi tinh), they would say **"Nine Stars"**
-to refer to "9 stars" belonging to the
-**"Nine Palaces"** (九宮).
+For instance, in
+**"Xuan-Kong Fei-Xing Feng-Shui"**
+(玄空飛星風水 / 玄空飞星风水 /
+xuan-kong-fei-xing-feng-shui /
+phong thủy huyền không phi tinh),
+they would say **"Nine Stars"** to refer to
+"9 stars" belonging to
+the **"Nine Palaces"** (九宮).
 
 In the same manner, in the **"Kyusei Kigaku"**
 (九星気学 / 九星气学 / jiu-xing-qi-xue / cửu tinh
@@ -133,25 +136,27 @@ the **"Nine Palaces"** (or "Purple-White Stars").
 Conceptually, the **Nine Stars** (九星)
 represent the workings of **Heaven**
 (天 / tian / thiên) whereas for the
-**Nine Palaces** (九宮), that of **Earth**
-(地 / dì / địa). So, in a way, the library is
-said to deal with the "Earth" aspect
-of the divination.
+**"Nine Palaces"** (九宮 / 九宫 / jiu-gong / cửu cung),
+that of **Earth** (地 / dì / địa). So, in a way,
+the library is said to deal with
+the "Earth" aspect of the divination.
 
 ## 2. Purple-White Stars (紫白星)
 
 ### 2-1. Nine-Palaces (九宮)
 
-Let us explore the rest of the topics for
-the **"Purple-White Stars"** (紫白星).
+Let us explore the rest of the topics
+for the **"Purple-White Stars"** (紫白星).
 
 For **Qi-Men** (奇門) derived traditions,
-the **"Purple-White Stars"** have fixed positions
-defined in the mentioned **"Luo-Shu"** (洛書) diagram.
+the **"Purple-White Stars"** have fixed
+positions defined in the mentioned
+**"Luo-Shu"** (洛書) diagram.
 
-This is referred to as the **"Nine Palaces"** (九宮)
-because it has 9 slots in total, arranged as a 3x3 matrix.
-Or, in the West, this is known as a **magic square**.
+This is referred to as the **"Nine Palaces"**
+(九宮) because it has 9 slots in total,
+arranged as a 3x3 matrix. Or, in the West,
+this is known as a **magic square**.
 
 ![magic square](https://thumb.wikimedia.org/wikipedia/commons/thumb/a/af/Magic_Square_Lo_Shu.svg/250px-Magic_Square_Lo_Shu.svg.png?utm_source=commons.wikimedia.org&utm_campaign=index&utm_content=thumbnail)  
 (Source: ["Magic Square Lo Shu.svg" - Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Magic_Square_Lo_Shu.svg))
@@ -176,7 +181,7 @@ forward or backward, corresponding to
 thuận phi) and **"Reverse Flight"** (逆飛 / 逆飞 /
 ni-fei / nghịch phi).
 
-The name **Purple-White Stars** (紫白星) has
+The name **"Purple-White Stars"** (紫白星) has
 **"Purple"** (紫) and **"White"** (白) because
 it has particular numbers and colors as attributes
 given to each star. It starts with the
@@ -195,19 +200,19 @@ the calendrical boundary differ.
 
 ### 2-2. Four Calendrical Levels
 
-The **Purple-White Stars** (紫白星) are commonly
-applied at four calendrical levels:
+The **"Purple-White Stars"** (紫白星) are
+commonly applied at four calendrical levels:
 
-- **annual calculation** (年家 / nian-jia / niên gia)
-- **monthly calculation** (月家 / yue-jia / nguyệt gia)
-- **daily calculation** (日家 / ri-jia / nhật gia)
-- **hourly calculation** (時家 / shi-jia / thời gia)
+- **"Annual Calculation"** (年家 / nian-jia / niên gia)
+- **"Monthly Calculation"** (月家 / yue-jia / nguyệt gia)
+- **"Daily Calculation"** (日家 / ri-jia / nhật gia)
+- **"Hourly Calculation"** (時家 / 时家 / shi-jia / thời gia)
 
 These four levels should not necessarily be understood
 as four unrelated systems. They share the same
 general cosmological vocabulary of
-**Purple-White Stars** (紫白星) and
-the **Nine Palaces** (九宮), but each level
+**"Purple-White Stars"** (紫白星) and
+the **"Nine Palaces"** (九宮), but each level
 may define its own temporal cycles, starting points,
 transitions, and rules for determining the initial star.
 
@@ -218,21 +223,21 @@ independent calendrical logic.
 ### 2-3. Three-Epoch-Purple-White (三元紫白)
 
 One major family of methods is the classical
-**"Three-Epoch-Purple-White"** (三元紫白 /
+**"Three-Epoch Purple-White"** (三元紫白 /
 san-yuan-zi-bai / tam nguyên tử bạch) system
 found in Chinese calendrical and selection traditions.
 
-Within this family, annual, monthly,
-daily, and hourly Purple-White (紫白)
-calculations are treated as related expressions of
-the same general system. This historical description
+Within this family, annual, monthly, daily,
+and hourly Purple-White (紫白) calculations are
+treated as related expressions of the same
+general system. This historical description
 does not represent a single universal method
 in the public API.
 
-The repository keeps concrete calculations under
-identifiable method families instead.
+The repository keeps concrete calculations
+under identifiable method families instead.
 
-- **annual calculation** (年家):  
+- **"Annual Calculation"** (年家):  
   Based on the large cycle of the **Three-Epochs**
   (三元 / san-yuan / tam nguyên), traditionally
   expressed **through a sequence of 60-year units
@@ -260,7 +265,7 @@ identifiable method families instead.
 These methods form an important baseline for the
 library because they provide one of the most
 coherent historical families of
-**Purple-White Stars** (紫白星) calculations.
+**"Purple-White Stars"** (紫白星) calculations.
 
 ### 2-4. Daily Purple-White (日家紫白)
 
@@ -276,12 +281,12 @@ with **"3 Epochs"** forming a **180-day** structure.
 To change between **Yin** (陰 / 阴 / yin / âm)
 and **Yang** (陽 / 阳 / yang / dương) progression,
 some methods emphasize calendrical boundaries
-associated directly with the **"solstices"**
-(二至 / er-zhi / nhị chí) and the **"Three-Epoch"**
-(三元).
+associated directly with the **"Solstices"**
+(二至 / 二至 / er-zhi / nhị chí) and the
+**"Three Epoch"** (三元 / 三元 / san-yuan / tam nguyên).
 
-Other methods use **nearby days** associated with
-a set of **"4 branches"**, namely,
+Other methods use **nearby days** associated
+with a set of **"4 branches"**, namely,
 **"Zi-Wu-Mao-You"** (子午卯酉 / tý ngọ mão dậu)
 being used as practical transition points.
 
@@ -298,15 +303,13 @@ From the perspective of
 software design, such methods should not
 necessarily require completely separate systems.
 The library's reusable foundations include:
-- **Nine Palaces** (九宮)
-- **Purple-White Stars** (紫白星)
-- **Forward/Reverse Flight** (順飛/逆飛)
+- **"Nine Palaces"** (九宮)
+- **"Purple-White Stars"** (紫白星)
+- **"Forward Flight"** (順飛 / 顺飞 / shun-fei / thuận phi
+- **"Reverse Flight"** (逆飛 / 逆飞 / ni-fei / nghịch phi)
 
-I have especially having difficulties
-attempting to implement Matsuura Kinaku's
-(松浦琴鶴) calculation on **"daily"**.  
-It will be discussed shortly in
-_**["2-7-1. Kinkaku's 'Daily'"](#2-7-1-kinkakus-daily)**_.
+The historical Houkan daily calculation is documented in
+_**[docs/kinkaku.md](./docs/kinkaku.md)**_.
 
 ### 2-5. Historical Variants
 
@@ -315,22 +318,24 @@ should be understood as historical and
 technical variants of **"Purple-White Stars"**
 (紫白星) calculation rather than as mutually
 exclusive systems. In many cases, traditions
-may use exactly the same **"Nine Palace Flight"**
-(九宮飛泊) while differing only in how they
+may use exactly the same **"Nine-Palace Flight"**
+(九宮飛泊 / 九宫飞泊 / jiu-gong-fei-bo /
+cửu cung phi bạc) while differing only in how they
 determine the **"Starting Star"** (起始星 /
 qi-shi-xing / khởi thủy tinh).
 
 In other cases, they may share the same
-**"Sixty Gan-Zhi Unit"** (六十干支) while
+**"Sixty Gan-Zhi Unit"** (六十干支 / 六十花甲 /
+liu-shi-gan-zhi / lục thập hoa giáp) while
 differing only in the treatment of a transition
-near a **"solar term"** (節気) or
-**"solstice"** (二至).
+near a **"solar term"** (節氣 / 节气 / jie-qi /
+tiết khí) or **"solstice"** (二至).
 
 A useful implementation can therefore
 distinguish between:
 
 1. Underlying **"Purple-White Stars"** (紫白星)
-2. Rule to determine the **"Three-Epochs"** (三元)
+2. Rule to determine the **"Three Epochs"** (三元)
 3. Rule to select the **"Starting Star"** (起始星)
 4. Rule to determine **"Forward Flight"** (順飛)
   or **"Reverse Flight"** (逆飛)
@@ -353,53 +358,54 @@ On the other hand, for **"daily"** (日家) and
 **"hourly"** (時家) calculations continue
 to depend on the interaction between
 the traditional calendar, the
-**"Sixty Gan-Zhi Unit"** (六十干支 / 六十花甲 /
-liu-shi-gan-zhi / lục thập hoa giáp) cycle,
+**"Sixty Gan-Zhi Unit"** (六十干支) cycle,
 and the **"Nine Palace"** (九宮) movement.
 
 These systems often share substantial
 computational logic with earlier
-**Purple-White Stars** (紫白星) traditions.
+**"Purple-White Stars"** (紫白星) traditions.
 Yet, differences may appear in matters
 such as the precise definition of
 a **"year boundary"**, the handling of
-**"solar terms"** (節気 / 節氣 / 节气 / jie-qi /
-tiết khí), and the treatment of
-**"daily transitions"**.
+**"solar terms"** (節気), and the treatment
+of **"daily transitions"**.
 
 For this reason, modern Japanese methods are
 best regarded not as an entirely separate
 cosmology, but as a family of related
 implementations built upon the same
-**Purple-White Stars** (紫白星) foundation.
+**"Purple-White Stars"** (紫白星) foundation.
 
 #### 2-5-2. Xuan-Kong Feng-Shui (玄空風水)
 
 The library may also be useful for traditions
 associated with **"Xuan-Kong Fei-Xing Feng-Shui"**
-(玄空飛星風水 / 玄空飞星风水 / phong thủy huyền không
-phi tinh) &mdash; or **"Xuan-Kong Feng-Shui"**
-(玄空風水) for short. This tradition is widely
-known in the West as **"Flying Star Feng-Shui"**.
+(玄空飛星風水 / 玄空飞星风水 /
+xuan-kong-fei-xing-feng-shui / phong thủy
+huyền không phi tinh) &mdash;
+or **"Xuan-Kong Feng-Shui"** (玄空風水) for short.
+This tradition is widely known in the West as
+**"Flying Star Feng-Shui"**.
 
-These systems use the **Nine Palaces** (九宮)
+These systems use the **"Nine Palaces"** (九宮)
 and the movement of numbered stars, and therefore
 share a natural computational vocabulary with
-**Purple-White Stars** (紫白星) calculation.
+**"Purple-White Stars"** (紫白星) calculation.
 
-However, the concept of **"Three-Epochs-Nine-Periods"**
-(三元九運 / 三元九运 / san-yuan-jiu-yun / tam nguyên cửu vận)
-should not be confused with the **"Three-Epochs"**
+However, the concept of
+**"Three-Epochs-Nine-Periods"** (三元九運 /
+三元九运 / san-yuan-jiu-yun / tam nguyên cửu vận)
+should not be confused with the **"Three Epochs"**
 (三元) divisions used in annual, monthly, daily,
 or hourly **"Purple-White"** (紫白) calculations.
 
 The two systems may both use the term
-**"Three-Epochs"** (三元), but they describe
+**"Three Epochs"** (三元), but they describe
 different temporal structures and serve
 different purposes. For this reason,
 **Xuan-Kong** (玄空) calculations should be
 treated as closely related to the library's
-**Purple-White Stars** (紫白星) core without
+**"Purple-White Stars"** (紫白星) core without
 assuming that every temporal rule can be
 shared directly.
 
@@ -414,16 +420,16 @@ annual, monthly, daily, and hourly time scales.
 It includes useful computational foundations
 that developed in China and Japan, such as
 **"Nine Palace Flight"** (九宮飛泊) &mdash;
-often referred as **"Flying Star"** (飛星 /
-飞星 / fei-xing / phi tinh) traditions.
+often referred to as **"Flying Star"**
+(飛星 / 飞星 / fei-xing / phi tinh) traditions.
 
 The library does not attempt, however, to treat
 every historical system that uses the name
 **"Nine Stars"** (九星) as part of the same
-algorithm, especially, for (1) **"Nine Stars"**
-(of "Qi-Men Dun-Jia") and (2) **"Three-Epochs"**
-(三元) divisions belong to a different technical
-context.
+algorithm, especially because (1) **"Nine Stars"**
+of **"Qi-Men Dun-Jia"** (奇門遁甲) and
+(2) **"Three Epochs"** (三元) divisions
+belong to different technical contexts.
 
 The goal here is to preserve the specific family
 of **"Purple-White Stars"** (紫白星) calculations
@@ -431,81 +437,75 @@ based on the numbered stars, the **"Nine Palaces"**
 (九宮), and their historically distinct, but
 structurally related methods of movement.
 
-The roadmap for implementing the
-**"Purple-White Stars"** (紫白星) families
-includes:
+The current implementation order for
+**"Purple-White Stars"** (紫白星) is:
 
-1. **Houkan** (of Kikaku's) (方鑑 / 方鉴 / fang-jian / phương giám)
-2. **Kyusei Kigaku** (九星気学)
-3. **Mizuno Kigaku** (水野気学)
-4. **Xuan-Kong Feng-Shui** (玄空風水)
+1. **"Mizuno Kigaku"** (水野気学)
+2. **"Houkan"** (方鑑 / 方鉴 / fang-jian / phương giám)
+3. **"Kyusei Kigaku"** (九星気学)
+4. **"Xuan-Kong Feng-Shui"** (玄空風水)
 
-(1) is partially implemented and remains
-subject to historical verification.
-Only (3) is currently implemented as
-a complete production method.  
-(2) and (4) are not yet implemented.
+Mizuno Kigaku is currently the complete
+production method. **"Houkan"** (方鑑)
+is partially implemented: its **"daily"**
+(日家) and **"hourly"** (月家) calculations
+are implemented, while its **"annual"**
+(年家) and **"monthly"** (月家)
+**"Starting Star"** (起始星) rules remain
+unresolved. **"Kyusei Kigaku"** (九星気学) has
+**"annual"** (年家) and **"monthly"** (月家)
+calculations implemented, while its **"daily"**
+(日家) and **"hourly"** (時家) calculations
+remain unresolved. **"Xuan-Kong Feng-Shui"**
+(玄空風水) is not yet implemented.
 
 #### 2-6-1. Kinkaku's Houkan (方鑑)
 
-**Matsuura Kinkaku** (松浦琴鶴)'s **Houkan**
-(方鑑) is treated as a separate historical
-reconstruction family. The implementation
-is deliberately conservative: a rule is
-implemented only when the historical material
-determines it sufficiently; otherwise the
-library preserves an explicit unresolved
-state rather than borrowing a modern convention.
+**Matsuura Kinkaku** (松浦琴鶴)'s
+**"Houkan"** (方鑑) is treated as
+a separate historical reconstruction family.
+The detailed reconstruction is documented in
+**[docs/kinkaku.md](./docs/kinkaku.md)**.
 
-The current reconstruction establishes:
+The current implementation status is:
 
-- **"Annual"**:  
-  Three 60-year epochs, with **"Jia-Zi"** (甲子)
-  starting stars **1 / 4 / 7** for Upper/Middle/
-  Lower Epochs. These are epoch starting states,
-  not a single temporal **1 → 4 → 7** sequence.
-- **"Monthly"**:  
-  Three 60-month epochs, with **"Jia-Zi Month"**
-  starting stars **1 / 4 / 7**. The observed
-  diagrams show a reverse numerical star
-  progression within each epoch.
-- **"Daily"**:  
-  Six seasonal starting states:
-  - **"Yang"**  
-    **"Winter Solstice"** / **"Rain Water"** /
-    **"Grain Rain"** = **1 / 7 / 4**;  
-  - **"Yin"**  
-    **"Summer Solstice"** / **"End of Heat"** /
-    **"Frost Descent"** = **9 / 3 / 6**.
-- **"Daily synchronization"**:  
-  The historical explanation states that
-  the daily **"Three-Epoch"** system begins
-  from a **"Jia-Zi Month"** together with
-  a **"Jia-Zi Day"**, circulates through
-  **60 months**, and **reforms the daily-star/
-  sexagenary pairing at each monthly Three-Epoch
-  boundary** (配遇改革). This is currently
-  interpreted as an explicit calendar
-  synchronization/reset event, not as
-  permission to invent a hidden mathematical
-  phase transformation.
-- **"Daily leap-star rule"**:  
-  When the **"Winter Solstice"** or
-  **"Summer Solstice"** coincides with
-  **"甲午"**, the source explicitly establishes
-  a 60-day leap-star interval. In the documented
-  example, the later **"甲子"** is adopted;
-  the interval runs **甲子–癸巳 (30 days)** and
-  **甲午–癸亥 (30 days)**, after which
-  the following **"甲子"** resumes the ordinary
-  **"Yin"** **"Nine Purple"** (九紫) configuration.
+- **Annual (年家)**: unresolved.
+- **Monthly** (月家):  
+  the astronomical **"solar-term"** (節気)
+  boundary is implemented, but the
+  Houkan-specific **"Starting Star"** (起始星)
+  rule remains unresolved.
+- **Daily** (日家):  
+  The 6 ordinary starting states and
+  the historical **"Leap Nine Stars"**
+  (閏九星 / 闰九星 / run-jiu-xing /
+  nhuận cửu tinh) recipe are implemented.
+  The leap procedure uses the later
+  **"Jia-Zi"** (甲子 / jia-zi / giáp-tý)
+  selected in the documented winter case.
+- **Hourly** (時家):  
+  The examined **"Houkan"** hourly rule
+  is implemented.
 
-The exact internal operation of "配遇改革",
-the absolute anchor of the 60-month circulation,
-and the complete civil-date detection of
-every leap case remain under historical
-reconstruction. None of these gaps should be
-filled with modern **"Kyusei Kigaku"** (九星気学) rules.
+The daily leap implementation is event-driven:
+when **"Dong-Zhi"** (冬至 / đông chí) or
+**"Xia-Zhi"** (夏至 / hạ chí) has
+a traditional day of **"Jia-Wu"** (甲午 /
+jia-wu / giáp-ngọ), a 60-day leap interval
+starts 30 days later at the **"Later Jia-Zi"**.
+Winter is Reverse-First / Forward-Second;
+summer is Forward-First / Reverse-second.
+The summer later **"Jia-Zi"** rule is
+an explicit implementation decision based
+on the confirmed winter rule and
+the parallel summer structure.
+
+This implementation is intended to reproduce
+a historical recipe. It does not require
+a universal closed-form phase equation, and
+it does not borrow **"Kyusei Kigaku"**
+(九星気学) rules to fill unresolved
+**"Houkan"** areas.
 
 #### 2-6-2. Kyusei Kigaku (九星気学)
 
@@ -518,26 +518,28 @@ the **"Purple-White Stars"** (紫白星) system.
 #### 2-6-3. Mizuno Kigaku (水野気学)
 
 Although less recognized, **Mizuno Yoshitome**
-(水野義留) was known during 1970s for bringing
+(水野義留) was known during the 1970s for bringing
 astronomical precisions to the **"daily"** (日家)
 and **"hourly"** (時家).
 
 **"Mizuno Kigaku"** shares the documented rules
-of **"Honmei-sei"** (本命星 / ben-ming-xing /
+of **"Honmei-Sei"** (本命星 / ben-ming-xing /
 sao bản mệnh) of **"Kyusei Kigaku"**
 &mdash; or **"Ming-Gua"** (命卦 / mệnh quái)
 of Taiwanese/Vietnamese traditions.
 
-However, at the times of Mizuno's,
-**"Kyusei Kigaku"** suffered from **timing lags**
-because it determines seasonal transitions
-based on the **"Jia-Zi Day"** (甲子日).
+However, at the time of Mizuno's work,
+**"Kyusei Kigaku"** suffered from
+**timing lags** because it determines
+seasonal transitions based on the
+**"Jia-Zi Day"** (甲子日 / jia-zi-ri /
+giáp-tý nhật).
 
 To address this, **Mizuno** sought to overcome
 this structural looseness of **"Kyusei Kigaku"**
-by incorporating the **"Zi-Bai-Jue"**
-(紫白訣 / 紫白诀 / zi-bai-jue / tử bạch quyết)
-of **Xuan-Kong Feng-Shui** (玄空風水) into
+by incorporating the **"Zi-Bai-Jue"** (紫白诀 /
+zi-bai-jue / tử bạch quyết) of
+**Xuan-Kong Feng-Shui** (玄空風水) into
 **"daily"** and **"hourly"** calculations.
 
 Thus, **"Mizuno Kigaku"** shares annual
@@ -548,53 +550,45 @@ hourly rules distinct.
 
 ### 2-7. Unresolved Issues
 
-#### 2-7-1. Kinkaku's "Daily"
+The repository still contains unresolved
+method-specific rules. The current status is:
 
-The Houkan daily method is being reconstructed as a historical
-recipe/decision procedure rather than as a search for an elegant
-hidden mathematical phase.
+- **"Houkan"**
+  - Annual Starting-Star calculation: unresolved.
+  - Monthly Starting Star calculation: unresolved;
+  - The astronomical **"solar-term"** boundary
+    itself is implemented.
+- **"Kyusei Kigaku"**
+  - Daily calculation: unresolved.
+  - Hourly calculation: unresolved.
+- **"Xuan-Kong Feng-Shui"** family:  
+  - Not implemented
 
-The current evidence establishes:
-
-1. Six ordinary 60-day starting states.
-2. The two solstices (二至) and the sexagenary cycle are central to 閏九星.
-3. 甲午 is the forward midpoint; 癸巳 is the corresponding reverse midpoint.
-4. The winter example explicitly says 「後の甲子を取用ひ」.
-5. The earlier 甲子 is rejected as 「甚だ気候早くして」.
-6. The relevant relation is described as 「甲午の進み、合たる」.
-7. The leap interval is 60 days: 甲子–癸巳 and 甲午–癸亥.
-8. Winter is reverse-first/forward-second; summer is forward-first/reverse-second.
-9. Leap midpoint stars are 七赤 for Yang and 三碧 for Yin.
-
-The current implementation therefore adopts the later 甲子 in the
-documented winter case. The unresolved issue is the complete,
-year-independent civil-date predicate for recognizing every applicable
-solstice/sexagenary relation, especially the Summer Solstice case.
-
-Do not fill this gap with modern Kyusei Kigaku (九星気学), a generic
-nearest-甲子 convention, or an invented phase formula. An explicit
-finite-state or table-driven rule is acceptable if supported by the
-historical evidence.
+Unresolved historical rules are kept
+explicit in the source instead of being
+filled with a modern convention.
 
 ## 3. Technical Details
 
 ### 3-1. Implemented Programs
 
-As alredy mentioned, we have the following roadmap for implementations:
+As already mentioned, we have the following
+roadmap for implementations:
 
-1. **Mizuno Kigaku** (水野気学)
-2. **Houkan** (方鑑 / 方鉴 / fang-jian / phương giám)
-3. **Kyusei Kigaku** (九星気学)
-4. **Xuan-Kong Fei-Xing Feng-Shui** (玄空飛星風水)
+1. **"Kyusei Kigaku"** (九星気学)
+2. **"Houkan"** (方鑑)
+3. **"Mizuno Kigaku"** (水野気学)
+4. **"Xuan-Kong Feng-Shui"** (玄空風水)
 
-Only the first is currently implemented as
-a complete production method. The second is
-partially implemented and remains subject to
-historical verification. The latter two
-are not yet implemented.
+**"Kyusei Kigaku"** is partially implemented;  
+**"Houkan"** is partially implemented;  
+**"Xuan-Kong Feng-Shui"** is not yet implemented.  
+Only **"Mizuno Kigaku"** is currently
+implemented as a complete production method.
 
-(for detailed specifications about programs implemented,
-see _**["Implemented Programs"](./src/README.md)**_)
+(for detailed specifications about
+programs implemented, see
+_**["Implemented Programs"](./src/README.md)**_)
 
 ### 3-2. Shared Logic
 
@@ -603,8 +597,8 @@ is not to erase their differences, but to identify
 where their computational structures
 genuinely coincide.
 
-The **Nine Palaces** (九宮), the sequence of
-**Purple-White Stars** (紫白星), and the concepts
+The **"Nine Palaces"** (九宮), the sequence of
+**"Purple-White Stars"** (紫白星), and the concepts
 of **Forward Flight** (順飛) and **Reverse Flight**
 (逆飛) provide a common foundation. These can often
 be implemented once and reused.
@@ -657,12 +651,14 @@ tam nguyên), **Purple-White Star** (紫白星),
 the **Monthly Solar-term Boundary**
 (節気境界 / 節氣交節 / 节气交节 / jie-qi-jiao-jie /
 tiết khí giao tiết), and the documented
-daily structure. It also reports annual, monthly,
-and daily calculations as unresolved where
-the historical rule is intentionally not guessed.
+**"daily"** structure. **Mizuno** annual,
+monthly, daily, and hourly calculations are
+implemented. Other method families keep
+unresolved historical rules explicit
+where the source material is not yet sufficient.
 
-The example datetime is accompanied by the
-following message:
+The example datetime is accompanied by
+the following message:
 
 > Marty McFly escaping the Libyans at Twin Pines Mall
 
@@ -680,7 +676,7 @@ node scripts/data_browser.js
 
 It iterates over all data modules (stars, elements,
 luoshu, solar terms, stems, branches, palaces,
-sexagenary cycle, and three-epochs) and prints a
+Sixty Gan-Zhi Unit, and three-epochs) and prints a
 readable table for each one, showing keys and their
 properties along with the source file path. Useful
 for exploring what data is available and where it
@@ -780,7 +776,7 @@ npm install --save-dev \
 A. Yes. See _**["Terminology"](./docs/terminology.md)**_
 for all the list of terms used in this repo.
 
-### 4-2. How "九宮" and "九宫" different?
+### 4-2. How are "九宮" and "九宫" different?
 
 A. They are different.
 - **九宮** (Japanese Kanji / Traditional Chinese):  
@@ -800,11 +796,11 @@ A. They are different.
 
 ## 6. Resources
 
-To supplement this document, the repository provides the following materials:
+To supplement this document, the repository
+provides the following materials:
 
 - **[Definitions](./docs/definitions.md)**
 - **[Kinkaku's "Houkan"](./docs/kinkaku/index.md)**
-- **[Kinkaku's "Houkan" - Daily](./docs/kinkaku/daily.md)**
 - **[Implemented Methods](./src/README.md)**
 - **[What is Towngach?](./docs/towngatch.md)**
 - **[Terminology](./docs/terminology.md)**

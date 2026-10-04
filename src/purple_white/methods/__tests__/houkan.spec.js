@@ -58,12 +58,24 @@ describe('Purple-White Houkan methods', () => {
     expect(term.zh_tw.primary).toBe('三元');
   });
 
-  it('does not guess the daily Jia Zi reference point', () => {
-    expect(() =>
-      methods.houkan.calculate_houkan_daily(
-        new Date(Date.UTC(2026, 0, 1))
-      )
-    ).toThrow('Historical rule is unresolved');
+  it('calculates the ordinary daily state from a 甲子 anchor', () => {
+    const result = methods.houkan.calculate_houkan_daily(
+      new Date(Date.UTC(2026, 0, 1))
+    );
+
+    expect(result.star).toBeDefined();
+    expect(result.palace).toBe('center');
+    expect(result.daily_period.start_sexagen).toBe(
+      'jia_zi'
+    );
+    expect(result.leap_period).toBeNull();
+    expect(result.elapsed_days).toBeGreaterThanOrEqual(0);
+  });
+
+  it('exposes the historical later-甲子 leap recipe', () => {
+    const { get_houkan_daily_leap_period } = methods.houkan;
+
+    expect(get_houkan_daily_leap_period).toBeDefined();
   });
 
   it('calculates an hourly result through shared flight logic', () => {

@@ -305,6 +305,130 @@ export const determine_houkan_hourly_origin = date => {
   };
 };
 
+const normalize_star_number = number =>
+  ((((number - 1) % 9) + 9) % 9) + 1;
+
+/**
+ * Returns the effective year at the Li-Chun boundary.
+ *
+ * Houkan annual Three-Yuan anchors documented in 方鑑秘伝集 are
+ * Jia-Zi years 1684 (upper), 1744 (middle), and 1804 (lower).
+ * Each 60-year Yuan runs in reverse star order from its anchor star.
+ */
+export const get_houkan_effective_year = date =>
+  get_solar_term_start(
+    'li_chun',
+    normalize_calendar_date(date).year
+  ).date.timestamp <=
+  normalize_calendar_date(date).timestamp
+    ? normalize_calendar_date(date).year
+    : normalize_calendar_date(date).year - 1;
+
+export const get_houkan_annual_star_number = year => {
+  const offset = (((year - 1684) % 180) + 180) % 180;
+  const yuan = Math.floor(offset / 60);
+  const starting_star = [1, 4, 7][yuan];
+  return normalize_star_number(
+    starting_star - (offset % 60)
+  );
+};
+
+/**
+ * Returns the Sixty Gan-Zhi Unit month used by Houkan's historical
+ * 60-month circulation. The source example begins the Upper-Yuan
+ * Jia-Zi Month at the Li-Dong boundary before the documented Jia-Zi Year;
+ * the following months are Yi-Chou and Bing-Yin.
+ */
+export const get_houkan_month_sexagen = date => {
+  const normalized = normalize_calendar_date(date);
+  const effective_year =
+    get_houkan_effective_year(normalized);
+  const month_terms = [
+    'li_dong',
+    'da_xue',
+    'xiao_han',
+    'li_chun',
+    'jing_zhe',
+    'qing_ming',
+    'li_xia',
+    'mang_zhong',
+    'xiao_shu',
+    'li_qiu',
+    'bai_lu',
+    'han_lu',
+  ];
+
+  const candidates = month_terms
+    .flatMap(solar_term =>
+      [
+        effective_year - 1,
+        effective_year,
+        effective_year + 1,
+      ].map(year => ({
+        solar_term,
+        year,
+        date: get_solar_term_start(solar_term, year).date,
+      }))
+    )
+    .filter(
+      item => item.date.timestamp <= normalized.timestamp
+    )
+    .sort((a, b) => a.date.timestamp - b.date.timestamp);
+
+  const boundary = candidates.at(-1);
+  if (!boundary)
+    throw new Error(
+      'Unable to determine Houkan monthly boundary.'
+    );
+
+  const term_index = month_terms.indexOf(
+    boundary.solar_term
+  );
+  const anchor = get_solar_term_start('li_dong', 1683).date;
+  const months = (boundary.year - 1683) * 12 + term_index;
+  const index = ((months % 60) + 60) % 60;
+  const sexagen = get_sexagen_by_index(index);
+
+  return {
+    ...get_sexagen_definition(sexagen),
+    solar_term: boundary.solar_term,
+    solar_term_boundary: boundary.date,
+    anchor,
+  };
+};
+
+export const get_houkan_monthly_star_number = date => {
+  const month = get_houkan_month_sexagen(date);
+  const term_order = [
+    'li_dong',
+    'da_xue',
+    'xiao_han',
+    'li_chun',
+    'jing_zhe',
+    'qing_ming',
+    'li_xia',
+    'mang_zhong',
+    'xiao_shu',
+    'li_qiu',
+    'bai_lu',
+    'han_lu',
+  ];
+  const term_index = term_order.indexOf(month.solar_term);
+  const cycle_year =
+    month.solar_term === 'li_dong' ||
+    month.solar_term === 'da_xue'
+      ? month.solar_term_boundary.year
+      : month.solar_term_boundary.year - 1;
+  const elapsed_months =
+    (cycle_year - 1683) * 12 + term_index;
+  const offset = ((elapsed_months % 180) + 180) % 180;
+  const yuan = Math.floor(offset / 60);
+  const starting_star = [1, 4, 7][yuan];
+  return normalize_star_number(
+    starting_star - (offset % 60)
+  );
+};
+
 /**
  * Creates the shared Purple-White
  * flight (紫白飛泊) result.

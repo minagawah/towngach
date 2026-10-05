@@ -1,13 +1,13 @@
 # What is "Towngach"?
 
-The name **"Towngach"** (`/taʊŋˈɡætʃ/`)
-originates from **"Tawgač"** (`/tɑwˈɣɑtʃ/`
-or tahw-GHAHCH) or **"Tabgach"** (`/tɑbˈɣɑtʃ/`
+The name _**"Towngach"**_ (`/taʊŋˈɡætʃ/`)
+originates from _**"Tawgač"**_ (`/tɑwˈɣɑtʃ/`
+or tahw-GHAHCH) or _**"Tabgach"_** (`/tɑbˈɣɑtʃ/`
 or tahb-GHAHCH), an ancient **Turkic**
 (突厥 / tu-jue) term recorded in historical
 monuments like the **Bilge Khagan
 Inscription** (毗伽可汗碑 / pi-jia-ke-han-bei)
-to denote the **"Tang Dynasty"** (唐 / tang)
+to denote the _**"Tang Dynasty"**_ (唐 / tang)
 and the vast sovereign realm of China.
 
 Grammatically, the suffix `-č` in Ancient

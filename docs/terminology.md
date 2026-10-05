@@ -31,6 +31,7 @@ also provided because this section serves as a dictionary.
   - **Forward Flight**: 順飛 / 顺飞 / shun-fei / thuận phi
   - **Reverse Flight**: 逆飛 / 逆飞 / ni-fei / nghịch phi
 - **Flying Star**: 飛星 / 飞星 / fei-xing / phi tinh
+- **Gan-Zhi**: 干支 / gan-zhi / hoa giáp
 - **Heavenly Stems**: 天干 / tian-gan / thiên can
   - **Jia**: 甲 / jia / giáp
   - **Yi**: 乙 / yi / ất
@@ -47,14 +48,16 @@ also provided because this section serves as a dictionary.
 - **Initial Star**: 起始星 / qi-shi-xing / khởi thủy tinh
 - **Jia-Ji**: 甲己 / jia-ji / giáp-kỷ
 - **Jia-Zi**: 甲子 / jia-zi / giáp-tý
-- **Jia-Zi Day**: 甲子日 / jia-zi-ri / giáp-tý nhật
-- **Jia-Zi Month**: 甲子月 / jia-zi-yue / giáp-tý nguyệt
+  - **Jia-Zi Day**: 甲子日 / jia-zi-ri / giáp-tý nhật
+  - **Jia-Zi Month**: 甲子月 / jia-zi-yue / giáp-tý nguyệt
+  - **Jia-Zi Year**: 甲子年 / jia-zi-nian / giáp-tý niên
+  - **Later Jia-Zi**: 後の甲子 / 後之甲子 / hou-zhi-jia-zi / hậu Giáp Tý
 - **Jia-Wu**: 甲午 / jia-wu / giáp-ngọ
 - **Gui-Si**: 癸巳 / gui-si / quý-tỵ
 - **Gui-Hai**: 癸亥 / gui-hai / quý-hợi
 - **Kigaku**: 九星気学 / 九星氣學 / 九星气学 / jiu-xing-qi-xue / cửu tinh khí học
-- **Later Jia-Zi**: 後の甲子 / 後之甲子 / hou-zhi-jia-zi / hậu Giáp Tý
 - **Leap Nine Stars**: 閏九星 / 闰九星 / run-jiu-xing / nhuận cửu tinh
+- **Li-Dong**: (立冬 / lập đông)
 - **Luo-Shu**: 洛書 / 洛书 / luo-shu / lạc thư
 - **Monthly Calculation**: 月家 / yue-jia / nguyệt gia
 - **Monthly Sequence**: 月建 / yue-jian / nguyệt kiến
@@ -87,6 +90,9 @@ also provided because this section serves as a dictionary.
 - **Star**: 星 / xing / tinh
 - **Starting Star**: 起始星 / qi-shi-xing / khởi thủy tinh
 - **Three Epochs**: 三元 / san-yuan / tam nguyên
+  - **Upper Yuan** (上元 / shang-yuan / thượng nguyên)
+  - **Middle Yuan**: (中元 / zhong-yuan / trung nguyên)
+  - **Lower Yuan**: (下元 / xia-yuan / hạ nguyên)
 - **Three Epochs and Nine Periods**: 三元九運 / 三元九运 / san-yuan-jiu-yun / tam nguyên cửu vận
 - **Three-Epoch Boundary**: 三元の首 / 三元之首 / san-yuan-zhi-shou / tam nguyên chi thủ
 - **Three-Epoch Purple-White**: 三元紫白 / 三元紫白 / san-yuan-zi-bai / tam nguyên tử bạch

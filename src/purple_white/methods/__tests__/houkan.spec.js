@@ -90,4 +90,51 @@ describe('Purple-White Houkan methods', () => {
       result.origin_elapsed_hours
     ).toBeGreaterThanOrEqual(0);
   });
+
+  it('implements the documented annual Three-Yuan anchors', () => {
+    const { get_houkan_annual_star_number } =
+      methods.houkan;
+
+    expect(get_houkan_annual_star_number(1684)).toBe(1);
+    expect(get_houkan_annual_star_number(1744)).toBe(4);
+    expect(get_houkan_annual_star_number(1804)).toBe(7);
+    expect(get_houkan_annual_star_number(1685)).toBe(9);
+  });
+
+  it('implements the documented Jia-Zi monthly circulation', () => {
+    const {
+      get_houkan_month_sexagen,
+      get_houkan_monthly_star_number,
+    } = methods.houkan;
+
+    const jia_zi_month = get_houkan_month_sexagen(
+      new Date(Date.UTC(1983, 10, 15))
+    );
+    const yi_chou_month = get_houkan_month_sexagen(
+      new Date(Date.UTC(1983, 11, 15))
+    );
+    const bing_yin_month = get_houkan_month_sexagen(
+      new Date(Date.UTC(1984, 0, 15))
+    );
+
+    expect(jia_zi_month.sexagen).toBe('jia_zi');
+    expect(yi_chou_month.sexagen).toBe('yi_chou');
+    expect(bing_yin_month.sexagen).toBe('bing_yin');
+
+    expect(
+      get_houkan_monthly_star_number(
+        new Date(Date.UTC(1683, 10, 15))
+      )
+    ).toBe(1);
+    expect(
+      get_houkan_monthly_star_number(
+        new Date(Date.UTC(1683, 11, 15))
+      )
+    ).toBe(9);
+    expect(
+      get_houkan_monthly_star_number(
+        new Date(Date.UTC(1684, 0, 15))
+      )
+    ).toBe(8);
+  });
 });

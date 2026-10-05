@@ -3,8 +3,8 @@
 ## Table of Contents
 
 - [1. Overview](#1-overview)
-  - [1-1. About](#1-1-about)
-  - [1-2. What is "Towngach"?](#1-2-what-is-towngach)
+  - [1-1. What is "Towngach"?](#1-1-what-is-towngach)
+  - [1-2. What is This Library For?](#1-2-what-is-this-library-for)
   - [1-3. Which "9 Stars"?](#1-3-which-9-stars)
 - [2. Purple-White Stars (紫白星)](#2-purple-white-stars-紫白星)
   - [2-1 Nine Palaces (九宮)](#2-1-nine-palaces-九宮)
@@ -40,123 +40,128 @@
 
 ![astrolabe](./astrolabe.jpg)
 
-> For details about words throughout this document
-> having translations in parenthesis, see
-> **["docs/translations.md"](./docs/translations.md)**.
-> Simply put, we have **'ja'**, **'zh_tw'**,
-> **'zh_ch'**, and **'vi'** for translations.
+> I have translations in parenthesis next
+> to words related to the East Asian astrology
+> and divination. See
+> **["Translation Rules"](./docs/translations.md)**
+> for details.  
+> They are: **"ja"**, **"zh_tw"**,
+> **"zh_ch"**, and **"vi"**.
 
 ## 1. Overview
 
-### 1-1. About
+### 1-1. What is "Towngach"?
 
-A computational library for the
-**"Purple-White Stars (紫白星 / zi-bai-xing
-/ tử bạch tinh)"** &mdash; the East Asian
+The name _**"Towngach"**_ (`/taʊŋˈɡætʃ/`)
+originates from _**"Tawgač"**_ (`/tɑwˈɣɑtʃ/`),
+an ancient Turkic term to denote the
+_**"Tang Dynasty"**_.  
+(see **["What is Towngach"](./docs/towngatch.md)** for details)
+
+### 1-2. What is This Library For?
+
+This is a computational library for the
+**"Purple-White Stars" (紫白星 / zi-bai-xing
+/ tử bạch tinh)** &mdash; the East Asian
 astronomical, calendrical, and directional
 tradition &mdash; combining solar-term
 and celestial calculations with
 historically distinct methods for annual,
 monthly, daily, and hourly divination.
 
-As you would soon find out, there are more
-documents for a supplemental service.
-
-### 1-2. What is "Towngach"?
-
-The name **"Towngach"** (`/taʊŋˈɡætʃ/`)
-originates from **"Tawgač"** (`/tɑwˈɣɑtʃ/`),
-an ancient Turkic term to denote
-the **Tang Dynasty** and the vast
-sovereign realm of China. To the Turks
-and Sogdian merchants along the Silk Road,
-this word meant a noun representing
-_"the sovereign imperial domain of the East,
-bathed in celestial light"_.  
-(see **["What is Towngach?"](./docs/towngatch.md)** for more)
-
 ### 1-3. Which "9 Stars"?
 
-**"Feng-Shui"** (風水 / 风水 / feng-shui / phong thủy)
-derived historically from **"Qi-Men Dun-Jia"**
-(奇門遁甲 / 奇门遁甲 / kỳ môn độn giáp),
-and the two share the same theoretical
-and operational concepts.
+You now know the library has something
+to do with _**"stars"**_.  
+Actually, we have _**"9 stars"**_.  
+But, for many East Asian traditions
+_**"9 stars"**_ means _**"troubles"**_...
 
-In **Qi-Men Dun-Jia**, there is a concept of
-the **"Nine Stars"** (九星 / 九星 / jiu-xing /
-cửu tinh). As the name suggests, it has
-"9 stars". These stars are of **the Big Dipper**.
+You may have heard of the **"Qi-Men Dun-Jia"**
+(奇門遁甲 / 奇门遁甲 / kỳ môn độn giáp).  
+This is one of the traditions which gives
+the foundations to various magical practices
+in East Asia. Many traditions derive from
+**Qi-Men Dun-Jia**, including **"Feng-Shui"**
+(風水 / 风水 / feng-shui / phong thủy) and
+they all share the same theoretical and
+operational concepts with **Qi-Men Dun-Jia**.
 
-Now, **Qi-Men Dun-Jia** has another concept
-of the **"Nine Palaces"** (九宮 / 九宫 / jiu-gong /
-cửu cung). Although it may sound strange,
-there is another set of **"9 stars"** associated
-with the **"Nine Palaces"**. These stars derived
-from the legendary **"Luo-Shu"** (洛書 / 洛书 /
-luo-shu / lạc thư) diagram. As you can imagine,
-it has been the major cause of confusions
-throughout ages...
+**Qi-Men Dun-Jia** has a concept of the
+_**"Nine Stars"**_ (九星 / jiu-xing / cửu tinh).  
+As the name suggest, it is obvious we are
+dealing with **"9 stars"** here. To be specific,
+these are the "9 stars" of _**"The Big Dipper"**_
+(北斗七星 / bei-dou qi-xing / chòm sao bắc đẩu).
 
-For instance, in
-**"Xuan-Kong Fei-Xing Feng-Shui"**
-(玄空飛星風水 / 玄空飞星风水 /
-xuan-kong-fei-xing-feng-shui /
-phong thủy huyền không phi tinh),
-they would say **"Nine Stars"** to refer to
-"9 stars" belonging to
-the **"Nine Palaces"** (九宮).
+Now, **Qi-Men Dun-Jia** also has a concept
+of the _**"Nine Palaces"**_ (九宮 / 九宫 /
+jiu-gong / cửu cung), and this is where
+the _"trouble"_ begins... the concept of
+the _**"Nine Palaces"**_ (九宮) comes from
+the legendary **"Luo-Shu"** (洛書 / 洛书 /
+luo-shu / lạc thư) diagram which is known
+as a **magic square** (魔法陣) in the West.
+When we utilized this 3x3 magic square,
+we would assign a _**"star"**_ to each,
+and consider that these _**"stars"**_
+fly over 1 palace to another &mdash; which
+of course &mdash; makes them **"9 stars"**.
 
-In the same manner, in the **"Kyusei Kigaku"**
-(九星気学 / 九星气学 / jiu-xing-qi-xue / cửu tinh
-khí học), when they say **"Nine Stars"**,
-it means "9 stars" of the **"Nine Places"** (九宮).
+As such, for traditions using the concept
+of the **"Nine Palaces"** (or of the "Luo-Shu"),
+would call these stars, the **"9 stars"**...
+As you can imagine, it has been the major
+cause of confusions throughout ages...
 
-For this library, I will refer to the **"9 stars"**
-in the **"Nine Palaces"** as:
+To name a few, _**"Xuan-Kong Feng-Shui"**_
+(玄空風水 / xuan-kong-feng-shui / phong thủy
+huyền không) (of China) and _**"Kyusei Kigaku"**_
+(九星気学 / 九星气学 / jiu-xing-qi-xue /
+cửu tinh khí học) (of Japan) would both say
+_**"Nine Stars"**_ (九星) to refer to
+the _**"9 stars"**_ belonging to the
+_**"Nine Palaces"**_ (九宮) (or of the "Luo-Shu").
+
+To make a clear distinction, for this library
+specifically, I would like to refer to
+the **"9 stars"** (九星) of the
+**"Nine Palaces"** (九宮) as:
 
 - **"Purple-White Stars"**  
   (紫白星 / zi-bai-xing / tử bạch tinh)
 
-In many East Asian calendrical systems,
-this can readily refer to **"9 stars"**
-of the **"Nine Palaces"** (九宮)
-or of the **"Luo-Shu"** (洛書) order.
-
 It is important to make a distinction
-because it has become more common &mdash;
-even in published materials today &mdash;
-to mix up two different systems by saying
-**"Nine Stars"**. By making a clear distinction,
-I want to explicitly address that this library
-does not deal with **"Nine Stars"**
-of **Qi-Men Dun-Jia** but with **"9 stars"** of
-the **"Nine Palaces"** (or "Purple-White Stars").
+because it has become more common
+even in published materials nowadays
+to mix up two different systems
+by saying **"Nine Stars"**.
 
-Conceptually, the **Nine Stars** (九星)
-represent the workings of **Heaven**
+By making a distinction here, I want
+to explicitly address that this library
+does **NOT** deal with the **"Nine Stars"**
+which belong to the **"Qi-Men Dun-Jia"**.
+
+Or, conceptually, the "Nine Stars" (九星)
+represent the workings of _**"Heaven"**_
 (天 / tian / thiên) whereas for the
-**"Nine Palaces"** (九宮 / 九宫 / jiu-gong / cửu cung),
-that of **Earth** (地 / dì / địa). So, in a way,
-the library is said to deal with
-the "Earth" aspect of the divination.
+"Nine Palaces" (九宮), that of _**"Earth"**_
+(地 / dì / địa). In a way, we could say
+**that the library deals with the _"Earth"_
+aspect** of the East-Asian divination.
 
 ## 2. Purple-White Stars (紫白星)
 
 ### 2-1. Nine-Palaces (九宮)
 
-Let us explore the rest of the topics
-for the **"Purple-White Stars"** (紫白星).
-
-For **Qi-Men** (奇門) derived traditions,
-the **"Purple-White Stars"** have fixed
-positions defined in the mentioned
+As already mentioned, for any **Qi-Men** (奇門)
+derived traditions, the **"Purple-White Stars"**
+have fixed positions defined in the legendary
 **"Luo-Shu"** (洛書) diagram.
 
 This is referred to as the **"Nine Palaces"**
 (九宮) because it has 9 slots in total,
-arranged as a 3x3 matrix. Or, in the West,
-this is known as a **magic square**.
+arranged as a 3x3 matrix.
 
 ![magic square](https://thumb.wikimedia.org/wikipedia/commons/thumb/a/af/Magic_Square_Lo_Shu.svg/250px-Magic_Square_Lo_Shu.svg.png?utm_source=commons.wikimedia.org&utm_campaign=index&utm_content=thumbnail)  
 (Source: ["Magic Square Lo Shu.svg" - Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Magic_Square_Lo_Shu.svg))
@@ -237,26 +242,26 @@ in the public API.
 The repository keeps concrete calculations
 under identifiable method families instead.
 
-- **"Annual Calculation"** (年家):  
+- **Annual calculation** (年家):  
   Based on the large cycle of the **Three-Epochs**
   (三元 / san-yuan / tam nguyên), traditionally
-  expressed **through a sequence of 60-year units
-  and a larger 180-year cycle**.  
+  expressed through a sequence of 60-year units
+  and a larger 180-year cycle.  
   &nbsp;
-- **monthly calculation** (月家):  
+- **Monthly calculation** (月家):  
   Uses its own relationship between
   **"annual cycles"** (歲運 / 岁运 / sui-yun / tuế vận),
   **"terrestrial branches"** (地支 / di-zhi / địa chi),
   and the **"monthly sequence"** (月建 / yue-jian /
   nguyệt kiến).  
   &nbsp;
-- **daily calculation** (日家):  
-  Based on **a 60-day unit** and **a larger cycle
-  of 3 of such units** &mdash; but this also
+- **Daily calculation** (日家):  
+  Based on a 60-day unit and a larger cycle
+  of 3 of such units &mdash; but this also
   depends on traditions, and I will fully
   explain this in the next section.  
   &nbsp;
-- **hourly calculation** (時家):  
+- **Hourly calculation** (時家):  
   Uses its own division of time, often derived
   from the classification of the day and
   the sequence of traditional **"double-hours"**
@@ -350,12 +355,12 @@ including derived traditions inherit much of
 the broader **"Purple-White Stars"** (紫白星)
 and the **"Nine Palaces"** (九宮) framework.
 
-For **"annual"** (年家) and **"monthly"** (月家)
+For **annual** (年家) and **monthly** (月家)
 calculations are generally based on recognizable
 calendrical cycles and seasonal boundaries.
 
-On the other hand, for **"daily"** (日家) and
-**"hourly"** (時家) calculations continue
+On the other hand, for **daily** (日家) and
+**hourly** (時家) calculations continue
 to depend on the interaction between
 the traditional calendar, the
 **"Sixty Gan-Zhi Unit"** (六十干支) cycle,
@@ -385,7 +390,7 @@ xuan-kong-fei-xing-feng-shui / phong thủy
 huyền không phi tinh) &mdash;
 or **"Xuan-Kong Feng-Shui"** (玄空風水) for short.
 This tradition is widely known in the West as
-**"Flying Star Feng-Shui"**.
+_**"Flying Star Feng-Shui"**_.
 
 These systems use the **"Nine Palaces"** (九宮)
 and the movement of numbered stars, and therefore
@@ -445,19 +450,14 @@ The current implementation order for
 3. **"Kyusei Kigaku"** (九星気学)
 4. **"Xuan-Kong Feng-Shui"** (玄空風水)
 
-Mizuno Kigaku is currently the complete
-production method. **"Houkan"** (方鑑)
-is partially implemented: its **"daily"**
-(日家) and **"hourly"** (月家) calculations
-are implemented, while its **"annual"**
-(年家) and **"monthly"** (月家)
-**"Starting Star"** (起始星) rules remain
-unresolved. **"Kyusei Kigaku"** (九星気学) has
-**"annual"** (年家) and **"monthly"** (月家)
-calculations implemented, while its **"daily"**
-(日家) and **"hourly"** (時家) calculations
-remain unresolved. **"Xuan-Kong Feng-Shui"**
-(玄空風水) is not yet implemented.
+**"Mizuno Kigaku"** and **"Houkan"** are
+currently the complete production methods.  
+**"Kyusei Kigaku"** (九星気学) has **annual** (年家)
+and **monthly** (月家) calculations implemented,
+while its **daily** (日家) and **hourly** (時家)
+calculations remain unresolved.  
+**"Xuan-Kong Feng-Shui"** (玄空風水) is not
+yet implemented.
 
 #### 2-6-1. Kinkaku's Houkan (方鑑)
 
@@ -465,17 +465,15 @@ remain unresolved. **"Xuan-Kong Feng-Shui"**
 **"Houkan"** (方鑑) is treated as
 a separate historical reconstruction family.
 The detailed reconstruction is documented in
-**[docs/kinkaku.md](./docs/kinkaku.md)**.
+**[docs/kinkaku/index.md](./docs/kinkaku.md)**.
 
 The current implementation status is:
 
-- **Annual (年家)**: unresolved.
-- **Monthly** (月家):  
-  the astronomical **"solar-term"** (節気)
-  boundary is implemented, but the
-  Houkan-specific **"Starting Star"** (起始星)
-  rule remains unresolved.
-- **Daily** (日家):  
+- **Annual calculation** (年家):  
+  Implemented from the documented 180-year **"Three Epochs"** structure.
+- **Monthly calculation** (月家):  
+  Implemented from the documented 180-month **"Three Epochs"** structure and astronomical **"Solar-Term Boundary"**.
+- **Daily calculation** (日家):  
   The 6 ordinary starting states and
   the historical **"Leap Nine Stars"**
   (閏九星 / 闰九星 / run-jiu-xing /
@@ -483,7 +481,7 @@ The current implementation status is:
   The leap procedure uses the later
   **"Jia-Zi"** (甲子 / jia-zi / giáp-tý)
   selected in the documented winter case.
-- **Hourly** (時家):  
+- **Hourly calculation** (時家):  
   The examined **"Houkan"** hourly rule
   is implemented.
 
@@ -519,17 +517,18 @@ the **"Purple-White Stars"** (紫白星) system.
 
 Although less recognized, **Mizuno Yoshitome**
 (水野義留) was known during the 1970s for bringing
-astronomical precisions to the **"daily"** (日家)
-and **"hourly"** (時家).
+astronomical precisions to the **daily** (日家)
+and **hourly** (時家).
 
-**"Mizuno Kigaku"** shares the documented rules
-of **"Honmei-Sei"** (本命星 / ben-ming-xing /
-sao bản mệnh) of **"Kyusei Kigaku"**
-&mdash; or **"Ming-Gua"** (命卦 / mệnh quái)
-of Taiwanese/Vietnamese traditions.
+**"Mizuno Kigaku"** (水野気学) shares
+the documented rules of **"Honmei-Sei"**
+(本命星 / ben-ming-xing / sao bản mệnh) of
+**"Kyusei Kigaku"** (九星気学) &mdash; or
+_**"Ming-Gua"**_ (命卦 / mệnh quái) of
+Taiwanese/Vietnamese traditions.
 
 However, at the time of Mizuno's work,
-**"Kyusei Kigaku"** suffered from
+**"Kyusei Kigaku"** (九星気学) suffered from
 **timing lags** because it determines
 seasonal transitions based on the
 **"Jia-Zi Day"** (甲子日 / jia-zi-ri /
@@ -537,15 +536,16 @@ giáp-tý nhật).
 
 To address this, **Mizuno** sought to overcome
 this structural looseness of **"Kyusei Kigaku"**
-by incorporating the **"Zi-Bai-Jue"** (紫白诀 /
-zi-bai-jue / tử bạch quyết) of
-**Xuan-Kong Feng-Shui** (玄空風水) into
-**"daily"** and **"hourly"** calculations.
+(九星気学) by incorporating the
+**"Zi-Bai-Jue"** (紫白诀 / zi-bai-jue /
+tử bạch quyết) of **Xuan-Kong Feng-Shui**
+(玄空風水) into **daily** and **hourly**
+calculations.
 
-Thus, **"Mizuno Kigaku"** shares annual
-and monthly infrastructure with the
-**"Kyusei Kigaku"** while keeping its
-direct astronomical daily and seasonal
+Thus, **"Mizuno Kigaku"** (水野気学) shares
+annual and monthly infrastructure with
+the **"Kyusei Kigaku"** (九星気学) while keeping
+its direct astronomical daily and seasonal
 hourly rules distinct.
 
 ### 2-7. Unresolved Issues
@@ -553,11 +553,6 @@ hourly rules distinct.
 The repository still contains unresolved
 method-specific rules. The current status is:
 
-- **"Houkan"**
-  - Annual Starting-Star calculation: unresolved.
-  - Monthly Starting Star calculation: unresolved;
-  - The astronomical **"solar-term"** boundary
-    itself is implemented.
 - **"Kyusei Kigaku"**
   - Daily calculation: unresolved.
   - Hourly calculation: unresolved.
@@ -580,15 +575,14 @@ roadmap for implementations:
 3. **"Mizuno Kigaku"** (水野気学)
 4. **"Xuan-Kong Feng-Shui"** (玄空風水)
 
+**"Mizuno Kigaku"** and **"Houkan"** are currently
+implemented as complete production methods.  
 **"Kyusei Kigaku"** is partially implemented;  
-**"Houkan"** is partially implemented;  
 **"Xuan-Kong Feng-Shui"** is not yet implemented.  
-Only **"Mizuno Kigaku"** is currently
-implemented as a complete production method.
 
 (for detailed specifications about
 programs implemented, see
-_**["Implemented Programs"](./src/README.md)**_)
+_**["Library Specifications"](./src/README.md)**_)
 
 ### 3-2. Shared Logic
 
@@ -800,8 +794,8 @@ To supplement this document, the repository
 provides the following materials:
 
 - **[Definitions](./docs/definitions.md)**
-- **[Kinkaku's "Houkan"](./docs/kinkaku/index.md)**
-- **[Implemented Methods](./src/README.md)**
+- **[Kinkaku's "Houkan"](./docs/kinkaku.md)**
+- **[Library Specifications](./src/README.md)**
 - **[What is Towngach?](./docs/towngatch.md)**
 - **[Terminology](./docs/terminology.md)**
 

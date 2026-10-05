@@ -256,7 +256,7 @@ const run = async () => {
   );
 
   console.log(
-    `  ${label('boundary')}: ${format_datetime(monthly.boundary)}`
+    `  ${label('boundary')}: ${format_datetime(monthly.solar_term_boundary)}`
   );
 
   console.log(`\n${label('daily_structure')}`);

@@ -1,4 +1,4 @@
-# Implemented Programs
+# Library Specifications
 
 This directory contains the source modules
 of the Towngach library.
@@ -223,8 +223,8 @@ Functions:
 - `is_sexagen(value)` — validates whether a value is a valid sexagen.
 - `shift_sexagen(sexagen, offset)` — shifts a sexagen forward
   or backward through the 60-member cycle.
-- `get_sexagen_stem(sexagen)` — returns the **"Heavenly Stem"** for a sexagen.
-- `get_sexagen_branch(sexagen)` — returns the **"Earthly Branch"** for a sexagen.
+- `get_sexagen_stem(sexagen)` — returns the **"Heavenly Stem"** (天干) for a sexagen.
+- `get_sexagen_branch(sexagen)` — returns the **"Earthly Branch"** (地支) for a sexagen.
 - `get_sexagen_by_stem_and_branch(stem, branch)` — returns the sexagen key formed by a given stem–branch pair.
 
 The module uses `create_cycle` from `lib/cycle`
@@ -232,9 +232,9 @@ for cyclic operations. The `SEXAGEN` array is
 the source of truth; `SEXAGEN_DEFINITIONS`
 is derived from it. The module does not embed
 calendar logic &mdash; determining the
-**"Sixty Gan-Zhi"** designation of a specific
-date requires additional calendrical machinery
-outside this module.
+**"Sixty Gan-Zhi"** (六十干支) designation of
+a specific date requires additional calendrical
+machinery outside this module.
 
 ### `sexagen/index.js`
 
@@ -248,7 +248,7 @@ Defines general calendar abstractions used
 by later calendrical calculations.
 
 The calendar module should remain independent
-from any specific **"Purple-White"** method
+from any specific **"Purple-White"** (紫白) method
 whenever possible.
 
 `CalendarDate` represents an absolute UTC instant.
@@ -306,7 +306,7 @@ Defines:
 
 This module keeps the astronomy boundary
 separate from the rest of the calendrical
-and Purple-White logic.
+and **"Purple-White"** (紫白) logic.
 
 ### `astronomy/index.js`
 
@@ -320,9 +320,10 @@ Exports the public API of the `astronomy` module.
 
 Defines the **"Nine Palaces"** (九宮) as
 the fundamental spatial structure used by
-**"Purple-White"** calculations. Each palace
-has a canonical key, a compass direction,
-and a Luo Shu number.
+**"Purple-White"** (紫白) calculations.
+Each palace (宮) has a canonical key,
+a compass direction, and
+a **"Luo-Shu"** (洛書) number.
 
 ### `palace/palace.js`
 
@@ -330,7 +331,7 @@ Defines:
 
 - `Palace` — canonical palace key (e.g. `qian`, `kun`, `zhen`).
 - `PalaceDefinition` — per-palace metadata
-  (key, index, direction, Luoshu number, localized name).
+  (key, index, direction, Luo-Shu number, localized name).
 - `PALACES` — frozen canonical array of nine palaces.
 - `PALACE` — first palace (`qian`).
 - `PALACE_DEFINITIONS` — frozen array of per-palace metadata.
@@ -356,16 +357,15 @@ Defines the **"Luo-Shu"** (洛書 / 洛书 / luo-shu /
 lạc thư) numerical arrangement and its
 relationship to the **"Nine Palaces"** (九宮).
 
-The **"Luo-Shu"** is a 3×3 magic square in which
-every row, column, and diagonal sums to 15.
-It provides the numerical scaffold that maps
-numbers to palace positions. This module
-is kept separate from the **"Purple-White Star"**
-module because the Luoshu is a foundational
-spatial and numerical structure, whereas
-**"Purple-White Stars"** (紫白九星) are
-a separate system that moves through the
-**"Nine Palaces"**.
+The **"Luo-Shu"** (洛書) is a 3×3 magic square
+in which every row, column, and diagonal sums to 15.
+It provides the numerical scaffold that maps numbers
+to palace positions. This module is kept separate
+from the **"Purple-White Star"** (紫白星) module
+because the Luoshu is a foundational spatial and
+numerical structure, whereas **"Purple-White Stars"**
+(紫白九星) are a separate system that moves through
+the **"Nine Palaces"** (九宮).
 
 ### `luoshu/luoshu.js`
 
@@ -378,13 +378,13 @@ Defines:
 
 Functions:
 
-- `get_luoshu()` — returns the complete **"Luoshu"** object.
+- `get_luoshu()` — returns the complete **"Luo-Shu"** (洛書) object.
 - `get_luoshu_position(number)` — returns the position
-  metadata for a **"Luoshu"** number.
-- `get_luoshu_number(palace)` — returns the **"Luoshu"** number for a palace.
-- `get_luoshu_palace(number)` — returns the palace key for a **"Luoshu"** number.
+  metadata for a **"Luo-Shu"** (洛書) number.
+- `get_luoshu_number(palace)` — returns the **"Luo-Shu"** (洛書) number for a palace.
+- `get_luoshu_palace(number)` — returns the palace key for a **"Luo-Shu"** (洛書) number.
 - `is_luoshu_number(value)` — validates whether a value
-  is a valid **"Luoshu"** number (1–9).
+  is a valid **"Luo-Shu"** (洛書) number **(1–9)**.
 
 ### `luoshu/index.js`
 
@@ -397,9 +397,13 @@ Exports the public API of the `luoshu` module.
 ## `san_yuan/` (三元 / tam nguyên)
 
 Defines the conceptual structure of the
-**"Three Epochs"** (三元 / tam nguyên) &mdash;
-the division of time into **"Upper"** (上元),
-**"Middle"** (中元), and **"Lower"** (下元) periods.
+**"Three Epochs"** (三元 / tam nguyên)
+&mdash; the division of time into
+**"Upper"** (上元 / shang-yuan /
+thượng nguyên), **"Middle Yuan"**
+(中元 / zhong-yuan / trung nguyên), and
+**"Lower Yuan"** (下元 / xia-yuan /
+hạ nguyên) periods.
 
 This concept is shared across multiple
 historical systems, but the exact temporal
@@ -436,7 +440,7 @@ Exports the public API of the `san_yuan` module.
 
 ## `solar_term/` (二十四節氣 / nhị thập tứ tiết khí)
 
-Defines **"Er-Shi-Si-Jie-Qi"** (二十四節氣 /
+Defines **"Twenty-Four Solar Terms"** (二十四節氣 /
 二十四节气 / er-shi-si-jie-qi / tiết khí) and
 their relationship to calendar dates.
 Each solar term corresponds to a specific
@@ -444,11 +448,11 @@ ecliptic longitude of the Sun, making
 its occurrence an exact astronomical instant
 rather than a fixed calendar date.
 
-This module provides the **"Solar Term"**
+This module provides the **"Solar Term"** (節氣)
 identities independently from the specific
 astronomical implementation used
 to calculate the exact beginning of each term.
-Exact **"Solar Term"** occurrence is resolved
+Exact **"Solar Term"** (節氣) occurrence is resolved
 through the `astronomy/` boundary rather than
 through the solar term identities themselves.
 
@@ -509,7 +513,7 @@ Defines:
 - `create_purple_white_result`
 
 This file defines the shared conceptual
-structure of **"Purple-White"** calculations
+structure of **"Purple-White"** (紫白) calculations
 and the common result format used by
 method-specific calculations.
 
@@ -651,98 +655,141 @@ of every **"Purple-White"** tradition.
 
 ### `houkan/hourly.js`
 
-Defines `calculate_houkan_hourly` and
-the inspectable **"hourly"** helpers.
+Defines `calculate_houkan_hourly`
+and the inspectable hourly helpers.
 
-For a **"Jia-Ji"** day (甲己 / jia-ji / giáp-kỷ),
-**"Zi-Wu-Mao-You"** (子午卯酉 / zi-wu-mao-you /
-tý ngọ mão dậu) is **"Shang-Yuan"**,
-**"Yin-Shen-Si-Hai"** (寅申巳亥 / yin-shen-si-hai /
-dần thân tỵ hợi) is **"Zhong-Yuan"**, and
-**"Chen-Xu-Chou-Wei"** (辰戌丑未 / chen-xu-chou-wei /
-thìn tuất sửu mùi) is **"Xia-Yuan"**.
-**"Yang Dun"** (陽遁 / 阳遁 / yang-dun / dương độn)
-starts at **"One-White"** (一白),
-**"Seven-Red"** (七赤), **"Four-Green"** (四緑);  
-**"Yin Dun"** (陰遁 / 阴遁 / yin-dun / âm độn) starts
-at **"Nine-Purple"** (九紫), **"Three-Jade"** (三碧),
+For a **"Jia-Ji"** (甲己) reference day,
+**"Zi-Wu-Mao-You"** (子午卯酉) is
+**"Upper"** (上元), **"Yin-Shen-Si-Hai"**
+(寅申巳亥) is **"Middle"** (中元), and
+**"Chen-Xu-Chou-Wei"** (辰戌丑未) is
+**"Lower"** (下元).
+
+**"Yang Dun"** (陽遁 / 阳遁 / dương độn) starts at
+**"One-White"** (一白),
+**"Seven-Red"** (七赤),
+**"Four-Green"** (四緑);
+
+**"Yin Dun"** (陰遁 / 阴遁 / âm độn) starts at
+**"Nine-Purple"** (九紫),
+**"Three-Jade"** (三碧),
 **"Six-White"** (六白).
 
-Each origin is five days or 60 **"Double-Hours"**
-(時辰 / 时辰 / shi-chen / giờ âm lịch), and
-one star progresses for each **"Double-Hour"**.
+Each origin is **"5 days"** or 60
+**"Double-Hours"** (時辰 / 时辰 /
+shi-chen / giờ âm lịch), and
+one star progresses for
+each **"Double-Hour"**.
 A new calendrical origin resets to
 its prescribed starting configuration.
 
-The **"Zi Hour"** (子時 / 子时 / zi-shi / giờ Tý)
-uses the examined **"Konya/Kongyo"** (今夜 / 今暁 /
-jin-ye / jin-xiao) distinction. The implementation
-does not assign the whole **"Zi"** (子) hour
-uniformly to one civil date.
+The **"Zi Hour"** (子時 / 子时 / zi-shi /
+giờ Tý) uses the examined **"Konya/Kongyo"**
+(今夜 / 今暁 / jin-ye / jin-xiao) distinction.
+The implementation does not assign
+the whole **"Zi"** (子) hour uniformly
+to one civil date.
 
 ### `houkan/monthly.js`
 
 `determine_houkan_monthly` exposes
-the actual solar-term boundary.
-The final monthly starting-star rule
-is not yet established by the examined
-material available to this repository,
-so `calculate_houkan_monthly` fails explicitly
-rather than returning an inferred result.
+the historical **"Sixty Month Gan-Zhi"**
+(六十干支) circulation. The implementation
+anchors the **"Upper-Yuan"** (上元)
+**"Jia-Zi Month"** (甲子月) at the
+**"Li-Dong"** (立冬 / lập đông) boundary
+of `1683`, immediately preceding the
+documented `1684` **"Jia-Zi Year"** (甲子年).
+
+The sequence gives **"Jia-Zi"** (甲子) →
+**"One-White"** (一白),
+**"Yi-Chou"** (乙丑 / ất-sửu) →
+**"Nine-Purple"** (九紫), and
+**"Bing-Yin"** (丙寅 / bính-dần) →
+**"Eight-White"** (八白);
+the **60-month unit** (六十干支) then
+continues in reverse star order,
+with Upper/Middle/Lower units
+beginning at **1 / 4 / 7**.
 
 ### `houkan/daily.js`
 
-The 6 ordinary daily starting states are preserved.
-The module uses the first **"Jia-Zi"** (甲子) on
-or after each relevant seasonal boundary
-as the ordinary 60-day state origin.
+The 6 ordinary daily starting states are preserved:
 
-The historical **"Leap Nine Stars"** (閏九星 /
-闰九星 / run-jiu-xing / nhuận cửu tinh) procedure
-is also implemented. The trigger is **"Dong-Zhi"**
-(冬至 / đông chí) or **"Xia-Zhi"** (夏至 / hạ chí)
-occurring on **"Jia-Wu"** (甲午).
+- 冬至・上元・陽遁 → 甲子一白
+- 雨水・中元・陽遁 → 甲子七赤
+- 穀雨・下元・陽遁 → 甲子四緑
+- 夏至・上元・陰遁 → 甲子九紫
+- 処暑・中元・陰遁 → 甲子三碧
+- 霜降・下元・陰遁 → 甲子六白
 
-The leap interval starts 30 days later at
-**"Later Jia-Zi"** (後の甲子 / 後之甲子 /
-hou-zhi-jia-zi / hậu Giáp Tý) and lasts 60 days.
-Its two halves are **"Jia-Zi–Gui-Si"**
-and **"Jia-Wu–Gui-Hai"**.
+Chinese (in English) translation for the above table follows:
 
-Winter uses Reverse-First / Forward-Second
-operation; summer uses Forward-First /
-Reverse-Second operation. The summer
-**"Later-Jia-Zi"** rule is an explicit
-implementation decision based on the confirmed
-winter rule and the parallel summer structure.
+| Seasonal point and Epoch | Dun | Jia-Zi starting star |
+|---|---|---|
+| Dong-Zhi / Shang-Yuan | Yang-Dun | **"One-White"** (Yi-Bai) |
+| Yu-Shui / Zhong-Yuan | Yang-Dun | **"Seven-Red"** (Qi-Chi) |
+| Gu-Yu / Xia-Yuan | Yang-Dun | **"Four-Green"** (Si-Lu) |
+| Xia-Zhi / Shang-Yuan | Yin-Dun | **"Nine-Purple"* (Jiu-Zi) |
+| Chu-Shu / Zhong-Yuan | Yin-Dun | **"Three-Jade"** (San-Bi) |
+| Shuang-Jiang / Xia-Yuan | Yin-Dun | **"Six-White"** (Liu-Bai) |
 
-The leap interval overrides the ordinary daily
-state and ordinary operation resumes afterward.
+The historical reconstruction also specifies
+an **"Leap Nine Stars"** (閏九星 / 闰九星 /
+run-jiu-xing / nhuận cửu tinh) leap procedure.
+
+The current project adopts the **"Later Jia-Zi"**
+(後の甲子 / 後之甲子 / hou-zhi-jia-zi / hậu giáp tý)
+in the documented winter case, following
+**"Using the later Jia-Zi"** (「後の甲子を取用ひ」)
+and its explanation
+**"The Season is still early"** (「甚だ気候早くして」).
+
+The leap interval is 60 days, split
+**"Jia-Zi&mdash;Gui-Si"** (甲子&mdash;癸巳) and
+**"Jia-Wu&mdash;Gui-Hai"** (甲午&mdash;癸亥),
+with Winter **Reverse-First**/**Forward-Second**
+and Summer **Forward-First**/**Reverse-Second**.
+
+The implementation trigger is a solstice
+whose traditional day is **"Jia-Wu"** (甲午).
+The **"Later Jia-Zi"** (後の甲子) is used
+30 days after the trigger, and the resulting
+60-day **"Leap Nine-Star"** (閏九星) interval
+overrides ordinary daily operation.
+
+Summer uses the same **"Later Jia-Zi"** (後の甲子)
+rule by implementation decision, with
+the source-defined Forward/Reverse order.
 
 ### `houkan/annual.js`
 
-The examined material currently does not
-establish a **Houkan**-specific annual
-starting-star rule.
+The annual implementation follows the documented
+180-year **"Three-Yuan"** (三元) structure:  
+**"Jia-Zi"** (甲子) `1684` starts
+the **"Upper Yuan"** (上元 / shang-yuan /
+thượng nguyên) at **"One-White"** (一白),
+**"Jia-Zi"** (甲子) `1744` starts
+the **"Middle Yuan"** (中元 / zhong-yuan /
+trung nguyên) at **"Four-Green"** (四緑), and
+**"Jia-Zi"** (甲子) `1804` starts
+the **"Lower Yuan"** (下元 / xia-yuan /
+hạ nguyên) at **"Seven-Red"** (七赤).
 
-The function remains an explicit unresolved
-boundary rather than silently substituting
-**"Kyusei Kigaku"** logic.
-
-The relevant historical material is
-associated with **Matsura Kinkaku** (松浦琴鶴),
-**Iida Tengai** (飯田天涯), and **Kikuchi Yosaku**
-(菊池要佐久). Comments and APIs distinguish
-their documented structures, library-level
-interpretations, and unresolved historical questions.
+Within each 60-year **"Yuan"** (元)
+the annual star reverses. The effective
+year changes at **"Li-Chun"** (立春 /
+li-chun / lập xuân).
 
 ---
 
 ## `purple_white/methods/kigaku/` (九星気学)
 
-Contains the **"Kyusei Kigaku"** method family.
-Its annual and monthly modules reuse shared
-astronomical boundary and cyclic-star
+Contains the **"Kyusei Kigaku"** (九星気学 /
+九星氣學 / 九星气学 / jiu-xing-qi-xue /
+cửu tinh khí học) method family.
+Its annual and monthly modules reuse
+shared astronomical boundary and cyclic-star
 infrastructure. Daily and hourly rules
 remain explicit unresolved boundaries
 until their method-specific rules are
@@ -757,16 +804,17 @@ Exports `calculate_kigaku_annual`,
 ## `purple_white/methods/mizuno/` (Mizuno-style Kigaku)
 
 Contains the primary current **"Mizuno Kigaku"**
-family. It shares annual and monthly calculations
-with **"Kyusei Kigaku"**, but its daily calculation
-switches **"Yin"** and **"Yang"** at the exact
-astronomical **"Dong-Zhi"** (冬至 / đông chí) and
-**"Xia-Zhi"** (夏至 / hạ chí) instants.
+(水野気学) family. It shares **annual** and
+**monthly** calculations with **"Kyusei Kigaku"**
+(九星気学), but its daily calculation switches
+**"Yin"** and **"Yang"** at the exact astronomical
+**"Dong-Zhi"** (冬至 / đông chí) and **"Xia-Zhi"**
+(夏至 / hạ chí) instants.
 
-Its **"hourly"** calculation uses **"Solar Term"**
-groups and the twelve traditional **"Double-Hour"**
-indices rather than a **Heavenly-Stem**-derived
-starting star.
+Its **hourly** calculation uses **"Solar Term"**
+(節氣) groups and the twelve traditional
+**"Double-Hour"** (時辰) indices rather than
+a **Heavenly-Stem**-derived (天干) starting star.
 
 Exports `calculate_mizuno_annual`,
 `calculate_mizuno_monthly`,
@@ -777,7 +825,8 @@ Exports `calculate_mizuno_annual`,
 
 ## `purple_white/methods/index.js`
 
-Exports the supported **"Purple-White"** method families.
+Exports the supported **"Purple-White"** (紫白)
+method families.
 
 This file should provide a stable entry
 point for selecting or importing a specific
@@ -932,99 +981,46 @@ boundary or **"Three Epoch"** (三元) transition.
 
 ## Historical reconstruction status: Houkan (方鑑)
 
-The **Houkan** (方鑑) method is a historically
-reconstructed method family. It is distinct
-from modern **Kyusei Kigaku** (九星気学) and from
-the primary **"Mizuno Kigaku"** implementation.
+The **Houkan** (方鑑) method is under historical
+reconstruction and is not equivalent to
+the **Kyusei Kigaku** (九星気学) implementation.
 
-The **"Houkan"** source tree currently contains
-the following status:
+The reusable source tree provides the common
+**Nine-Palace** (九宮), **Nine-Star** (九星),
+**Sixty Gan-Zhi Unit** (六十干支 / 六十花甲 /
+liu-shi-gan-zhi / lục thập hoa giáp),
+**Solar Term** (節氣 / 节气 / jie-qi / tiết khí),
+and **Forward Flight**(順飛 / 顺飞 / shun-fei /
+thuận phi)/**Reverse Flight**: 逆飛 / 逆飞 /
+ni-fei / nghịch phi) infrastructure.
+Houkan-specific annual, monthly, daily, and
+hourly rules remain method-level concerns.
 
-- `annual.js`: the **Houkan**-specific annual
-  starting-star rule remains unresolved.
-- `monthly.js`: the astronomical Solar-Term boundary
-  is implemented, but the **Houkan**-specific
-  monthly starting-star rule remains unresolved.
-- `daily.js`: the 6 ordinary daily states and
-  the historical **"Leap Nine Stars"** (閏九星)
-  procedure are implemented.
-- `hourly.js`: the examined **"Houkan"** hourly
-  rule is implemented, including the three
-  **"Three Epoch"** (三元) groups and
-  the examined **"Zi"**-hour boundary treatment.
+The current **"Houkan"** (方鑑) implementation
+status is:
 
-### Houkan daily implementation
+- **Annual** (年家):  
+  Documented **"Three-Yuan"** (三元 / san-yuan /
+  tam nguyên) anchors and reverse annual
+  circulation are implemented.  
+  &nbsp;
+- **Monthly** (月家):  
+  Documented **"60-month Jia-Zi circulation"**
+  and **"Reverse Star"** (逆飛) sequence are
+  implemented.  
+  &nbsp;
+- **Daily** (日家　):  
+  The 6 ordinary 60-day states and the selected
+  60-day **"Leap Nine-Star"** (閏九星) procedure
+  are implemented.  
+  &nbsp;
+- **Hourly** (時家):  
+  The documented **"Three-Yuan"** (三元) groups
+  and **Starting Star** (起始星 / qi-shi-xing /
+  khởi thủy tinh) sequence are implemented.
 
-The 6 ordinary daily starting states are:
-
-| 季節・元 | 遁 | 甲子起星 |
-|---|---|---:|
-| 冬至・上元 | 陽遁 | 一白 |
-| 雨水・中元 | 陽遁 | 七赤 |
-| 穀雨・下元 | 陽遁 | 四緑 |
-| 夏至・上元 | 陰遁 | 九紫 |
-| 処暑・中元 | 陰遁 | 三碧 |
-| 霜降・下元 | 陰遁 | 六白 |
-
-Chinese (in English) translation for the above table follows:
-
-| Seasonal point and Epoch | Dun | Jia-Zi starting star |
-|---|---|---|
-| Dong-Zhi / Shang-Yuan | Yang-Dun | Yi-Bai |
-| Yu-Shui / Zhong-Yuan | Yang-Dun | Qi-Chi |
-| Gu-Yu / Xia-Yuan | Yang-Dun | Si-Lü |
-| Xia-Zhi / Shang-Yuan | Yin-Dun | Jiu-Zi |
-| Chu-Shu / Zhong-Yuan | Yin-Dun | San-Bi |
-| Shuang-Jiang / Xia-Yuan | Yin-Dun | Liu-Bai |
-
-The daily calculation is event-driven.
-The traditional day is determined by
-the repository's **"Sixty Gan-Zhi Unit"**
-(六十干支) sequence. The ordinary state
-starts from the first **"Jia-Zi"** (甲子)
-on or after the relevant seasonal boundary.
-
-For **"Leap Nine Stars"** (閏九星),
-the implementation tests **"Dong-Zhi"**
-(冬至 / đông chí) and **"Xia-Zhi"**
-(夏至 / hạ chí) for a traditional day
-of **"Jia-Wu"** (甲午 / 甲午 / jia-wu /
-giáp-ngọ). When the trigger occurs,
-the leap interval starts 30 days
-later at **"Later Jia-Zi"** (後の甲子 /
-後之甲子 / hou-zhi-jia-zi / hậu Giáp Tý)
-and lasts 60 days. The first 30 days
-and second 30 days use the historical
-forward/reverse recipe for the relevant
-solstice. The summer case uses
-the same Later-Jia-Zi rule as an explicit
-implementation decision based on
-the confirmed winter rule and
-parallel summer structure.
-
-The project therefore does not require
-a universal closed-form phase formula
-for the daily calculation.
-The implementation is a finite-state/
-recipe procedure, which is sufficient
-for the historical reconstruction goal.
-
-### Source position
-
-The practical leap implementation follows
-the 1882 second edition of
-**"Daily-Nine-Star Examples List" (日家九星起例一覧),
-attributed to **Matsuura Kaho** (松浦佳宝) and
-**Matsuura Saiyo** (松浦最陽).
-
-The broader historical framework is
-associated with **Matsuura Kinkaku** (松浦琴鶴).
-The 1887 **"Nine-Star Diagrams Collection"**
-(九星図説日要精義大成) is used as later
-comparative evidence.
-
-The code deliberately keeps unresolved
-annual and monthly **"Houkan"** rules
-explicit rather than substituting
-modern Kigaku conventions.
-
+The daily leap procedure follows the selected
+`1882` practical source and adopts the
+**"Later Jia-Zi"** (後の甲子) rule documented there.
+The project does not use a generic
+**"Nearest Jia-Zi"** (一番近い甲子) rule.

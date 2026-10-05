@@ -4,11 +4,17 @@
  *
  * @module purple_white/methods/houkan
  */
-export { calculate_houkan_annual } from './annual';
+export {
+  calculate_houkan_annual,
+  get_houkan_annual_star_number,
+  get_houkan_effective_year,
+} from './annual';
 
 export {
   calculate_houkan_monthly,
   determine_houkan_monthly,
+  get_houkan_month_sexagen,
+  get_houkan_monthly_star_number,
 } from './monthly';
 
 export {

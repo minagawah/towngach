@@ -1,18 +1,18 @@
 # Definitions
 
-This document is the detailed public specification
-for Towngach's **"Purple-White Nine Stars"**
-(紫白九星 / 紫白九星 / zi-bai-jiu-xing / cửu tinh tử bạch).
-It describes shared calculation structures and
-the current status of each supported method family.
-The primary method order for the library is:
+This document is the detailed public
+specification for Towngach's
+**"Purple-White Nine Stars"** (紫白九星 /
+zi-bai-jiu-xing / cửu tinh tử bạch).
+The primary method order is:
 
 1. **"Mizuno Kigaku"** (水野気学)
 2. **"Houkan"** (方鑑 / 方鉴 / fang-jian / phương giám)
 3. **"Kyusei Kigaku"** (九星気学 / 九星氣學 / 九星气学 / jiu-xing-qi-xue / cửu tinh khí học)
 
 **"Xuan-Kong"** (玄空 / xuan-kong / huyền không)
-is a related method family that is not currently implemented.
+is a related method family that is
+not currently implemented.
 
 ## 1. Shared structure
 
@@ -35,26 +35,77 @@ at zero where a method uses the sixty-unit sequence.
 
 | Method | Annual | Monthly | Daily | Hourly |
 |---|---|---|---|---|
-| **Kyusei Kigaku** | implemented | implemented | unresolved | unresolved |
-| **Houkan** | unresolved | boundary implemented; calculation unresolved | implemented | implemented |
 | **Mizuno Kigaku** | implemented | implemented | implemented | implemented |
+| **Houkan** | implemented | implemented | implemented | implemented |
+| **Kyusei Kigaku** | implemented | implemented | unresolved | unresolved |
 | **Xuan-Kong** | not implemented | not implemented | not implemented | not implemented |
 
 ## 3. Mizuno Kigaku
 
 **"Mizuno Kigaku"** (水野気学) is the primary
 current production method in the library.
-Its **"annual"** and **"monthly"** calculations
-reuse the **"Kyusei Kigaku"** cycle infrastructure.
-Its daily calculation changes **Yin**/**Yang** mode
-at the actual astronomical **"Dong-Zhi"** (冬至 /
-đông chí) and **"Xia-Zhi"** (夏至 / hạ chí) boundaries.
-Its hourly calculation uses the solar-term group
-and the traditional double-hour index.
+Its **annual** and **monthly** calculations
+reuse the **"Kyusei Kigaku"** (九星気学) cycle
+infrastructure. Its daily calculation changes
+**Yin**/**Yang** mode at the actual astronomical
+**"Dong-Zhi"** (冬至 / đông chí) and **"Xia-Zhi"**
+(夏至 / hạ chí) boundaries. Its hourly calculation
+uses the **"solar-term"** (節氣) group and
+the traditional **"double-hour"** (時辰) index.
 
-## 4. Houkan ordinary daily structure
+## 4. Houkan annual calculation
 
-The current Houkan daily implementation preserves
+The historical **"Houkan"** (方鑑) annual rule uses
+three 60-year **"Yuan"** (元 / yuan / nguyên) units.
+The documented **"Jia-Zi"** (甲子) anchors are:
+
+- 1684 **"Jia-Zi"** (甲子)  
+  → **"Upper Yuan"** (上元 / shang-yuan / thượng nguyên)  
+  → **"One-White"** (一白 / yi-bai / nhất bạch)  
+  &nbsp;
+- 1744 **"Jia-Zi"** (甲子)  
+  → **"Middle Yuan"** (中元 / zhong-yuan / trung nguyên)  
+  → **"Four-Green"** (四緑 / si-lu / tứ lục)  
+  &nbsp;
+- 1804 **"Jia-Zi"** (甲子)
+  → **"Lower Yuan"** (下元 / xia-yuan / hạ nguyên)  
+  → **"Seven-Red"** (七赤 / qi-chi / thất xích)
+
+Within each 60-year **"Yuan"** (元), the annual
+star reverses. The effective year changes
+at the astronomical **"Li-Chun"** (立春 / lập xuân)
+boundary.
+
+## 5. Houkan monthly calculation
+
+The historical monthly rule uses a 60-month
+**"Sixty Gan-Zhi Unit"** from **"Jia-Zi Month"**
+(甲子月 / giáp-tý nguyệt) through **"Gui-Hai"**
+(癸亥 / quý-hợi). Three such units form
+the 180-month **"Three Epochs"** (三元 / san-yuan /
+tam nguyên).
+
+The source example gives **"Jia-Zi Month"**
+(甲子月 / jia-zi-yue / giáp-tý nguyệt) →
+**"One-White"** (一白), followed by
+**"Yi-Chou"** (乙丑 / ất-sửu) →
+**"Nine-Purple"** (九紫 / jiu-zi / cửu tử),
+then **"Bing-Yin"** (丙寅 / bính-dần)
+in the same reverse-star sequence.
+
+The implementation anchors the
+**"Upper-Yuan"** (上元) **"Jia-Zi Month"**
+(甲子月) at the **"Li-Dong"** (立冬 / lập đông)
+boundary in 1683, immediately before
+the documented 1684 **"Jia-Zi Year"** (甲子年).
+
+Monthly boundaries use the actual astronomical
+**"Solar-Term Boundary"** (節氣交節 / 节气交节 /
+jie-qi-jiao-jie / tiết khí giao tiết).
+
+## 6. Houkan ordinary daily structure
+
+The current implementation preserves
 the 6 historical starting states:
 
 | 季節・元 | 遁 | 甲子起星 |
@@ -90,136 +141,94 @@ Yin-Dun Zhong-Yuan  = normalize9(3 - i)
 Yin-Dun Xia-Yuan    = normalize9(6 - i)
 ```
 
-These formulas reproduce the local historical tables.
-They are not, by themselves, the civil-date rule
-for deciding which state is active.
+These mappings are not, by themselves,
+the complete civil-date algorithm.
 
-## 5. Houkan **"Leap Nine Stars"** (閏九星)
+## 7. Houkan **"Leap Nine Stars"**
 
-The current practical implementation source
-for the leap procedure is the 1882 second
-edition of **"Daily Nine-Stars Example List"**
-(日家九星起例一覧), attributed to **Matuura Kaho**
-(松浦佳宝) and **Matsuura Saiyo** (松浦最陽).
+The selected practical implementation source
+is the 1882 second edition of
+**"Daily Nine-Stars Example List"**
+(日家九星起例一覧), attributed to
+**"Matsuura Keiho"** (松浦佳宝) and
+**"Matsuura Saiyo"** (松浦最陽).
 
-This source is used as a historically situated
-implementation source; it is not treated
-as proof of universal historical priority.
+The source selects **"Later Jia-Zi"**
+(後の甲子 / 後之甲子 / hou-zhi-jia-zi /
+hậu giáp-tý) in the documented winter case.
 
-The source connects the leap procedure with
-the **"Two Solstices"** (**"Er-Zhi"** / 二至 /
-er-zhi / nhị chí) and the
-**"Sixty Gan-Zhi Unit"**. Its important
-wording includes:
-
-- **"Jia-Zi goes forward"** (「甲午の進み、合たる」)
-- **"The Season is still early"** (「甚だ気候早くして」)
-- **"Using the later Jia-Ji"** (「後の甲子を取用ひ」)
-
-The implementation interprets **"Jia-Wu"**
-(甲午 / jia-wu / giáp-ngọ) at the relevant
-solstice as the trigger. The leap starts at
-**"Later Jia-Zi"** (後の甲子 / 後之甲子 /
-hou-zhi-jia-zi / hậu Giáp Tý), exactly
-30 days after **"Jia-Wu"** (甲午),
-and lasts 60 days.
-
-```text
-Jia-Zi … Gui-Si    30 days
-Jia-Wu … Gui-Hai   30 days
-following Jia-Zi   ordinary operation resumes
-```
-
-The winter recipe is reverse/**Yin** first
-and forward/**Yang** second. The summer
-recipe is forward/Yang first and
-reverse/**Yin** second. The implementation
-uses **"Nine-Purple"** as the first winter
-**"leap star"** and **"Nine-Purple"** as
-the first summer **"leap star"**, giving
-the source-defined midpoint stars
-**"Seven-Red"** for **"Yang"** and
-**"Three-Jade"** for **"Yin"**.
+The leap interval is 60 days:
+30 days in reverse/**"Yin Dun"**
+(陰遁 / 阴遁 / yin-dun / âm độn), then
+30 days in forward/**"Yang Dun"**
+(陽遁 / 阳遁 / yang-dun / dương độn) for winter;
+summer uses the opposite order.
 
 For implementation purposes, the summer
 case receives the same **"Later Jia-Zi"**
-(後の甲子) treatment as the documented
+(後の甲子 / 後之甲子 / hou-zhi-jia-zi /
+hậu Giáp Tý) treatment as the documented
 winter case. This is an implementation
-decision made from the confirmed
-winter rule and the parallel summer
-structure; it is not presented as
-a claim that the surviving summer
+decision based on the confirmed winter rule
+and the parallel summer structure,
+not a claim that the surviving summer
 wording is equally explicit.
 
-## 6. Houkan daily civil-date procedure
+## 8. Houkan civil-date procedure
 
-The Houkan daily implementation is
-event-driven rather than based on
-a search for a hidden phase formula:
+The daily implementation is event-driven:
 
-1. Determine the traditional **"Sixty Gan-Zhi Unit"** day.
-2. Determine the active ordinary six-state period from the first **"Jia-Zi"**
-   on or after each relevant solar-term boundary.
-3. Check whether the current **"Dong-Zhi"** or
-   **"Xia-Zhi"** occurs on **"Jia-Wu"**.
-4. If so, create the 60-day **"Leap Nine Stars"**
-   (閏九星) interval beginning 30 days later at
-   **"Later Jia-Zi"**.
-5. Use the leap interval in preference to the ordinary daily state.
-6. Resume ordinary operation after the 60-day interval.
+1. Determine the traditional **"Sixty Gan-Zhi Unit"** (六十干支) day.
+2. Determine the ordinary six-state period from
+   the first **"Jia-Zi"** (甲子) on or after
+   the relevant seasonal boundary.
+3. Test **"Dong-Zhi"** (冬至/ đông chí) and **"Xia-Zhi"**
+   (夏至 / xia-zhi / hạ chí) for **"Jia-Wu"** (甲午 / giáp-ngọ).
+4. If the leap trigger occurs, begin the 60-day interval 30 days later.
+5. Give the leap interval precedence over ordinary operation.
+6. Resume ordinary operation afterward.
 
-This is a finite-state/recipe implementation.
-No universal closed-form phase equation is required.
+The project intentionally uses a recipe/state machine.
+A table-driven implementation is equally acceptable;
+a universal closed-form phase
+formula is not required.
 
-## 7. Houkan hourly and monthly boundaries
+## 9. Houkan hourly calculation
 
-The **"Houkan"** hourly implementation
-uses the confirmed three groups of
-traditional double-hours:
+The examined **"Houkan"** hourly implementation
+uses three traditional double-hour groups:
 
 ```text
-Zi-Wu-Mao-You → Shang-Yuan
-Yin-Shen-Si-Hai → Zhong-Yuan
-Chen-Xu-Chou-Wei → Xia-Yuan
+Zi-Wu-Mao-You → Upper Yuan
+Yin-Shen-Si-Hai → Middle Yuan
+Chen-Xu-Chou-Wei → Lower Yuan
 ```
 
-The **"Yang-Dun"** starting stars are
-**"Yi-Bai"**, **"Qi-Chi"**, and **"Si-Lü"**.  
-The **"Yin-Dun"** starting stars are
-**"Jiu-Zi"**, **"San-Bi"**, and **"Liu-Bai"**.
+The **"Yang Dun"** (陽遁 / 阳遁 / yang-dun /
+dương độn) starting stars are
+**"One-White"** (一白), **"Seven-Red"** (七赤),
+and **"Four-Green"** (四緑). The **"Yin Dun"**
+(陰遁 / 阴遁 / âm độn) starting stars are
+**"Nine-Purple"** (九紫), **"Three-Jade"** (三碧),
+and **"Six-White"** (六白).
 
-The implementation also preserves
-the examined distinction around
-the **"Zi"** hour.
+The current code preserves the examined
+**"Zi Hour"** (子時 / 子时 / zi-shi / giờ tý)
+boundary at 23:00 and derives the hourly origin
+from the relevant **"Jia-Ji"** (甲子) day.
 
-`determine_houkan_monthly` exposes
-the actual astronomical **"Solar-Term"**
-boundary. The monthly starting-star
-calculation itself remains unresolved;
-the source code does not silently
-substitute a modern Kigaku rule.
+## 10. Modern Kyusei Kigaku
 
-## 8. Houkan annual calculation
-
-The current examined material does not
-establish a Houkan-specific annual
-starting-star calculation that the project
-is prepared to treat as final.
-`calculate_houkan_annual` therefore
-remains an explicit unresolved method boundary.
-
-## 9. Modern Kyusei Kigaku
-
-The modern **"Kyusei Kigaku"** family
-shares the common **"Purple-White"**
-and **"Nine Palace"** infrastructure.
+The modern **"Kyusei Kigaku"** (九星気学) family
+shares the common **"Purple-White"** (紫白)
+and **"Nine Palace"** (九宮) infrastructure.
 Its annual and monthly calculations
 are implemented. Its daily and hourly
 calculations remain explicit unresolved
 method boundaries and do not inherit
-**"Mizuno Kigaku"** rules.
+**"Mizuno Kigaku"** (水野気学) rules.
 
-## 10. Historical evidence versus implementation rules
+## 11. Historical evidence versus implementation rules
 
 Historical sources may describe broader
 frameworks, competing procedures, or terms

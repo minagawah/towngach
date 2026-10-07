@@ -32,6 +32,16 @@ also provided because this section serves as a dictionary.
   - **Reverse Flight**: 逆飛 / 逆飞 / ni-fei / nghịch phi
 - **Flying Star**: 飛星 / 飞星 / fei-xing / phi tinh
 - **Gan-Zhi**: 干支 / gan-zhi / hoa giáp
+  - **Jia-Ji**: 甲己 / jia-ji / giáp-kỷ
+  - **Jia-Zi**: 甲子 / jia-zi / giáp-tý
+    - **Jia-Zi Day**: 甲子日 / jia-zi-ri / giáp-tý nhật
+    - **Jia-Zi Month**: 甲子月 / jia-zi-yue / giáp-tý nguyệt
+    - **Jia-Zi Year**: 甲子年 / jia-zi-nian / giáp-tý niên
+    - **Later Jia-Zi**: 後の甲子 / 後之甲子 / hou-zhi-jia-zi / hậu Giáp Tý
+  - **Jia-Wu**: 甲午 / jia-wu / giáp-ngọ
+  - **Gui-Si**: 癸巳 / gui-si / quý-tỵ
+  - **Gui-Hai**: 癸亥 / gui-hai / quý-hợi
+  - **Zi-Wu-Mao-You**: 子午卯酉 / zi-wu-mao-you / tý ngọ mão dậu
 - **Heavenly Stems**: 天干 / tian-gan / thiên can
   - **Jia**: 甲 / jia / giáp
   - **Yi**: 乙 / yi / ất
@@ -46,15 +56,6 @@ also provided because this section serves as a dictionary.
 - **Houkan**: 方鑑 / 方鉴 / fang-jian / phương giám
 - **Hourly Calculation**: 時家 / 时家 / shi-jia / thời gia
 - **Initial Star**: 起始星 / qi-shi-xing / khởi thủy tinh
-- **Jia-Ji**: 甲己 / jia-ji / giáp-kỷ
-- **Jia-Zi**: 甲子 / jia-zi / giáp-tý
-  - **Jia-Zi Day**: 甲子日 / jia-zi-ri / giáp-tý nhật
-  - **Jia-Zi Month**: 甲子月 / jia-zi-yue / giáp-tý nguyệt
-  - **Jia-Zi Year**: 甲子年 / jia-zi-nian / giáp-tý niên
-  - **Later Jia-Zi**: 後の甲子 / 後之甲子 / hou-zhi-jia-zi / hậu Giáp Tý
-- **Jia-Wu**: 甲午 / jia-wu / giáp-ngọ
-- **Gui-Si**: 癸巳 / gui-si / quý-tỵ
-- **Gui-Hai**: 癸亥 / gui-hai / quý-hợi
 - **Kigaku**: 九星気学 / 九星氣學 / 九星气学 / jiu-xing-qi-xue / cửu tinh khí học
 - **Leap Nine Stars**: 閏九星 / 闰九星 / run-jiu-xing / nhuận cửu tinh
 - **Li-Dong**: (立冬 / lập đông)
@@ -126,7 +127,6 @@ also provided because this section serves as a dictionary.
 - **Yang Dun**: 陽遁 / 阳遁 / yang-dun / dương độn
 - **Yin Dun**: 陰遁 / 阴遁 / yin-dun / âm độn
 - **Zi Hour**: 子時 / 子时 / zi-shi / giờ Tý
-- **Zi-Wu-Mao-You**: 子午卯酉 / zi-wu-mao-you / tý ngọ mão dậu
 
 ## Historical names retained in the Houkan reconstruction
 
